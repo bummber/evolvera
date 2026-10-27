@@ -1,0 +1,55 @@
+name: Pages preparation (manual, deployment gated)
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Publish only after separate operator approval and setup
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: evolvera-publish
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      built_sha: ${{ steps.revision.outputs.sha }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+      - id: revision
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    if: ${{ inputs.deploy && vars.PAGES_DEPLOYMENT_ENABLED == 'true' && !github.event.repository.private && github.ref == 'refs/heads/main' }}
+    needs: build
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reject stale artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BUILT_SHA: ${{ needs.build.outputs.built_sha }}
+        run: |
+          current_sha=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          test "$current_sha" = "$BUILT_SHA"
+      - uses: actions/deploy-pages@v4
+        id: deployment
