@@ -130,6 +130,10 @@ nicht erforderlich; dieser Ablauf ist noch nicht implementiert oder Ende zu Ende
 
 ## Ergebnis und nächster Schritt
 
+Für den Wiedereinstieg in diesem oder einem neuen Chat siehe
+[docs/HANDOFF.md](docs/HANDOFF.md). Die Notiz enthält Stand, Grenzen und einen
+kopierbaren Startauftrag für die gemeinsame Sichtung.
+
 Die tatsächlichen lokalen Prüfergebnisse und offenen Grenzen stehen in
 [docs/phase-0-results.md](docs/phase-0-results.md).
 Nach der gemeinsamen Sichtung folgt als separat freizugebender Einrichtungsschritt
