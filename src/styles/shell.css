@@ -862,3 +862,305 @@ footer .footer-brand {
     max-width: 720px;
   }
 }
+
+/* Archive and separate review collections share the same reading views. */
+.collection-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  margin-bottom: 40px;
+}
+.collection-bar > div {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  max-width: 100%;
+}
+.collection-bar label,
+.evolution-picker label,
+.gallery-search label {
+  font:
+    11px/1.5 'Courier New',
+    monospace;
+  text-transform: uppercase;
+}
+.collection-bar p {
+  font-size: 12px;
+  max-width: 45ch;
+  margin: 0;
+}
+.collection-bar a {
+  font-size: 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+.collection-bar.is-preview {
+  border-top: 3px solid var(--accent);
+}
+.collection-bar select,
+.evolution-picker select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 12px 8px;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  font:
+    12px Arial,
+    Helvetica,
+    sans-serif;
+}
+select:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.gallery-search {
+  display: grid;
+  gap: 10px;
+  max-width: 540px;
+  margin: 32px 0;
+}
+.gallery-search > div {
+  display: flex;
+  gap: 10px;
+}
+.gallery-search input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+.gallery-search button {
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--paper);
+}
+.gallery-count {
+  font:
+    11px/1.6 'Courier New',
+    monospace;
+  margin: 26px 0;
+}
+.archive-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 36px 24px;
+}
+.archive-card {
+  min-width: 0;
+}
+.archive-card > a,
+.related-card,
+.review-cover {
+  display: block;
+  text-decoration: none;
+}
+.archive-card h2 {
+  font-size: clamp(22px, 2.5vw, 32px);
+  margin: 12px 0 10px;
+  overflow-wrap: anywhere;
+}
+.archive-card > a:hover h2,
+.related-card:hover h3,
+.review-cover:hover h2 {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 12px;
+  font:
+    10px/1.5 'Courier New',
+    monospace;
+  margin-top: 16px;
+}
+.card-mode {
+  font-size: 11px;
+  color: var(--muted);
+}
+.card-placeholder {
+  aspect-ratio: 1;
+  background: #e5e1d8;
+  display: grid;
+  place-content: center;
+  font-size: 12px;
+  padding: 20px;
+  border: 1px solid var(--border);
+}
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 40px 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--ink);
+}
+.pagination a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 13px;
+}
+.pagination span {
+  font:
+    11px 'Courier New',
+    monospace;
+}
+.evolution-picker {
+  display: grid;
+  gap: 10px;
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+.work-title {
+  max-width: 24ch;
+  font-size: clamp(40px, 6vw, 80px);
+}
+.work-dateline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-bottom: 36px;
+  font-size: 13px;
+}
+.work-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+.work-layout > div,
+.work-information {
+  min-width: 0;
+}
+.work-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin: 20px 0;
+}
+.work-actions a {
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.work-provenance > h2 {
+  font-size: clamp(28px, 3vw, 40px);
+}
+.work-provenance > p {
+  font-size: 14px;
+}
+.work-metadata {
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.work-metadata summary {
+  min-height: 44px;
+  cursor: pointer;
+  padding: 14px 0;
+  font-size: 13px;
+}
+.work-metadata dd {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.work-relations {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 36px;
+  margin: 50px 0;
+  border-top: 1px solid var(--ink);
+  padding-top: 30px;
+}
+.related-section {
+  min-width: 0;
+}
+.relation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.related-card {
+  min-width: 0;
+}
+.related-card > span {
+  display: block;
+  margin-top: 14px;
+  font:
+    10px/1.6 'Courier New',
+    monospace;
+}
+.related-card h3 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+.review-collections {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 48px;
+  margin: 48px 0;
+}
+.review-cover .eyebrow {
+  display: block;
+  margin: 24px 0 14px;
+}
+.review-cover h2 {
+  font-size: clamp(30px, 3vw, 44px);
+}
+.review-collections p {
+  font-size: 14px;
+  max-width: 52ch;
+}
+.review-questions {
+  margin: 60px 0 30px;
+  padding-top: 30px;
+  border-top: 1px solid var(--ink);
+}
+.review-questions li {
+  line-height: 1.7;
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+@media (min-width: 640px) {
+  .archive-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .review-collections {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1100px) {
+  .archive-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .work-layout {
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+    gap: 6vw;
+  }
+  .work-relations {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6vw;
+  }
+}

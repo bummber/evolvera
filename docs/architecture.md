@@ -1,7 +1,7 @@
 # Architektur – aktueller Stand und Betriebsentwurf
 
 Stand: 28.10.2026 (Betreiberarchitektur weiterhin Entwurf). Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
-umfasst inzwischen die lokale Phase 2 mit getrenntem Testatelier und Evolutionslabor. Die folgenden Betriebsabläufe sind ein Entwurf,
+umfasst inzwischen die lokale Phase 3 mit Galerie, Werkansichten und getrennter Testsammlung. Die folgenden Betriebsabläufe sind ein Entwurf,
 keine implementierte Anmeldung, offizielle Tagesgenerierung oder getestete Cloud-Infrastruktur.
 
 ## Lokale Entscheidungen
@@ -33,12 +33,12 @@ Code konsistent. Abhängigkeiten sind exakt gepinnt, das npm-Lockfile wird versi
 
 | Modul                      | Verantwortung / Stand                                                                  |
 | -------------------------- | -------------------------------------------------------------------------------------- |
-| `src/app`, `src/styles`    | Shell, Testatelier, Evolutionslabor, Navigation und Layout A                           |
+| `src/app`, `src/styles`    | Shell, Galerie, Werkansichten, Kunstsichtung, Navigation und Layout A                  |
 | `src/art/schema`           | Werk-, DNA-, Herkunfts-, Konfigurations- und getrennte Previewverträge                 |
 | `src/art/generator`        | Preview-Generator 0.1.0, Evolutionskern 0.2.0 und Rezeptreplay; kein offizieller Lauf  |
 | `src/art/titles`           | Separater deterministischer Titelgenerator und Lexikon 0.1.0                           |
 | `src/art/renderer`         | Renderer V1 mit gemeinsamer Kunstfläche, festen Ruhevorschauen und Wiedergabesteuerung |
-| `src/archive`              | Validierter Indexzugriff; noch kein schreibendes Archivmodul                           |
+| `src/archive`              | Validierter Index-/Werkzugriff und begrenzter Cache; kein Archivschreiber              |
 | `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer                       |
 | `workers/admin`            | Reservierter Ort mit README; noch kein Worker, Auth oder API                           |
 | `scripts/validate-data.ts` | Config-/Archivprüfung und Serienfreigabesicherung; Previewvergleich separat ergänzt    |
@@ -47,7 +47,7 @@ Das öffentliche Frontend darf keine offiziellen Werke generieren oder archivier
 oder Browser-Abhängigkeit benötigen. Archivdateien speichern die finalen Parameter;
 Frontend und Renderer würfeln sie nicht neu aus. `tests/fixtures` enthält nur
 synthetische Schema-Prüfdaten und wird weder publiziert noch in den Index aufgenommen.
-Die späteren 30–50 Testwerke sind ein eigener, noch nicht begonnener Arbeitsschritt.
+40 getrennte Testwerke liegen jetzt zur Kunstsichtung bereit. Die ausdrückliche Abnahme bleibt offen.
 
 ## Datenverträge und Grenzen der Validierung
 
@@ -257,3 +257,36 @@ Zwei Zehnerketten liegen getrennt in `fixtures/preview/phase-2.json`. Ihre Datum
 im Januar 2000 und Zeitpunkte sind Simulation. `#/evolutionslabor` zeigt die
 Beispielketten; die Moduswahl ist keine persistente Betreiberfunktion. Die Phase-2-
 Prüfungen, Grenzen und der nächste Schritt stehen in `docs/phase-2-results.md`.
+
+## Ergänzung Phase 3 – gemeinsame Leseansichten, getrennte Testdaten
+
+`src/archive/reader.ts` validiert geordnete, lückenlose Indizes und prüft jede geladene
+Werkdatei gegen Indexidentität, Titel, Generation und unmittelbare Eltern. Offizielle
+JSON-Dateien werden nur auf Anforderung unter der Vite-Basis geladen. Eine Galerie-
+seite umfasst zwölf Kacheln. Erfolgreiche Ergebnisse werden mit einem Budget von
+48 Werken gehalten; fehlerhafte/abgebrochene Anfragen nicht. Kontextansichten prüfen
+zusätzlich Elternwerte und für V2 Rezeptreplay. Bis zu zwei Nachfolger werden aus
+wirklichen Elternreferenzen ermittelt; eine Generationsnummer allein ist kein Linkbeleg.
+
+Die feste Testsammlung verbindet unveränderte Phase-2-Daten mit 20 ausschließlich
+neuen Ergänzungen in `fixtures/preview/phase-3.json`. `src/preview/review.ts` validiert
+zwei vollständige Zwanzigerketten. Sie werden als separates Preview-Bundle erst bei
+Auswahl geladen; für diese kleine Testmenge wird die gesamte DNA geladen. Offizielle
+mehrjährige Archive verwenden weiterhin einzelne Werkdateien. Keine Übernahme der
+Testwerke in den offiziellen Index. Generator, Titelgenerator und Renderer unverändert.
+
+`#/kunstpruefung` ist der Einstieg. Die normalen Leseansichten wählen mit Hash-Query
+`sammlung=traceable|free` ausdrücklich eine Testsammlung, sonst das offizielle Archiv.
+Sammlung/Seite/Suche sind verlinkbar. Diese Auswahl ist weder globale Moduskonfiguration
+noch gespeicherte Betreiberaktion. Unbekannte Quellen führen zu einem Fehler. Historische
+Werkansichten lesen ihren Modus/Revision aus der Werkdatei. Kein Browser-Schreibzugriff.
+
+Vor 04:00 filtert der offizielle Leseweg zukünftige Datumsschlüssel aus dem Index.
+Die Anzeigeuhr bestimmt nur Lesbarkeit und Beschriftung; sie erzeugt keine Werke.
+Ein neuer Aufruf/Reload liest frische Daten. Automatisches Nachladen in dauerhaft
+geöffneten Tabs ist vor Tagesbetrieb noch zu ergänzen. Fehler und Leere bleiben
+getrennt, asynchrone Altantworten dürfen nach Sammlungswechsel keinen Zustand ersetzen.
+
+Kunstabnahme ist ein menschlicher Betreiberentscheid. 40 Werke sind im Sichtungsbogen
+`docs/art-review.md` erfasst, alle Abnahmestatus offen. Kein Abnahmebutton, Fake-Login,
+Scheduler oder Serienfreigabe. Prüfungen und Grenzen in `docs/phase-3-results.md`.

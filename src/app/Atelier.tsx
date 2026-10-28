@@ -45,6 +45,11 @@ export default function Atelier() {
       <Link className="text-link" to="/evolutionslabor">
         Zum Evolutionslabor mit beiden Modi ↗
       </Link>
+      <p>
+        <Link className="text-link" to="/kunstpruefung">
+          40 getrennte Testwerke gemeinsam sichten ↗
+        </Link>
+      </p>
       <div className="atelier-layout">
         <figure className="atelier-main" aria-label="Aktive Studie">
           <ArtStage key={`${selected.id}:${selected.seed}`} source={selected} />

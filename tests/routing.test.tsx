@@ -31,6 +31,7 @@ describe('Hash-Routing der lokalen Vorschau', () => {
     ['#/galerie', 'Galerie'],
     ['#/atelier', 'Testatelier'],
     ['#/evolutionslabor', 'Evolutionslabor'],
+    ['#/kunstpruefung', 'Was bleibt.Was bricht.'],
     ['#/evolution', 'Evolution'],
     ['#/ueber', 'Über Evolvera'],
     ['#/einstellungen', 'Einstellungen'],

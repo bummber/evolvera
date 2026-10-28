@@ -1,9 +1,9 @@
 # Evolvera
 
-Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 2 lokal umgesetzt.**
+Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 3 technisch lokal umgesetzt; Kunstabnahme offen.**
 Designrichtung A (experimentelles Kunstmagazin) ist gewählt und übernommen.
-Testatelier und Evolutionslabor zeigen unabhängige Studien sowie zwei Beispielketten
-mit beiden Vererbungsmodi und poetischen Titeln. Offizielle Serie und Anmeldung folgen später.
+Galerie, Werkdetails und Herkunftsvergleich sind umgesetzt. Die getrennte Kunstsichtung
+enthält 40 Testwerke in zwei Zwanzigerketten mit beiden Modi und poetischen Titeln. Offizielle Serie und Anmeldung folgen später.
 
 Fachliche Quelle ist [docs/PRD.md](docs/PRD.md), Version 1.1. Die unverändert erhaltene
 `Evolvera_PRD_v1.0.md` ist historisch. Aktueller Stand und Wiedereinstieg:
@@ -22,13 +22,32 @@ npm run dev
 ```
 
 [Startseite](http://127.0.0.1:5173/evolvera/) und
-[Testatelier](http://127.0.0.1:5173/evolvera/#/atelier).
+[Kunstsichtung mit 40 Testwerken](http://127.0.0.1:5173/evolvera/#/kunstpruefung).
 Die tatsächlich ausgegebene Adresse verwenden, wenn der Port abweicht.
 Bei einem in der Sandbox nicht beschreibbaren npm-Cache:
 `npm ci --cache /tmp/evolvera-npm-cache`, ohne `sudo` oder Änderung am persönlichen Cache.
 Die lokale Prüfung nutzt Node 24.21.0 / npm 12.2.0. Der Devserver bleibt auf Loopback.
 
 ## Was du ausprobieren kannst
+
+Starte mit der **Kunstsichtung**. Wähle eine der beiden Testsammlungen und blättere
+in der Galerie (zwölf, dann acht Werke) oder suche nach Titel/ISO-Werkdatum.
+Ein Werk öffnet groß mit gespeicherten Angaben, Herkunftsbelegen, Eltern und
+vorhandenen direkten Nachfolgern. Über „Evolution“ lässt sich der Vergleich wechseln.
+Kacheln bleiben statisch; nur das Hauptwerk kann animiert sein.
+
+Die ausgewählte Testsammlung steht im Hash-Link, z. B.
+`#/galerie?sammlung=traceable&seite=2` oder
+`#/werk/2000-01-03?sammlung=free`. Reload und Browser-Zurück erhalten die Auswahl.
+Ohne Sammlungsparameter zeigt die Website ausschließlich das leere offizielle Archiv.
+Die Auswahl ändert keine Betreiberkonfiguration. Alle Testdaten im Januar 2000 sind
+simuliert; die offizielle Serie hat kein Startdatum.
+
+Die 40 Werke sind in [docs/art-review.md](docs/art-review.md) einzeln erfasst.
+Die ausdrückliche gemeinsame Kunstabnahme steht aus. Das bisherige positive Feedback
+bestätigt die Richtung; es startet keine Serie.
+
+### Frühere lokale Experimente
 
 Das Testatelier enthält zwölf gespeicherte Vorschau-DNA in drei Familien:
 geometrische Konstellationen, große Farbfelder und Mosaikraster. Eine Kachel öffnet
@@ -57,13 +76,13 @@ npm run test:browser
 npm run preview
 ```
 
-`check` umfasst Format, ESLint, Typprüfung, 71 Tests, Config-/Archiv-/Fixtureprüfung
-und Build nach `dist/`. Die 16 Browserfälle starten den lokalen Produktionspreview
+`check` umfasst Format, ESLint, Typprüfung, 91 Tests, Config-/Archiv-/Fixtureprüfung
+und Build nach `dist/`. Die 30 Browserfälle starten den lokalen Produktionspreview
 selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium.
 Unter Linux für einen frischen Runner: `npx playwright install --with-deps chromium`.
 Die visuellen Referenzen sind reine Testbelege unter `tests/browser/references`;
 sie werden nicht als Kunst ausgeliefert. Plattformübergreifende Toleranzen und noch
-offene Prüfungen sind im [Phase-2-Bericht](docs/phase-2-results.md) dokumentiert.
+offene Prüfungen sind im [Phase-3-Bericht](docs/phase-3-results.md) dokumentiert.
 
 | Befehl                                    | Zweck                                                        |
 | ----------------------------------------- | ------------------------------------------------------------ |
@@ -83,13 +102,14 @@ einer vorhandenen Referenzdatei. Normale Entwicklung nutzt die reine Prüfung.
 
 ## Struktur und Erhaltung
 
-- `src/app`, `src/styles`: Shell, Hash-Routen und getrenntes Testatelier.
+- `src/app`, `src/styles`: Shell, Hash-Routen, Galerie, Werkansichten und getrennte Kunstsichtung.
 - `src/art/schema`: Werk-, DNA-, Herkunfts-, Konfigurations- und Previewverträge.
 - `src/art/generator`: PRNG, drei Previewfamilien und Evolutionskern 0.2.0 mit Rezeptreplay.
 - `src/art/renderer`: V1 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
 - `src/art/titles`: deterministischer Titelgenerator mit Lexikon 0.1.0 und Elternfragmenten.
-- `src/archive`: validierter lesender Zugriff; noch kein offizieller Archivschreiber.
+- `src/archive`: validierter lesender Zugriff pro Seite/Werk, begrenzter Cache; kein Archivschreiber.
 - `src/operator`, `workers/admin`: Snapshot-Helfer und geplante Betreiberfunktion.
+- `src/preview`: validierte feste Testsammlung, verzögert geladen.
 - `fixtures/preview`: gespeicherte Vorschau-DNA, getrennt vom offiziellen Archiv.
 - `public/artworks`: kanonischer offizieller Bereich, derzeit nur leerer Index.
 
@@ -127,12 +147,14 @@ konzeptionell ohne Drittanbieter-Cookies; echte Anmeldung ist noch nicht impleme
 
 ## Nächster Schritt
 
-Die beiden Beispielketten gemeinsam sichten. Danach kann Phase 3 separat beauftragt
-werden: vollständige Galerie-/Werk-/Nachfolgernavigation und Kunstabnahme von 30–50
-getrennten Testwerken beider Modi. Die offizielle Serie bleibt bis zur ausdrücklichen
-Abnahme, einem festgelegten Datum und separater Freigabe deaktiviert.
+Die 40 Testwerke gemeinsam sichten: Vielfalt, erkennbare Beiträge beider Eltern,
+freie Stilbrüche, Titel und Bedienung auf Smartphone/Desktop. Ergebnisse in
+`docs/art-review.md` dokumentieren. Die technische Umsetzung ersetzt diese Abnahme
+nicht. Erst danach Phase 4 separat beauftragen. Die Serie bleibt bis ausdrücklicher
+Kunstabnahme, bewusst festgelegtem Datum und Aktivierung deaktiviert.
 
-Der neue Kern erzeugt Werkschema 2 (Rezept und Titelherkunft); Werkschema 1 und Renderer
-V1 bleiben nutzbar. `npm run validate:data` vergleicht alle gespeicherten Vorschauen
-exakt. Die reine Funktion erhält einen Snapshot und eine injizierte Uhr; keine Datei-
-oder Git-Schreiboperation. Die echte Lauf-/Aktivierungssteuerung folgt erst später.
+Generator 0.2.0, Schema 1/2 und Renderer V1 bleiben erhalten. Offizielle Dateien
+werden unter `/evolvera/artworks/` gelesen, Testdaten getrennt als Preview-Bundle.
+Vor 04:00 wird kein zukünftiges Tageswerk angezeigt. Ein dauerhaft offener Tab lädt
+noch nicht automatisch nach; vor Tagesbetrieb zu ergänzen. Physische Geräte,
+Safari/Firefox, GPU-/FPS-Profiling und Linux-Remote-CI sind noch nicht geprüft.
