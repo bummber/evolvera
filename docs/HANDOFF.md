@@ -10,7 +10,8 @@ Stand: 28.10.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgese
   Sichtbarkeitswechsel. Remote am 28.10.2026 erneut nur lesend verifiziert: privat und leer.
 - Quelle `docs/PRD.md` v1.1 unverändert; Root-v1.0 historisch. `AGENTS.md` beachten.
 - Historie: Phase 0 `59d05ed`, Übergabe `45d8486`, Design A `b1a6750`, Phase 1 `0fcd7c8`,
-  Phase 2 `b589c84`, Phase 3 `97e9c0a`. Vor Änderungen aktuellen Git-Stand prüfen.
+  Phase 2 `b589c84`, Phase 3 `97e9c0a`, lokale Phase 4 `e033043`.
+  Vor Änderungen aktuellen Git-Stand prüfen.
 - Betreiber hat Phase 4 beauftragt und ausdrücklich erklärt: **„Die 40 Testwerke sind
   abgenommen“**. In `config/release.json` und `docs/art-review.md` dokumentiert, inklusive
   Versionen/Referenz-Digests. Keine stellvertretende Abnahme; Smartphoneprüfung auf
@@ -88,3 +89,15 @@ Commitstand, keine Arbeitskopie. Niemals historische Schäden durch Neuwürfeln 
 > Die 40 Testwerke sind abgenommen; Serienstart ist noch deaktiviert. Wir prüfen
 > gemeinsam die konkreten externen Einrichtungsschritte. Noch keine neue Serie oder
 > Phase 5 beginnen und keine Secrets im Chat anfordern.
+
+## Arbeitsunterbrechung am 28.10.2026
+
+Auf Wunsch des Betreibers ist die Arbeit für heute beendet. Geplante Fortsetzung:
+29.10.2026. Implementierung und Kunstabnahme sind lokal in `e033043` gesichert; beim
+Beginn dieser Sicherung war das Arbeitsverzeichnis sauber. Dieser Übergabevermerk
+wird zusätzlich lokal versioniert. Keine Hintergrundaufgabe oder Erinnerung beauftragt.
+
+Morgen zuerst diesen Vermerk und `docs/runbook.md` lesen, Git prüfen und bei Bedarf
+die lokale Vorschau starten. Danach den konkreten externen Einrichtungsplan gemeinsam
+besprechen. Bis zum passenden Betreiberauftrag nichts pushen, öffentlich schalten,
+registrieren oder deployen; die offizielle Serie bleibt deaktiviert.
