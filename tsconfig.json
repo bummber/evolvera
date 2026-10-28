@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true
   },
-  "include": ["src", "scripts", "tests", "*.ts"]
+  "include": ["src", "scripts", "tests", "*.ts", "workers/**/*.ts"]
 }

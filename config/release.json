@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "seriesAuthorized": false,
+  "artReview": {
+    "status": "approved",
+    "approvedOn": "2026-10-28",
+    "workCount": 40,
+    "generatorVersion": "0.2.0",
+    "rendererVersion": "1",
+    "lexiconVersion": "0.1.0",
+    "statement": "Die 40 Testwerke sind abgenommen",
+    "fixtureSha256": {
+      "phase2": "05344b8a2490beecafbd141a8b8bd58e17d26fb2db1ce4ff9496d658d24f9174",
+      "phase3": "fed0a66ce4567b95cf981b06ef4edecb461b394b7000b28e8770787d0714a027"
+    }
+  }
+}

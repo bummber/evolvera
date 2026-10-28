@@ -22,6 +22,7 @@ describe('Archivgrenze', () => {
     expect(await loadArchiveIndex()).toEqual({ schemaVersion: 1, works: [] });
     expect(fetchMock).toHaveBeenCalledWith('/evolvera/artworks/index.json', {
       signal: undefined,
+      cache: 'no-cache',
     });
   });
   it('verwechselt HTTP- und Schemafehler nicht mit einem leeren Archiv', async () => {

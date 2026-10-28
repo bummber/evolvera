@@ -22,3 +22,8 @@
   mit `npm run test:browser` prüfen. PRD-Dateien nicht automatisch formatieren.
 - Tatsächlich ausgeführte Prüfungen, Grenzen und externe Voraussetzungen ehrlich
   dokumentieren. Vor dem nächsten Arbeitspaket gemeinsam den aktuellen Stand sichten.
+
+- Phase 4: Kunstabnahme der 40 Testwerke ist dokumentiert; Serien-/Deploymentgates
+  bleiben unabhängig. Änderungen an Worker/Sitzungen mit `npm run worker:test-runtime`
+  prüfen. Lokale Tests nutzen ausschließlich isolierte Git-Repositories und synthetische
+  Zugangsdaten. Generierte Workerausgaben bleiben außerhalb von `dist` und Git.

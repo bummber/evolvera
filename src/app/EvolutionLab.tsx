@@ -30,8 +30,8 @@ export default function EvolutionLab() {
         reproduzierbaren Ketten mit jeweils zehn Werken.
       </p>
       <p className="atelier-notice">
-        20 Beispielwerke – keine offizielle Serie und noch keine Kunstabnahme.
-        Die Datumswerte 01.–10.01.2000 sind simulierte Testmetadaten.
+        20 Beispielwerke aus der abgenommenen Testsammlung – keine offizielle
+        Serie. Die Datumswerte 01.–10.01.2000 sind simulierte Testmetadaten.
       </p>
       <div className="chain-controls">
         <label htmlFor="chain-mode">Beispielmodus</label>

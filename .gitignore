@@ -13,3 +13,5 @@ work/
 .dev.vars
 .dev.vars.*
 .wrangler/
+
+.worker-build/

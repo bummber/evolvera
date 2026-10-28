@@ -63,7 +63,9 @@ test('40 Testwerke sind getrennt erreichbar, Galerie blättert zwölf plus acht 
     'Was bleibt.Was bricht.',
   );
   await expect(
-    page.getByText('Die Kunstabnahme ist offen.', { exact: false }),
+    page.getByText('Die 40 Testwerke sind ausdrücklich abgenommen.', {
+      exact: false,
+    }),
   ).toBeVisible();
   await page
     .getByRole('link', { name: 'Sammlung durchsehen ↗' })
@@ -251,7 +253,7 @@ test('Ein verspäteter Indexabruf ersetzt nach Sammlungswechsel nicht die Testsa
   ).toHaveCount(0);
 });
 
-test('Vor 04:00 bleibt das letzte fällige Werk sichtbar, nach Reload ab 04:00 das neue', async ({
+test('Vor 04:00 bleibt das letzte fällige Werk sichtbar, Fokus aktualisiert ab 04:00 ohne Reload', async ({
   page,
 }) => {
   const requests: string[] = [];
@@ -271,7 +273,7 @@ test('Vor 04:00 bleibt das letzte fällige Werk sichtbar, nach Reload ab 04:00 d
   expect(requests).not.toContain('2000-01-20');
   await expect(page.locator('.work-dateline')).toContainText('19. Januar 2000');
   await page.clock.setFixedTime(new Date('2000-01-20T03:00:00Z'));
-  await page.reload();
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     works[19]!.title,
   );

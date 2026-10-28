@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { artworkSchema, validateArtwork } from '../src/art/schema/artwork';
 import { configSchema } from '../src/art/schema/config';
-import { initialSettings, snapshotSettings } from '../src/operator/settings';
+import { snapshotSettings } from '../src/operator/settings';
+const initialSettings = snapshotSettings({
+  schemaVersion: 1,
+  revision: 1,
+  seriesStartDate: null,
+  generationEnabled: false,
+  timezone: 'Europe/Berlin',
+  inheritanceMode: 'traceable',
+});
 import { family, origin } from './fixtures/artworks';
 
 describe('Konfiguration und Lauf-Snapshot', () => {

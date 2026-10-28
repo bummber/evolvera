@@ -1,4 +1,9 @@
 import { expect, test } from '@playwright/test';
+test.beforeEach(async ({ page }) => {
+  await page.route('**/artworks/index.json', (route) =>
+    route.fulfill({ json: { schemaVersion: 1, works: [] } }),
+  );
+});
 
 test('Projektbasis, JSON, alle Direktlinks und mobile Breite funktionieren', async ({
   page,
@@ -31,9 +36,18 @@ test('Projektbasis, JSON, alle Direktlinks und mobile Breite funktionieren', asy
     ).toBe(true);
   }
   await page.goto('./#/einstellungen');
-  await expect(
-    page.getByRole('button', { name: /Mit GitHub anmelden/ }),
-  ).toBeDisabled();
+  const operatorLink = page.getByRole('link', {
+    name: /Zur geschützten Betreiberseite/,
+  });
+  if (await operatorLink.count())
+    await expect(operatorLink).toHaveAttribute(
+      'href',
+      /^https:\/\/[^/]+\/settings$/,
+    );
+  else
+    await expect(
+      page.getByRole('button', { name: /Mit GitHub anmelden/ }),
+    ).toBeDisabled();
   expect(errors).toEqual([]);
 });
 

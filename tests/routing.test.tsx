@@ -3,6 +3,9 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { HashRouter } from 'react-router-dom';
 import { App } from '../src/app/App';
+import { initialSettings } from '../src/operator/settings';
+import { operatorSettings } from '../src/operator/access';
+import { modeLabels } from '../src/art/schema/config';
 
 beforeEach(() =>
   vi.stubGlobal(
@@ -60,12 +63,19 @@ describe('Hash-Routing der lokalen Vorschau', () => {
   });
   it('zeigt keine vorgetäuschte Anmelde- oder Speichermöglichkeit', () => {
     open('#/einstellungen');
-    expect(
-      screen.getByRole('button', { name: /Mit GitHub anmelden/ }),
-    ).toBeDisabled();
+    if (operatorSettings.adminOrigin)
+      expect(
+        screen.getByRole('link', { name: /Zur geschützten Betreiberseite/ }),
+      ).toHaveAttribute('href', `${operatorSettings.adminOrigin}/settings`);
+    else
+      expect(
+        screen.getByRole('button', { name: /Mit GitHub anmelden/ }),
+      ).toBeDisabled();
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
     expect(
-      screen.getByText('Nachvollziehbare Vererbung', { exact: true }),
+      screen.getByText(modeLabels[initialSettings.inheritanceMode], {
+        exact: true,
+      }),
     ).toBeVisible();
   });
   it('kennzeichnet Ladefehler statt leere oder erfundene Werke zu zeigen', async () => {

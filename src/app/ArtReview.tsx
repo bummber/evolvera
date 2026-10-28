@@ -18,9 +18,9 @@ export default function ArtReview() {
         Erkunde die Ketten und ihre Unterschiede.
       </p>
       <p className="atelier-notice">
-        Die Kunstabnahme ist offen. Diese Sammlung startet keine offizielle
-        Serie und wird nicht in deren Archiv übernommen. Alle Datums- und
-        Zeitangaben im Januar 2000 sind simuliert.
+        Die 40 Testwerke sind ausdrücklich abgenommen. Diese Sammlung startet
+        keine offizielle Serie und wird nicht in deren Archiv übernommen. Alle
+        Datums- und Zeitangaben im Januar 2000 sind simuliert.
       </p>
       <div className="review-collections">
         {reviewChains.map((chain) => {
@@ -76,7 +76,7 @@ export default function ArtReview() {
           </li>
         </ul>
         <p>
-          Deine ausdrückliche Abnahme gilt später den Generatorregeln und ihrer
+          Deine ausdrückliche Abnahme gilt den Generatorregeln und ihrer
           Bandbreite. Einzelne Lieblingswerke auszuwählen ist dafür nicht nötig.
         </p>
       </section>

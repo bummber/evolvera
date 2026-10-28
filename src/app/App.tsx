@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
 import { modeLabels } from '../art/schema/config';
 import { initialSettings } from '../operator/settings';
+import { operatorSettings } from '../operator/access';
 import { collectionKey, collectionLink } from '../archive/reader';
 
 const ArchivePage = lazy(() => import('./ArchivePages'));
@@ -85,10 +86,10 @@ function About() {
             Dies ist die lokale Vorschau. Im getrennten Testatelier stehen erste
             unabhängige Studien mit HTML-/CSS-Renderer bereit. Die getrennte
             Testsammlung zeigt 40 Werke in beiden Modi mit Galerie,
-            Herkunftsvergleich und poetischen Titeln. Betreiberanmeldung und
-            täglicher Betrieb folgen später. Erst nach ausdrücklicher Abnahme
-            von 30–50 separaten Testwerken beider Modi beginnt die offizielle
-            Serie.
+            Herkunftsvergleich und poetischen Titeln. Die 40 Testwerke sind
+            abgenommen. Betreiberfunktion und Tageslauf sind lokal vorbereitet;
+            echte Anmeldung, Veröffentlichung und Serienstart sind noch nicht
+            freigegeben.
           </p>
         </section>
       </div>
@@ -103,7 +104,11 @@ function Settings() {
         später ausschließlich der Betreiber nach GitHub-Anmeldung ändern.
       </p>
       <div className="panel settings-panel">
-        <span className="badge">Anmeldung noch nicht eingerichtet</span>
+        <span className="badge">
+          {operatorSettings.adminOrigin
+            ? 'Geschützter Betreiberzugang'
+            : 'Betreiberfunktion · externe Einrichtung offen'}
+        </span>
         <h2>Vererbung für kommende Werke</h2>
         <dl>
           <div>
@@ -116,7 +121,11 @@ function Settings() {
           </div>
           <div>
             <dt>Offizielle Generierung</dt>
-            <dd>Deaktiviert · Startdatum offen</dd>
+            <dd>
+              {initialSettings.generationEnabled
+                ? `Aktiv · Serienstart ${initialSettings.seriesStartDate}`
+                : 'Deaktiviert · Startdatum offen'}
+            </dd>
           </div>
         </dl>
         <p>
@@ -125,12 +134,22 @@ function Settings() {
           noch nicht begonnenen Generierungslauf. Bestehende Werke bleiben
           erhalten.
         </p>
-        <button type="button" disabled aria-describedby="auth-status">
-          Mit GitHub anmelden – später verfügbar
-        </button>
+        {operatorSettings.adminOrigin ? (
+          <a
+            className="primary-link"
+            href={`${operatorSettings.adminOrigin}/settings`}
+          >
+            Zur geschützten Betreiberseite ↗
+          </a>
+        ) : (
+          <button type="button" disabled aria-describedby="auth-status">
+            Mit GitHub anmelden – externe Einrichtung offen
+          </button>
+        )}
         <p id="auth-status" className="muted">
-          Die geschützte Betreiberfunktion wird erst in einer späteren Phase
-          eingerichtet. In dieser Vorschau kannst du keine Einstellungen ändern.
+          {operatorSettings.adminOrigin
+            ? 'Anmeldung und Moduswahl öffnen auf einer eigenen Betreiberseite. Die Galerie bleibt ohne Anmeldung zugänglich.'
+            : 'Die Betreiberfunktion ist lokal implementiert, aber noch nicht mit GitHub und Cloudflare verbunden. In dieser Vorschau kannst du keine Einstellungen ändern.'}
         </p>
       </div>
     </Page>
@@ -181,8 +200,16 @@ export function App() {
   return (
     <div className="page">
       <div className="preview-bar">
-        <span>Lokale Vorschau · Phase 3</span>
-        <span>HTML + CSS / Serie noch nicht gestartet</span>
+        <span>
+          {initialSettings.generationEnabled
+            ? 'Evolvera · Täglich neu'
+            : 'Lokale Vorschau · Phase 4'}
+        </span>
+        <span>
+          {initialSettings.generationEnabled
+            ? 'HTML + CSS / Fortlaufende Serie'
+            : 'HTML + CSS / Serie noch nicht gestartet'}
+        </span>
       </div>
       <div className="site-shell">
         <a
@@ -288,7 +315,11 @@ export function App() {
         <footer>
           <p className="footer-brand">evolvera.</p>
           <p>Ein Experiment mit offenem Ausgang.</p>
-          <p>HTML + CSS · Serie noch nicht gestartet</p>
+          <p>
+            {initialSettings.generationEnabled
+              ? 'HTML + CSS · Fortlaufende Serie'
+              : 'HTML + CSS · Serie noch nicht gestartet'}
+          </p>
         </footer>
       </div>
     </div>

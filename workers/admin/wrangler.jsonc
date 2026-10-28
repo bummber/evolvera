@@ -1,0 +1,14 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "evolvera-admin",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-28",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": { "enabled": false },
+  "vars": { "ENABLED": "false", "ADMIN_ORIGIN": "" },
+  "durable_objects": {
+    "bindings": [{ "name": "SESSIONS", "class_name": "Sessions" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Sessions"] }],
+}

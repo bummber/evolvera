@@ -18,7 +18,11 @@
     "test:watch": "vitest",
     "test:browser": "playwright test",
     "validate:data": "tsx scripts/validate-data.ts && tsx scripts/preview-fixtures.ts && tsx scripts/evolution-fixtures.ts && tsx scripts/review-fixtures.ts",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run worker:check",
+    "generate:daily": "tsx scripts/generate-daily.ts",
+    "worker:check": "WRANGLER_SEND_METRICS=false wrangler deploy --dry-run --config workers/admin/wrangler.jsonc --outdir ../../.worker-build",
+    "worker:dev": "WRANGLER_SEND_METRICS=false wrangler dev --local --config workers/admin/wrangler.jsonc --port 8787",
+    "worker:test-runtime": "tsx scripts/test-worker-runtime.ts"
   },
   "dependencies": {
     "react": "19.3.1",
@@ -45,6 +49,7 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.72.1",
     "vite": "8.3.5",
-    "vitest": "5.0.5"
+    "vitest": "5.0.5",
+    "wrangler": "4.154.0"
   }
 }

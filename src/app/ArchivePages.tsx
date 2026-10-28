@@ -122,7 +122,9 @@ function CollectionBar({ source }: { source: CollectionKey }) {
       </div>
       <p>
         {source === 'official'
-          ? 'Die offizielle Serie hat noch nicht begonnen.'
+          ? initialSettings.generationEnabled
+            ? 'Gespeicherte Werke der offiziellen Serie.'
+            : 'Die offizielle Serie hat noch nicht begonnen.'
           : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
       </p>
       <Link to="/kunstpruefung">Zur gemeinsamen Kunstsichtung ↗</Link>
@@ -136,12 +138,31 @@ export default function ArchivePage({
 }) {
   const [search] = useSearchParams();
   const key = collectionKey(search);
+  const [refresh, setRefresh] = useState(0);
+  useEffect(() => {
+    if (view !== 'today' || key !== 'official') return;
+    const update = () => {
+      if (document.visibilityState !== 'hidden')
+        setRefresh((value) => value + 1);
+    };
+    const timer = window.setInterval(update, 60000);
+    window.addEventListener('focus', update);
+    document.addEventListener('visibilitychange', update);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('focus', update);
+      document.removeEventListener('visibilitychange', update);
+    };
+  }, [view, key]);
   const task = useCallback(
-    (signal: AbortSignal) =>
-      key
+    (signal: AbortSignal) => {
+      void refresh;
+      void view;
+      return key
         ? openCollection(key, signal)
-        : Promise.reject(new Error('Unbekannte Sammlung')),
-    [key],
+        : Promise.reject(new Error('Unbekannte Sammlung'));
+    },
+    [key, refresh, view],
   );
   const state = useResource(`collection:${key}`, task);
   if (!key)
@@ -282,8 +303,8 @@ function Today({ reader }: { reader: ArchiveReader }) {
           </div>
         </dl>
         <p className="muted">
-          Vor dem Start werden 30–50 getrennte Testwerke aus beiden Modi
-          ausdrücklich abgenommen.
+          Die 40 getrennten Testwerke aus beiden Modi sind ausdrücklich
+          abgenommen. Datum und Aktivierung der offiziellen Serie bleiben offen.
         </p>
       </section>
     </>
@@ -714,8 +735,8 @@ function WorkPresentation({
       {reader.key !== 'official' && (
         <p className="atelier-notice">
           Testwerk aus einer getrennten Zwanzigerkette. Die Daten sind
-          simuliert. Die ausdrückliche Kunstabnahme und die offizielle Serie
-          stehen noch aus.
+          simuliert. Die 40 Testwerke sind abgenommen; die offizielle Serie ist
+          noch nicht gestartet.
         </p>
       )}
     </>

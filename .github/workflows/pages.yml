@@ -1,9 +1,18 @@
-name: Pages preparation (manual, deployment gated)
+name: Validated daily archive and Pages
 on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 4 * * *'
+      timezone: Europe/Berlin
+    - cron: '17 4 * * *'
+      timezone: Europe/Berlin
+    - cron: '13 5 * * *'
+      timezone: Europe/Berlin
   workflow_dispatch:
     inputs:
       deploy:
-        description: Publish only after separate operator approval and setup
+        description: Publish only after separate operator approval and external setup
         type: boolean
         default: false
 permissions:
@@ -13,7 +22,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    if: ${{ vars.PAGES_DEPLOYMENT_ENABLED == 'true' && !github.event.repository.private && github.ref == 'refs/heads/main' && (github.event_name != 'schedule' || vars.EVOLVERA_AUTOMATION_ENABLED == 'true') }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       built_sha: ${{ steps.revision.outputs.sha }}
     steps:
@@ -21,19 +33,37 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - id: revision
-        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: npm run format:check && npm run lint && npm run typecheck && npm test
+      - name: Archive due days with one immutable settings snapshot
+        if: ${{ vars.EVOLVERA_AUTOMATION_ENABLED == 'true' }}
+        env:
+          EVOLVERA_RUNNER_ENABLED: 'true'
+        run: |
+          ./node_modules/.bin/tsx scripts/generate-daily.ts --apply > "$RUNNER_TEMP/evolvera-run.json"
+          generated_sha=$(node -p 'JSON.parse(require("node:fs").readFileSync(process.env.RUNNER_TEMP+"/evolvera-run.json","utf8")).commit')
+          git checkout --detach "$generated_sha"
       - run: npm run check
+      - run: npm run worker:test-runtime
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - id: revision
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Reject stale build before uploading
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current_sha=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq .object.sha)
+          test "$current_sha" = "$(git rev-parse HEAD)"
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
   deploy:
-    if: ${{ inputs.deploy && vars.PAGES_DEPLOYMENT_ENABLED == 'true' && !github.event.repository.private && github.ref == 'refs/heads/main' }}
+    if: ${{ needs.build.result == 'success' && (github.event_name != 'workflow_dispatch' || inputs.deploy) }}
     needs: build
     permissions:
       contents: read
@@ -44,7 +74,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Reject stale artifact
+      - name: Reject stale artifact immediately before deployment
         env:
           GH_TOKEN: ${{ github.token }}
           BUILT_SHA: ${{ needs.build.outputs.built_sha }}

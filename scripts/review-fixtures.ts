@@ -43,6 +43,6 @@ if (process.argv.includes('--write')) {
   )
     throw new Error('40 getrennte Testwerke erforderlich.');
   console.log(
-    '40 Testwerke in zwei Zwanzigerketten validiert und exakt reproduziert. Kunstabnahme offen.',
+    '40 Testwerke in zwei Zwanzigerketten validiert und exakt reproduziert. Abnahmestatus separat in config/release.json.',
   );
 }

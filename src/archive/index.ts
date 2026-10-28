@@ -37,7 +37,10 @@ export function dataPath(relative: string): string {
 export async function loadArchiveIndex(
   signal?: AbortSignal,
 ): Promise<ArchiveIndex> {
-  const response = await fetch(dataPath('artworks/index.json'), { signal });
+  const response = await fetch(dataPath('artworks/index.json'), {
+    signal,
+    cache: 'no-cache',
+  });
   if (!response.ok)
     throw new Error(`Archiv nicht erreichbar (HTTP ${response.status}).`);
   return archiveIndexSchema.parse(await response.json());

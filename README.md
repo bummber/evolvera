@@ -1,6 +1,6 @@
 # Evolvera
 
-Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 3 technisch lokal umgesetzt; Kunstabnahme offen.**
+Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 4 lokal implementiert; externe Einrichtung und Serienstart offen.**
 Designrichtung A (experimentelles Kunstmagazin) ist gewählt und übernommen.
 Galerie, Werkdetails und Herkunftsvergleich sind umgesetzt. Die getrennte Kunstsichtung
 enthält 40 Testwerke in zwei Zwanzigerketten mit beiden Modi und poetischen Titeln. Offizielle Serie und Anmeldung folgen später.
@@ -44,8 +44,8 @@ Die Auswahl ändert keine Betreiberkonfiguration. Alle Testdaten im Januar 2000 
 simuliert; die offizielle Serie hat kein Startdatum.
 
 Die 40 Werke sind in [docs/art-review.md](docs/art-review.md) einzeln erfasst.
-Die ausdrückliche gemeinsame Kunstabnahme steht aus. Das bisherige positive Feedback
-bestätigt die Richtung; es startet keine Serie.
+Die 40 Testwerke sind am 28.10.2026 ausdrücklich abgenommen. Das startet keine Serie;
+Datum, Aktivierung und Veröffentlichung bleiben separate Betreiberentscheidungen.
 
 ### Frühere lokale Experimente
 
@@ -65,7 +65,7 @@ zeigt je zehn Werke für beide Modi, Eltern-Kind-Vergleich, konkrete Vererbungsb
 und gespeicherte poetische Titel. Generation 1 und 2 sind unabhängig; danach sind
 n−2 und n−1 die Eltern. Datumswerte im Januar 2000 sind simulierte Testmetadaten.
 Die Auswahl des Beispielmodus ändert keine globale Betreiberkonfiguration.
-Die Beispiele sind noch keine formale Kunstabnahme von 30–50 Werken beider Modi.
+Diese 20 Beispiele gehören zur abgenommenen 40er-Testsammlung.
 
 ## Prüfen und bauen
 
@@ -73,16 +73,18 @@ Die Beispiele sind noch keine formale Kunstabnahme von 30–50 Werken beider Mod
 npm run check
 npx playwright install chromium
 npm run test:browser
+npm run worker:test-runtime
+npm run generate:daily -- --dry-run
 npm run preview
 ```
 
-`check` umfasst Format, ESLint, Typprüfung, 91 Tests, Config-/Archiv-/Fixtureprüfung
-und Build nach `dist/`. Die 30 Browserfälle starten den lokalen Produktionspreview
+`check` umfasst Format, ESLint, Typprüfung, 122 Tests, Config-/Archiv-/Fixtureprüfung
+und Build nach `dist/` sowie Worker-Dry-Run ohne Deployment. Die 30 Browserfälle starten den lokalen Produktionspreview
 selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium.
 Unter Linux für einen frischen Runner: `npx playwright install --with-deps chromium`.
 Die visuellen Referenzen sind reine Testbelege unter `tests/browser/references`;
 sie werden nicht als Kunst ausgeliefert. Plattformübergreifende Toleranzen und noch
-offene Prüfungen sind im [Phase-3-Bericht](docs/phase-3-results.md) dokumentiert.
+offene Prüfungen sind im [Phase-4-Bericht](docs/phase-4-results.md) dokumentiert.
 
 | Befehl                                    | Zweck                                                        |
 | ----------------------------------------- | ------------------------------------------------------------ |
@@ -108,7 +110,8 @@ einer vorhandenen Referenzdatei. Normale Entwicklung nutzt die reine Prüfung.
 - `src/art/renderer`: V1 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
 - `src/art/titles`: deterministischer Titelgenerator mit Lexikon 0.1.0 und Elternfragmenten.
 - `src/archive`: validierter lesender Zugriff pro Seite/Werk, begrenzter Cache; kein Archivschreiber.
-- `src/operator`, `workers/admin`: Snapshot-Helfer und geplante Betreiberfunktion.
+- `src/operator`, `workers/admin`: Snapshot-Helfer und lokal implementierte Betreiberfunktion.
+- `src/automation`: Tagesplanung, Nachholung, Historienprüfung und Git-Archivierung.
 - `src/preview`: validierte feste Testsammlung, verzögert geladen.
 - `fixtures/preview`: gespeicherte Vorschau-DNA, getrennt vom offiziellen Archiv.
 - `public/artworks`: kanonischer offizieller Bereich, derzeit nur leerer Index.
@@ -125,36 +128,50 @@ Weitere Architekturentscheidungen: [docs/architecture.md](docs/architecture.md).
 `config/generation.json`: Startdatum `null`, Generierung `false`, Standardmodus
 `traceable` (Nachvollziehbare Vererbung), Revision 1. `free` heißt Maximale Freiheit
 und ist im getrennten Evolutionslabor umgesetzt. Der Build blockiert weiterhin offizielle Werke,
-Aktivierung oder ein gesetztes Startdatum vor Freigabe. Es gibt keinen offiziellen
-Generierungsbefehl oder Zeitplan. Einstellungen wirken später erst auf den nächsten
+Aktivierung oder ein gesetztes Startdatum vor Freigabe. Tagesbefehl und Zeitplan sind lokal vorbereitet,
+aber noch nicht extern freigegeben oder gestartet. Einstellungen wirken später erst auf den nächsten
 noch nicht begonnenen Lauf, niemals auf archivierte Werke.
 
 Vorhandenes Remote: [bummber/evolvera](https://github.com/bummber/evolvera).
 Lokal auf `main` eingerichtet, Ausgangsdateien erhalten. Kein Push, kein Deployment
 und keine Sichtbarkeitsänderung. Die vorbereitete CI ist noch nicht remote ausgeführt.
-Der manuelle Pages-Workflow kann später bauen; Deploy erfordert zusätzlichen Input,
-`PAGES_DEPLOYMENT_ENABLED=true`, `main` und ein öffentliches Repository.
+Der gemeinsame Tages-/Pages-Workflow ist hinter `PAGES_DEPLOYMENT_ENABLED=true`,
+`main` und öffentlichem Repository gesperrt; ein manueller Deploy verlangt zusätzlich
+`deploy=true`. Automatisierung braucht eine weitere ausdrückliche Freigabe.
 
 Erster Push und Testdeployment bleiben separat freizugebende Schritte. Spätestens
 zum ersten öffentlichen Shell-Testdeployment Repository öffentlich schalten,
 Pages/Actions/Environment und rechtliche Betreiberangaben klären. Die voraussichtliche
 URL `https://bummber.github.io/evolvera/` ist noch nicht als Live-Website bestätigt.
 
-Cloudflare-Konto, Worker, konsistenter Sitzungsspeicher, GitHub App, Callback und
-verifizierte numerische Betreiber-ID später prüfen/einrichten. Secrets ausschließlich
+Cloudflare-Konto, Worker/SQLite, eingeschränkte GitHub App, Callback und
+verifizierte numerische Betreiber-ID sind noch extern einzurichten. Der Worker-Code ist lokal implementiert. Secrets ausschließlich
 serverseitig, keine Secrets im Chat. Der geplante Top-Level-Worker-Login funktioniert
-konzeptionell ohne Drittanbieter-Cookies; echte Anmeldung ist noch nicht implementiert.
+per Top-Level-Navigation ohne Drittanbieter-Cookies; echte Cloud-Anmeldung ist noch nicht getestet.
+
+## Lokale Betreiber- und Betriebsprüfungen
+
+Wrangler **4.154.0** ist als exakte Dev-Abhängigkeit mit Lockfile ergänzt; keine neue
+Frontend-Produktionsabhängigkeit. `npm run worker:check` bündelt nur per Dry-Run.
+`npm run worker:dev` startet die sicher deaktivierte Betreiberfunktion auf Port 8787.
+`npm run worker:test-runtime` prüft atomaren Callback, Sitzung und Logout in echtem
+lokalem workerd/SQLite, ausschließlich mit Testdaten. Keine Secrets nötig.
+
+`npm run generate:daily -- --dry-run` liest den gesicherten Git-Commit und vollständige
+Historie, plant im Speicher und schreibt nichts. Aktuell null offizielle Werke und
+Generierung deaktiviert. `--apply` ist für den separat freigegebenen GitHub-Workflow
+reserviert; kein lokaler Betriebsstart. Kunstabnahme und Referenz-Digests stehen in
+`config/release.json`, `seriesAuthorized` bleibt false. Daten/Renderer werden nie still
+neu gewürfelt oder überschrieben. Vorgehen bei Fehlern: [Runbook](docs/runbook.md).
 
 ## Nächster Schritt
 
-Die 40 Testwerke gemeinsam sichten: Vielfalt, erkennbare Beiträge beider Eltern,
-freie Stilbrüche, Titel und Bedienung auf Smartphone/Desktop. Ergebnisse in
-`docs/art-review.md` dokumentieren. Die technische Umsetzung ersetzt diese Abnahme
-nicht. Erst danach Phase 4 separat beauftragen. Die Serie bleibt bis ausdrücklicher
-Kunstabnahme, bewusst festgelegtem Datum und Aktivierung deaktiviert.
+Den [konkreten externen Einrichtungsplan](docs/runbook.md) gemeinsam freigeben:
+Repository/Pages, Cloudflare/SQLite, GitHub App und sichere serverseitige Secrets.
+Nichts davon wurde registriert oder veröffentlicht. Danach echte Anmeldung,
+Berechtigungen, Konflikte und Cookies sowie den ersten geplanten Cloudlauf prüfen.
+Erst separat das Startdatum festlegen und die offizielle Generierung aktivieren.
 
-Generator 0.2.0, Schema 1/2 und Renderer V1 bleiben erhalten. Offizielle Dateien
-werden unter `/evolvera/artworks/` gelesen, Testdaten getrennt als Preview-Bundle.
-Vor 04:00 wird kein zukünftiges Tageswerk angezeigt. Ein dauerhaft offener Tab lädt
-noch nicht automatisch nach; vor Tagesbetrieb zu ergänzen. Physische Geräte,
-Safari/Firefox, GPU-/FPS-Profiling und Linux-Remote-CI sind noch nicht geprüft.
+Physische Geräte, Safari/Firefox, GPU-/FPS-Profiling und Remote-CI sind noch offen.
+Phase 5 ist nicht begonnen. Eine spätere weitere Serie mit mehr Varianz, Verläufen,
+Linien und Kurven bleibt ein [gesonderter Folgeauftrag](docs/future-series.md).

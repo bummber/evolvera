@@ -1,8 +1,7 @@
 # Architektur – aktueller Stand und Betriebsentwurf
 
-Stand: 28.10.2026 (Betreiberarchitektur weiterhin Entwurf). Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
-umfasst inzwischen die lokale Phase 3 mit Galerie, Werkansichten und getrennter Testsammlung. Die folgenden Betriebsabläufe sind ein Entwurf,
-keine implementierte Anmeldung, offizielle Tagesgenerierung oder getestete Cloud-Infrastruktur.
+Stand: 28.10.2026 (Phase 4 lokal implementiert; externe Abnahme offen). Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
+umfasst Phase 4 mit lokal implementierter Betreiberfunktion und Tageslauf. Die Cloud-Einrichtung, echte Anmeldung und Veröffentlichung sind noch nicht erfolgt. Frühere Phasenabschnitte sind historische Zwischenstände; den aktuellen Stand beschreibt die Phase-4-Ergänzung.
 
 ## Lokale Entscheidungen
 
@@ -40,14 +39,14 @@ Code konsistent. Abhängigkeiten sind exakt gepinnt, das npm-Lockfile wird versi
 | `src/art/renderer`         | Renderer V1 mit gemeinsamer Kunstfläche, festen Ruhevorschauen und Wiedergabesteuerung |
 | `src/archive`              | Validierter Index-/Werkzugriff und begrenzter Cache; kein Archivschreiber              |
 | `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer                       |
-| `workers/admin`            | Reservierter Ort mit README; noch kein Worker, Auth oder API                           |
+| `workers/admin`            | Lokaler Worker mit PKCE, SQLite-Sitzungen und festem Git-Modusschreiber                |
 | `scripts/validate-data.ts` | Config-/Archivprüfung und Serienfreigabesicherung; Previewvergleich separat ergänzt    |
 
 Das öffentliche Frontend darf keine offiziellen Werke generieren oder archivieren. Lokale Vorschauen bleiben im getrennten Labor. Der Generator darf keine React-
 oder Browser-Abhängigkeit benötigen. Archivdateien speichern die finalen Parameter;
 Frontend und Renderer würfeln sie nicht neu aus. `tests/fixtures` enthält nur
 synthetische Schema-Prüfdaten und wird weder publiziert noch in den Index aufgenommen.
-40 getrennte Testwerke liegen jetzt zur Kunstsichtung bereit. Die ausdrückliche Abnahme bleibt offen.
+40 getrennte Testwerke sind am 28.10.2026 ausdrücklich vom Betreiber abgenommen worden. Die Serienfreigabe bleibt separat gesperrt.
 
 ## Datenverträge und Grenzen der Validierung
 
@@ -290,3 +289,43 @@ getrennt, asynchrone Altantworten dürfen nach Sammlungswechsel keinen Zustand e
 Kunstabnahme ist ein menschlicher Betreiberentscheid. 40 Werke sind im Sichtungsbogen
 `docs/art-review.md` erfasst, alle Abnahmestatus offen. Kein Abnahmebutton, Fake-Login,
 Scheduler oder Serienfreigabe. Prüfungen und Grenzen in `docs/phase-3-results.md`.
+
+## Ergänzung Phase 4 – implementierter lokaler Betrieb
+
+`workers/admin` implementiert den beschriebenen Top-Level-Login mit GitHub-App-PKCE,
+State/HttpOnly-Browserbindung, fester numerischer Betreiber-ID und einer absoluten
+Sitzungsdauer von einer Stunde. Kurzlebige Logintransaktionen und Sitzungen liegen in
+SQLite-Durable-Objects, Einmalverbrauch erfolgt transaktional. Sessioncookie enthält
+nur eine Zufallskennung; GitHub-Benutzertoken wird nur zur Identitätsprüfung verwendet
+und nicht gespeichert. App-Schlüssel/Client-Secret bleiben ausschließlich serverseitig.
+Der Worker ist unkonfiguriert deaktiviert und hat noch keine öffentliche Route.
+
+Modus-POST und Logout verlangen Sitzung, CSRF und exakte Worker-Origin. Der einzige
+Schreibpfad ist `config/generation.json` auf `bummber/evolvera/main`; Schema, Revision
+und SHA werden geprüft. Nur Modus/Revision ändern sich. Erfolg erst nach Lesen des
+konkreten geschriebenen Commits. Keine blinde Konfliktwiederholung. CSP ohne Scripts,
+No-Store und No-Referrer, keine CORS-Freigabe. `config/operator.json` enthält allein
+eine optionale öffentliche HTTPS-Origin; derzeit null, deshalb Galerie-Anmeldung aus.
+
+`src/automation` trennt reinen Tagesplan und Git-Adapter. Frischer, sauberer, vollständiger
+Commitstand vor Laufstart, danach unveränderlicher Snapshot für alle Nachholtage.
+Vor neuer Generierung werden alle historisch bekannten Werke aus ihren ersten Git-
+Archivversionen rekonstruiert und gemeinsam validiert. Unsichere Erststände stoppen;
+keine Neuberechnung historischer Daten. Git-Objekte/Commit entstehen erst nach
+vollständiger Planvalidierung, über einen temporären Index ohne Arbeitskopieänderung.
+Ein nicht erzwungener Push archiviert den ganzen Plan. Reiner paralleler Moduscommit
+kann einmal integriert werden, Code-/Archivkonflikte stoppen, Snapshot bleibt erhalten.
+
+Kunstabnahme am 28.10.2026 in `config/release.json` mit Referenz-Digests erfasst.
+Separate Gates: `seriesAuthorized:false`, `seriesStartDate:null`, `generationEnabled:false`.
+Workflow zusätzlich nur nach externen Repositoryvariablen und öffentlich eingerichtetem
+Repository. Ein einziger `evolvera-publish`-Bereich umfasst Archivierung bis Deployment.
+Vor Push relevante Codeprüfungen, vor Veröffentlichung vollständige Build-/Browserprüfungen
+und Remote-SHA-Kontrolle. Kein Cloudlauf oder Deployment wurde jetzt ausgeführt.
+
+Sichtbare Heute-Tabs laden minütlich und bei Fokus/Rückkehr frische Indexdaten.
+Testsammlungen und Hauptwerk-Animationen bleiben getrennt. Alle Kunstversionen erhalten.
+Wrangler 4.154.0 als gepinnte Dev-Abhängigkeit ermöglicht Worker-Dry-Run und echte lokale
+workerd-/SQLite-Tests. Geheimnisse werden weder gebraucht noch eingebaut. Setup,
+Betriebsgrenzen und offizielle Quellen: `docs/runbook.md`; tatsächliche Ergebnisse:
+`docs/phase-4-results.md`. Ein späteres Varianzprojekt bleibt ein separater Auftrag.
