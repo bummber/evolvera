@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-Stand: 28.10.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgesetzt;
+Stand: 29.10.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgesetzt;
 **externe Einrichtung und echte Phase-4-Abnahme noch offen**. Kein offizieller Start.
 
 ## Entscheidungen und Git
@@ -70,11 +70,27 @@ angelegt. Keine Secrets im Frontend, Git, Logs oder Chat; nicht im Chat anforder
 
 ## Nächster konkreter Schritt
 
+Am 29.10.2026 wurde die externe PRD v1.2 geprüft und auf ausdrücklichen Auftrag
+eine eigene Spezifikation für später abgelegt: [Erweiterungspaket EP-01](extensions/PRD-EP01.md).
+Die [Startprompts](extensions/STARTPROMPTS.md) enthalten A für den aktuellen Plan
+und B für den späteren begrenzten E0-Einstieg. Das Paket ist nicht implementiert oder
+aktiviert. `docs/PRD.md` bleibt v1.1; die bisherigen 40 Werke und ihre Abnahme bleiben
+erhalten. Die unversionierte `docs/PRD_v1.1_backup.md` ist identisch mit v1.1 und
+wurde vom Dokumentationsauftrag nicht verändert. Nächster aktiver Schritt bleibt:
+
 Den externen Einrichtungsplan in `docs/runbook.md` gemeinsam freigeben: Repository/
 Pages, Cloudflare-Worker/SQLite, eingeschränkte GitHub App, numerische ID, Callback und
 serverseitige Secrets. Registrierung, Sicherheitsberechtigungen und Veröffentlichung
 als konkrete Betreiberaktionen behandeln. Serienstartdatum und Aktivierung nochmals
 separat bestimmen. Phase 5 nicht begonnen; Varianz-Folgeprojekt nicht beginnen.
+
+Prüfung des Dokumentationsstands am 29.10.2026: `npm run check` erfolgreich,
+einschließlich 122 Tests, Daten-/Vorschauprüfung, Build und lokalem Worker-Dry-Run.
+Ein erster Lauf stoppte an der Sandbox-IPC-Beschränkung von `tsx`; Wiederholung
+mit freigegebenem lokalem Prozesszugriff erfolgreich. Die unveränderte Backup-PRD
+und die neue Erweiterungs-PRD sind wie die bestehende PRD von automatischer
+Formatierung ausgenommen. Keine UI-/Workeränderungen; Browser-/Runtime-Tests
+deshalb nicht erneut ausgeführt. Kein Push oder Deployment.
 
 Wiedereinstieg: `AGENTS.md`, diese Notiz, `docs/PRD.md`, `docs/phase-4-results.md` und
 `docs/runbook.md` lesen. Git prüfen. Bei Bedarf `npm ci`; npm-Cache außerhalb Sandbox

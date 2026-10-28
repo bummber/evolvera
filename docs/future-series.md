@@ -9,3 +9,10 @@ Keine neuen Generatorregeln, keine neue Serie und keine Neugenerierung vorhanden
 Werke begonnen. Die 40 aktuellen Testwerke sind abgenommen. Bestehende Versionen
 und Endparameter erhalten. Eine spätere neue Serie/Version braucht eigene
 Spezifikation, getrennte Testwerke und Abnahme vor ihrem Start.
+
+Am 29.10.2026 wurde auf Betreiberauftrag das spätere Erweiterungspaket
+[EP-01](extensions/PRD-EP01.md) formuliert. Grundlage ist die separat geprüfte PRD
+v1.2. Die Spezifikation berücksichtigt den bestehenden Stand, Versionsschutz und
+eine neue Kunstabnahme. [Startprompts](extensions/STARTPROMPTS.md) trennen die
+Fortsetzung des aktuellen Plans vom späteren Einstieg in EP-01. Keine Umsetzung
+des Pakets und keine Änderung des aktuellen Betriebsplans beauftragt.
