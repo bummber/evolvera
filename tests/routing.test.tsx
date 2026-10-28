@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { HashRouter } from 'react-router-dom';
 import { App } from '../src/app/App';
@@ -27,7 +27,7 @@ function open(hash: string) {
 }
 describe('Hash-Routing der lokalen Vorschau', () => {
   it.each([
-    ['#/', 'Jeder Tag ein neuer Anfang.'],
+    ['#/', 'Form wird Zukunft.'],
     ['#/galerie', 'Galerie'],
     ['#/evolution', 'Evolution'],
     ['#/ueber', 'Über Evolvera'],
@@ -44,7 +44,11 @@ describe('Hash-Routing der lokalen Vorschau', () => {
   it('navigiert per Tastatur-/Linkbedienung und setzt den Inhaltsfokus', async () => {
     open('#/');
     await screen.findByText('Hier beginnt etwas Neues.');
-    await userEvent.click(screen.getByRole('link', { name: 'Galerie' }));
+    await userEvent.click(
+      within(
+        screen.getByRole('navigation', { name: 'Hauptnavigation' }),
+      ).getByRole('link', { name: 'Galerie' }),
+    );
     expect(window.location.hash).toBe('#/galerie');
     expect(
       await screen.findByRole('heading', { name: 'Galerie', level: 1 }),

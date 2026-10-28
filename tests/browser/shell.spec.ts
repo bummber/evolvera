@@ -58,10 +58,48 @@ test('Tastatur, aktiver Navigationspunkt und ruhige HTML-/CSS-Shell', async ({
   await expect(page.getByRole('link', { name: 'Zum Inhalt' })).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.getByRole('main')).toBeFocused();
+  const menu = page.locator('summary');
+  if (await menu.isVisible()) await menu.click();
   await page.getByRole('link', { name: 'Galerie', exact: true }).click();
+  if (await menu.isVisible()) await menu.click();
   await expect(
     page.getByRole('link', { name: 'Galerie', exact: true }),
   ).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('img, svg, canvas')).toHaveCount(0);
   await expect(page.getByText('Noch keine Werke im Archiv.')).toBeVisible();
+});
+
+test('Navigation ist auf Desktop und Mobil erreichbar, Escape schließt das mobile Menü', async ({
+  page,
+}) => {
+  await page.goto('./');
+  const menu = page.locator('summary');
+  if (await menu.isVisible()) {
+    await menu.click();
+    await expect(
+      page.getByRole('navigation', {
+        name: 'Mobile Hauptnavigation',
+        exact: true,
+      }),
+    ).toBeVisible();
+    await menu.press('Escape');
+    await expect(page.locator('details')).not.toHaveAttribute('open');
+    await expect(menu).toBeFocused();
+    await menu.click();
+    await page
+      .getByRole('link', { name: 'Über Evolvera', exact: true })
+      .click();
+    await expect(page.locator('details')).not.toHaveAttribute('open');
+  } else {
+    await expect(
+      page.getByRole('navigation', { name: 'Hauptnavigation', exact: true }),
+    ).toBeVisible();
+    await page
+      .getByRole('link', { name: 'Über Evolvera', exact: true })
+      .click();
+  }
+  await expect(
+    page.getByRole('heading', { name: 'Über Evolvera', level: 1 }),
+  ).toBeVisible();
+  await expect(page.getByRole('main')).toBeFocused();
 });

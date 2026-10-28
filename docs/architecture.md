@@ -13,7 +13,9 @@ und `import.meta.env.BASE_URL`, z. B. `/evolvera/artworks/index.json`. Es gibt k
 Root-relative Annahme `/artworks/`. Ein Direktlink benötigt keinen SPA-Fallback.
 
 CSS ist für die Oberfläche getrennt organisiert. Die zukünftige Kunst erhält
-eigene, versionierte und abgeschirmte Styles. Die Shell enthält keine Beispielkunst,
+eigene, versionierte und abgeschirmte Styles. Die am 28.10.2026 ausgewählte Richtung A verwendet warme Papierfarben, große
+Grotesktypografie, Zinnoberrot und ein redaktionelles Raster; mobil gibt es ein
+tastaturbedienbares Aufklappmenü. Die Shell enthält keine Beispielkunst,
 sondern eine beschriftete leere Bühne. Es werden keine externen Fonts, Bilder oder
 Tracking-Dienste geladen. SVG, Canvas, WebGL und Bilddateien sind als Kunst verboten.
 

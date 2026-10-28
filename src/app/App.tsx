@@ -91,40 +91,63 @@ function EmptyArchive({
 
 function Today() {
   return (
-    <Page eyebrow="Eine Galerie im Werden" title="Jeder Tag ein neuer Anfang.">
-      <p className="intro">
-        Zwei Vorgänger. Ein neuer Gedanke. Evolvera erforscht, wie aus HTML und
-        CSS eine fortlaufende Geschichte entsteht.
-      </p>
-      <div className="today-layout">
-        <EmptyArchive context="today" />
-        <aside className="series-info">
+    <>
+      <div className="home-kicker">
+        <span>Unberechenbar. Jeden Tag neu.</span>
+        <span>Eine Galerie im Werden</span>
+      </div>
+      <div className="home-hero">
+        <div className="home-editorial">
+          <h1>
+            Form wird <br />
+            <span>Zukunft.</span>
+          </h1>
+          <p className="intro">
+            Zwei Ursprünge. Unendlich viele Möglichkeiten. Eine Galerie für
+            Kunst, die sich weiterentwickelt.
+          </p>
+          <p className="hero-description">
+            Aus Farben, Formen und Regeln entsteht eine fortlaufende Geschichte.
+            Was bleibt? Was verändert sich? Was kommt als Nächstes?
+          </p>
+          <div className="hero-actions">
+            <Link className="primary-link" to="/galerie">
+              Die Galerie entdecken <span aria-hidden="true">↗</span>
+            </Link>
+            <Link className="text-link" to="/ueber">
+              Das Prinzip
+            </Link>
+          </div>
+        </div>
+        <div className="home-stage">
+          <EmptyArchive context="today" />
+        </div>
+      </div>
+      <section className="series-info" aria-labelledby="series-heading">
+        <div className="series-intro">
           <span className="badge">Vor Serienstart</span>
-          <h2>Die erste Seite ist noch offen.</h2>
+          <h2 id="series-heading">Die erste Seite ist noch offen.</h2>
           <p>
             Das Startdatum steht noch nicht fest. Offizielle Werke werden
             derzeit nicht generiert.
           </p>
-          <dl>
-            <div>
-              <dt>Geplanter Rhythmus</dt>
-              <dd>Täglich ab 04:00 · Berlin</dd>
-            </div>
-            <div>
-              <dt>Voreingestellter Modus</dt>
-              <dd>{modeLabels[initialSettings.inheritanceMode]}</dd>
-            </div>
-          </dl>
-          <p className="muted">
-            Vor dem Start werden 30–50 getrennte Testwerke aus beiden Modi
-            ausdrücklich abgenommen.
-          </p>
-          <Link className="text-link" to="/ueber">
-            Die Idee kennenlernen <span aria-hidden="true">↗</span>
-          </Link>
-        </aside>
-      </div>
-    </Page>
+        </div>
+        <dl>
+          <div>
+            <dt>Geplanter Rhythmus</dt>
+            <dd>Täglich ab 04:00 · Berlin</dd>
+          </div>
+          <div>
+            <dt>Voreingestellter Modus</dt>
+            <dd>{modeLabels[initialSettings.inheritanceMode]}</dd>
+          </div>
+        </dl>
+        <p className="muted">
+          Vor dem Start werden 30–50 getrennte Testwerke aus beiden Modi
+          ausdrücklich abgenommen.
+        </p>
+      </section>
+    </>
   );
 }
 function Gallery() {
@@ -305,6 +328,7 @@ export function App() {
   const location = useLocation();
   const main = useRef<HTMLElement>(null);
   const previous = useRef(location.pathname);
+  const mobileMenu = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
     const heading = main.current?.querySelector('h1');
     document.title = `${heading?.textContent ?? 'Evolvera'} · Evolvera Vorschau`;
@@ -315,48 +339,83 @@ export function App() {
     }
   }, [location.pathname]);
   return (
-    <div className="site-shell">
-      <a
-        className="skip-link"
-        href="#main-content"
-        onClick={(event) => {
-          event.preventDefault();
-          main.current?.focus();
-        }}
-      >
-        Zum Inhalt
-      </a>
-      <header className="site-header">
-        <Link to="/" className="brand" aria-label="Evolvera – Heute">
-          evolvera
-          <span className="brand-dot" aria-hidden="true">
-            .
-          </span>
-        </Link>
-        <span className="preview-label">Lokale Vorschau · Phase 0</span>
-        <nav aria-label="Hauptnavigation">
-          {navigation.map(([path, label]) => (
-            <NavLink key={path} to={path} end={path === '/'}>
-              {label}
-            </NavLink>
-          ))}
-        </nav>
-      </header>
-      <main id="main-content" tabIndex={-1} ref={main}>
-        <Routes>
-          <Route path="/" element={<Today />} />
-          <Route path="/galerie" element={<Gallery />} />
-          <Route path="/evolution" element={<Evolution />} />
-          <Route path="/werk/:date" element={<WorkDetail />} />
-          <Route path="/ueber" element={<About />} />
-          <Route path="/einstellungen" element={<Settings />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-      <footer>
-        <p>Aus Regeln wird Geschichte.</p>
-        <p>HTML + CSS · Serie noch nicht gestartet</p>
-      </footer>
+    <div className="page">
+      <div className="preview-bar">
+        <span>Lokale Vorschau · Phase 0</span>
+        <span>HTML + CSS / Serie noch nicht gestartet</span>
+      </div>
+      <div className="site-shell">
+        <a
+          className="skip-link"
+          href="#main-content"
+          onClick={(event) => {
+            event.preventDefault();
+            main.current?.focus();
+          }}
+        >
+          Zum Inhalt
+        </a>
+        <header className="site-header">
+          <Link to="/" className="brand" aria-label="Evolvera – Heute">
+            evolvera
+            <span className="brand-dot" aria-hidden="true">
+              ↗
+            </span>
+          </Link>
+          <nav className="desktop-navigation" aria-label="Hauptnavigation">
+            {navigation.map(([path, label]) => (
+              <NavLink key={path} to={path} end={path === '/'}>
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+          <details
+            className="mobile-navigation"
+            ref={mobileMenu}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape' && mobileMenu.current?.open) {
+                event.preventDefault();
+                mobileMenu.current.open = false;
+                mobileMenu.current.querySelector('summary')?.focus();
+              }
+            }}
+          >
+            <summary>
+              Menü <span aria-hidden="true">+</span>
+            </summary>
+            <nav aria-label="Mobile Hauptnavigation">
+              {navigation.map(([path, label]) => (
+                <NavLink
+                  key={path}
+                  to={path}
+                  end={path === '/'}
+                  onClick={() => {
+                    if (mobileMenu.current) mobileMenu.current.open = false;
+                  }}
+                >
+                  {label}
+                </NavLink>
+              ))}
+            </nav>
+          </details>
+        </header>
+        <main id="main-content" tabIndex={-1} ref={main}>
+          <Routes>
+            <Route path="/" element={<Today />} />
+            <Route path="/galerie" element={<Gallery />} />
+            <Route path="/evolution" element={<Evolution />} />
+            <Route path="/werk/:date" element={<WorkDetail />} />
+            <Route path="/ueber" element={<About />} />
+            <Route path="/einstellungen" element={<Settings />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <footer>
+          <p className="footer-brand">evolvera.</p>
+          <p>Ein Experiment mit offenem Ausgang.</p>
+          <p>HTML + CSS · Serie noch nicht gestartet</p>
+        </footer>
+      </div>
     </div>
   );
 }

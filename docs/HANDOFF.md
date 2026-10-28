@@ -3,6 +3,20 @@
 Stand: 27.10.2026. Diese Notiz dient dem Wiedereinstieg und erteilt keine Freigabe
 für eine weitere Phase oder Veröffentlichung. Aktueller Nutzerauftrag hat Vorrang.
 
+## Aktualisierung am 28.10.2026 – Designvergleich
+
+Der Betreiber hat drei separate lokale Designrichtungen zur Auswahl beauftragt.
+Sie sind unter `/evolvera/design-concepts/index.html` erreichbar. Die bestehende
+Shell ist erhalten; Richtung A wurde am 28.10.2026 vom Betreiber ausgewählt und in die Phase-0-Shell übernommen. Details
+und aktuelle Prüfungen: `docs/design-review.md`.
+
+Aktuell sind `npm run check` mit 39 Tests und alle acht Playwright-
+Browserfälle (einschließlich Mobilmenü und Escape) erfolgreich. Playwright wurde mit freigegebenem Browserstart außerhalb
+der Sandbox ausgeführt. Die unten genannte Blockade beschreibt den vorherigen
+Stand vom 27.10.2026. Die Konzeptansichten wurden zusätzlich bei 320 CSS-Pixeln
+geprüft. Nächster Schritt: Die übernommene Richtung A gemeinsam sichten und bei Bedarf verfeinern.
+Phase 1, Push, Deployment und offizielle Generierung sind weiterhin nicht freigegeben.
+
 ## Projekt und Ausgangspunkt
 
 - Projektordner: `/Users/abrocker/ai_o_projects/evolvera/`.
