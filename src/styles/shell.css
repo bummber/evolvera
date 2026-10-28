@@ -702,3 +702,163 @@ footer .footer-brand {
     margin-bottom: 10px;
   }
 }
+
+.chain-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+}
+.chain-controls label {
+  font:
+    11px 'Courier New',
+    monospace;
+  text-transform: uppercase;
+}
+.chain-controls select {
+  min-height: 44px;
+  max-width: 100%;
+  font:
+    14px Arial,
+    sans-serif;
+  padding: 12px;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: var(--paper);
+}
+.chain-controls select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.chain-controls > span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.generation-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 24px 0 36px;
+}
+.generation-strip button {
+  min-width: 44px;
+  padding: 12px;
+  cursor: pointer;
+  font:
+    12px 'Courier New',
+    monospace;
+}
+.generation-strip button[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.evolution-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(280px, 1fr);
+  gap: 6vw;
+  align-items: start;
+}
+.evolution-main {
+  margin: 0;
+  max-width: 720px;
+}
+.evolution-main figcaption {
+  padding: 20px 0;
+}
+.evolution-main figcaption > span {
+  font:
+    11px 'Courier New',
+    monospace;
+  text-transform: uppercase;
+}
+.evolution-main figcaption h2 {
+  margin: 12px 0;
+  font-size: clamp(26px, 3vw, 42px);
+  overflow-wrap: anywhere;
+}
+.evolution-main figcaption p,
+.evolution-report > p {
+  font-size: 13px;
+  line-height: 1.75;
+}
+.evolution-report {
+  min-width: 0;
+}
+.evolution-report > h2 {
+  font-size: clamp(26px, 3vw, 40px);
+}
+.parent-studies {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 28px 0;
+}
+.parent-title {
+  display: block;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+.inheritance-proofs {
+  margin: 28px 0;
+  padding-left: 20px;
+}
+.inheritance-proofs li {
+  font-size: 12px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+  line-height: 1.6;
+}
+.inheritance-proofs strong {
+  font-weight: 500;
+}
+.inheritance-proofs summary,
+.recipe-details summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 12px 0;
+  font-size: 12px;
+}
+.inheritance-proofs dd {
+  font:
+    11px/1.6 'Courier New',
+    monospace;
+  overflow-wrap: anywhere;
+}
+.recipe-details {
+  border-top: 1px solid var(--ink);
+  margin-top: 24px;
+}
+.recipe-details p {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.seed-value {
+  overflow-wrap: anywhere;
+  font-family: 'Courier New', monospace;
+}
+.chain-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.chain-steps button:not(:disabled) {
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--paper);
+}
+@media (max-width: 1000px) {
+  .evolution-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .evolution-main {
+    width: 100%;
+  }
+  .evolution-report {
+    max-width: 720px;
+  }
+}

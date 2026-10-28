@@ -1,7 +1,7 @@
-# Architektur – Phase 0
+# Architektur – aktueller Stand und Betriebsentwurf
 
 Stand: 28.10.2026 (Betreiberarchitektur weiterhin Entwurf). Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
-umfasst inzwischen die lokale Phase 1 mit getrenntem Testatelier. Die folgenden Betriebsabläufe sind ein Entwurf,
+umfasst inzwischen die lokale Phase 2 mit getrenntem Testatelier und Evolutionslabor. Die folgenden Betriebsabläufe sind ein Entwurf,
 keine implementierte Anmeldung, offizielle Tagesgenerierung oder getestete Cloud-Infrastruktur.
 
 ## Lokale Entscheidungen
@@ -12,7 +12,7 @@ Vite setzt `base: '/evolvera/'`. Alle öffentlichen Datenpfade gehen über `data
 und `import.meta.env.BASE_URL`, z. B. `/evolvera/artworks/index.json`. Es gibt keine
 Root-relative Annahme `/artworks/`. Ein Direktlink benötigt keinen SPA-Fallback.
 
-CSS ist für die Oberfläche getrennt organisiert. Die zukünftige Kunst erhält
+CSS ist für die Oberfläche getrennt organisiert. Die Kunst verwendet
 eigene, versionierte und abgeschirmte Styles. Die am 28.10.2026 ausgewählte Richtung A verwendet warme Papierfarben, große
 Grotesktypografie, Zinnoberrot und ein redaktionelles Raster; mobil gibt es ein
 tastaturbedienbares Aufklappmenü. Die Shell enthält keine Beispielkunst,
@@ -31,19 +31,19 @@ Code konsistent. Abhängigkeiten sind exakt gepinnt, das npm-Lockfile wird versi
 
 ## Modulgrenzen
 
-| Modul                      | Verantwortung / Stand                                                                    |
-| -------------------------- | ---------------------------------------------------------------------------------------- |
-| `src/app`, `src/styles`    | Shell, Testatelier, Navigation und Layout A; implementiert                               |
-| `src/art/schema`           | Werk-, DNA-, Herkunfts-, Konfigurations- und getrennte Previewverträge                   |
-| `src/art/generator`        | Preview-Generator 0.1.0 mit PRNG und drei Familien; kein offizieller Lauf oder Evolution |
-| `src/art/titles`           | Separater Titelvertrag; noch kein Lexikon oder Algorithmus                               |
-| `src/art/renderer`         | Renderer V1 mit gemeinsamer Kunstfläche, festen Ruhevorschauen und Wiedergabesteuerung   |
-| `src/archive`              | Validierter Indexzugriff; noch kein schreibendes Archivmodul                             |
-| `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer                         |
-| `workers/admin`            | Reservierter Ort mit README; noch kein Worker, Auth oder API                             |
-| `scripts/validate-data.ts` | Config-/Archivprüfung und Serienfreigabesicherung; Previewvergleich separat ergänzt      |
+| Modul                      | Verantwortung / Stand                                                                  |
+| -------------------------- | -------------------------------------------------------------------------------------- |
+| `src/app`, `src/styles`    | Shell, Testatelier, Evolutionslabor, Navigation und Layout A                           |
+| `src/art/schema`           | Werk-, DNA-, Herkunfts-, Konfigurations- und getrennte Previewverträge                 |
+| `src/art/generator`        | Preview-Generator 0.1.0, Evolutionskern 0.2.0 und Rezeptreplay; kein offizieller Lauf  |
+| `src/art/titles`           | Separater deterministischer Titelgenerator und Lexikon 0.1.0                           |
+| `src/art/renderer`         | Renderer V1 mit gemeinsamer Kunstfläche, festen Ruhevorschauen und Wiedergabesteuerung |
+| `src/archive`              | Validierter Indexzugriff; noch kein schreibendes Archivmodul                           |
+| `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer                       |
+| `workers/admin`            | Reservierter Ort mit README; noch kein Worker, Auth oder API                           |
+| `scripts/validate-data.ts` | Config-/Archivprüfung und Serienfreigabesicherung; Previewvergleich separat ergänzt    |
 
-Das Frontend darf weder generieren noch archivieren. Der Generator darf keine React-
+Das öffentliche Frontend darf keine offiziellen Werke generieren oder archivieren. Lokale Vorschauen bleiben im getrennten Labor. Der Generator darf keine React-
 oder Browser-Abhängigkeit benötigen. Archivdateien speichern die finalen Parameter;
 Frontend und Renderer würfeln sie nicht neu aus. `tests/fixtures` enthält nur
 synthetische Schema-Prüfdaten und wird weder publiziert noch in den Index aufgenommen.
@@ -75,8 +75,8 @@ einen überprüfbaren Kopier- oder numerischen Offset-Operator. Quellwerte werde
 der gespeicherten Eltern-DNA verglichen, Zielwerte mit dem Kind. Nur sichtbare
 Gestaltungsfelder kommen als Belegpfade infrage; Titel oder bloße IDs zählen nicht.
 `traceable` fordert Belege beider Eltern. Die vollständig sichtbare Wirkung, Kontrast,
-Überdeckung und die Prüfung nach Qualitäts-Retries müssen in Phase 1/2 zusätzlich
-mit Renderer und Generator nachgewiesen werden. Das Schema allein behauptet keine
+Überdeckung und die Prüfung nach Qualitäts-Retries werden im V2-Kern zusätzlich
+mit konservativen Sichtbarkeitsregeln nachgewiesen (siehe Phase-2-Ergänzung). Das Schema allein behauptet keine
 visuelle Garantie. Neue Operatoren und Gestaltungsfelder brauchen eigene Prüfungen.
 
 Historische Renderer müssen archivierte Komposition, Farben, Bewegungsregeln und
@@ -221,7 +221,8 @@ kein bereits getesteter Anbieter-Workflow.
 Generator 0.1.0 benutzt FNV-1a/Mulberry32 und gibt validierte, datumslose Preview-DNA
 zurück. Drei Familien und zwölf gespeicherte Beispiele liegen getrennt vom Archiv
 in `fixtures/preview`. Der reguläre Build vergleicht diese Referenzen deterministisch.
-Die offizielle Generierung bleibt deaktiviert; es gibt keine Evolution oder Titel.
+In diesem historischen Phase-1-Zwischenstand gab es noch keine Evolution oder Titel.
+Die offizielle Generierung bleibt auch nach der Phase-2-Erweiterung deaktiviert.
 
 Renderer V1 ist jetzt implementiert: CSS-Module mit expliziten Resets, eine logische
 1000×1000-Fläche mit einheitlichem Skalierungsfaktor und feste Ruhevorschauen.
@@ -231,3 +232,28 @@ route lädt Generator/Renderer und Vorschau-DNA erst bei Bedarf. V1 und seine
 Referenzdaten müssen bei späteren Erweiterungen erhalten werden.
 
 Implementierungsdetails und Prüfgrenzen stehen in `docs/phase-1-results.md`.
+
+## Ergänzung Phase 2 – Evolution und Titel
+
+Der reine Kern `generateArtwork` (0.2.0) erhält Generation, Datum/Termine, Seed, zwei
+validierte Eltern (ab Generation 3), einen Einstellungssnapshot und eine injizierte
+Uhr. Zeitmetadaten sind kein Zufallsinput. Er schreibt weder Archiv noch Konfiguration;
+Aktivierung und exklusiver Runner bleiben Aufgabe der späteren Orchestrierung.
+
+Neue Werke verwenden Schema 2 mit Rezept (neue oder kopierte Basis, exakte Parameter-
+änderungen und Ergänzungen) und Titelherkunft. Schema 1 und Renderer 1 bleiben
+unverändert lesbar. Die End-DNA ist weiterhin die Darstellungswahrheit; Rezeptreplay
+prüft Herkunft ohne erneuten Evolutionslauf. Neue Basis-DNA bleibt an Generator 0.1.0
+gebunden. Freie Farben entstehen durch gespeicherte RGB-Kanalverschiebungen.
+
+Sichtbare Mindestbeiträge in `traceable` sind explizit freigestellte, kontrastierende
+Farb-/Breitenmerkmale beider Eltern. Der fertige Stand wird nach Rezeptreplay auf
+Quell-/Zielwerte, Operatoren und konservative Malgrenzen geprüft. `free` kann alle
+Gestaltungsmerkmale neu erzeugen. Die UI behauptet nur tatsächlich gespeicherte
+Einzelbeiträge; eine kopierte Rezeptbasis wird getrennt benannt. Der Titelgenerator
+(0.1.0) nutzt lokale Lexika, Muster, Elternfragmente und einen Wiederholungscheck.
+
+Zwei Zehnerketten liegen getrennt in `fixtures/preview/phase-2.json`. Ihre Datumswerte
+im Januar 2000 und Zeitpunkte sind Simulation. `#/evolutionslabor` zeigt die
+Beispielketten; die Moduswahl ist keine persistente Betreiberfunktion. Die Phase-2-
+Prüfungen, Grenzen und der nächste Schritt stehen in `docs/phase-2-results.md`.

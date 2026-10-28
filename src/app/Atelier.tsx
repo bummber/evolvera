@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import rawStudies from '../../fixtures/preview/phase-1.json';
@@ -38,8 +39,12 @@ export default function Atelier() {
       </p>
       <p className="atelier-notice">
         Nur Vorschauen – keine offiziellen Werke und keine Kunstabnahme. Beide
-        Vererbungsmodi und poetische Titel folgen in Phase 2.
+        Vererbungsmodi und poetische Titel sind im getrennten Evolutionslabor zu
+        sehen.
       </p>
+      <Link className="text-link" to="/evolutionslabor">
+        Zum Evolutionslabor mit beiden Modi ↗
+      </Link>
       <div className="atelier-layout">
         <figure className="atelier-main" aria-label="Aktive Studie">
           <ArtStage key={`${selected.id}:${selected.seed}`} source={selected} />

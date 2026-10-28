@@ -1,9 +1,9 @@
 # Evolvera
 
-Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 1 lokal umgesetzt.**
+Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 2 lokal umgesetzt.**
 Designrichtung A (experimentelles Kunstmagazin) ist gewählt und übernommen.
-Ein getrenntes Testatelier zeigt erste unabhängig generierte Studien; offizielle
-Serie, Evolution, Titelgenerator und Anmeldung folgen später.
+Testatelier und Evolutionslabor zeigen unabhängige Studien sowie zwei Beispielketten
+mit beiden Vererbungsmodi und poetischen Titeln. Offizielle Serie und Anmeldung folgen später.
 
 Fachliche Quelle ist [docs/PRD.md](docs/PRD.md), Version 1.1. Die unverändert erhaltene
 `Evolvera_PRD_v1.0.md` ist historisch. Aktueller Stand und Wiedereinstieg:
@@ -41,8 +41,12 @@ ist pausierbar und startet bei reduzierter Bewegung statisch. Du kannst sie für
 die aktuelle Studie ausdrücklich abspielen. Diese Besucheraktion ändert keinen
 Betreibermodus. Die offiziellen Seiten zeigen weiterhin ehrliche Leerzustände.
 
-Das Atelier enthält keine Elternketten, Vererbungsmodi oder poetischen Titel.
-Die zwölf Studien sind noch nicht die spätere Abnahme von 30–50 Werken beider Modi.
+Das getrennte [Evolutionslabor](http://127.0.0.1:5173/evolvera/#/evolutionslabor)
+zeigt je zehn Werke für beide Modi, Eltern-Kind-Vergleich, konkrete Vererbungsbelege
+und gespeicherte poetische Titel. Generation 1 und 2 sind unabhängig; danach sind
+n−2 und n−1 die Eltern. Datumswerte im Januar 2000 sind simulierte Testmetadaten.
+Die Auswahl des Beispielmodus ändert keine globale Betreiberkonfiguration.
+Die Beispiele sind noch keine formale Kunstabnahme von 30–50 Werken beider Modi.
 
 ## Prüfen und bauen
 
@@ -53,13 +57,13 @@ npm run test:browser
 npm run preview
 ```
 
-`check` umfasst Format, ESLint, Typprüfung, 55 Tests, Config-/Archiv-/Fixtureprüfung
-und Build nach `dist/`. Die 14 Browserfälle starten den lokalen Produktionspreview
+`check` umfasst Format, ESLint, Typprüfung, 71 Tests, Config-/Archiv-/Fixtureprüfung
+und Build nach `dist/`. Die 16 Browserfälle starten den lokalen Produktionspreview
 selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium.
 Unter Linux für einen frischen Runner: `npx playwright install --with-deps chromium`.
 Die visuellen Referenzen sind reine Testbelege unter `tests/browser/references`;
 sie werden nicht als Kunst ausgeliefert. Plattformübergreifende Toleranzen und noch
-offene Prüfungen sind im [Phase-1-Bericht](docs/phase-1-results.md) dokumentiert.
+offene Prüfungen sind im [Phase-2-Bericht](docs/phase-2-results.md) dokumentiert.
 
 | Befehl                                    | Zweck                                                        |
 | ----------------------------------------- | ------------------------------------------------------------ |
@@ -81,9 +85,9 @@ einer vorhandenen Referenzdatei. Normale Entwicklung nutzt die reine Prüfung.
 
 - `src/app`, `src/styles`: Shell, Hash-Routen und getrenntes Testatelier.
 - `src/art/schema`: Werk-, DNA-, Herkunfts-, Konfigurations- und Previewverträge.
-- `src/art/generator`: FNV-1a/Mulberry32 und drei unabhängige Previewfamilien.
+- `src/art/generator`: PRNG, drei Previewfamilien und Evolutionskern 0.2.0 mit Rezeptreplay.
 - `src/art/renderer`: V1 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
-- `src/art/titles`: Vertrag für spätere Titelgenerierung, noch keine Implementierung.
+- `src/art/titles`: deterministischer Titelgenerator mit Lexikon 0.1.0 und Elternfragmenten.
 - `src/archive`: validierter lesender Zugriff; noch kein offizieller Archivschreiber.
 - `src/operator`, `workers/admin`: Snapshot-Helfer und geplante Betreiberfunktion.
 - `fixtures/preview`: gespeicherte Vorschau-DNA, getrennt vom offiziellen Archiv.
@@ -100,7 +104,7 @@ Weitere Architekturentscheidungen: [docs/architecture.md](docs/architecture.md).
 
 `config/generation.json`: Startdatum `null`, Generierung `false`, Standardmodus
 `traceable` (Nachvollziehbare Vererbung), Revision 1. `free` heißt Maximale Freiheit
-und wird erst in Phase 2 umgesetzt. Der Build blockiert weiterhin offizielle Werke,
+und ist im getrennten Evolutionslabor umgesetzt. Der Build blockiert weiterhin offizielle Werke,
 Aktivierung oder ein gesetztes Startdatum vor Freigabe. Es gibt keinen offiziellen
 Generierungsbefehl oder Zeitplan. Einstellungen wirken später erst auf den nächsten
 noch nicht begonnenen Lauf, niemals auf archivierte Werke.
@@ -123,7 +127,12 @@ konzeptionell ohne Drittanbieter-Cookies; echte Anmeldung ist noch nicht impleme
 
 ## Nächster Schritt
 
-Das Testatelier gemeinsam sichten. Danach kann Phase 2 separat beauftragt werden:
-Evolution aus den beiden unmittelbaren Vorgängern, belegte Beiträge in beiden Modi
-und deterministische poetische Titel. Noch keine offizielle Serie; vorher müssen
-30–50 getrennte Testwerke beider Modi ausdrücklich abgenommen werden.
+Die beiden Beispielketten gemeinsam sichten. Danach kann Phase 3 separat beauftragt
+werden: vollständige Galerie-/Werk-/Nachfolgernavigation und Kunstabnahme von 30–50
+getrennten Testwerken beider Modi. Die offizielle Serie bleibt bis zur ausdrücklichen
+Abnahme, einem festgelegten Datum und separater Freigabe deaktiviert.
+
+Der neue Kern erzeugt Werkschema 2 (Rezept und Titelherkunft); Werkschema 1 und Renderer
+V1 bleiben nutzbar. `npm run validate:data` vergleicht alle gespeicherten Vorschauen
+exakt. Die reine Funktion erhält einen Snapshot und eine injizierte Uhr; keine Datei-
+oder Git-Schreiboperation. Die echte Lauf-/Aktivierungssteuerung folgt erst später.

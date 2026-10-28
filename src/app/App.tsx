@@ -13,6 +13,7 @@ import { initialSettings } from '../operator/settings';
 import { useArchive } from './useArchive';
 
 const Atelier = lazy(() => import('./Atelier'));
+const EvolutionLab = lazy(() => import('./EvolutionLab'));
 
 const navigation = [
   ['/', 'Heute'],
@@ -196,8 +197,12 @@ function Evolution() {
         </section>
       </div>
       <p className="muted">
-        Abstammungsansicht und Evolutionslogik sind noch nicht implementiert.
+        Die offizielle Abstammungsansicht folgt später. Zwei getrennte
+        Beispielketten stehen im Evolutionslabor bereit.
       </p>
+      <Link className="text-link" to="/evolutionslabor">
+        Zu den getrennten Beispielketten ↗
+      </Link>
     </Page>
   );
 }
@@ -247,10 +252,11 @@ function About() {
           <h2>Stand dieser Vorschau</h2>
           <p>
             Dies ist die lokale Vorschau. Im getrennten Testatelier stehen erste
-            unabhängige Studien mit HTML-/CSS-Renderer bereit. Evolution,
-            Titelgenerator, Betreiberanmeldung und täglicher Betrieb folgen
-            später. Erst nach ausdrücklicher Abnahme von 30–50 separaten
-            Testwerken beider Modi beginnt die offizielle Serie.
+            unabhängige Studien mit HTML-/CSS-Renderer bereit. Das
+            Evolutionslabor zeigt beide Vererbungsmodi und poetische Titel.
+            Betreiberanmeldung und täglicher Betrieb folgen später. Erst nach
+            ausdrücklicher Abnahme von 30–50 separaten Testwerken beider Modi
+            beginnt die offizielle Serie.
           </p>
         </section>
       </div>
@@ -338,7 +344,7 @@ export function App() {
   const mobileMenu = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
     const heading = main.current?.querySelector('h1');
-    document.title = `${heading?.textContent ?? navigation.find(([path]) => path === location.pathname)?.[1] ?? 'Evolvera'} · Evolvera Vorschau`;
+    document.title = `${heading?.textContent ?? navigation.find(([path]) => path === location.pathname)?.[1] ?? (location.pathname === '/evolutionslabor' ? 'Evolutionslabor' : 'Evolvera')} · Evolvera Vorschau`;
     if (previous.current !== location.pathname) {
       main.current?.focus();
       window.scrollTo?.(0, 0);
@@ -348,7 +354,7 @@ export function App() {
   return (
     <div className="page">
       <div className="preview-bar">
-        <span>Lokale Vorschau · Phase 1</span>
+        <span>Lokale Vorschau · Phase 2</span>
         <span>HTML + CSS / Serie noch nicht gestartet</span>
       </div>
       <div className="site-shell">
@@ -416,6 +422,16 @@ export function App() {
                   fallback={<p role="status">Testatelier wird geladen …</p>}
                 >
                   <Atelier />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/evolutionslabor"
+              element={
+                <Suspense
+                  fallback={<p role="status">Evolutionslabor wird geladen …</p>}
+                >
+                  <EvolutionLab />
                 </Suspense>
               }
             />

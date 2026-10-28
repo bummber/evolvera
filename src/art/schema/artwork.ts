@@ -56,130 +56,186 @@ const evidenceSchema = z.strictObject({
   ]),
 });
 
-export const artworkSchema = z
+const artworkCore = z.strictObject({
+  schemaVersion: z.literal(1),
+  generatorVersion: version,
+  rendererVersion: z.literal('1'),
+  lexiconVersion: version,
+  id: workDateSchema,
+  generation: z.number().int().positive(),
+  title: z.string().trim().min(1).max(160),
+  description: z.string().trim().min(1).max(800),
+  timezone: z.literal('Europe/Berlin'),
+  scheduledFor: instantSchema,
+  generatedAt: instantSchema,
+  // Run start is separate: catch-up depends on when the run started, not finished.
+  runStartedAt: instantSchema,
+  isCatchUp: z.boolean(),
+  seed: z.string().min(1).max(256),
+  inheritanceMode: modeSchema,
+  settingsRevision: z.number().int().positive(),
+  parentIds: z.array(workDateSchema).max(2),
+  dna: dnaSchema,
+  titleDna: z.strictObject({
+    tokens: z.array(z.string().min(1).max(80)).min(1).max(20),
+  }),
+  evolution: z.strictObject({
+    type: z.enum(['origin', 'hybrid']),
+    evaluatedParentIds: z.array(workDateSchema).max(2),
+    decisions: z.array(evidenceSchema).max(240),
+  }),
+});
+function refineArtwork(
+  work: Omit<z.infer<typeof artworkCore>, 'schemaVersion'>,
+  ctx: z.RefinementCtx,
+) {
+  const fail = (message: string) => ctx.addIssue({ code: 'custom', message });
+  const origin = work.generation <= 2;
+  if (
+    work.parentIds.length !== (origin ? 0 : 2) ||
+    new Set(work.parentIds).size !== work.parentIds.length
+  ) {
+    fail(
+      'Ursprungswerke haben keine Eltern, Folgewerke genau zwei unterschiedliche.',
+    );
+  }
+  if (work.parentIds.some((id) => id >= work.id))
+    fail('Eltern müssen vor dem Werkdatum liegen.');
+  if (work.evolution.type !== (origin ? 'origin' : 'hybrid'))
+    fail('Evolutionstyp passt nicht zur Generation.');
+  if (
+    JSON.stringify(work.parentIds) !==
+    JSON.stringify(work.evolution.evaluatedParentIds)
+  )
+    fail('Beide Eltern müssen als ausgewertete Quellen protokolliert sein.');
+  if (origin && work.evolution.decisions.length > 0)
+    fail('Ursprungswerke haben keine Vererbungsbelege.');
+  for (const decision of work.evolution.decisions) {
+    if (!work.parentIds.includes(decision.parentId))
+      fail('Beleg verweist auf ein fremdes Elternwerk.');
+    if (readTrait(work.dna, decision.target.path) !== decision.target.value)
+      fail('Zielbeleg stimmt nicht mit der DNA überein.');
+    const { kind } = decision.operation;
+    if (kind === 'copy' && decision.source.value !== decision.target.value)
+      fail('Kopierte Werte müssen gleich sein.');
+    if (decision.operation.kind === 'offset') {
+      if (
+        typeof decision.source.value !== 'number' ||
+        typeof decision.target.value !== 'number' ||
+        Math.abs(
+          decision.source.value +
+            decision.operation.amount -
+            decision.target.value,
+        ) > 1e-9
+      ) {
+        fail('Numerischer Mutationsoperator belegt den Zielwert nicht.');
+      }
+    }
+  }
+  if (
+    !origin &&
+    work.inheritanceMode === 'traceable' &&
+    work.parentIds.some(
+      (id) => !work.evolution.decisions.some((d) => d.parentId === id),
+    )
+  ) {
+    fail(
+      'Nachvollziehbare Vererbung benötigt gestalterische Belege beider Eltern.',
+    );
+  }
+  // Exact scheduling/catch-up semantics live in the later scheduler. These guards
+  // already reject impossible orderings and non-Berlin 04:00 timestamps.
+  if (
+    Date.parse(work.generatedAt) < Date.parse(work.runStartedAt) ||
+    Date.parse(work.runStartedAt) < Date.parse(work.scheduledFor)
+  )
+    fail('Zeitpunkte liegen nicht in erlaubter Reihenfolge.');
+  if (
+    ![work.scheduledFor, work.runStartedAt, work.generatedAt].every((value) =>
+      Number.isFinite(Date.parse(value)),
+    )
+  )
+    return;
+  const berlin = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Europe/Berlin',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+  });
+  const parts = berlin.format(new Date(work.scheduledFor));
+  if (parts !== `${work.id} 04:00:00`)
+    fail('Geplanter Termin muss am Werkdatum um 04:00 Europe/Berlin liegen.');
+  if (workDateSchema.safeParse(work.id).success) {
+    // Increment the calendar date, never add 24h to a Berlin instant across DST.
+    const next = new Date(`${work.id}T00:00:00Z`);
+    next.setUTCDate(next.getUTCDate() + 1);
+    const nextCycle = `${next.toISOString().slice(0, 10)} 04:00:00`;
+    const catchUp = berlin.format(new Date(work.runStartedAt)) >= nextCycle;
+    if (work.isCatchUp !== catchUp)
+      fail(
+        'Nachholkennzeichnung entspricht nicht dem Laufstart im Berliner Tageszyklus.',
+      );
+  }
+}
+export const artworkV1Schema = artworkCore.superRefine(refineArtwork);
+
+// Additive dispatch: existing V1 files retain their original contract.
+export const recipePathSchema = z
+  .string()
+  .regex(
+    /^(background|elements\.(0|[1-9]\d*)\.(kind|color|x|y|width|height|rotation|opacity|motion\.(kind|durationSeconds|amplitude)))$/,
+  );
+export const recipeSchema = z.strictObject({
+  base: z.strictObject({
+    source: z.enum(['new', 'parentA', 'parentB']),
+    seed: z.string().min(1).max(500),
+  }),
+  mutations: z
+    .array(
+      z.strictObject({
+        path: recipePathSchema,
+        before: z.union([z.string().max(80), z.number().finite()]),
+        after: z.union([z.string().max(80), z.number().finite()]),
+        operator: z.literal('replace'),
+      }),
+    )
+    .max(600),
+  additions: z.array(dnaSchema.shape.elements.element).max(12),
+});
+export const artworkV2Schema = z
   .strictObject({
-    schemaVersion: z.literal(1),
-    generatorVersion: version,
-    rendererVersion: z.literal('1'),
-    lexiconVersion: version,
-    id: workDateSchema,
-    generation: z.number().int().positive(),
-    title: z.string().trim().min(1).max(160),
-    description: z.string().trim().min(1).max(800),
-    timezone: z.literal('Europe/Berlin'),
-    scheduledFor: instantSchema,
-    generatedAt: instantSchema,
-    // Run start is separate: catch-up depends on when the run started, not finished.
-    runStartedAt: instantSchema,
-    isCatchUp: z.boolean(),
-    seed: z.string().min(1).max(256),
-    inheritanceMode: modeSchema,
-    settingsRevision: z.number().int().positive(),
-    parentIds: z.array(workDateSchema).max(2),
-    dna: dnaSchema,
+    ...artworkCore.shape,
+    schemaVersion: z.literal(2),
+    generatorVersion: z.literal('0.2.0'),
+    lexiconVersion: z.literal('0.1.0'),
     titleDna: z.strictObject({
       tokens: z.array(z.string().min(1).max(80)).min(1).max(20),
+      pattern: z.enum(['compound', 'pair', 'phrase']),
+      parentFragments: z
+        .array(
+          z.strictObject({
+            parentId: workDateSchema,
+            fragment: z.string().min(2).max(12),
+          }),
+        )
+        .max(2),
     }),
     evolution: z.strictObject({
       type: z.enum(['origin', 'hybrid']),
       evaluatedParentIds: z.array(workDateSchema).max(2),
       decisions: z.array(evidenceSchema).max(240),
+      recipe: recipeSchema,
     }),
   })
-  .superRefine((work, ctx) => {
-    const fail = (message: string) => ctx.addIssue({ code: 'custom', message });
-    const origin = work.generation <= 2;
-    if (
-      work.parentIds.length !== (origin ? 0 : 2) ||
-      new Set(work.parentIds).size !== work.parentIds.length
-    ) {
-      fail(
-        'Ursprungswerke haben keine Eltern, Folgewerke genau zwei unterschiedliche.',
-      );
-    }
-    if (work.parentIds.some((id) => id >= work.id))
-      fail('Eltern müssen vor dem Werkdatum liegen.');
-    if (work.evolution.type !== (origin ? 'origin' : 'hybrid'))
-      fail('Evolutionstyp passt nicht zur Generation.');
-    if (
-      JSON.stringify(work.parentIds) !==
-      JSON.stringify(work.evolution.evaluatedParentIds)
-    )
-      fail('Beide Eltern müssen als ausgewertete Quellen protokolliert sein.');
-    if (origin && work.evolution.decisions.length > 0)
-      fail('Ursprungswerke haben keine Vererbungsbelege.');
-    for (const decision of work.evolution.decisions) {
-      if (!work.parentIds.includes(decision.parentId))
-        fail('Beleg verweist auf ein fremdes Elternwerk.');
-      if (readTrait(work.dna, decision.target.path) !== decision.target.value)
-        fail('Zielbeleg stimmt nicht mit der DNA überein.');
-      const { kind } = decision.operation;
-      if (kind === 'copy' && decision.source.value !== decision.target.value)
-        fail('Kopierte Werte müssen gleich sein.');
-      if (decision.operation.kind === 'offset') {
-        if (
-          typeof decision.source.value !== 'number' ||
-          typeof decision.target.value !== 'number' ||
-          Math.abs(
-            decision.source.value +
-              decision.operation.amount -
-              decision.target.value,
-          ) > 1e-9
-        ) {
-          fail('Numerischer Mutationsoperator belegt den Zielwert nicht.');
-        }
-      }
-    }
-    if (
-      !origin &&
-      work.inheritanceMode === 'traceable' &&
-      work.parentIds.some(
-        (id) => !work.evolution.decisions.some((d) => d.parentId === id),
-      )
-    ) {
-      fail(
-        'Nachvollziehbare Vererbung benötigt gestalterische Belege beider Eltern.',
-      );
-    }
-    // Exact scheduling/catch-up semantics live in the later scheduler. These guards
-    // already reject impossible orderings and non-Berlin 04:00 timestamps.
-    if (
-      Date.parse(work.generatedAt) < Date.parse(work.runStartedAt) ||
-      Date.parse(work.runStartedAt) < Date.parse(work.scheduledFor)
-    )
-      fail('Zeitpunkte liegen nicht in erlaubter Reihenfolge.');
-    if (
-      ![work.scheduledFor, work.runStartedAt, work.generatedAt].every((value) =>
-        Number.isFinite(Date.parse(value)),
-      )
-    )
-      return;
-    const berlin = new Intl.DateTimeFormat('sv-SE', {
-      timeZone: 'Europe/Berlin',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hourCycle: 'h23',
-    });
-    const parts = berlin.format(new Date(work.scheduledFor));
-    if (parts !== `${work.id} 04:00:00`)
-      fail('Geplanter Termin muss am Werkdatum um 04:00 Europe/Berlin liegen.');
-    if (workDateSchema.safeParse(work.id).success) {
-      // Increment the calendar date, never add 24h to a Berlin instant across DST.
-      const next = new Date(`${work.id}T00:00:00Z`);
-      next.setUTCDate(next.getUTCDate() + 1);
-      const nextCycle = `${next.toISOString().slice(0, 10)} 04:00:00`;
-      const catchUp = berlin.format(new Date(work.runStartedAt)) >= nextCycle;
-      if (work.isCatchUp !== catchUp)
-        fail(
-          'Nachholkennzeichnung entspricht nicht dem Laufstart im Berliner Tageszyklus.',
-        );
-    }
-  });
-
+  .superRefine(refineArtwork);
+export const artworkSchema = z.union([artworkV1Schema, artworkV2Schema]);
+export type EvolutionArtwork = z.infer<typeof artworkV2Schema>;
+export type Recipe = z.infer<typeof recipeSchema>;
+export type InheritanceDecision = z.infer<typeof evidenceSchema>;
 export type Artwork = z.infer<typeof artworkSchema>;
 export type Dna = z.infer<typeof dnaSchema>;
 
