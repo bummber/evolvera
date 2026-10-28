@@ -11,4 +11,4 @@ export type GenerationRequest = Readonly<{
   parents: readonly Artwork[];
 }>;
 export type Generator = (request: GenerationRequest) => Artwork;
-// Contract only. No PRNG, evolution, scheduler, file writer or official generator in Phase 0.
+// Official generator contract remains reserved. Phase 1 implements independent preview DNA in study.ts, not evolution or scheduling.

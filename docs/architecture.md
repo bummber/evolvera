@@ -1,8 +1,8 @@
 # Architektur – Phase 0
 
-Stand: 27.10.2026. Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
-umfasst nur das lokale Grundgerüst. Die folgenden Betriebsabläufe sind ein Entwurf,
-keine implementierte Anmeldung, Kunstgenerierung oder getestete Cloud-Infrastruktur.
+Stand: 28.10.2026 (Betreiberarchitektur weiterhin Entwurf). Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
+umfasst inzwischen die lokale Phase 1 mit getrenntem Testatelier. Die folgenden Betriebsabläufe sind ein Entwurf,
+keine implementierte Anmeldung, offizielle Tagesgenerierung oder getestete Cloud-Infrastruktur.
 
 ## Lokale Entscheidungen
 
@@ -31,17 +31,17 @@ Code konsistent. Abhängigkeiten sind exakt gepinnt, das npm-Lockfile wird versi
 
 ## Modulgrenzen
 
-| Modul                      | Verantwortung / Stand                                                         |
-| -------------------------- | ----------------------------------------------------------------------------- |
-| `src/app`, `src/styles`    | Seiten, Navigation, Leer-/Fehlerzustände, ruhiges Layout; implementiert       |
-| `src/art/schema`           | Werk-, DNA-, Beleg- und Konfigurationsverträge; implementiert                 |
-| `src/art/generator`        | React-freier Eingabevertrag; noch kein PRNG, Scheduler oder Generator         |
-| `src/art/titles`           | Separater Titelvertrag; noch kein Lexikon oder Algorithmus                    |
-| `src/art/renderer`         | Vertrag für Hauptwerk/Ruhezustand und reservierte Version; noch kein Renderer |
-| `src/archive`              | Validierter Indexzugriff; noch kein schreibendes Archivmodul                  |
-| `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer              |
-| `workers/admin`            | Reservierter Ort mit README; noch kein Worker, Auth oder API                  |
-| `scripts/validate-data.ts` | Lokale/Build-Datenprüfung und ausdrückliche Phase-0-Sperre                    |
+| Modul                      | Verantwortung / Stand                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------- |
+| `src/app`, `src/styles`    | Shell, Testatelier, Navigation und Layout A; implementiert                               |
+| `src/art/schema`           | Werk-, DNA-, Herkunfts-, Konfigurations- und getrennte Previewverträge                   |
+| `src/art/generator`        | Preview-Generator 0.1.0 mit PRNG und drei Familien; kein offizieller Lauf oder Evolution |
+| `src/art/titles`           | Separater Titelvertrag; noch kein Lexikon oder Algorithmus                               |
+| `src/art/renderer`         | Renderer V1 mit gemeinsamer Kunstfläche, festen Ruhevorschauen und Wiedergabesteuerung   |
+| `src/archive`              | Validierter Indexzugriff; noch kein schreibendes Archivmodul                             |
+| `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer                         |
+| `workers/admin`            | Reservierter Ort mit README; noch kein Worker, Auth oder API                             |
+| `scripts/validate-data.ts` | Config-/Archivprüfung und Serienfreigabesicherung; Previewvergleich separat ergänzt      |
 
 Das Frontend darf weder generieren noch archivieren. Der Generator darf keine React-
 oder Browser-Abhängigkeit benötigen. Archivdateien speichern die finalen Parameter;
@@ -214,3 +214,20 @@ kein bereits getesteter Anbieter-Workflow.
 - [GitHub – GitHub-App-Benutzertokens und Web-Flow](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
 - [GitHub – Contents API und bedingtes Schreiben mit SHA](https://docs.github.com/en/rest/repos/contents)
 - [Cloudflare – Worker-Secrets](https://developers.cloudflare.com/workers/configuration/secrets/)
+
+## Ergänzung Phase 1 – lokale Preview-Pipeline
+
+`generateStudy` ist eine reine TypeScript-Funktion mit Seed und Familie als Eingaben.
+Generator 0.1.0 benutzt FNV-1a/Mulberry32 und gibt validierte, datumslose Preview-DNA
+zurück. Drei Familien und zwölf gespeicherte Beispiele liegen getrennt vom Archiv
+in `fixtures/preview`. Der reguläre Build vergleicht diese Referenzen deterministisch.
+Die offizielle Generierung bleibt deaktiviert; es gibt keine Evolution oder Titel.
+
+Renderer V1 ist jetzt implementiert: CSS-Module mit expliziten Resets, eine logische
+1000×1000-Fläche mit einheitlichem Skalierungsfaktor und feste Ruhevorschauen.
+Geometrie und Bewegung werden auf derselben Ebene skaliert. Animationen nur im
+Hauptwerk, reduzierte Bewegung und manuelles Pausieren werden beachtet. Die Preview-
+route lädt Generator/Renderer und Vorschau-DNA erst bei Bedarf. V1 und seine
+Referenzdaten müssen bei späteren Erweiterungen erhalten werden.
+
+Implementierungsdetails und Prüfgrenzen stehen in `docs/phase-1-results.md`.

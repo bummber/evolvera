@@ -1,19 +1,18 @@
 # Evolvera
 
-Eine täglich wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: lokale Phase 0.**
-Die Oberfläche, Navigation und Datenverträge sind eingerichtet. Kunstgenerator,
-Renderer, Evolution, Titelgenerator, Anmeldung und tägliche Automatisierung folgen
-in späteren Phasen. Es gibt noch keine offiziellen Werke und keine Live-Website.
+Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 1 lokal umgesetzt.**
+Designrichtung A (experimentelles Kunstmagazin) ist gewählt und übernommen.
+Ein getrenntes Testatelier zeigt erste unabhängig generierte Studien; offizielle
+Serie, Evolution, Titelgenerator und Anmeldung folgen später.
 
-Fachliche Quelle ist **[docs/PRD.md](docs/PRD.md), Version 1.1**. Die unverändert
-aufbewahrte `Evolvera_PRD_v1.0.md` ist ausschließlich historischer Ausgangsstand und
-wird fachlich durch v1.1 ersetzt.
+Fachliche Quelle ist [docs/PRD.md](docs/PRD.md), Version 1.1. Die unverändert erhaltene
+`Evolvera_PRD_v1.0.md` ist historisch. Aktueller Stand und Wiedereinstieg:
+[docs/HANDOFF.md](docs/HANDOFF.md).
 
 ## Lokal starten
 
-Voraussetzung: Node **24.21.0** (Node-24-LTS-Linie), npm und Git. Die eingesetzte
-Node-Linie passt zu den installierten Werkzeugen; `.nvmrc`, `engines` und CI stimmen
-überein. Mit einem Node-Versionsmanager zunächst die `.nvmrc` aktivieren, z. B.
+Node **24.21.0** gemäß `.nvmrc`, npm und Git. `engines` erlaubt kompatible Updates
+innerhalb Node 24; CI verwendet dieselbe gepinnte Version. Mit Versionsmanager z. B.
 `nvm install && nvm use` oder `fnm use --install-if-missing`.
 
 ```sh
@@ -22,15 +21,28 @@ npm ci
 npm run dev
 ```
 
-Die ausgegebene lokale Adresse mit Projektbasis öffnen, normalerweise
-[http://127.0.0.1:5173/evolvera/](http://127.0.0.1:5173/evolvera/).
-Ein Direktlink ist beispielsweise
-[http://127.0.0.1:5173/evolvera/#/einstellungen](http://127.0.0.1:5173/evolvera/#/einstellungen).
-`npm install` ist ebenfalls möglich; reproduzierbare Installationen nutzen `npm ci`.
+[Startseite](http://127.0.0.1:5173/evolvera/) und
+[Testatelier](http://127.0.0.1:5173/evolvera/#/atelier).
+Die tatsächlich ausgegebene Adresse verwenden, wenn der Port abweicht.
+Bei einem in der Sandbox nicht beschreibbaren npm-Cache:
+`npm ci --cache /tmp/evolvera-npm-cache`, ohne `sudo` oder Änderung am persönlichen Cache.
+Die lokale Prüfung nutzt Node 24.21.0 / npm 12.2.0. Der Devserver bleibt auf Loopback.
 
-Falls die lokale Sandbox den persönlichen npm-Cache nicht beschreiben darf:
-`npm ci --cache /tmp/evolvera-npm-cache`. Kein `sudo` nötig und keine Änderung am
-persönlichen Cache. Lokale Prüfung hier mit Node 24.21.0 / npm 12.2.0.
+## Was du ausprobieren kannst
+
+Das Testatelier enthält zwölf gespeicherte Vorschau-DNA in drei Familien:
+geometrische Konstellationen, große Farbfelder und Mosaikraster. Eine Kachel öffnet
+die Studie groß. Wähle Familie und Seed und erzeuge weitere unabhängige Vorschauen.
+Gleicher Seed, gleiche Familie und Generatorversion ergeben dieselben Parameter.
+Die Eingabe ist kein offizieller Generierungslauf und schreibt keine Archivdatei.
+
+Vorschaubilder bleiben im festen Ruhezustand. Bewegung läuft nur im Hauptwerk,
+ist pausierbar und startet bei reduzierter Bewegung statisch. Du kannst sie für
+die aktuelle Studie ausdrücklich abspielen. Diese Besucheraktion ändert keinen
+Betreibermodus. Die offiziellen Seiten zeigen weiterhin ehrliche Leerzustände.
+
+Das Atelier enthält keine Elternketten, Vererbungsmodi oder poetischen Titel.
+Die zwölf Studien sind noch nicht die spätere Abnahme von 30–50 Werken beider Modi.
 
 ## Prüfen und bauen
 
@@ -41,104 +53,77 @@ npm run test:browser
 npm run preview
 ```
 
-`check` umfasst Formatkontrolle, ESLint, Typprüfung, Vitest sowie Datenprüfung und
-Produktionsbuild. Die Browserprüfungen verwenden den vorher gebauten `dist/`-Stand
-und starten den lokalen Previewserver selbst. Sie testen Desktop und 320px Breite
-in Chromium. Unter Linux für einen frischen CI-Runner:
-`npx playwright install --with-deps chromium`.
+`check` umfasst Format, ESLint, Typprüfung, 55 Tests, Config-/Archiv-/Fixtureprüfung
+und Build nach `dist/`. Die 14 Browserfälle starten den lokalen Produktionspreview
+selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium.
+Unter Linux für einen frischen Runner: `npx playwright install --with-deps chromium`.
+Die visuellen Referenzen sind reine Testbelege unter `tests/browser/references`;
+sie werden nicht als Kunst ausgeliefert. Plattformübergreifende Toleranzen und noch
+offene Prüfungen sind im [Phase-1-Bericht](docs/phase-1-results.md) dokumentiert.
 
-| Befehl                                    | Zweck                                                      |
-| ----------------------------------------- | ---------------------------------------------------------- |
-| `npm run dev`                             | Vite-Devserver, nur auf Loopback                           |
-| `npm run build`                           | Konfiguration/Archiv prüfen, Typen prüfen, `dist/` bauen   |
-| `npm run preview`                         | Gebauten Stand lokal unter `/evolvera/` ansehen            |
-| `npm test`                                | Schema-, Herkunfts-, Snapshot-, Archiv- und Routingtests   |
-| `npm run test:browser`                    | Direktlinks, JSON-Basis, Fehler, Navigation, mobile Breite |
-| `npm run typecheck`                       | Strikte TypeScript-Prüfung                                 |
-| `npm run lint`                            | ESLint ohne Warnungen                                      |
-| `npm run format:check` / `npm run format` | Format prüfen / formatieren                                |
-| `npm run validate:data`                   | Offizielles Archiv und Phase-0-Sperre prüfen               |
+| Befehl                                    | Zweck                                                        |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| `npm run dev`                             | Lokaler Vite-Devserver                                       |
+| `npm run build`                           | Daten/Referenzen und Typen prüfen, Produktionsbuild          |
+| `npm run preview`                         | Gebauten Stand lokal ansehen                                 |
+| `npm test`                                | Schema, PRNG, Generator, Renderer, Archiv und Routing        |
+| `npm run test:browser`                    | Echte Browser-, Wiedergabe- und visuelle Prüfungen           |
+| `npm run typecheck` / `npm run lint`      | Strikte Typen / ESLint ohne Warnungen                        |
+| `npm run format:check` / `npm run format` | Format prüfen / formatieren                                  |
+| `npm run validate:data`                   | Offizielles Archiv und alle gespeicherten Preview-DNA prüfen |
 
-PRD v1.1 und die historische Originaldatei sind von der automatischen Formatierung
-ausgenommen, um sie unverändert zu erhalten. `dist/`, Abhängigkeiten, lokale
-Browserberichte und Secrets sind nicht Teil des Repositoryinhalts.
+Die PRD-Originale sind absichtlich von der Formatierung ausgenommen.
+Kein Test aktualisiert gespeicherte Preview-DNA automatisch. Der initiale Befehl
+`npm exec tsx -- scripts/preview-fixtures.ts --write` verweigert das Überschreiben
+einer vorhandenen Referenzdatei. Normale Entwicklung nutzt die reine Prüfung.
 
-## Was jetzt funktioniert
+## Struktur und Erhaltung
 
-Heute, Galerie, Evolution, Über Evolvera und Einstellungen sind über Hash-Navigation
-erreichbar; Werkdetail-Adressen und unbekannte Adressen haben klare Leer- bzw.
-Fehlerzustände. Alle Werkdatenpfade verwenden `/evolvera/`. Das echte offizielle
-Archiv ist leer. Ladefehler werden von einem leeren Archiv unterschieden.
-Einstellungen zeigen die validierte Voreinstellung `traceable` (Nachvollziehbare
-Vererbung), Revision 1. `free` heißt Maximale Freiheit. Es gibt keinen scheinbaren
-Login oder lokalen Speicherschalter.
+- `src/app`, `src/styles`: Shell, Hash-Routen und getrenntes Testatelier.
+- `src/art/schema`: Werk-, DNA-, Herkunfts-, Konfigurations- und Previewverträge.
+- `src/art/generator`: FNV-1a/Mulberry32 und drei unabhängige Previewfamilien.
+- `src/art/renderer`: V1 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
+- `src/art/titles`: Vertrag für spätere Titelgenerierung, noch keine Implementierung.
+- `src/archive`: validierter lesender Zugriff; noch kein offizieller Archivschreiber.
+- `src/operator`, `workers/admin`: Snapshot-Helfer und geplante Betreiberfunktion.
+- `fixtures/preview`: gespeicherte Vorschau-DNA, getrennt vom offiziellen Archiv.
+- `public/artworks`: kanonischer offizieller Bereich, derzeit nur leerer Index.
 
-`config/generation.json` hat `seriesStartDate: null` und `generationEnabled: false`.
-Die Datenprüfung blockiert in Phase 0 einen gesetzten Serienstart, aktivierte
-Generierung oder Werke im offiziellen Archiv. Die Sperre wird erst im passenden,
-ausdrücklich freigegebenen späteren Arbeitspaket entfernt. Es existiert kein
-Generierungsbefehl und kein Zeitplan. Noch keine manuelle Generierung ausführen.
+Kunst ausschließlich HTML/CSS, ohne SVG, Canvas, WebGL oder Bilddateien.
+Bestehende Werke werden nie still neu gewürfelt, überschrieben oder migriert.
+Darstellung liest Endparameter; Generatorupdates ändern kein Archiv. Beschädigte
+historische Daten später exakt aus Git wiederherstellen, bei Unsicherheit stoppen.
+Historische Renderer erhalten; neue Darstellungsregeln brauchen eine neue Version.
+Weitere Architekturentscheidungen: [docs/architecture.md](docs/architecture.md).
 
-## Struktur und Regeln
+## Serienfreigabe und externe Einrichtung
 
-- `src/app`, `src/styles`: Oberfläche, Routing und Layout.
-- `src/art/schema`: strikte Werk-, DNA-, Herkunfts- und Konfigurationsverträge.
-- `src/art/generator`, `titles`, `renderer`: getrennte, noch nicht implementierte Verträge.
-- `src/archive`: öffentlicher lesender Indexzugriff.
-- `src/operator`, `workers/admin`: Snapshot-Grenze und reservierte Betreiberfunktion.
-- `public/artworks`: ausschließlich kanonisches Archiv; derzeit nur leerer Index.
-- `tests/fixtures`: synthetische Prüfdaten, keine offiziellen oder abgenommenen Testwerke.
+`config/generation.json`: Startdatum `null`, Generierung `false`, Standardmodus
+`traceable` (Nachvollziehbare Vererbung), Revision 1. `free` heißt Maximale Freiheit
+und wird erst in Phase 2 umgesetzt. Der Build blockiert weiterhin offizielle Werke,
+Aktivierung oder ein gesetztes Startdatum vor Freigabe. Es gibt keinen offiziellen
+Generierungsbefehl oder Zeitplan. Einstellungen wirken später erst auf den nächsten
+noch nicht begonnenen Lauf, niemals auf archivierte Werke.
 
-Kunst bleibt HTML/CSS: keine SVGs, Canvas, WebGL oder Bilddateien. Historische Werke
-werden niemals neu gewürfelt oder still überschrieben. Beschädigte historische Daten
-müssen später exakt aus Git wiederhergestellt werden; bei Unsicherheit stoppen.
-Der Index ist aus Werkdateien ableitbar. Im leeren Phase-0-Archiv gibt es noch keine
-Wiederherstellung oder Index-Neuaufbau-Routine; keine scheinbar fertige Reparatur.
+Vorhandenes Remote: [bummber/evolvera](https://github.com/bummber/evolvera).
+Lokal auf `main` eingerichtet, Ausgangsdateien erhalten. Kein Push, kein Deployment
+und keine Sichtbarkeitsänderung. Die vorbereitete CI ist noch nicht remote ausgeführt.
+Der manuelle Pages-Workflow kann später bauen; Deploy erfordert zusätzlichen Input,
+`PAGES_DEPLOYMENT_ENABLED=true`, `main` und ein öffentliches Repository.
 
-Einstellungen gelten ab dem nächsten noch nicht begonnenen Generierungslauf.
-Laufstart friert Modus/Revision ein; historische Werke behalten ihren eigenen Modus.
-Der heutige Snapshot-Helfer ist rein lokal und implementiert noch keine Lauf-Sperre.
-Details, Grenzen der Schema-Belege und der sichere geplante Anmelde-/Schreibweg
-stehen in [docs/architecture.md](docs/architecture.md).
+Erster Push und Testdeployment bleiben separat freizugebende Schritte. Spätestens
+zum ersten öffentlichen Shell-Testdeployment Repository öffentlich schalten,
+Pages/Actions/Environment und rechtliche Betreiberangaben klären. Die voraussichtliche
+URL `https://bummber.github.io/evolvera/` ist noch nicht als Live-Website bestätigt.
 
-## Git, CI und spätere Veröffentlichung
+Cloudflare-Konto, Worker, konsistenter Sitzungsspeicher, GitHub App, Callback und
+verifizierte numerische Betreiber-ID später prüfen/einrichten. Secrets ausschließlich
+serverseitig, keine Secrets im Chat. Der geplante Top-Level-Worker-Login funktioniert
+konzeptionell ohne Drittanbieter-Cookies; echte Anmeldung ist noch nicht implementiert.
 
-Das lokale Repository verwendet `main` und das vorhandene Remote
-[github.com/bummber/evolvera](https://github.com/bummber/evolvera). Beim Start erneut
-geprüft: privat, leer; lokal nur PRD v1.0, noch kein Git. Es wurde vor Ort initialisiert,
-kein neuer Unterordner und kein neues GitHub-Repository angelegt. Vorhandene Dateien
-blieben erhalten. **Kein Push, keine Sichtbarkeitsänderung, kein Deployment.**
+## Nächster Schritt
 
-Die vorbereitete CI führt die lokalen Qualitätsprüfungen plus Browsertests aus.
-Der Pages-Workflow ist nur manuell startbar. Er baut zunächst; Deployment erfordert
-zusätzlich den manuellen Deploy-Input, `PAGES_DEPLOYMENT_ENABLED=true`, `main` und ein
-öffentliches Repository. Diese externe Freigabe ist nicht eingerichtet. Es gibt
-keinen automatischen Tageslauf. Eine lokale grüne Prüfung belegt keinen Remote-CI-
-oder Hosting-Erfolg.
-
-Vor einem späteren öffentlichen Shell-Testdeployment: ersten Push separat freigeben,
-Repository spätestens dann öffentlich schalten, Pages/Actions/Environment konfigurieren,
-rechtliche Betreiberangaben klären und den Deployment-Schalter bewusst freigeben.
-Die voraussichtliche spätere URL ist `https://bummber.github.io/evolvera/`; aktuell
-nicht als funktionierende Website bestätigt. Build und Archivdateien liegen in
-`dist/`, ohne zusätzliche Domainkonfiguration.
-
-Cloudflare-Konto, Worker, GitHub App, feste numerische Betreiber-ID und serverseitige
-Secrets sind später einzurichten. Der Browser bekommt keine Secrets. Keine Secrets
-im Chat senden. Drittanbieter-Cookies sind für den geplanten Top-Level-Worker-Login
-nicht erforderlich; dieser Ablauf ist noch nicht implementiert oder Ende zu Ende geprüft.
-
-## Ergebnis und nächster Schritt
-
-Für den Wiedereinstieg in diesem oder einem neuen Chat siehe
-[docs/HANDOFF.md](docs/HANDOFF.md). Die Notiz enthält Stand, Grenzen und einen
-kopierbaren Startauftrag für die gemeinsame Sichtung.
-
-Die tatsächlichen lokalen Prüfergebnisse und offenen Grenzen stehen in
-[docs/phase-0-results.md](docs/phase-0-results.md).
-Nach der gemeinsamen Sichtung folgt als separat freizugebender Einrichtungsschritt
-das öffentliche Testdeployment dieser Vorschau-Shell. **Phase 1 wird jetzt nicht
-begonnen.** Deren späteres Arbeitspaket umfasst PRNG, mindestens drei Familien und
-einen versionierten HTML-/CSS-Renderer mit reproduzierbarem Ruhezustand, weiterhin
-getrennt vom offiziellen Archiv. Die offizielle Serie startet erst nach ausdrücklicher
-Abnahme von 30–50 separaten Testwerken beider Modi und Festlegung des Startdatums.
+Das Testatelier gemeinsam sichten. Danach kann Phase 2 separat beauftragt werden:
+Evolution aus den beiden unmittelbaren Vorgängern, belegte Beiträge in beiden Modi
+und deterministische poetische Titel. Noch keine offizielle Serie; vorher müssen
+30–50 getrennte Testwerke beider Modi ausdrücklich abgenommen werden.

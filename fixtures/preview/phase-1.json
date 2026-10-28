@@ -1,0 +1,3288 @@
+{
+  "schemaVersion": 1,
+  "purpose": "phase-1-preview-only",
+  "studies": [
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-geometric-b66bb4eb",
+      "seed": "evolvera:phase-1:1",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Geometrische Konstellation; Hintergrund #2c1942, 10 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "geometric",
+        "background": "#2c1942",
+        "elements": [
+          {
+            "kind": "ellipse",
+            "x": 0.318118,
+            "y": 0.38653,
+            "width": 0.145151,
+            "height": 0.329326,
+            "rotation": -49,
+            "color": "#f99b37",
+            "opacity": 0.677067,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 68,
+              "amplitude": 0.022033
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.101467,
+            "y": 0.155542,
+            "width": 0.196913,
+            "height": 0.120906,
+            "rotation": 25,
+            "color": "#efc5d0",
+            "opacity": 0.69687,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 25,
+              "amplitude": 0.042912
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.359718,
+            "y": 0.244906,
+            "width": 0.231973,
+            "height": 0.231973,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 0.692274,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0.016518
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.611177,
+            "y": 0.228147,
+            "width": 0.107555,
+            "height": 0.107555,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 0.85976,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 58,
+              "amplitude": 0.034449
+            }
+          },
+          {
+            "kind": "ellipse",
+            "x": 0.528689,
+            "y": 0.512248,
+            "width": 0.262304,
+            "height": 0.190018,
+            "rotation": 14,
+            "color": "#f99b37",
+            "opacity": 0.935513,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 31,
+              "amplitude": 0.033396
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.322011,
+            "y": 0.376132,
+            "width": 0.260185,
+            "height": 0.2668,
+            "rotation": -54,
+            "color": "#f99b37",
+            "opacity": 0.653898,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 23,
+              "amplitude": 0.040167
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.125187,
+            "y": 0.436797,
+            "width": 0.267227,
+            "height": 0.346482,
+            "rotation": 2,
+            "color": "#f99b37",
+            "opacity": 0.993882,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.017303
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.453885,
+            "y": 0.567225,
+            "width": 0.007,
+            "height": 0.120185,
+            "rotation": -60,
+            "color": "#f99b37",
+            "opacity": 0.821527,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 59,
+              "amplitude": 0.025472
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.336925,
+            "y": 0.467845,
+            "width": 0.129564,
+            "height": 0.148844,
+            "rotation": 49,
+            "color": "#72c8b7",
+            "opacity": 0.986255,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 69,
+              "amplitude": 0.01609
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.648253,
+            "y": 0.468378,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-geometric-b76bb67e",
+      "seed": "evolvera:phase-1:2",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Geometrische Konstellation; Hintergrund #ece4cc, 13 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "geometric",
+        "background": "#ece4cc",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.246179,
+            "y": 0.448924,
+            "width": 0.256056,
+            "height": 0.313502,
+            "rotation": -5,
+            "color": "#2254d2",
+            "opacity": 0.652607,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 44,
+              "amplitude": 0.043955
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.303671,
+            "y": 0.443322,
+            "width": 0.007,
+            "height": 0.238963,
+            "rotation": 51,
+            "color": "#6d3c63",
+            "opacity": 0.694816,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 61,
+              "amplitude": 0.025434
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.207868,
+            "y": 0.499127,
+            "width": 0.007,
+            "height": 0.174171,
+            "rotation": -54,
+            "color": "#6d3c63",
+            "opacity": 0.843321,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0.035954
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.356928,
+            "y": 0.262984,
+            "width": 0.331469,
+            "height": 0.331469,
+            "rotation": 0,
+            "color": "#6d3c63",
+            "opacity": 0.819999,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 23,
+              "amplitude": 0.031774
+            }
+          },
+          {
+            "kind": "ellipse",
+            "x": 0.113116,
+            "y": 0.329167,
+            "width": 0.166256,
+            "height": 0.344398,
+            "rotation": 58,
+            "color": "#6d3c63",
+            "opacity": 0.803474,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.040649
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.626908,
+            "y": 0.535902,
+            "width": 0.103046,
+            "height": 0.103046,
+            "rotation": 0,
+            "color": "#6d3c63",
+            "opacity": 0.950195,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 23,
+              "amplitude": 0.041417
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.525803,
+            "y": 0.287226,
+            "width": 0.21834,
+            "height": 0.21834,
+            "rotation": 0,
+            "color": "#17372c",
+            "opacity": 0.950492,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 54,
+              "amplitude": 0.016702
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.554727,
+            "y": 0.475814,
+            "width": 0.202116,
+            "height": 0.367839,
+            "rotation": 38,
+            "color": "#6d3c63",
+            "opacity": 0.741607,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 45,
+              "amplitude": 0.044744
+            }
+          },
+          {
+            "kind": "ellipse",
+            "x": 0.492003,
+            "y": 0.547751,
+            "width": 0.333333,
+            "height": 0.313262,
+            "rotation": 37,
+            "color": "#6d3c63",
+            "opacity": 0.90525,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 71,
+              "amplitude": 0.02503
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.614423,
+            "y": 0.325669,
+            "width": 0.32786,
+            "height": 0.305604,
+            "rotation": -42,
+            "color": "#6d3c63",
+            "opacity": 0.981001,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 35,
+              "amplitude": 0.021669
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.260098,
+            "y": 0.200185,
+            "width": 0.262424,
+            "height": 0.197808,
+            "rotation": -21,
+            "color": "#2254d2",
+            "opacity": 0.851429,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 28,
+              "amplitude": 0.027043
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.362912,
+            "y": 0.122615,
+            "width": 0.154589,
+            "height": 0.140759,
+            "rotation": -22,
+            "color": "#17372c",
+            "opacity": 0.867514,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 62,
+              "amplitude": 0.040149
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.516288,
+            "y": 0.477692,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#17372c",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 38,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-geometric-b86bb811",
+      "seed": "evolvera:phase-1:3",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Geometrische Konstellation; Hintergrund #d0e7df, 12 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "geometric",
+        "background": "#d0e7df",
+        "elements": [
+          {
+            "kind": "ellipse",
+            "x": 0.191173,
+            "y": 0.098801,
+            "width": 0.317675,
+            "height": 0.193157,
+            "rotation": -33,
+            "color": "#803bbb",
+            "opacity": 0.671987,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 28,
+              "amplitude": 0.017899
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.510532,
+            "y": 0.112679,
+            "width": 0.007,
+            "height": 0.168584,
+            "rotation": -53,
+            "color": "#416641",
+            "opacity": 0.803361,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 47,
+              "amplitude": 0.031395
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.484596,
+            "y": 0.210043,
+            "width": 0.007,
+            "height": 0.346834,
+            "rotation": -42,
+            "color": "#416641",
+            "opacity": 0.970695,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 48,
+              "amplitude": 0.040418
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.50041,
+            "y": 0.46378,
+            "width": 0.278716,
+            "height": 0.278716,
+            "rotation": 0,
+            "color": "#416641",
+            "opacity": 0.918804,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 48,
+              "amplitude": 0.022129
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.264802,
+            "y": 0.161946,
+            "width": 0.007,
+            "height": 0.231983,
+            "rotation": -14,
+            "color": "#c8384e",
+            "opacity": 0.88898,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 49,
+              "amplitude": 0.036364
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.261733,
+            "y": 0.537263,
+            "width": 0.223295,
+            "height": 0.384122,
+            "rotation": 1,
+            "color": "#803bbb",
+            "opacity": 0.77185,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 57,
+              "amplitude": 0.026621
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.453661,
+            "y": 0.268323,
+            "width": 0.007,
+            "height": 0.358882,
+            "rotation": 65,
+            "color": "#c8384e",
+            "opacity": 0.865949,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 70,
+              "amplitude": 0.044726
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.175338,
+            "y": 0.526362,
+            "width": 0.199573,
+            "height": 0.318264,
+            "rotation": 37,
+            "color": "#1a2647",
+            "opacity": 0.80659,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.015547
+            }
+          },
+          {
+            "kind": "ellipse",
+            "x": 0.395971,
+            "y": 0.075399,
+            "width": 0.202536,
+            "height": 0.244599,
+            "rotation": -68,
+            "color": "#c8384e",
+            "opacity": 0.953964,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 26,
+              "amplitude": 0.032449
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.086345,
+            "y": 0.446319,
+            "width": 0.225333,
+            "height": 0.225333,
+            "rotation": 0,
+            "color": "#c8384e",
+            "opacity": 0.8895,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 72,
+              "amplitude": 0.030784
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.373348,
+            "y": 0.563828,
+            "width": 0.110154,
+            "height": 0.224047,
+            "rotation": 8,
+            "color": "#c8384e",
+            "opacity": 0.945146,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 71,
+              "amplitude": 0.020719
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.456737,
+            "y": 0.593782,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#1a2647",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 27,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-geometric-b96bb9a4",
+      "seed": "evolvera:phase-1:4",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Geometrische Konstellation; Hintergrund #191c29, 11 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "geometric",
+        "background": "#191c29",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.467092,
+            "y": 0.575287,
+            "width": 0.17963,
+            "height": 0.342249,
+            "rotation": -57,
+            "color": "#ff6651",
+            "opacity": 0.880954,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.036596
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.099678,
+            "y": 0.270481,
+            "width": 0.212158,
+            "height": 0.212158,
+            "rotation": 0,
+            "color": "#e3ed82",
+            "opacity": 0.940559,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 49,
+              "amplitude": 0.040181
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.389448,
+            "y": 0.560568,
+            "width": 0.257835,
+            "height": 0.257835,
+            "rotation": 0,
+            "color": "#b2b9f0",
+            "opacity": 0.894178,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 71,
+              "amplitude": 0.020034
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.549215,
+            "y": 0.45615,
+            "width": 0.244462,
+            "height": 0.312343,
+            "rotation": 44,
+            "color": "#e3ed82",
+            "opacity": 0.667425,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 25,
+              "amplitude": 0.030233
+            }
+          },
+          {
+            "kind": "ellipse",
+            "x": 0.449462,
+            "y": 0.361689,
+            "width": 0.334796,
+            "height": 0.172179,
+            "rotation": -55,
+            "color": "#b2b9f0",
+            "opacity": 0.98527,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 51,
+              "amplitude": 0.028559
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.114301,
+            "y": 0.356905,
+            "width": 0.007,
+            "height": 0.361057,
+            "rotation": 49,
+            "color": "#ff6651",
+            "opacity": 0.894962,
+            "motion": {
+              "kind": "float",
+              "durationSeconds": 68,
+              "amplitude": 0.02559
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.469206,
+            "y": 0.249342,
+            "width": 0.159326,
+            "height": 0.159326,
+            "rotation": 0,
+            "color": "#f2e6ce",
+            "opacity": 0.789175,
+            "motion": {
+              "kind": "rotate",
+              "durationSeconds": 57,
+              "amplitude": 0.036717
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.59688,
+            "y": 0.530424,
+            "width": 0.007,
+            "height": 0.177451,
+            "rotation": -54,
+            "color": "#f2e6ce",
+            "opacity": 0.961844,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 52,
+              "amplitude": 0.020949
+            }
+          },
+          {
+            "kind": "line",
+            "x": 0.181312,
+            "y": 0.345585,
+            "width": 0.007,
+            "height": 0.228084,
+            "rotation": -5,
+            "color": "#b2b9f0",
+            "opacity": 0.836934,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 50,
+              "amplitude": 0.039395
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.365271,
+            "y": 0.18614,
+            "width": 0.170128,
+            "height": 0.312125,
+            "rotation": -29,
+            "color": "#f2e6ce",
+            "opacity": 0.671018,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 53,
+              "amplitude": 0.018259
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.508451,
+            "y": 0.475636,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#ff6651",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 39,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-color-field-b66bb4eb",
+      "seed": "evolvera:phase-1:1",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Farbfeld / Minimalismus; Hintergrund #e7eafb, 5 Formen. Statische Komposition.",
+      "dna": {
+        "family": "color-field",
+        "background": "#e7eafb",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.192083,
+            "width": 0.120776,
+            "height": 0.577984,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 46,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.24,
+            "y": 0.182582,
+            "width": 0.206465,
+            "height": 0.638956,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 50,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.4,
+            "y": 0.173151,
+            "width": 0.233688,
+            "height": 0.568762,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.15575,
+            "width": 0.231644,
+            "height": 0.654031,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 15,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.550425,
+            "y": 0.544331,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 38,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-color-field-b76bb67e",
+      "seed": "evolvera:phase-1:2",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Farbfeld / Minimalismus; Hintergrund #ece4cc, 5 Formen. Statische Komposition.",
+      "dna": {
+        "family": "color-field",
+        "background": "#ece4cc",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.226892,
+            "width": 0.163356,
+            "height": 0.559715,
+            "rotation": 0,
+            "color": "#17372c",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 48,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.24,
+            "y": 0.08587,
+            "width": 0.224986,
+            "height": 0.661937,
+            "rotation": 0,
+            "color": "#e94d29",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 28,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.4,
+            "y": 0.182125,
+            "width": 0.15325,
+            "height": 0.648777,
+            "rotation": 0,
+            "color": "#2254d2",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 56,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.247707,
+            "width": 0.194075,
+            "height": 0.588679,
+            "rotation": 0,
+            "color": "#6d3c63",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 36,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.595242,
+            "y": 0.471124,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#17372c",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 20,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-color-field-b86bb811",
+      "seed": "evolvera:phase-1:3",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Farbfeld / Minimalismus; Hintergrund #232228, 6 Formen. Statische Komposition.",
+      "dna": {
+        "family": "color-field",
+        "background": "#232228",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.252407,
+            "width": 0.220356,
+            "height": 0.59791,
+            "rotation": 0,
+            "color": "#d2cbf0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.24,
+            "y": 0.279559,
+            "width": 0.136599,
+            "height": 0.518151,
+            "rotation": 0,
+            "color": "#fe8a39",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.4,
+            "y": 0.272835,
+            "width": 0.203463,
+            "height": 0.524976,
+            "rotation": 0,
+            "color": "#e4edc1",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 32,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.244626,
+            "width": 0.123357,
+            "height": 0.559047,
+            "rotation": 0,
+            "color": "#70b5cd",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 36,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.72,
+            "y": 0.111451,
+            "width": 0.228306,
+            "height": 0.550179,
+            "rotation": 0,
+            "color": "#d2cbf0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 20,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.623587,
+            "y": 0.645405,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#d2cbf0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 59,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-color-field-b96bb9a4",
+      "seed": "evolvera:phase-1:4",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Farbfeld / Minimalismus; Hintergrund #e7eafb, 5 Formen. Statische Komposition.",
+      "dna": {
+        "family": "color-field",
+        "background": "#e7eafb",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.169508,
+            "width": 0.151814,
+            "height": 0.545006,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 53,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.24,
+            "y": 0.202623,
+            "width": 0.200611,
+            "height": 0.540302,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 49,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.4,
+            "y": 0.127587,
+            "width": 0.149089,
+            "height": 0.559757,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 54,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.230102,
+            "width": 0.161614,
+            "height": 0.660681,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 48,
+              "amplitude": 0
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.542786,
+            "y": 0.643807,
+            "width": 0.22,
+            "height": 0.22,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 36,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-mosaic-b66bb4eb",
+      "seed": "evolvera:phase-1:1",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Mosaik / Raster; Hintergrund #2c1942, 50 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "mosaic",
+        "background": "#2c1942",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.089549,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 31,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.2,
+            "y": 0.08,
+            "width": 0.10902,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 19,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.32,
+            "y": 0.08,
+            "width": 0.09052,
+            "height": 0.108,
+            "rotation": 30,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.44,
+            "y": 0.08,
+            "width": 0.104899,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 19,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.56,
+            "y": 0.08,
+            "width": 0.092394,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.68,
+            "y": 0.08,
+            "width": 0.090978,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 32,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.8,
+            "y": 0.08,
+            "width": 0.110079,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 20,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.2,
+            "width": 0.101436,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.2,
+            "y": 0.2,
+            "width": 0.089722,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 14,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.32,
+            "y": 0.2,
+            "width": 0.103627,
+            "height": 0.108,
+            "rotation": -15,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 36,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.44,
+            "y": 0.2,
+            "width": 0.085088,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.2,
+            "width": 0.099627,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.68,
+            "y": 0.2,
+            "width": 0.090829,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.8,
+            "y": 0.2,
+            "width": 0.089188,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.32,
+            "width": 0.095198,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.2,
+            "y": 0.32,
+            "width": 0.107549,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.32,
+            "y": 0.32,
+            "width": 0.103585,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 19,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.44,
+            "y": 0.32,
+            "width": 0.09358,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.56,
+            "y": 0.32,
+            "width": 0.091759,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.68,
+            "y": 0.32,
+            "width": 0.097243,
+            "height": 0.108,
+            "rotation": -15,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 28,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.8,
+            "y": 0.32,
+            "width": 0.102425,
+            "height": 0.108,
+            "rotation": -15,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.44,
+            "width": 0.107856,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.2,
+            "y": 0.44,
+            "width": 0.103198,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 32,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.32,
+            "y": 0.44,
+            "width": 0.096112,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 22,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.44,
+            "y": 0.44,
+            "width": 0.100429,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.44,
+            "width": 0.104179,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 29,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.68,
+            "y": 0.44,
+            "width": 0.090369,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.8,
+            "y": 0.44,
+            "width": 0.089691,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.56,
+            "width": 0.084957,
+            "height": 0.108,
+            "rotation": 15,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.2,
+            "y": 0.56,
+            "width": 0.099561,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.32,
+            "y": 0.56,
+            "width": 0.101926,
+            "height": 0.108,
+            "rotation": -15,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.44,
+            "y": 0.56,
+            "width": 0.10301,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 22,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.56,
+            "width": 0.096196,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 15,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.68,
+            "y": 0.56,
+            "width": 0.094837,
+            "height": 0.108,
+            "rotation": 15,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 31,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.8,
+            "y": 0.56,
+            "width": 0.09737,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 29,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.68,
+            "width": 0.10211,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 23,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.2,
+            "y": 0.68,
+            "width": 0.106977,
+            "height": 0.108,
+            "rotation": -15,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.32,
+            "y": 0.68,
+            "width": 0.10417,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 29,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.44,
+            "y": 0.68,
+            "width": 0.105633,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 36,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.56,
+            "y": 0.68,
+            "width": 0.091817,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.68,
+            "y": 0.68,
+            "width": 0.095268,
+            "height": 0.108,
+            "rotation": 15,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.8,
+            "y": 0.68,
+            "width": 0.087542,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 12,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.8,
+            "width": 0.097477,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#e9edcc",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 27,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.2,
+            "y": 0.8,
+            "width": 0.087192,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 25,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.32,
+            "y": 0.8,
+            "width": 0.097144,
+            "height": 0.108,
+            "rotation": -15,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.44,
+            "y": 0.8,
+            "width": 0.097447,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#f99b37",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 22,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.56,
+            "y": 0.8,
+            "width": 0.092255,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.68,
+            "y": 0.8,
+            "width": 0.104657,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 14,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.8,
+            "y": 0.8,
+            "width": 0.086766,
+            "height": 0.108,
+            "rotation": 0,
+            "color": "#72c8b7",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.601583,
+            "y": 0.661951,
+            "width": 0.13,
+            "height": 0.13,
+            "rotation": 0,
+            "color": "#efc5d0",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 29,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-mosaic-b76bb67e",
+      "seed": "evolvera:phase-1:2",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Mosaik / Raster; Hintergrund #e7eafb, 37 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "mosaic",
+        "background": "#e7eafb",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.111932,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.22,
+            "y": 0.08,
+            "width": 0.12496,
+            "height": 0.126,
+            "rotation": 15,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 20,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.36,
+            "y": 0.08,
+            "width": 0.11328,
+            "height": 0.126,
+            "rotation": -15,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.5,
+            "y": 0.08,
+            "width": 0.113373,
+            "height": 0.126,
+            "rotation": -15,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.64,
+            "y": 0.08,
+            "width": 0.125697,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.78,
+            "y": 0.08,
+            "width": 0.117528,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.22,
+            "width": 0.101482,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 23,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.22,
+            "y": 0.22,
+            "width": 0.111753,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.36,
+            "y": 0.22,
+            "width": 0.109665,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 21,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.5,
+            "y": 0.22,
+            "width": 0.117389,
+            "height": 0.126,
+            "rotation": 15,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.64,
+            "y": 0.22,
+            "width": 0.122057,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.78,
+            "y": 0.22,
+            "width": 0.103678,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 21,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.36,
+            "width": 0.120114,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.22,
+            "y": 0.36,
+            "width": 0.110341,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 22,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.36,
+            "y": 0.36,
+            "width": 0.118177,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.5,
+            "y": 0.36,
+            "width": 0.11102,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 12,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.64,
+            "y": 0.36,
+            "width": 0.117269,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.78,
+            "y": 0.36,
+            "width": 0.113625,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 12,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.5,
+            "width": 0.124774,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 21,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.22,
+            "y": 0.5,
+            "width": 0.113982,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.36,
+            "y": 0.5,
+            "width": 0.122465,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 29,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.5,
+            "y": 0.5,
+            "width": 0.116902,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 25,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.64,
+            "y": 0.5,
+            "width": 0.113206,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 31,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.78,
+            "y": 0.5,
+            "width": 0.1142,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 15,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.08,
+            "y": 0.64,
+            "width": 0.110521,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 30,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.22,
+            "y": 0.64,
+            "width": 0.105083,
+            "height": 0.126,
+            "rotation": 15,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 28,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.36,
+            "y": 0.64,
+            "width": 0.118608,
+            "height": 0.126,
+            "rotation": 15,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 15,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.5,
+            "y": 0.64,
+            "width": 0.114294,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.64,
+            "y": 0.64,
+            "width": 0.123797,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.78,
+            "y": 0.64,
+            "width": 0.10468,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 28,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.78,
+            "width": 0.119857,
+            "height": 0.126,
+            "rotation": 15,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 20,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.22,
+            "y": 0.78,
+            "width": 0.105851,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 23,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.36,
+            "y": 0.78,
+            "width": 0.120552,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.5,
+            "y": 0.78,
+            "width": 0.109696,
+            "height": 0.126,
+            "rotation": -15,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 29,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.64,
+            "y": 0.78,
+            "width": 0.127437,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 31,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.78,
+            "y": 0.78,
+            "width": 0.106616,
+            "height": 0.126,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 14,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.628322,
+            "y": 0.524636,
+            "width": 0.13,
+            "height": 0.13,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-mosaic-b86bb811",
+      "seed": "evolvera:phase-1:3",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Mosaik / Raster; Hintergrund #eac3af, 26 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "mosaic",
+        "background": "#eac3af",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.136043,
+            "height": 0.1512,
+            "rotation": 15,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.248,
+            "y": 0.08,
+            "width": 0.133485,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.08,
+            "width": 0.124271,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 20,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.08,
+            "width": 0.129331,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 21,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.752,
+            "y": 0.08,
+            "width": 0.151661,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.08,
+            "y": 0.248,
+            "width": 0.125311,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.248,
+            "y": 0.248,
+            "width": 0.131408,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 32,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.416,
+            "y": 0.248,
+            "width": 0.144187,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.248,
+            "width": 0.11993,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#a13458",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.752,
+            "y": 0.248,
+            "width": 0.135872,
+            "height": 0.1512,
+            "rotation": 30,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.416,
+            "width": 0.147872,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#a13458",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.248,
+            "y": 0.416,
+            "width": 0.124832,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.416,
+            "width": 0.128341,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.416,
+            "width": 0.138952,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 29,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.752,
+            "y": 0.416,
+            "width": 0.13584,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.584,
+            "width": 0.15247,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.248,
+            "y": 0.584,
+            "width": 0.125675,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 21,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.416,
+            "y": 0.584,
+            "width": 0.136626,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 20,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.584,
+            "width": 0.140538,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.752,
+            "y": 0.584,
+            "width": 0.131649,
+            "height": 0.1512,
+            "rotation": 30,
+            "color": "#1b5c48",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 19,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.752,
+            "width": 0.119846,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 27,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.248,
+            "y": 0.752,
+            "width": 0.126241,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#a13458",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 35,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.752,
+            "width": 0.150369,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 32,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.584,
+            "y": 0.752,
+            "width": 0.138238,
+            "height": 0.1512,
+            "rotation": 15,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.752,
+            "y": 0.752,
+            "width": 0.136897,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#642c2e",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 18,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.553028,
+            "y": 0.543987,
+            "width": 0.13,
+            "height": 0.13,
+            "rotation": 0,
+            "color": "#3240a2",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 56,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "schemaVersion": 1,
+      "kind": "preview",
+      "id": "preview-mosaic-b96bb9a4",
+      "seed": "evolvera:phase-1:4",
+      "generatorVersion": "0.1.0",
+      "rendererVersion": "1",
+      "retry": 0,
+      "description": "Mosaik / Raster; Hintergrund #e7eafb, 26 Formen. Mit dezenter Bewegung.",
+      "dna": {
+        "family": "mosaic",
+        "background": "#e7eafb",
+        "elements": [
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.08,
+            "width": 0.142398,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.248,
+            "y": 0.08,
+            "width": 0.122043,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 17,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.08,
+            "width": 0.123741,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.584,
+            "y": 0.08,
+            "width": 0.130166,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.752,
+            "y": 0.08,
+            "width": 0.132144,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.248,
+            "width": 0.135481,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.248,
+            "y": 0.248,
+            "width": 0.122241,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 25,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.248,
+            "width": 0.135236,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.584,
+            "y": 0.248,
+            "width": 0.137023,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 28,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.752,
+            "y": 0.248,
+            "width": 0.129867,
+            "height": 0.1512,
+            "rotation": 15,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 34,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.416,
+            "width": 0.132214,
+            "height": 0.1512,
+            "rotation": 30,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.248,
+            "y": 0.416,
+            "width": 0.139681,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 33,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.416,
+            "width": 0.125938,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 32,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.416,
+            "width": 0.151383,
+            "height": 0.1512,
+            "rotation": 15,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 13,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.752,
+            "y": 0.416,
+            "width": 0.122345,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 25,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.584,
+            "width": 0.136113,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#3c47b4",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 24,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.248,
+            "y": 0.584,
+            "width": 0.122685,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.416,
+            "y": 0.584,
+            "width": 0.131834,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 12,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.584,
+            "width": 0.154176,
+            "height": 0.1512,
+            "rotation": 30,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 26,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.752,
+            "y": 0.584,
+            "width": 0.129607,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 15,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.08,
+            "y": 0.752,
+            "width": 0.122671,
+            "height": 0.1512,
+            "rotation": -15,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 16,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.248,
+            "y": 0.752,
+            "width": 0.118293,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 14,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.416,
+            "y": 0.752,
+            "width": 0.135138,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#ba4528",
+            "opacity": 1,
+            "motion": {
+              "kind": "pulse",
+              "durationSeconds": 19,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "rectangle",
+            "x": 0.584,
+            "y": 0.752,
+            "width": 0.137799,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 31,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.752,
+            "y": 0.752,
+            "width": 0.128966,
+            "height": 0.1512,
+            "rotation": 0,
+            "color": "#1d3831",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 30,
+              "amplitude": 0.08
+            }
+          },
+          {
+            "kind": "circle",
+            "x": 0.566001,
+            "y": 0.554167,
+            "width": 0.13,
+            "height": 0.13,
+            "rotation": 0,
+            "color": "#923257",
+            "opacity": 1,
+            "motion": {
+              "kind": "static",
+              "durationSeconds": 43,
+              "amplitude": 0
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -416,7 +416,7 @@ footer .footer-brand {
 .skip-link:focus {
   top: 12px;
 }
-@media (max-width: 850px) {
+@media (max-width: 1000px) {
   .site-header .desktop-navigation {
     display: none;
   }
@@ -529,5 +529,176 @@ footer .footer-brand {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+.atelier-notice {
+  font:
+    11px/1.7 'Courier New',
+    monospace;
+  color: var(--accent);
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-bottom: 36px;
+  max-width: 90ch;
+}
+.atelier-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+  gap: 6vw;
+}
+.atelier-main {
+  margin: 0;
+  min-width: 0;
+  max-width: 720px;
+}
+.atelier-main figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 18px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.atelier-main figcaption strong {
+  font-size: 16px;
+  font-weight: 500;
+}
+.atelier-main figcaption > span {
+  font:
+    11px/1.7 'Courier New',
+    monospace;
+}
+.art-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  font:
+    10px/1.5 'Courier New',
+    monospace;
+}
+.art-controls button {
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.atelier-tools h2 {
+  font-size: clamp(24px, 3vw, 40px);
+}
+.atelier-tools > p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+.atelier-tools form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+.atelier-tools label {
+  font:
+    10px 'Courier New',
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.atelier-tools input,
+.atelier-tools select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--border);
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    14px Arial,
+    sans-serif;
+  padding: 12px;
+  border-radius: 0;
+}
+.atelier-tools input:focus-visible,
+.atelier-tools select:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.atelier-tools form > button {
+  cursor: pointer;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.atelier-gallery {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink);
+}
+.atelier-gallery-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.atelier-gallery-heading p {
+  font:
+    10px/1.7 'Courier New',
+    monospace;
+  color: var(--muted);
+}
+.study-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 24px;
+}
+.study-card {
+  display: block;
+  text-align: left;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  min-width: 0;
+  cursor: pointer;
+}
+.study-card[aria-pressed='true'] {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+.study-card-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+@media (max-width: 1000px) {
+  .atelier-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .atelier-main {
+    max-width: 720px;
+    width: 100%;
+  }
+  .atelier-tools {
+    max-width: 680px;
+  }
+}
+@media (max-width: 600px) {
+  .study-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 16px;
+  }
+  .atelier-gallery-heading {
+    display: block;
+  }
+  .atelier-gallery-heading h2 {
+    margin-bottom: 10px;
   }
 }

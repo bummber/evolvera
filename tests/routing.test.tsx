@@ -29,6 +29,7 @@ describe('Hash-Routing der lokalen Vorschau', () => {
   it.each([
     ['#/', 'Form wird Zukunft.'],
     ['#/galerie', 'Galerie'],
+    ['#/atelier', 'Testatelier'],
     ['#/evolution', 'Evolution'],
     ['#/ueber', 'Über Evolvera'],
     ['#/einstellungen', 'Einstellungen'],

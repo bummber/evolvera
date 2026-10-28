@@ -38,14 +38,14 @@ const expectedIndex = works
   .map(({ id, generation, title }) => ({ id, generation, title }));
 if (JSON.stringify(index.works) !== JSON.stringify(expectedIndex))
   throw new Error('Index entspricht nicht dem Archiv (neueste Werke zuerst).');
-// Phase 0 safeguard, deliberately removed only with an explicitly approved later phase.
+// Series safeguard remains in Phase 1; only separate preview fixtures may be generated.
 if (
   settings.seriesStartDate !== null ||
   settings.generationEnabled ||
   works.length !== 0
 ) {
   throw new Error(
-    'Phase 0: Serienstart, offizielle Generierung und offizielles Archiv müssen deaktiviert/leer bleiben.',
+    'Vor Serienfreigabe: Serienstart, offizielle Generierung und offizielles Archiv müssen deaktiviert/leer bleiben.',
   );
 }
 console.log(

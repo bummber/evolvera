@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 import {
   Link,
@@ -12,12 +12,15 @@ import { modeLabels, workDateSchema } from '../art/schema/config';
 import { initialSettings } from '../operator/settings';
 import { useArchive } from './useArchive';
 
+const Atelier = lazy(() => import('./Atelier'));
+
 const navigation = [
   ['/', 'Heute'],
   ['/galerie', 'Galerie'],
   ['/evolution', 'Evolution'],
   ['/ueber', 'Über Evolvera'],
   ['/einstellungen', 'Einstellungen'],
+  ['/atelier', 'Testatelier'],
 ] as const;
 
 function Page({
@@ -116,6 +119,9 @@ function Today() {
             </Link>
             <Link className="text-link" to="/ueber">
               Das Prinzip
+            </Link>
+            <Link className="text-link" to="/atelier">
+              Zum Testatelier ↗
             </Link>
           </div>
         </div>
@@ -240,9 +246,10 @@ function About() {
         <section>
           <h2>Stand dieser Vorschau</h2>
           <p>
-            Dies ist das lokale Grundgerüst aus Phase 0. Kunstgenerator,
-            Renderer, Titelgenerator, Betreiberanmeldung und täglicher Betrieb
-            folgen später. Erst nach ausdrücklicher Abnahme von 30–50 separaten
+            Dies ist die lokale Vorschau. Im getrennten Testatelier stehen erste
+            unabhängige Studien mit HTML-/CSS-Renderer bereit. Evolution,
+            Titelgenerator, Betreiberanmeldung und täglicher Betrieb folgen
+            später. Erst nach ausdrücklicher Abnahme von 30–50 separaten
             Testwerken beider Modi beginnt die offizielle Serie.
           </p>
         </section>
@@ -331,7 +338,7 @@ export function App() {
   const mobileMenu = useRef<HTMLDetailsElement>(null);
   useEffect(() => {
     const heading = main.current?.querySelector('h1');
-    document.title = `${heading?.textContent ?? 'Evolvera'} · Evolvera Vorschau`;
+    document.title = `${heading?.textContent ?? navigation.find(([path]) => path === location.pathname)?.[1] ?? 'Evolvera'} · Evolvera Vorschau`;
     if (previous.current !== location.pathname) {
       main.current?.focus();
       window.scrollTo?.(0, 0);
@@ -341,7 +348,7 @@ export function App() {
   return (
     <div className="page">
       <div className="preview-bar">
-        <span>Lokale Vorschau · Phase 0</span>
+        <span>Lokale Vorschau · Phase 1</span>
         <span>HTML + CSS / Serie noch nicht gestartet</span>
       </div>
       <div className="site-shell">
@@ -402,6 +409,16 @@ export function App() {
         <main id="main-content" tabIndex={-1} ref={main}>
           <Routes>
             <Route path="/" element={<Today />} />
+            <Route
+              path="/atelier"
+              element={
+                <Suspense
+                  fallback={<p role="status">Testatelier wird geladen …</p>}
+                >
+                  <Atelier />
+                </Suspense>
+              }
+            />
             <Route path="/galerie" element={<Gallery />} />
             <Route path="/evolution" element={<Evolution />} />
             <Route path="/werk/:date" element={<WorkDetail />} />

@@ -1,94 +1,77 @@
-# Evolvera – Übergabe für die nächste Sitzung
+# Evolvera – aktueller Übergabestand
 
-Stand: 27.10.2026. Diese Notiz dient dem Wiedereinstieg und erteilt keine Freigabe
-für eine weitere Phase oder Veröffentlichung. Aktueller Nutzerauftrag hat Vorrang.
+Stand: 28.10.2026. Aktueller Betreiberauftrag hat Vorrang. Diese Notiz ist keine
+Freigabe für weitere Phasen, Veröffentlichung oder offizielle Generierung.
 
-## Aktualisierung am 28.10.2026 – Designvergleich
+## Projekt und Entscheidungen
 
-Der Betreiber hat drei separate lokale Designrichtungen zur Auswahl beauftragt.
-Sie sind unter `/evolvera/design-concepts/index.html` erreichbar. Die bestehende
-Shell ist erhalten; Richtung A wurde am 28.10.2026 vom Betreiber ausgewählt und in die Phase-0-Shell übernommen. Details
-und aktuelle Prüfungen: `docs/design-review.md`.
+- Projektordner `/Users/abrocker/ai_o_projects/evolvera/`, Branch `main`.
+- Bestehendes Remote `https://github.com/bummber/evolvera.git`; zuletzt privat und
+  leer geprüft. Nichts gepusht oder veröffentlicht; vor Änderungen erneut prüfen.
+- Fachliche Quelle: `docs/PRD.md` v1.1, unverändert übernommen. Rootdatei v1.0 ist
+  historisch. Verbindliche Projektregeln stehen in `AGENTS.md`.
+- Phase 0 lokal implementiert (`59d05ed`), Übergabe (`45d8486`). Nach gemeinsamer
+  Sichtung wurde Richtung A gewählt und übernommen (`b1a6750`): Kunstmagazin,
+  Papiergrund, große Grotesktypografie, Zinnoberrot und mobiles Aufklappmenü.
+- Anschließend bat der Betreiber um Weiterarbeit. Das nächste lokale Arbeitspaket,
+  Phase 1 gemäß PRD, wurde umgesetzt. Phase 2 ist noch nicht begonnen.
 
-Aktuell sind `npm run check` mit 39 Tests und alle acht Playwright-
-Browserfälle (einschließlich Mobilmenü und Escape) erfolgreich. Playwright wurde mit freigegebenem Browserstart außerhalb
-der Sandbox ausgeführt. Die unten genannte Blockade beschreibt den vorherigen
-Stand vom 27.10.2026. Die Konzeptansichten wurden zusätzlich bei 320 CSS-Pixeln
-geprüft. Nächster Schritt: Die übernommene Richtung A gemeinsam sichten und bei Bedarf verfeinern.
-Phase 1, Push, Deployment und offizielle Generierung sind weiterhin nicht freigegeben.
+## Jetzt vorhanden
 
-## Projekt und Ausgangspunkt
+Öffentliche Shell: Heute, Galerie, Evolution, Werkdetails, Über und Einstellungen;
+Hash-Routing mit Basis `/evolvera/`. Weiterhin leerer offizieller Index und ehrliche
+Leer-/Fehlerzustände, keine echte Anmeldung.
 
-- Projektordner: `/Users/abrocker/ai_o_projects/evolvera/`.
-- Vorhandenes Remote: `https://github.com/bummber/evolvera.git`, zuletzt privat und
-  leer geprüft. Kein Push, kein Deployment und keine externe Registrierung erfolgt.
-- Phase 0 ist lokal als Commit `59d05ed` umgesetzt. Diese Übergabenotiz wird in einem
-  separaten Dokumentationscommit ergänzt. Zu Beginn den aktuellen Git-Stand prüfen.
-- Fachliche Quelle: `docs/PRD.md`, Version 1.1. Die erhaltene Rootdatei v1.0 ist
-  historisch. Projektregeln stehen in `AGENTS.md`.
+Neu in Phase 1: `#/atelier` mit zwölf getrennt gespeicherten unabhängigen Studien
+in drei Familien (Geometrie, Farbfeld, Mosaik), Seed-Eingabe, deterministischem
+PRNG und Renderer V1. Nur HTML/CSS, gemeinsame 1000er-Kunstfläche, maximal 50 Formen,
+feste Ruhevorschauen, Animation nur im Hauptwerk mit Pause und Reduced-Motion-
+Berücksichtigung. Das Atelier zählt noch nicht zur Kunstabnahme beider Modi.
 
-## Was lokal vorliegt
+Preview-DNA liegt in `fixtures/preview/phase-1.json`, niemals in `public/artworks`.
+Generator, Renderer, Titelvertrag, Archiv, UI und Betreiberfunktion bleiben getrennt.
+Details und tatsächliche Ergebnisse: `docs/phase-1-results.md`. Die Phase-0- und
+Designberichte sind historische Zwischenstände, keine aktuellen Einschränkungen.
 
-React/Vite/TypeScript-Grundgerüst mit mobile-first Layout, Hash-Routing für Heute,
-Galerie, Evolution, Werkdetails, Über Evolvera und Einstellungen. Projektbasis ist
-`/evolvera/`. Versionierte Zod-Schemata für Werke, konkrete Herkunftsbelege und
-Konfiguration; getrennte Modulverträge für Generator, Titel und Renderer.
-Architektur der späteren Betreiberfunktion ist dokumentiert, nicht implementiert.
+## Aktuelle Prüfung
 
-Node 24.21.0, npm-Lockfile, Lint, Formatierung, Typprüfung, Tests und vorbereitete,
-gegen Veröffentlichung gesperrte Pages-Konfiguration sind vorhanden.
+`npm run check` erfolgreich mit 55 Tests, Lint, Typprüfung, Format, Daten-/Fixture-
+Validierung und Build. 14 Playwright-Fälle erfolgreich (Desktop/Mobil), einschließlich
+sechs gesichteter Rendererreferenzen. Breiter Generatortest mit 300 Seed-/Familien-
+Kombinationen. Chromium wurde mit freigegebenem Browserstart außerhalb der Sandbox
+geprüft; die alte Blockade vom 27.10.2026 ist für diesen Stand aufgehoben.
 
-## Tatsächliche Prüfungen
+Linux-Remote-CI, Safari/Firefox, echte mobile Geräte und GPU-/FPS-Profiling sind noch
+nicht geprüft. Keine echte Betreiberanmeldung, kein Hosting-/Cloudflare-Ende-zu-Ende-Test.
 
-Installation, Devserver, Produktionsbuild und `npm run check` erfolgreich;
-39 Vitest-Tests bestanden. Im integrierten Browser sind Navigation, Direktlinks,
-Tastaturzugang und die Darstellung bei 320 CSS-Pixeln geprüft.
+## Unverändert gesperrt
 
-`npm run test:browser` wurde versucht, aber die sechs Playwright-Fälle wurden beim
-Chromium-Start von der macOS-Sandbox blockiert. Kein erfolgreicher automatischer
-Browserlauf und keine ausgeführte Remote-CI. Details: `docs/phase-0-results.md`.
-Die lokalen Prüfserver wurden am Sitzungsende beendet.
+Startdatum `null`, `generationEnabled: false`, Standard `traceable`, Revision 1,
+offizielles Archiv leer. Keine Evolution, keine generierten poetischen Titel, kein
+Scheduler oder offizieller Generierungsbefehl. Keine Geheimnisse ins Frontend/Chat.
+Historische Werke niemals still neu generieren oder überschreiben.
 
-## Weiterhin geltende Grenzen
+Push, öffentliche Repositorysichtbarkeit, Pages, Cloudflare, GitHub App und
+serverseitige Secrets bleiben spätere externe Schritte. Die offizielle Serie darf
+erst nach ausdrücklicher Abnahme von 30–50 getrennten Testwerken beider Modi und
+bewusster Festlegung des Startdatums aktiviert werden.
 
-- `seriesStartDate: null`, `generationEnabled: false`, Standardmodus `traceable`,
-  Einstellungsrevision 1, offizielles Archiv leer.
-- Keine vollständige Kunstgenerierung, kein Renderer, keine Evolution, keine echte
-  Anmeldung und keine tägliche Automatisierung implementiert. Phase 1 nicht begonnen.
-- Kunst ausschließlich HTML/CSS, ohne SVG, Canvas, WebGL oder Bilddateien.
-- Bestehende Werke erhalten; Einstellungen wirken nur auf den nächsten noch nicht
-  begonnenen Lauf. Keine Geheimnisse ins Frontend oder in den Chat.
-- Vor Serienstart 30–50 getrennte Testwerke beider Modi ausdrücklich abnehmen lassen.
-- Push, öffentliche Sichtbarkeit, Pages-Veröffentlichung und Cloudflare-/GitHub-App-
-  Einrichtung sind weiterhin separat freizugebende spätere Schritte.
+## Nächster abgegrenzter Schritt
 
-## Nächster abgegrenzter Auftrag
+Testatelier gemeinsam sichten. Danach Phase 2 getrennt beauftragen: unabhängige
+Ursprungswerke, anschließende Evolution aus zwei unmittelbaren Eltern, beide Modi,
+belegbare Vererbungsentscheidungen und deterministische poetische Titel.
 
-Zuerst die lokale Phase-0-Vorschau gemeinsam mit dem Betreiber sichten und die
-blockierten Browserfälle in einer geeigneten Umgebung nachprüfen. Noch keine
-weitere Phase, keinen Push und keine Veröffentlichung automatisch starten.
+Zum Wiedereinstieg zuerst `AGENTS.md`, diese Notiz, `docs/PRD.md`,
+`docs/phase-1-results.md` und `docs/architecture.md` lesen. Aktuellen Git-Stand prüfen,
+Node 24 gemäß `.nvmrc` verwenden. Bei fehlenden Abhängigkeiten `npm ci`; bei
+Cache-Sandboxproblemen `npm ci --cache /tmp/evolvera-npm-cache`.
+`npm run dev` startet normalerweise unter `http://127.0.0.1:5173/evolvera/`.
+Das Atelier liegt unter `http://127.0.0.1:5173/evolvera/#/atelier`.
 
-Zum Wiedereinstieg:
+## Kopierbare Startnachricht
 
-1. `AGENTS.md`, diese Notiz, `docs/PRD.md`, `docs/architecture.md` und
-   `docs/phase-0-results.md` lesen; Dateien und Git-Stand erneut prüfen.
-2. Node-Version gemäß `.nvmrc` verwenden. Falls Abhängigkeiten fehlen:
-   `npm ci` (bei Cache-Sandboxproblemen `npm ci --cache /tmp/evolvera-npm-cache`).
-3. Für die gemeinsame Sichtung `npm run dev` starten und die ausgegebene Adresse
-   unter `/evolvera/` öffnen. Aktuelle Ergebnisse von früheren Prüfungen unterscheiden.
-4. Nach der Sichtung über den separat freizugebenden nächsten Schritt entscheiden.
-   Ein öffentliches Shell-Testdeployment startet keine offizielle Kunstserie.
-
-Späteres Phase-1-Paket: PRNG, mindestens drei Kunstfamilien und versionierter
-HTML-/CSS-Renderer mit reproduzierbarem Ruhezustand, getrennt vom offiziellen Archiv.
-Das ist eine Vorschau auf den späteren Umfang, kein aktueller Implementierungsauftrag.
-
-## Startnachricht für einen neuen Chat
-
-> Wir setzen Evolvera im vorhandenen Ordner
-> `/Users/abrocker/ai_o_projects/evolvera/` fort. Lies zuerst `AGENTS.md`,
-> `docs/HANDOFF.md`, `docs/PRD.md`, `docs/architecture.md` und
-> `docs/phase-0-results.md`. Prüfe den aktuellen Git-Stand. Heute möchte ich zunächst
-> Phase 0 gemeinsam sichten und die offenen Browserprüfungen klären. Starte dafür
-> die lokale Vorschau. Beginne Phase 1 noch nicht; nichts pushen, veröffentlichen,
-> an der Repositorysichtbarkeit ändern oder offiziell generieren.
+> Wir setzen Evolvera im vorhandenen Projektordner fort. Lies `AGENTS.md`,
+> `docs/HANDOFF.md`, `docs/PRD.md` und `docs/phase-1-results.md`. Prüfe den aktuellen
+> Git-Stand und starte das lokale Testatelier. Wir sehen uns zuerst Phase 1 an.
+> Phase 2 noch nicht beginnen; nichts pushen, veröffentlichen oder offiziell generieren.

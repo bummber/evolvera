@@ -6,5 +6,4 @@ export type RendererRequest = Readonly<{
   motion: 'paused' | 'playing';
 }>;
 export const SUPPORTED_RENDERER_VERSION = '1';
-// Reserved contract, no artwork renderer yet. Phase 1 must isolate styles,
-// scale every visual measure together and define a deterministic visible rest state.
+// Renderer V1 is implemented in ArtRenderer.tsx. Evolution and official runs remain disabled.
