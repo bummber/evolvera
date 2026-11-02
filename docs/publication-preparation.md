@@ -23,6 +23,10 @@ Anbieterinformationen werden erst beim Aufruf des Links geladen.
 GitHub-/Cloudflare-Betreiberanmeldung ist extern weiterhin nicht eingerichtet. Die
 Texte versprechen keinen aktiven Login und behandeln diese zukünftige Verarbeitung
 nicht als bereits vorhanden. Vor Aktivierung braucht sie konkrete ergänzte Hinweise.
+Die [Einrichtungsvorlage](operator-setup.md) und der separate
+[Datenschutzentwurf zur Anmeldung](operator-privacy-draft.md) bereiten dies lokal vor.
+Sie sind keine aktualisierte öffentliche Datenschutzerklärung und keine Durchsicht
+des neuen Prüfumfangs. Die bestehende Veröffentlichungssperre bleibt erhalten.
 
 ## Durchsicht und Veröffentlichung
 

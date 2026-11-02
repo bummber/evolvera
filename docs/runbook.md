@@ -7,12 +7,16 @@ Live: https://bummber.github.io/evolvera/ — [Deploymentbericht](first-pages-de
 `PAGES_DEPLOYMENT_ENABLED=true`, tägliche Automatisierung weiterhin aus.
 Siehe [Veröffentlichungsvorbereitung](publication-preparation.md). Vor Pages zusätzlich
 `npm run check:publication` ausführen; fehlende Textdurchsicht oder noch nicht
-abgedeckte Betreiberanmeldung verhindern Upload. Der folgende Stand vom 28.10.
-dokumentiert die ursprüngliche Einrichtungsvorbereitung.
+abgedeckte Betreiberanmeldung verhindern Upload. Die Galerie ist veröffentlicht;
+die Betreiberfunktion bleibt lokal implementiert und extern nicht eingerichtet.
+Die 40 Testwerke sind abgenommen, keine offizielle Serie. Historische Daten und
+Generator 0.2.0 bleiben erhalten.
 
-Stand: 28.10.2026. Lokale Phase 4; **nicht veröffentlicht, nicht eingerichtet,
-keine offizielle Serie**. Die 40 Testwerke sind ausdrücklich abgenommen.
-Historische Daten und Generator 0.2.0 bleiben erhalten.
+Zusatzstand 02.11.: Der Betreiber hat ein Cloudflare-Konto angelegt; die getrennte
+Codex-MCP-Verbindung mit drei Basisrechten funktioniert nach Neustart. Vier Werkzeuge
+lesend erfolgreich geprüft, ein Konto gefunden. Das aktiviert keine Evolvera-Anmeldung.
+Konkreter Workers-Tarif, Worker-Origin, GitHub App und Deployment bleiben offen.
+Details und nächster Schritt im [Übergabestand](HANDOFF.md).
 
 ## Lokal prüfen
 
@@ -41,45 +45,47 @@ begrenzt; lokal kein vorgesehener Schreibbefehl.
 
 ## Externe Einrichtung – noch nicht ausgeführt
 
-Diese Schritte benötigen einen separaten Betreiberauftrag. Keine Secrets im Chat.
+Konkrete Werte, Rechte, Grenzen und Freigabereihenfolge stehen in der
+[Einrichtungsvorlage vom 02.11.2026](operator-setup.md). Sie ist keine Beauftragung.
+Keine Konten, Apps, zusätzlichen Rechte, Secrets oder Deployments ohne den konkreten
+Betreiberauftrag einrichten. Keine Secrets im Chat.
 
-1. Bestehendes `bummber/evolvera` für das erste öffentliche Testdeployment öffentlich
-   schalten und den ersten Push ausdrücklich freigeben. Pages aus Actions, Environment
-   `github-pages`, Branchschutz/erforderliche Freigaben und rechtliche Angaben klären.
-   Die URL `https://bummber.github.io/evolvera/` ist eine Zieladresse, keine bestätigte Live-URL.
-2. Cloudflare-Konto/Tarif prüfen. Workers Free und SQLite-Durable-Objects sind vorgesehen;
-   kein kostenpflichtiger Tarifwechsel. Aktuelle Limits vor Aktivierung nochmals prüfen.
-   Worker `evolvera-admin` mit SQLite-Binding `SESSIONS` und Migration `v1` einrichten.
-   `workers_dev:false`/`preview_urls:false` verhindern einen versehentlichen Standardhost;
-   erst eine bewusst freigegebene HTTPS-Route oder workers.dev-Adresse konfigurieren.
-3. GitHub App im bestehenden Betreiberkonto anlegen, Installation nur auf
-   `bummber/evolvera`. Repository Contents read/write und erforderliche Metadaten;
-   keine Administration, Workflows oder pauschale Installation auf allen Repositories.
-   Numerische Betreiber-ID und richtige Installation verifizieren. Loginname allein genügt nicht.
-4. Callback **exakt** `https://<Worker-Origin>/auth/callback`, Startseite `/settings`.
-   Login/Callback/Moduswahl bleiben per Top-Level-Navigation auf derselben Worker-Origin.
-   Kein iframe, keine Besucheranmeldung und keine Drittanbieter-Cookies.
-5. Nichtgeheime Worker-Variablen: `ADMIN_ORIGIN` (HTTPS-Origin ohne abschließenden Slash),
-   `OWNER_ID`, `GITHUB_CLIENT_ID`, `GITHUB_APP_ID`, `GITHUB_INSTALLATION_ID`.
-   Secrets ausschließlich mit sicherer Cloudflare-Secreteingabe:
-   `GITHUB_CLIENT_SECRET`, `GITHUB_PRIVATE_KEY_PKCS8`. Nicht in `.env`/Git/VITE-Variablen
-   oder Konsolenargumenten ablegen. Ein lokales `.dev.vars` bleibt ignoriert.
-6. GitHub stellt gegebenenfalls einen PKCS#1-Schlüssel bereit. Für WebCrypto ist
-   unverschlüsseltes PKCS#8 nötig. Nur in einem geschützten lokalen Verzeichnis
-   mit restriktiven Rechten konvertieren, z. B. `umask 077` und
+1. Cloudflare-Konto, Workers Free und gewünschte HTTPS-Origin bestätigen. Vorgeschlagen:
+   `https://evolvera-admin.<bestätigte-account-subdomain>.workers.dev`. Noch nicht eingerichtet.
+   SQLite-Binding `SESSIONS`, Klasse `Sessions`, Migration `v1` sind lokal vorbereitet;
+   keine zusätzliche D1-/KV-Datenbank nötig. `workers_dev:false`/`preview_urls:false`
+   bleiben bis zum entsprechenden Auftrag bestehen.
+2. GitHub App nur im Betreiberkonto und nur auf `bummber/evolvera` installieren.
+   Contents read/write und erforderliche Metadaten genügen. Keine weiteren Rechte.
+   Contents gilt auf Repositoryebene; nur der Worker begrenzt auf den festen
+   Konfigurationspfad. Betreiber-ID `46008719` wurde lesend verifiziert und ist vor
+   Hinterlegung mit dem angemeldeten Konto abzugleichen.
+3. Callback exakt `<ADMIN_ORIGIN>/auth/callback`, Oberfläche `/settings`. Login,
+   Callback und Moduswahl als Top-Level-Navigation auf derselben Worker-Origin.
+   Nichtgeheime Variablen: `ADMIN_ORIGIN`, `OWNER_ID`, `GITHUB_CLIENT_ID`,
+   `GITHUB_APP_ID`, `GITHUB_INSTALLATION_ID`. Geheim: `GITHUB_CLIENT_SECRET` und
+   `GITHUB_PRIVATE_KEY_PKCS8`, ausschließlich serverseitig in Cloudflare-Secrets.
+4. GitHub stellt gegebenenfalls PKCS#1 bereit. WebCrypto braucht unverschlüsseltes
+   PKCS#8. Nur geschützt lokal mit restriktiven Rechten konvertieren, z. B.
+   `umask 077` und
    `openssl pkcs8 -topk8 -nocrypt -in <geschützte-Eingabe.pem> -out <geschützte-Ausgabe.pem>`.
-   Inhalt weder anzeigen noch in den Chat kopieren. Anschließend über das Secret-Prompt
-   setzen; lokale Schlüssel geschützt verwahren bzw. gemäß Betreiberverfahren entfernen.
-7. Erst nach realer Prüfung `ENABLED=true` setzen und die echte öffentliche Worker-Origin
-   in `config/operator.json` eintragen. Der Galerie-Link führt nur zur Betreiberseite;
-   keine Tokens oder Cookies werden aus dem Frontend übertragen.
-8. Echtes GitHub-/Cloudflare-Ende-zu-Ende prüfen: nur Betreiber, Fremdkonto abgewiesen,
-   PKCE/State/Callback, Ablauf und Logout, exakte Origin/CSRF, Speicherkonflikt und
-   tatsächlich verifizierter Git-Commit. Drittanbieter-Cookies blockieren und denselben
-   Ablauf erneut prüfen. Ohne diese Tests ist der lokale Mock-Test keine Live-Abnahme.
-9. Für das öffentliche Vorschau-Deployment `PAGES_DEPLOYMENT_ENABLED=true` bewusst als
-   Repositoryvariable freigeben; manueller Workflow mit `deploy=true`. Serienstart bleibt aus.
-   Automatisierte Push-/Schedule-Veröffentlichung ist erst mit dieser Variable möglich.
+   Inhalt weder anzeigen noch in Chat, Git, Logs, Frontend oder Konsolenargumente
+   übernehmen. Sichere Secret-Eingabe erst mit Auftrag; **`wrangler secret put` und
+   `secret delete` deployen unmittelbar**. Das ist ebenfalls freigabepflichtig.
+5. Vor Aktivierung [Datenschutzentwurf](operator-privacy-draft.md) vervollständigen,
+   Hinweise auf Galerie und Worker vor Login erreichbar machen, Publikationsprüfung
+   erweitern und separate Textdurchsicht bestätigen lassen. Der bisherige
+   `pages-only`-Prüfumfang genügt nicht. Die Pages-Prüfung sperrt keinen direkten
+   Worker-Deploy; dafür ist die Freigabe unabhängig erforderlich.
+6. Erst nach konkretem Deployment-/Aktivierungsauftrag `ENABLED=true` setzen.
+   Echtes Ende-zu-Ende prüfen: Betreiber/Fremdkonto, PKCE/State, Ablauf und Logout,
+   Origin/CSRF, Konflikt und Commitverifikation, auch mit blockierten Drittanbieter-Cookies.
+   Der Galerie-Link darf bis zur geprüften Veröffentlichung noch deaktiviert bleiben.
+   Ein realer Login ist bei `ENABLED=false` nicht möglich; `/health` ist kein Auth-Nachweis.
+7. Echte Moduscommits auf `main` und Push des Galerie-Links lösen bei aktueller
+   Pages-Variable Veröffentlichung aus. Deshalb konkrete Speichertests und Push samt
+   Datenschutzänderungen vorher beauftragen lassen. Der bereits lokale Dokumentations-
+   commit gehört zum späteren Pushumfang. Serienstart und Automatisierung bleiben aus.
 
 ## Offizielle Serie – gesonderte Aktivierung
 
@@ -139,7 +145,9 @@ Teildaten zu archivieren. Historische Renderer/Generatorversionen erhalten.
 
 ## Verifizierte Anbietergrundlagen
 
-Am 28.10.2026 erneut gelesen; bei externer Einrichtung nochmals prüfen:
+Grundlagen vom 28.10.2026; am 02.11.2026 zusätzlich aktuelle Auth-, Tarif-, Rollen-,
+Routing- und Secretregeln für die [Einrichtungsvorlage](operator-setup.md) gelesen.
+Bei tatsächlicher Einrichtung Konto/Tarif und Zustimmungsumfang erneut prüfen:
 
 - [GitHub-App-Login mit PKCE](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app)
 - [GitHub Contents API und SHA](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents)
