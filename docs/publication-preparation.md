@@ -1,6 +1,7 @@
 # Öffentliche Vorschau – Betreiberangaben und Datenschutz
 
-Stand: 02.11.2026. Lokale Vorbereitung; kein Website-Deployment beauftragt oder ausgeführt.
+Stand: 02.11.2026. Die Angaben wurden bestätigt; anschließend wurden Push und erstes
+Pages-Testdeployment ausdrücklich freigegeben. Die Durchführung wird gesondert geprüft.
 
 ## Festgelegt und umgesetzt
 
@@ -24,9 +25,10 @@ nicht als bereits vorhanden. Vor Aktivierung braucht sie konkrete ergänzte Hinw
 
 ## Durchsicht und Veröffentlichung
 
-`reviewedOn` bleibt **null**. Das ist eine tatsächliche noch offene Textdurchsicht,
-keine automatisierte rechtliche Freigabe. Der lokale Aufbau zeigt deshalb einen
-Entwurfshinweis. Vor einem Pages-Testdeployment:
+Die bestätigten Angaben und der anschließend erteilte Veröffentlichungsauftrag sind
+mit `reviewedOn:2026-11-02` dokumentiert. Dies ist keine anwaltliche oder automatisierte
+rechtliche Freigabe. Der Entwurfshinweis entfällt. Die folgende Liste dokumentiert die
+vorbereitenden Schritte; Push/erstes Deployment sind inzwischen beauftragt:
 
 1. Betreiber prüft Schreibweise und Anschrift sowie die Hinweise zu Hosting, Kontakt,
    Löschung und Rechten. Rechtsgrundlage/Anbieterrollen anhand des konkreten Betriebs
@@ -50,8 +52,8 @@ möglich. Bei später gesetzter Betreiber-Origin verlangt die Prüfung zunächst
 Erweiterung der Datenschutzinformationen und des zugehörigen Prüfumfangs. Sie
 bescheinigt keine rechtliche Vollständigkeit und ersetzt keinen Betreiberauftrag.
 
-Der aktuelle App-Text „Lokale Vorschau“ wird erst mit einem konkreten Deploymentauftrag
-an den dann tatsächlichen Veröffentlichungsstand angepasst.
+Mit dem konkreten Deploymentauftrag ist die App nun als „Testversion“ beschriftet.
+Dies funktioniert lokal und öffentlich; es behauptet keinen offiziellen Serienstart.
 
 ## Tatsächlich geprüft
 
@@ -60,10 +62,10 @@ an den dann tatsächlichen Veröffentlichungsstand angepasst.
 - `npm run test:browser`: **32 Fälle**, Desktop/320px Chromium, inklusive Direktlinks,
   Footer, Kontaktlink, Fokus, Layout und fehlenden automatischen Fremdabrufen.
   Die sechs bestehenden Kunstreferenzen unverändert erfolgreich.
-- `npm run check:publication`: erwartungsgemäß Exit 1, ausschließlich die noch offene
-  Textdurchsicht gemeldet. Kein vermeintlich erfolgreicher Veröffentlichungscheck.
+- `npm run check:publication` vor Freigabe: erwartungsgemäß Exit 1, ausschließlich die
+  noch offene Textdurchsicht gemeldet. Die erneute Prüfung nach Freigabe folgt.
 - Beide Seiten zusätzlich im lokalen In-App-Browser geöffnet und sichtbar geprüft.
-- Kein Push dieser Änderungen, kein Pages- oder Worker-Deployment, keine Anmeldung,
+- Bis zur ersten Freigabe kein Push dieser Änderungen, kein Pages- oder Worker-Deployment, keine Anmeldung,
   keine offizielle Generierung. Worker-/Sitzungsimplementierung unverändert; deren
   Laufzeittest in diesem Arbeitspaket nicht erneut ausgeführt.
 

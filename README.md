@@ -1,9 +1,9 @@
 # Evolvera
 
-Vor der ersten Website-Veröffentlichung: Die lokalen Seiten `#/impressum` und
-`#/datenschutz` durchsehen, öffentliche Betreiberangaben in `config/legal.json`
-prüfen und `npm run check:publication` ausführen. Der aktuelle Entwurf ist noch
-nicht zur Veröffentlichung freigegeben. Siehe [Vorbereitung](docs/publication-preparation.md).
+Vor Website-Veröffentlichungen: `#/impressum` und `#/datenschutz` sowie die öffentlichen
+Betreiberangaben in `config/legal.json` prüfen und `npm run check:publication`
+ausführen. Die Angaben und das erste Pages-Testdeployment wurden am 02.11.2026
+ausdrücklich freigegeben; Durchführung und Ergebnis siehe [Vorbereitung](docs/publication-preparation.md).
 
 Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand: Phase 4 lokal implementiert; externe Einrichtung und Serienstart offen.**
 Designrichtung A (experimentelles Kunstmagazin) ist gewählt und übernommen.

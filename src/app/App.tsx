@@ -84,13 +84,13 @@ function About() {
         <section>
           <h2>Stand dieser Vorschau</h2>
           <p>
-            Dies ist die lokale Vorschau. Im getrennten Testatelier stehen erste
-            unabhängige Studien mit HTML-/CSS-Renderer bereit. Die getrennte
-            Testsammlung zeigt 40 Werke in beiden Modi mit Galerie,
+            Dies ist die Testversion von Evolvera. Im getrennten Testatelier
+            stehen erste unabhängige Studien mit HTML-/CSS-Renderer bereit. Die
+            getrennte Testsammlung zeigt 40 Werke in beiden Modi mit Galerie,
             Herkunftsvergleich und poetischen Titeln. Die 40 Testwerke sind
             abgenommen. Betreiberfunktion und Tageslauf sind lokal vorbereitet;
-            echte Anmeldung, Veröffentlichung und Serienstart sind noch nicht
-            freigegeben.
+            die Betreiberanmeldung ist noch nicht eingerichtet. Die offizielle
+            Kunstserie ist noch nicht gestartet.
           </p>
         </section>
       </div>
@@ -204,7 +204,7 @@ export function App() {
         <span>
           {initialSettings.generationEnabled
             ? 'Evolvera · Täglich neu'
-            : 'Lokale Vorschau · Phase 4'}
+            : 'Evolvera · Testversion'}
         </span>
         <span>
           {initialSettings.generationEnabled

@@ -119,6 +119,12 @@ Details und Quellen: [Vorbereitung der Veröffentlichung](publication-preparatio
 die konkreten beiden Seiten durchsehen lassen und danach Push/Pages-Testdeployment
 beauftragen. EP-01 bleibt zurückgestellt.
 
+Später am 02.11.2026: Betreiber hat die Angaben bestätigt und anschließend ausdrücklich
+den Push der vorbereiteten Änderungen samt erstem Pages-Testdeployment freigegeben.
+`reviewedOn` auf den 02.11. gesetzt; App wird „Testversion“ statt „Lokale Vorschau“.
+Ausführung/Live-Verifikation folgen im aktuellen Arbeitspaket. Betreiberanmeldung,
+Cloudflare-Einrichtung und offizielle Generierung bleiben davon unabhängig aus.
+
 Prüfung des Dokumentationsstands am 29.10.2026: `npm run check` erfolgreich,
 einschließlich 122 Tests, Daten-/Vorschauprüfung, Build und lokalem Worker-Dry-Run.
 Ein erster Lauf stoppte an der Sandbox-IPC-Beschränkung von `tsx`; Wiederholung
