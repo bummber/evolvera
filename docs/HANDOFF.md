@@ -106,6 +106,19 @@ Veröffentlichung der Website ist nicht von der Sichtbarkeitsfreigabe umfasst.
 Cloudflare/App-/Secret-Einrichtung bleibt separat offen. Die frühere
 Unterbrechungsnotiz unten beschreibt den Stand vom 28.10., nicht den heutigen Stand.
 
+Anschließend hat der Betreiber Deutschland, Kunst ohne Einnahmen und ausdrücklich
+die öffentlichen Kontaktangaben übermittelt. Lokale Seiten `#/impressum` und
+`#/datenschutz` mit Footerlinks erstellt; zentrale Angaben in `config/legal.json`.
+`reviewedOn:null`: Textdurchsicht und erster Pages-Auftrag bleiben offen.
+`npm run check:publication` hält den Upload entsprechend zurück; im Pages-Workflow
+vor Schreib-/Build-/Uploadschritten verankert. Keine Betreiber-/Seriengates verändert.
+Prüfungen: `npm run check` mit **131 Tests**, `npm run test:browser` mit **32 Fällen**
+erfolgreich. Veröffentlichungstest erwartungsgemäß abgewiesen wegen offener Durchsicht.
+Details und Quellen: [Vorbereitung der Veröffentlichung](publication-preparation.md).
+Änderungen nur lokal; kein weiterer Push, keine öffentliche Website. Als Nächstes
+die konkreten beiden Seiten durchsehen lassen und danach Push/Pages-Testdeployment
+beauftragen. EP-01 bleibt zurückgestellt.
+
 Prüfung des Dokumentationsstands am 29.10.2026: `npm run check` erfolgreich,
 einschließlich 122 Tests, Daten-/Vorschauprüfung, Build und lokalem Worker-Dry-Run.
 Ein erster Lauf stoppte an der Sandbox-IPC-Beschränkung von `tsx`; Wiederholung

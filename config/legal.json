@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "country": "DE",
+  "purpose": "noncommercial-art",
+  "fullName": "Alexander Brocker",
+  "email": "evolvera.kontakt@proton.me",
+  "address": {
+    "street": "Lüderitzstr. 3",
+    "postalCode": "66123",
+    "city": "Saarbrücken"
+  },
+  "privacyScope": "pages-only",
+  "reviewedOn": null
+}

@@ -38,6 +38,8 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - name: Check public contact details and reviewed privacy scope
+        run: npm run check:publication
       - run: npm run format:check && npm run lint && npm run typecheck && npm test
       - name: Archive due days with one immutable settings snapshot
         if: ${{ vars.EVOLVERA_AUTOMATION_ENABLED == 'true' }}

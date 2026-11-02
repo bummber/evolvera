@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import legal from '../../config/legal.json' with { type: 'json' };
 test.beforeEach(async ({ page }) => {
   await page.route('**/artworks/index.json', (route) =>
     route.fulfill({ json: { schemaVersion: 1, works: [] } }),
@@ -21,6 +22,8 @@ test('Projektbasis, JSON, alle Direktlinks und mobile Breite funktionieren', asy
     ['#/evolution', 'Evolution'],
     ['#/ueber', 'Über Evolvera'],
     ['#/einstellungen', 'Einstellungen'],
+    ['#/impressum', 'Impressum'],
+    ['#/datenschutz', 'Datenschutz'],
     ['#/werk/2026-10-27', 'Werk noch nicht vorhanden'],
     ['#/werk/2026-02-30', 'Ungültige Werkadresse'],
     ['#/unbekannt', 'Diese Seite gibt es nicht.'],
@@ -61,6 +64,38 @@ test('Archivfehler erscheinen als Fehler, nicht als leere Galerie', async ({
   await expect(page.getByRole('alert')).toContainText(
     'Archiv gerade nicht verfügbar',
   );
+});
+
+test('Footer erschließt Impressum und Datenschutz ohne externe Ressourcen', async ({
+  page,
+}) => {
+  const externalRequests: string[] = [];
+  page.on('request', (request) => {
+    if (new URL(request.url()).origin !== 'http://127.0.0.1:4173')
+      externalRequests.push(request.url());
+  });
+  await page.goto('./');
+  const footer = page.getByRole('navigation', {
+    name: 'Rechtliche Informationen',
+  });
+  await footer.getByRole('link', { name: 'Impressum', exact: true }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Impressum', exact: true }),
+  ).toBeVisible();
+  await expect(page.getByRole('main')).toBeFocused();
+  await expect(page.locator('address')).toContainText(legal.fullName);
+  await expect(page.locator('address a')).toHaveAttribute(
+    'href',
+    `mailto:${legal.email}`,
+  );
+  await footer.getByRole('link', { name: 'Datenschutz', exact: true }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Datenschutz', exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Bereitstellung über GitHub Pages' }),
+  ).toBeVisible();
+  expect(externalRequests).toEqual([]);
 });
 
 test('Tastatur, aktiver Navigationspunkt und ruhige HTML-/CSS-Shell', async ({

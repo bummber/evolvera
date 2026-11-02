@@ -1,5 +1,13 @@
 # Betrieb und spätere Einrichtung
 
+Aktualisierung 02.11.2026: Erster Push und GitHub-CI erfolgreich, Repository danach
+auf separaten Auftrag öffentlich geschaltet. Noch kein Website-Deployment.
+Impressum und Datenschutzhinweise sind lokal vorbereitet, Durchsicht offen:
+[Veröffentlichungsvorbereitung](publication-preparation.md). Vor Pages zusätzlich
+`npm run check:publication` ausführen; fehlende Textdurchsicht oder noch nicht
+abgedeckte Betreiberanmeldung verhindern Upload. Der folgende Stand vom 28.10.
+dokumentiert die ursprüngliche Einrichtungsvorbereitung.
+
 Stand: 28.10.2026. Lokale Phase 4; **nicht veröffentlicht, nicht eingerichtet,
 keine offizielle Serie**. Die 40 Testwerke sind ausdrücklich abgenommen.
 Historische Daten und Generator 0.2.0 bleiben erhalten.

@@ -10,6 +10,7 @@ const ArchivePage = lazy(() => import('./ArchivePages'));
 const ArtReview = lazy(() => import('./ArtReview'));
 const Atelier = lazy(() => import('./Atelier'));
 const EvolutionLab = lazy(() => import('./EvolutionLab'));
+const LegalPages = lazy(() => import('./LegalPages'));
 
 const navigation = [
   ['/', 'Heute'],
@@ -308,6 +309,14 @@ export function App() {
               <Route path="/kunstpruefung" element={<ArtReview />} />
               <Route path="/ueber" element={<About />} />
               <Route path="/einstellungen" element={<Settings />} />
+              <Route
+                path="/impressum"
+                element={<LegalPages view="imprint" />}
+              />
+              <Route
+                path="/datenschutz"
+                element={<LegalPages view="privacy" />}
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
@@ -315,6 +324,13 @@ export function App() {
         <footer>
           <p className="footer-brand">evolvera.</p>
           <p>Ein Experiment mit offenem Ausgang.</p>
+          <nav
+            className="legal-navigation"
+            aria-label="Rechtliche Informationen"
+          >
+            <Link to="/impressum">Impressum</Link>
+            <Link to="/datenschutz">Datenschutz</Link>
+          </nav>
           <p>
             {initialSettings.generationEnabled
               ? 'HTML + CSS · Fortlaufende Serie'

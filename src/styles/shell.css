@@ -404,6 +404,37 @@ footer .footer-brand {
   font-size: 26px;
   letter-spacing: -1.5px;
 }
+.legal-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-size: 12px;
+}
+.legal-navigation a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+.legal-contact {
+  display: grid;
+  gap: 6px;
+  font-style: normal;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.legal-contact a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+}
+.legal-reading p + p {
+  margin-top: 16px;
+}
+.legal-reading a {
+  overflow-wrap: anywhere;
+}
 .skip-link {
   position: fixed;
   top: -100px;

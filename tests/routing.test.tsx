@@ -38,6 +38,8 @@ describe('Hash-Routing der lokalen Vorschau', () => {
     ['#/evolution', 'Evolution'],
     ['#/ueber', 'Über Evolvera'],
     ['#/einstellungen', 'Einstellungen'],
+    ['#/impressum', 'Impressum'],
+    ['#/datenschutz', 'Datenschutz'],
     ['#/werk/2026-10-27', 'Werk noch nicht vorhanden'],
     ['#/werk/2026-02-30', 'Ungültige Werkadresse'],
     ['#/falsch', 'Diese Seite gibt es nicht.'],

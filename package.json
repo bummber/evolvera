@@ -18,6 +18,7 @@
     "test:watch": "vitest",
     "test:browser": "playwright test",
     "validate:data": "tsx scripts/validate-data.ts && tsx scripts/preview-fixtures.ts && tsx scripts/evolution-fixtures.ts && tsx scripts/review-fixtures.ts",
+    "check:publication": "tsx scripts/check-publication.ts",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run worker:check",
     "generate:daily": "tsx scripts/generate-daily.ts",
     "worker:check": "WRANGLER_SEND_METRICS=false wrangler deploy --dry-run --config workers/admin/wrangler.jsonc --outdir ../../.worker-build",
