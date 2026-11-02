@@ -8,7 +8,9 @@ Stand: 02.11.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgese
 - Projekt `/Users/abrocker/ai_o_projects/evolvera/`, Branch `main`, bestehendes
   `origin` `https://github.com/bummber/evolvera.git`. Erster Push von `main` am
   02.11.2026 ausdrücklich freigegeben und ausgeführt: `3cb99b7`. Remote danach
-  weiterhin privat, `main` eingerichtet. Kein Deployment oder Sichtbarkeitswechsel.
+  weiterhin privat, `main` eingerichtet. Anschließend am 02.11.2026 öffentliche
+  Sichtbarkeit separat ausdrücklich freigegeben und auf GitHub als PUBLIC verifiziert.
+  Kein Website-Deployment; keine Generierung aktiviert.
 - Quelle `docs/PRD.md` v1.1 unverändert; Root-v1.0 historisch. `AGENTS.md` beachten.
 - Historie: Phase 0 `59d05ed`, Übergabe `45d8486`, Design A `b1a6750`, Phase 1 `0fcd7c8`,
   Phase 2 `b589c84`, Phase 3 `97e9c0a`, lokale Phase 4 `e033043`.
@@ -95,11 +97,13 @@ serverseitige Secrets. Registrierung, Sicherheitsberechtigungen und Veröffentli
 als konkrete Betreiberaktionen behandeln. Serienstartdatum und Aktivierung nochmals
 separat bestimmen. Phase 5 nicht begonnen; Varianz-Folgeprojekt nicht beginnen.
 
-Fortschritt 02.11.2026: Der separat freigegebene erste private Push samt CI ist
-abgeschlossen. Als Nächstes öffentliche Sichtbarkeit und Pages-Testdeployment konkret
-besprechen; die Freigabe für den privaten Push deckt diese Aktionen nicht ab.
-Dabei werden bei öffentlichem Repository auch Quellcode, Dokumentation und Git-Historie
-sichtbar. Cloudflare/App-/Secret-Einrichtung bleibt separat offen. Die frühere
+Fortschritt 02.11.2026: Erster privater Push samt CI abgeschlossen; danach das
+Repository auf separaten ausdrücklichen Auftrag öffentlich geschaltet. Quellcode,
+Dokumentation, Git-Historie und Actions-Protokolle sind öffentlich sichtbar.
+Repositoryvariablen für Pages/Automatisierung weiterhin nicht gesetzt. Als Nächstes
+Betreiber-/Datenschutzhinweise und konkretes Pages-Testdeployment besprechen;
+Veröffentlichung der Website ist nicht von der Sichtbarkeitsfreigabe umfasst.
+Cloudflare/App-/Secret-Einrichtung bleibt separat offen. Die frühere
 Unterbrechungsnotiz unten beschreibt den Stand vom 28.10., nicht den heutigen Stand.
 
 Prüfung des Dokumentationsstands am 29.10.2026: `npm run check` erfolgreich,
