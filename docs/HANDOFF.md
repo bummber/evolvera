@@ -1,13 +1,14 @@
 # Evolvera – aktueller Übergabestand
 
-Stand: 29.10.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgesetzt;
+Stand: 02.11.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgesetzt;
 **externe Einrichtung und echte Phase-4-Abnahme noch offen**. Kein offizieller Start.
 
 ## Entscheidungen und Git
 
 - Projekt `/Users/abrocker/ai_o_projects/evolvera/`, Branch `main`, bestehendes
-  `origin` `https://github.com/bummber/evolvera.git`. Bisher kein Push, Deployment oder
-  Sichtbarkeitswechsel. Remote am 28.10.2026 erneut nur lesend verifiziert: privat und leer.
+  `origin` `https://github.com/bummber/evolvera.git`. Erster Push von `main` am
+  02.11.2026 ausdrücklich freigegeben und ausgeführt: `3cb99b7`. Remote danach
+  weiterhin privat, `main` eingerichtet. Kein Deployment oder Sichtbarkeitswechsel.
 - Quelle `docs/PRD.md` v1.1 unverändert; Root-v1.0 historisch. `AGENTS.md` beachten.
 - Historie: Phase 0 `59d05ed`, Übergabe `45d8486`, Design A `b1a6750`, Phase 1 `0fcd7c8`,
   Phase 2 `b589c84`, Phase 3 `97e9c0a`, lokale Phase 4 `e033043`.
@@ -56,8 +57,18 @@ Tages-Dry-Run: deaktiviert, null neue/restaurierte/offizielle Werke; keine Schre
 Wrangler 4.154.0 neue exakt gepinnte Dev-Abhängigkeit, Lockfile aktualisiert. Keine neue
 Frontend-Produktionsabhängigkeit; Cloudflare-CLI-Telemetrie in Projektbefehlen aus.
 
-Offen: echte GitHub-/Cloudflare-/Pages-Prüfungen, blockierte Drittanbieter-Cookies in
-realem Login, GitHub-Workflow/Permissions/Trigger, Linux-CI, Safari/Firefox, physische
+Am 02.11.2026 vor Push erneut lokal `npm run check`, `npm run test:browser` und
+`npm run worker:test-runtime` erfolgreich. Erster echter GitHub-CI-Lauf für `3cb99b7`
+erfolgreich: [Actions 41518420550](https://github.com/bummber/evolvera/actions/runs/41518420550),
+einschließlich Installation, Qualitätsprüfungen, Worker-Laufzeit und Browsertests auf
+Linux. Pages-/Archivworkflow [41518420624](https://github.com/bummber/evolvera/actions/runs/41518420624)
+korrekt übersprungen. Keine Repositoryvariablen gesetzt; keine Generierung/Veröffentlichung.
+Begrenzte lokale Musterprüfung der 179 historischen Git-Blobs fand nur private-key-
+Marker in Validator und synthetischem Testcode, keine vollständigen PEM-Blöcke oder
+Treffer der geprüften Tokenmuster. Das ist kein umfassendes Secret-Audit.
+
+Offen: echte GitHub-App-/Cloudflare-/Pages-Prüfungen, blockierte Drittanbieter-Cookies in
+realem Login, Pages-/Archivworkflow/Permissions/Schedule, Safari/Firefox, physische
 Geräte und GPU-/FPS-Profiling. Kein `actionlint` installiert. Lokale Prüfungen sind keine
 Cloud-Abnahme. Grenzen und Quellen in `docs/phase-4-results.md` und `docs/runbook.md`.
 
@@ -83,6 +94,13 @@ Pages, Cloudflare-Worker/SQLite, eingeschränkte GitHub App, numerische ID, Call
 serverseitige Secrets. Registrierung, Sicherheitsberechtigungen und Veröffentlichung
 als konkrete Betreiberaktionen behandeln. Serienstartdatum und Aktivierung nochmals
 separat bestimmen. Phase 5 nicht begonnen; Varianz-Folgeprojekt nicht beginnen.
+
+Fortschritt 02.11.2026: Der separat freigegebene erste private Push samt CI ist
+abgeschlossen. Als Nächstes öffentliche Sichtbarkeit und Pages-Testdeployment konkret
+besprechen; die Freigabe für den privaten Push deckt diese Aktionen nicht ab.
+Dabei werden bei öffentlichem Repository auch Quellcode, Dokumentation und Git-Historie
+sichtbar. Cloudflare/App-/Secret-Einrichtung bleibt separat offen. Die frühere
+Unterbrechungsnotiz unten beschreibt den Stand vom 28.10., nicht den heutigen Stand.
 
 Prüfung des Dokumentationsstands am 29.10.2026: `npm run check` erfolgreich,
 einschließlich 122 Tests, Daten-/Vorschauprüfung, Build und lokalem Worker-Dry-Run.
