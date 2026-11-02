@@ -1,7 +1,8 @@
 # Öffentliche Vorschau – Betreiberangaben und Datenschutz
 
 Stand: 02.11.2026. Die Angaben wurden bestätigt; anschließend wurden Push und erstes
-Pages-Testdeployment ausdrücklich freigegeben. Die Durchführung wird gesondert geprüft.
+Pages-Testdeployment ausdrücklich freigegeben und erfolgreich durchgeführt.
+Live: https://bummber.github.io/evolvera/ — [Deploymentbericht](first-pages-deployment.md).
 
 ## Festgelegt und umgesetzt
 
@@ -63,7 +64,7 @@ Dies funktioniert lokal und öffentlich; es behauptet keinen offiziellen Seriens
   Footer, Kontaktlink, Fokus, Layout und fehlenden automatischen Fremdabrufen.
   Die sechs bestehenden Kunstreferenzen unverändert erfolgreich.
 - `npm run check:publication` vor Freigabe: erwartungsgemäß Exit 1, ausschließlich die
-  noch offene Textdurchsicht gemeldet. Die erneute Prüfung nach Freigabe folgt.
+  noch offene Textdurchsicht gemeldet. Nach Freigabe erfolgreich, lokal und im Pages-Lauf.
 - Beide Seiten zusätzlich im lokalen In-App-Browser geöffnet und sichtbar geprüft.
 - Bis zur ersten Freigabe kein Push dieser Änderungen, kein Pages- oder Worker-Deployment, keine Anmeldung,
   keine offizielle Generierung. Worker-/Sitzungsimplementierung unverändert; deren

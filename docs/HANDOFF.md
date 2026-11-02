@@ -1,160 +1,116 @@
 # Evolvera – aktueller Übergabestand
 
-Stand: 02.11.2026. Aktueller Betreiberauftrag hat Vorrang. Lokale Phase 4 umgesetzt;
-**externe Einrichtung und echte Phase-4-Abnahme noch offen**. Kein offizieller Start.
+Stand: 02.11.2026. Aktueller Betreiberauftrag hat Vorrang. Die öffentliche
+**Pages-Testversion ist veröffentlicht und geprüft**. Betreiberanmeldung und
+Cloudflare-Einrichtung sind noch offen. Kein offizieller Serienstart.
 
-## Entscheidungen und Git
+## Öffentliche Vorschau und Git
 
-- Projekt `/Users/abrocker/ai_o_projects/evolvera/`, Branch `main`, bestehendes
-  `origin` `https://github.com/bummber/evolvera.git`. Erster Push von `main` am
-  02.11.2026 ausdrücklich freigegeben und ausgeführt: `3cb99b7`. Remote danach
-  weiterhin privat, `main` eingerichtet. Anschließend am 02.11.2026 öffentliche
-  Sichtbarkeit separat ausdrücklich freigegeben und auf GitHub als PUBLIC verifiziert.
-  Kein Website-Deployment; keine Generierung aktiviert.
-- Quelle `docs/PRD.md` v1.1 unverändert; Root-v1.0 historisch. `AGENTS.md` beachten.
-- Historie: Phase 0 `59d05ed`, Übergabe `45d8486`, Design A `b1a6750`, Phase 1 `0fcd7c8`,
-  Phase 2 `b589c84`, Phase 3 `97e9c0a`, lokale Phase 4 `e033043`.
-  Vor Änderungen aktuellen Git-Stand prüfen.
-- Betreiber hat Phase 4 beauftragt und ausdrücklich erklärt: **„Die 40 Testwerke sind
-  abgenommen“**. In `config/release.json` und `docs/art-review.md` dokumentiert, inklusive
-  Versionen/Referenz-Digests. Keine stellvertretende Abnahme; Smartphoneprüfung auf
-  physischen Geräten wurde damit nicht als ausgeführt behauptet.
-- Spätere weitere Serie mit mehr Varianz, Farbverläufen, Linien/Kurven gewünscht;
-  ausdrücklich vertagt, separater Folgeauftrag in `docs/future-series.md`. Aktuelle
-  Generatoren/Renderer und alle Testwerke erhalten. Keine solche neue Serie begonnen.
+- Live: https://bummber.github.io/evolvera/
+- 40 getrennte Testwerke: https://bummber.github.io/evolvera/#/kunstpruefung
+- Bestehender Ordner `/Users/abrocker/ai_o_projects/evolvera/`, Branch `main`,
+  `origin` `https://github.com/bummber/evolvera.git`. Repository öffentlich.
+- Veröffentlichter Commit: `9ad1fa797210680e4348e2da5c487c2b37037960`.
+- [Normale GitHub-CI erfolgreich](https://github.com/bummber/evolvera/actions/runs/41524513299).
+- [Erstes Pages-Deployment erfolgreich](https://github.com/bummber/evolvera/actions/runs/41524588435),
+  inklusive Build, Tests, Upload, Prüfung des aktuellen Commits und Deploy.
+- Pages-Quelle `workflow`, HTTPS erzwungen. `PAGES_DEPLOYMENT_ENABLED=true` gesetzt.
+  Dadurch sind künftige freigegebene Pushes auf `main` auch Veröffentlichungsvorgänge.
+  `EVOLVERA_AUTOMATION_ENABLED` nicht gesetzt, geplante Tagesläufe bleiben aus.
+- Der aktuelle Dokumentationsnachtrag wird nur lokal gesichert; kein zweiter
+  identischer Pages-Lauf allein für den Abschlussbericht. Git vor Folgearbeit prüfen.
+- Unversionierte `docs/PRD_v1.1_backup.md` ist identisch mit `docs/PRD.md` und wurde
+  erhalten; nicht still in einen Commit aufnehmen.
 
-## Lokal nutzbar
+## Betreiberentscheidungen und Quellen
 
-Galerie mit Suche und Pagination, Heute, Werkdetails, Herkunftsvergleich sowie Eltern/
-Nachfolger. `#/kunstpruefung`: 40 abgenommene Testwerke, 20 je Modus. Bisherige 20
-unverändert; `phase-3.json` enthält nur Ergänzungen. Simulierte Januar-2000-Metadaten,
-nie offizielles Archiv. Hash-Query `sammlung=traceable|free`, sonst offizieller Leerbereich.
-`#/atelier` und `#/evolutionslabor` bleiben vorhanden. Kunst ausschließlich HTML/CSS.
+Quelle bleibt `docs/PRD.md` v1.1; Root-v1.0 historisch. `AGENTS.md` beachten.
+Design A ist ausgewählt. Die 40 bisherigen Testwerke beider Modi sind ausdrücklich
+abgenommen; Versionen/Digests in `config/release.json` und `docs/art-review.md`.
 
-Neu: `workers/admin` implementiert GitHub-App-Login mit PKCE/State, numerischer Betreiber-ID,
-serverseitiger SQLite-Sitzung, CSRF/Origin, Modus-Speicherung in Git, SHA/Revision und
-Commitverifikation, Logout. Unkonfiguriert sicher deaktiviert. Keine Login-Demo.
+Am 02.11. wurden nacheinander ausdrücklich freigegeben: erster privater Push samt
+CI, öffentliche Repositorysichtbarkeit, dann Push der Impressums-/Datenschutzseiten
+und erstes Pages-Testdeployment. Der letzte Auftrag umfasst die bestätigten Angaben
+in `config/legal.json`. Deutschland, Kunst ohne Einnahmen; Kontaktdaten nicht aus
+Profilen abgeleitet. `reviewedOn:2026-11-02`. Keine anwaltliche Rechtsprüfung behauptet;
+Erreichbarkeit des neuen E-Mail-Postfachs nicht durch Testversand des Agenten geprüft.
 
-`src/automation` und `scripts/generate-daily.ts`: reiner Tagesplan, Kalenderlogik,
-Nachholung/Snapshot, volle Historienprüfung, ursprüngliche Bytes restaurieren,
-atomarer Archivcommit, nicht erzwungener Push mit einem Konfigurations-Retry.
-Workflow vorbereitet für Generierung/Build/Deploy im selben gesperrten Lauf. Mehrere
-Datei-/Workflowgates verhindern versehentlichen Serienstart oder Veröffentlichung.
+Die neue PRD v1.2 aus dem anderen Ordner wurde ausschließlich ausgewertet. Das
+abgeleitete [Erweiterungspaket EP-01](extensions/PRD-EP01.md) bleibt für später
+vorgemerkt: höhere Varianz, Verläufe, Linien und Kurven. Nicht implementieren,
+keine neue Serie und keine Neugenerierung alter Werke. Siehe `docs/future-series.md`.
 
-Heute aktualisiert sichtbare Tabs alle 60 Sekunden und bei Fokus/Rückkehr. Archiv/
-Renderer lesen gespeicherte Daten. Aktueller Modus ändert nie historische Werke.
+## Verfügbarer Funktionsstand
 
-## Tatsächliche Prüfungen
+Heute, Galerie mit Suche/Pagination, Werkdetails, Herkunft mit tatsächlichen Eltern
+und Nachfolgern, Über-Seite, deaktivierter Betreiberzugang, Impressum und Datenschutz.
+`#/kunstpruefung` zeigt 20 Werke je Modus; `#/atelier` und `#/evolutionslabor` bleiben.
+Testdaten liegen separat, simulierte Januar-2000-Daten, nie offizielles Archiv.
+Hash-Query `sammlung=traceable|free` wählt nur die Testsammlung, keine Konfiguration.
+Kunst ausschließlich HTML/CSS, Hauptwerk mit Pause/reduzierter Bewegung, Kacheln statisch.
+Bestehende Generatoren/Renderer, Daten und sechs Kunstreferenzen unverändert erhalten.
 
-Node 24.21.0, npm 12.2.0. `npm run check`: Format, Lint, Typen, **122 Tests**, Daten/
-Referenzen, Produktionsbuild und Worker-Dry-Run erfolgreich. `npm run test:browser`:
-**30 Desktop-/320px-Chromium-Fälle**, unveränderte sechs Kunstreferenzen. Auth mit
-synthetischen GitHub-Antworten, echte isolierte lokale Git-Repositories/Bare-Remotes.
-Keine GitHub-Schreibzugriffe in Tests. 365 Testtage je Modus weiterhin enthalten.
+Worker lokal implementiert: GitHub-App-PKCE/State, feste numerische Betreiber-ID,
+SQLite-Sitzung, CSRF/Origin, Logout, eingeschränkte Git-Modusspeicherung mit
+SHA/Revision und Commitverifikation. Noch keine reale App, Secrets oder Workerroute.
 
-`npm run worker:test-runtime` prüft atomaren Callback, Sitzung und Widerruf mit echtem
-lokalem workerd/SQLite. Unkonfigurierter Worker lokal gestartet: Health korrekt 503,
-`configurationReady:false`. Eine leere Origin als Laufzeitfehler behoben und abgesichert.
-Tages-Dry-Run: deaktiviert, null neue/restaurierte/offizielle Werke; keine Schreibaktion.
-Wrangler 4.154.0 neue exakt gepinnte Dev-Abhängigkeit, Lockfile aktualisiert. Keine neue
-Frontend-Produktionsabhängigkeit; Cloudflare-CLI-Telemetrie in Projektbefehlen aus.
+Tagesplaner/Git-Adapter lokal implementiert: Berliner 04:00-Zyklus, Nachholung,
+Snapshot, unabhängige Ursprünge, ganze Historie prüfen, Originalbytes restaurieren,
+atomarer Archivcommit und begrenzter Konflikt-Retry ohne Force-Push. Heute liest
+bei Fokus/Rückkehr und in sichtbaren Tabs alle 60 Sekunden neu.
 
-Am 02.11.2026 vor Push erneut lokal `npm run check`, `npm run test:browser` und
-`npm run worker:test-runtime` erfolgreich. Erster echter GitHub-CI-Lauf für `3cb99b7`
-erfolgreich: [Actions 41518420550](https://github.com/bummber/evolvera/actions/runs/41518420550),
-einschließlich Installation, Qualitätsprüfungen, Worker-Laufzeit und Browsertests auf
-Linux. Pages-/Archivworkflow [41518420624](https://github.com/bummber/evolvera/actions/runs/41518420624)
-korrekt übersprungen. Keine Repositoryvariablen gesetzt; keine Generierung/Veröffentlichung.
-Begrenzte lokale Musterprüfung der 179 historischen Git-Blobs fand nur private-key-
-Marker in Validator und synthetischem Testcode, keine vollständigen PEM-Blöcke oder
-Treffer der geprüften Tokenmuster. Das ist kein umfassendes Secret-Audit.
+## Tatsächlich geprüfter aktueller Stand
 
-Offen: echte GitHub-App-/Cloudflare-/Pages-Prüfungen, blockierte Drittanbieter-Cookies in
-realem Login, Pages-/Archivworkflow/Permissions/Schedule, Safari/Firefox, physische
-Geräte und GPU-/FPS-Profiling. Kein `actionlint` installiert. Lokale Prüfungen sind keine
-Cloud-Abnahme. Grenzen und Quellen in `docs/phase-4-results.md` und `docs/runbook.md`.
+Node 24.21.0, npm 12.2.0. Lokal `npm run check` mit **131 Tests**, Format, Lint,
+Typen, Daten-/Vorschauprüfung, Build und Worker-Dry-Run erfolgreich.
+`npm run test:browser`: **32 Fälle** Desktop/320px Chromium, bestehende sechs
+Kunstreferenzen unverändert. `npm run check:publication` nach Freigabe erfolgreich.
 
-## Weiterhin gesperrt
+Dieselben Prüfungen einschließlich echtem workerd-/SQLite-Laufzeittest auch auf
+GitHub erfolgreich. Der Archiv-/Generierungsschritt wurde dort korrekt übersprungen.
+Frühere reine Logiktests nutzen isolierte Git-Repositories und synthetische Secrets,
+keine echten GitHub-Schreibzugriffe. 365 Testtage je Modus weiterhin enthalten.
+
+Live zusätzlich ohne Anmeldung geprüft: HTTPS/HTTP 200, HTML und initiale JS-/CSS-
+Assets bytegenau zum lokalen Build, `artworks/index.json` HTTP 200 mit richtigem
+JSON-Typ und null Werken. Im Browser Startseite, Footer/Impressum/Datenschutz,
+Testübersicht, nachvollziehbare Galerie und Werkdetails beider Modi samt Elternbelegen.
+Bei gemessenen 320 CSS-Pixeln kein horizontaler Überlauf der geprüften Werkansicht,
+keine `img`-/`svg`-/`canvas`-Knoten. Temporäre Browsergrößen zurückgesetzt.
+
+GitHub meldet eine nicht blockierende Node-20-Abkündigung innerhalb der verschachtelten
+Upload-Action; Lauf verwendet erzwungen Node 24 und ist erfolgreich. Runner-Image-Migration
+ebenfalls nur Hinweis. Keine ungeprüfte Abhängigkeitsänderung vorgenommen.
+
+## Weiterhin gesperrt und offen
 
 `seriesAuthorized:false`, Startdatum `null`, Generierung `false`, Standard `traceable`,
-Revision 1, offizieller Index leer. `config/operator.json` Origin `null`; Worker
-`ENABLED=false`, keine öffentliche Route registriert. Keine externen Konten/Apps/Secrets
-angelegt. Keine Secrets im Frontend, Git, Logs oder Chat; nicht im Chat anfordern.
+Revision 1, offizieller Index leer. Betreiber-Origin `null`, Worker `ENABLED=false`.
+Keine Cloudflare-Konto-/App-/Secretregistrierung durch uns. Keine Secrets in Frontend,
+Git, Logs oder Chat; niemals im Chat anfordern.
 
-## Nächster konkreter Schritt
+Offen: echte Betreiberanmeldung und Modusspeicherung über GitHub/Cloudflare,
+blockierte Drittanbieter-Cookies, reale Konflikt-/Sitzungstests, geplanter Tageslauf
+und Nachholung nach späterer Aktivierung. Safari/Firefox, physische Smartphones und
+GPU-/FPS-Profiling noch offen. Kein lokales `actionlint`. Keine vollständige Phase-4-
+Cloud-Abnahme, kein Phase-5-Start. Erstes Pages-Deployment ist keine Serienfreigabe.
 
-Am 29.10.2026 wurde die externe PRD v1.2 geprüft und auf ausdrücklichen Auftrag
-eine eigene Spezifikation für später abgelegt: [Erweiterungspaket EP-01](extensions/PRD-EP01.md).
-Die [Startprompts](extensions/STARTPROMPTS.md) enthalten A für den aktuellen Plan
-und B für den späteren begrenzten E0-Einstieg. Das Paket ist nicht implementiert oder
-aktiviert. `docs/PRD.md` bleibt v1.1; die bisherigen 40 Werke und ihre Abnahme bleiben
-erhalten. Die unversionierte `docs/PRD_v1.1_backup.md` ist identisch mit v1.1 und
-wurde vom Dokumentationsauftrag nicht verändert. Nächster aktiver Schritt bleibt:
+## Nächster abgegrenzter Schritt
 
-Den externen Einrichtungsplan in `docs/runbook.md` gemeinsam freigeben: Repository/
-Pages, Cloudflare-Worker/SQLite, eingeschränkte GitHub App, numerische ID, Callback und
-serverseitige Secrets. Registrierung, Sicherheitsberechtigungen und Veröffentlichung
-als konkrete Betreiberaktionen behandeln. Serienstartdatum und Aktivierung nochmals
-separat bestimmen. Phase 5 nicht begonnen; Varianz-Folgeprojekt nicht beginnen.
+Die öffentliche Vorschau gemeinsam auf echten Geräten ansehen. Anschließend die
+Cloudflare-/GitHub-App-Einrichtung konkret beauftragen: Konto/Tarif, SQLite-Binding,
+App mit minimalen Rechten nur auf `bummber/evolvera`, numerische Betreiber-ID,
+HTTPS-Origin und Callback sowie serverseitige Secrets. Details in `docs/runbook.md`.
+Vor aktivem Betreiberlink die Datenschutzinformationen und deren Prüfumfang ergänzen;
+`check:publication` verlangt dies bereits bei gesetzter Betreiber-Origin.
 
-Fortschritt 02.11.2026: Erster privater Push samt CI abgeschlossen; danach das
-Repository auf separaten ausdrücklichen Auftrag öffentlich geschaltet. Quellcode,
-Dokumentation, Git-Historie und Actions-Protokolle sind öffentlich sichtbar.
-Repositoryvariablen für Pages/Automatisierung weiterhin nicht gesetzt. Als Nächstes
-Betreiber-/Datenschutzhinweise und konkretes Pages-Testdeployment besprechen;
-Veröffentlichung der Website ist nicht von der Sichtbarkeitsfreigabe umfasst.
-Cloudflare/App-/Secret-Einrichtung bleibt separat offen. Die frühere
-Unterbrechungsnotiz unten beschreibt den Stand vom 28.10., nicht den heutigen Stand.
+Kontoregistrierung, Sicherheitsberechtigungen und konkrete externe Einrichtung nicht
+allein aus diesem Dokument ableiten. Serienstartdatum und Generierung bleiben eine
+spätere eigenständige Entscheidung. EP-01 bleibt zurückgestellt.
 
-Anschließend hat der Betreiber Deutschland, Kunst ohne Einnahmen und ausdrücklich
-die öffentlichen Kontaktangaben übermittelt. Lokale Seiten `#/impressum` und
-`#/datenschutz` mit Footerlinks erstellt; zentrale Angaben in `config/legal.json`.
-`reviewedOn:null`: Textdurchsicht und erster Pages-Auftrag bleiben offen.
-`npm run check:publication` hält den Upload entsprechend zurück; im Pages-Workflow
-vor Schreib-/Build-/Uploadschritten verankert. Keine Betreiber-/Seriengates verändert.
-Prüfungen: `npm run check` mit **131 Tests**, `npm run test:browser` mit **32 Fällen**
-erfolgreich. Veröffentlichungstest erwartungsgemäß abgewiesen wegen offener Durchsicht.
-Details und Quellen: [Vorbereitung der Veröffentlichung](publication-preparation.md).
-Änderungen nur lokal; kein weiterer Push, keine öffentliche Website. Als Nächstes
-die konkreten beiden Seiten durchsehen lassen und danach Push/Pages-Testdeployment
-beauftragen. EP-01 bleibt zurückgestellt.
+## Wiedereinstieg
 
-Später am 02.11.2026: Betreiber hat die Angaben bestätigt und anschließend ausdrücklich
-den Push der vorbereiteten Änderungen samt erstem Pages-Testdeployment freigegeben.
-`reviewedOn` auf den 02.11. gesetzt; App wird „Testversion“ statt „Lokale Vorschau“.
-Ausführung/Live-Verifikation folgen im aktuellen Arbeitspaket. Betreiberanmeldung,
-Cloudflare-Einrichtung und offizielle Generierung bleiben davon unabhängig aus.
-
-Prüfung des Dokumentationsstands am 29.10.2026: `npm run check` erfolgreich,
-einschließlich 122 Tests, Daten-/Vorschauprüfung, Build und lokalem Worker-Dry-Run.
-Ein erster Lauf stoppte an der Sandbox-IPC-Beschränkung von `tsx`; Wiederholung
-mit freigegebenem lokalem Prozesszugriff erfolgreich. Die unveränderte Backup-PRD
-und die neue Erweiterungs-PRD sind wie die bestehende PRD von automatischer
-Formatierung ausgenommen. Keine UI-/Workeränderungen; Browser-/Runtime-Tests
-deshalb nicht erneut ausgeführt. Kein Push oder Deployment.
-
-Wiedereinstieg: `AGENTS.md`, diese Notiz, `docs/PRD.md`, `docs/phase-4-results.md` und
-`docs/runbook.md` lesen. Git prüfen. Bei Bedarf `npm ci`; npm-Cache außerhalb Sandbox
-über `--cache /tmp/evolvera-npm-cache`. `npm run dev` für Galerie. Worker: `npm run
-worker:dev`, unkonfiguriert deaktiviert. `npm run generate:daily -- --dry-run` liest den
-Commitstand, keine Arbeitskopie. Niemals historische Schäden durch Neuwürfeln beheben.
-
-## Kopierbare Startnachricht
-
-> Wir setzen Evolvera im vorhandenen Projekt fort. Lies `AGENTS.md`, `docs/HANDOFF.md`,
-> `docs/PRD.md`, `docs/phase-4-results.md` und `docs/runbook.md`. Prüfe den Git-Stand.
-> Die 40 Testwerke sind abgenommen; Serienstart ist noch deaktiviert. Wir prüfen
-> gemeinsam die konkreten externen Einrichtungsschritte. Noch keine neue Serie oder
-> Phase 5 beginnen und keine Secrets im Chat anfordern.
-
-## Arbeitsunterbrechung am 28.10.2026
-
-Auf Wunsch des Betreibers ist die Arbeit für heute beendet. Geplante Fortsetzung:
-29.10.2026. Implementierung und Kunstabnahme sind lokal in `e033043` gesichert; beim
-Beginn dieser Sicherung war das Arbeitsverzeichnis sauber. Dieser Übergabevermerk
-wird zusätzlich lokal versioniert. Keine Hintergrundaufgabe oder Erinnerung beauftragt.
-
-Morgen zuerst diesen Vermerk und `docs/runbook.md` lesen, Git prüfen und bei Bedarf
-die lokale Vorschau starten. Danach den konkreten externen Einrichtungsplan gemeinsam
-besprechen. Bis zum passenden Betreiberauftrag nichts pushen, öffentlich schalten,
-registrieren oder deployen; die offizielle Serie bleibt deaktiviert.
+`AGENTS.md`, diesen Vermerk, `docs/PRD.md`, `docs/runbook.md`,
+`docs/first-pages-deployment.md` und `docs/publication-preparation.md` lesen; Git prüfen.
+Lokal `npm run dev`. `npm run generate:daily -- --dry-run` liest den Git-Commit,
+ändert weder Dateien noch Remote. Historische Schäden niemals neu auswürfeln.

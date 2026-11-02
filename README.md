@@ -1,5 +1,8 @@
 # Evolvera
 
+Öffentliche Testversion: https://bummber.github.io/evolvera/
+Die 40 Testwerke sind separat zugänglich; die offizielle Kunstserie ist noch nicht gestartet.
+
 Vor Website-Veröffentlichungen: `#/impressum` und `#/datenschutz` sowie die öffentlichen
 Betreiberangaben in `config/legal.json` prüfen und `npm run check:publication`
 ausführen. Die Angaben und das erste Pages-Testdeployment wurden am 02.11.2026
