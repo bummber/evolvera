@@ -54,9 +54,11 @@ try {
     atomicConsumeCount: 1,
     sessionSeen: true,
     sessionRevoked: true,
+    legalWithoutSession: true,
+    privacyGateClosed: true,
   });
   console.log(
-    'Lokaler workerd-/SQLite-Durable-Object-Test erfolgreich: sichere Deaktivierung, atomarer Callback, Sitzung und Widerruf.',
+    'Lokaler workerd-/SQLite-Durable-Object-Test erfolgreich: sichere Deaktivierung, atomarer Callback, Sitzung und Widerruf, öffentliche Rechtstexte und Datenschutzgate.',
   );
 } finally {
   child.kill('SIGTERM');

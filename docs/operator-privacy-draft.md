@@ -1,9 +1,35 @@
 # Betreiberanmeldung – Datenschutzvorbereitung
 
-Stand: 02.11.2026. **Technischer Textentwurf zur Durchsicht, nicht veröffentlicht
-oder abgenommen.** Die öffentliche Datenschutzerklärung und `privacyScope:pages-only`
-bleiben unverändert. Die Anmeldung ist aus. Dieser Entwurf ist kein Beleg einer
-rechtlichen Prüfung und schaltet das Veröffentlichungsgate nicht frei.
+Stand: 03.11.2026. **Textdurchsicht ausdrücklich bestätigt; Cloudflare-Vertrags-/
+Kontoprüfung noch offen, nicht veröffentlicht.** Lokal ist `privacyScope:pages-and-operator` vorbereitet. Die
+öffentliche Pages-Fassung bleibt unverändert auf dem bisherigen Remote-Stand.
+Die Anmeldung ist aus. Dieser Entwurf ist kein Beleg einer rechtlichen Prüfung
+und schaltet das Veröffentlichungsgate nicht frei.
+
+## Lokal umgesetzt am 03.11.
+
+Die Galerie zeigt unter `#/datenschutz` die ergänzten Texte zu Anmeldung, Cookies,
+Speicherung, Cloudflare und Empfängern. Der Worker liefert `/privacy` und `/imprint`
+auch ohne Anmeldung, Cookie, Secrets oder Aktivierung. Alle Worker-HTML-Seiten
+verlinken diese lokalen Rechtstext-Routen. Gemeinsamer Text in
+`src/site/operator-privacy-content.ts`; React und Worker rendern denselben Inhalt,
+der Worker maskiert sämtliche eingesetzten Daten als HTML.
+
+Die neue `config/operator-privacy.json` bindet die gesonderte Durchsicht an
+`https://evolvera-admin.alexander-brocker.workers.dev` und Textversion `2026-11-03.1`.
+Nach ausdrücklicher Bestätigung durch den Betreiber ist `reviewedOn:2026-11-03`
+und `reviewedVersion:2026-11-03.1` dokumentiert. `providerReviewedOn` bleibt **null**.
+Die Pages-Durchsicht vom 02.11. wurde nicht übernommen. Eine andere Origin oder veraltete
+Textversion sperrt ebenfalls. Bei Änderungen am geprüften Text oder Datenfluss die
+Version bewusst erhöhen und die neue Durchsicht erneut einholen.
+
+Noch zu prüfen: zum Konto gehörender Vertragspartner und wirksame Bedingungen/DPA,
+Anbieterrollen und konkrete Logging-Einstellungen vor Deployment. Die gelesene
+Textfassung wurde bestätigt; Änderungen nach der Kontoprüfung benötigen eine neue
+Textversion und Durchsicht.
+Die gelesene Self-Serve-Vereinbarung bezieht das DPA in Abschnitt 6.1 für erfasste
+personenbezogene Inhalte ein. Das ersetzt keinen Nachweis für die tatsächlichen
+Kontobedingungen dieses Projekts. Keine neue Vereinbarung angenommen.
 
 ## Datenfluss aus der vorhandenen Implementierung
 
@@ -23,9 +49,8 @@ Browser niemals Verbindungs-/Verlaufsdaten verarbeiten.
 
 ## Textbaustein für die spätere Datenschutzerklärung
 
-Nach Vervollständigung in `src/app/LegalPages.tsx` einarbeiten und auf der
-Worker-Oberfläche bereits vor `/login` verlinken. Den bisherigen Satz „derzeit nicht
-eingerichtet“ und den Stand dann passend zum tatsächlichen Betrieb aktualisieren.
+Der folgende ursprüngliche Baustein dokumentiert die Vorbereitung vom 02.11.;
+maßgeblich zur neuen Durchsicht ist die tatsächlich lokal gerenderte Fassung.
 
 > Die öffentliche Galerie bleibt ohne Anmeldung nutzbar. Nur wenn du den
 > Betreiberbereich öffnest, wird dessen Cloudflare-Worker aufgerufen. Die
@@ -34,7 +59,9 @@ eingerichtet“ und den Stand dann passend zum tatsächlichen Betrieb aktualisie
 > zukünftige Generierungen sicher zu speichern. Andere Konten werden abgewiesen.
 >
 > Der Betreiberbereich wird unter **[bestätigte Worker-Origin ergänzen]** bei
-> Cloudflare bereitgestellt. Beim Aufruf verarbeitet Cloudflare technische
+> Cloudflare bereitgestellt. Die ausgewählte Adresse ist
+> `https://evolvera-admin.alexander-brocker.workers.dev`, noch nicht bereitgestellt.
+> Beim Aufruf verarbeitet Cloudflare technische
 > Verbindungsdaten. Für die Anmeldung wirst du zu GitHub weitergeleitet. Der Worker
 > prüft die von GitHub erhaltene numerische Konto-ID. Dein GitHub-Passwort erhält
 > Evolvera nicht. GitHub-Zugriffstokens und App-Schlüssel gelangen nicht in die
@@ -76,23 +103,33 @@ eingerichtet“ und den Stand dann passend zum tatsächlichen Betrieb aktualisie
 
 ## Veröffentlichungsgate vor Aktivierung erweitern
 
-Aktuell blockiert `publicationIssues` jede gesetzte Betreiber-Origin; das ist korrekt
-und bleibt in diesem Vorbereitungspaket bestehen. Die Prüfung erfasst nur den
-Pages-Publish-Prozess, **keine direkten Worker-Deployments**. Ein nicht verlinkter,
-aktivierter Worker braucht ebenfalls die fertigen Hinweise und Freigabe.
+`publicationIssues` prüft nun den neuen Scope und dessen eigenständige Nachweise.
+`npm run check:publication` scheiterte vor der Textbestätigung an zwei offenen Punkten.
+Nach Dokumentation der Textdurchsicht bleibt die Cloudflare-Vertrags-/Kontoprüfung offen.
+Erneut tatsächlich ausgeführt: Exit 1 ausschließlich mit dieser verbleibenden Meldung.
+Bloßer Scope-Wechsel, alte Pages-Durchsicht, fehlende Angaben oder Origin-Abweichung
+genügen nicht. Auch der Worker selbst sperrt `/login` und meldet `/health` 503, wenn
+diese Nachweise fehlen, unabhängig von einem Galerie-Link und selbst bei vollständig
+gesetzten technischen Zugangswerten. Rechtstexte bleiben vor Login lesbar.
 
-Im nächsten beauftragten lokalen Paket den neuen Prüfumfang nur zusammen mit
-tatsächlich gerenderten Hinweisen einführen. Eine eigenständige, explizite
-Betreiber-Durchsicht für die Anmeldung erfassen, an die bestätigte Worker-Origin
-binden und die vorhandene Pages-Durchsicht nicht übernehmen. Fehlende Durchsicht,
-Origin-Abweichung oder bloße Scope-Umschaltung müssen das Gate weiter blockieren.
-Mit synthetischen Daten testen und UI-/Worker-Laufzeitprüfungen ausführen. Erst die
-fertige Fassung zur externen Veröffentlichung/Aktivierung vorlegen.
+Das Runtimegate verhindert keine direkten Code-Uploads: Auch ein deaktivierter
+öffentlich hochgeladener Worker würde die Rechtstexte ausliefern. Ein solcher Upload
+braucht weiterhin geprüfte Texte und einen konkreten Deploymentauftrag. Kein
+Deployment-/Freigabeersatz durch den eingebauten Aktivierungscheck.
 
-## Anbieterquellen, am 02.11.2026 gelesen
+Erfolgreich geprüft: `npm run check` mit 149 Tests, Build und Worker-Dry-Run;
+`npm run worker:test-runtime` mit echter lokaler workerd-/SQLite-Laufzeit, synthetischen
+Zugangsdaten, Rechtstexten und Datenschutzgate; `npm run test:browser` mit 35 bestandenen
+und einem bewusst übersprungenen Fall. Der zusätzliche Worker-Browserfall prüft bereits
+Desktop und 320px in einem isolierten synthetischen Lauf, deshalb keine doppelte
+Ausführung im Mobilprojekt. Bestehende sechs Kunstreferenzen unverändert erfolgreich.
+
+## Anbieterquellen, am 03.11.2026 erneut gelesen
 
 - [Cloudflare-Datenschutz, insbesondere End Users und Anbieterrollen](https://www.cloudflare.com/privacypolicy/).
 - [Cloudflare-DPA, insbesondere internationale Übermittlungen](https://www.cloudflare.com/cloudflare-customer-dpa/).
+- [Self-Serve-Vertrag, insbesondere Abschnitt 6.1](https://www.cloudflare.com/terms/).
+- [§ 25 TDDDG](https://www.gesetze-im-internet.de/ttdsg/__25.html).
 - [GitHub-User-Tokens und Ablauf](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app).
 
 Technische Zeiträume/Cookieattribute stammen aus `workers/admin/index.ts` und

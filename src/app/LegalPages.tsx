@@ -1,5 +1,7 @@
 import { legalDetails, publicationIssues } from '../site/legal';
 import { operatorSettings } from '../operator/access';
+import { operatorPrivacy } from '../site/operator-privacy';
+import { operatorPrivacySections } from '../site/operator-privacy-content';
 
 function Contact() {
   const { fullName, address, email } = legalDetails;
@@ -160,7 +162,8 @@ export default function LegalPages({ view }: { view: 'imprint' | 'privacy' }) {
                 </a>{' '}
                 zuständig. Soweit GitHub Daten in eigener Verantwortung
                 verarbeitet, findest du Kontaktmöglichkeiten und Rechte in
-                dessen Datenschutzerklärung.
+                dessen Datenschutzerklärung. Entsprechendes gilt für eigene
+                Verarbeitung von Cloudflare im Betreiberbereich.
               </p>
             </section>
             <section>
@@ -168,17 +171,39 @@ export default function LegalPages({ view }: { view: 'imprint' | 'privacy' }) {
               <p>
                 Externe Seiten werden durch Links nicht automatisch geladen.
                 Folgst du einem Link, gelten dort die Datenschutzinformationen
-                des jeweiligen Angebots. Die spätere
-                GitHub-/Cloudflare-Anmeldung ist ausschließlich für den
-                Betreiber vorgesehen und derzeit nicht eingerichtet. Vor ihrer
-                Aktivierung werden diese Hinweise um die tatsächlichen
-                Datenflüsse und Sitzungscookies ergänzt.
+                des jeweiligen Angebots. Die GitHub-/Cloudflare-Anmeldung ist
+                ausschließlich für den Betreiber vorgesehen. Die GitHub App ist
+                registriert und auf das Projekt beschränkt installiert. Der
+                Betreiberzugang ist noch deaktiviert; eine App-Installation
+                allein ermöglicht keinen Login.
               </p>
             </section>
+            {legalDetails.privacyScope === 'pages-and-operator' &&
+              operatorPrivacySections(operatorPrivacy.adminOrigin).map(
+                (section) => (
+                  <section key={section.title}>
+                    <h2>{section.title}</h2>
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                    {section.links && (
+                      <ul>
+                        {section.links.map((link) => (
+                          <li key={link.href}>
+                            <a href={link.href}>{link.label}</a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </section>
+                ),
+              )}
             <section>
               <h2>Stand</h2>
               <p>
-                2. November 2026 · öffentliche Galerie ohne Betreiberanmeldung.
+                {legalDetails.privacyScope === 'pages-and-operator'
+                  ? '3. November 2026 · Galerie und Vorbereitung der Betreiberanmeldung; Zugang noch deaktiviert.'
+                  : '2. November 2026 · öffentliche Galerie ohne Betreiberanmeldung.'}
               </p>
             </section>
           </>

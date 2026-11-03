@@ -9,6 +9,6 @@
     "postalCode": "66123",
     "city": "Saarbrücken"
   },
-  "privacyScope": "pages-only",
+  "privacyScope": "pages-and-operator",
   "reviewedOn": "2026-11-02"
 }

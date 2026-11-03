@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { legalSchema, publicationIssues } from '../src/site/legal';
+import { operatorPrivacySchema } from '../src/site/operator-privacy';
+import { readyPolicy } from './fixtures/legal';
 
 const ready = {
   schemaVersion: 1,
@@ -41,5 +43,55 @@ describe('Angaben für die Veröffentlichung', () => {
     { ...ready, extra: true },
   ])('verwirft ungültige Daten statt sie als Kontakt einzusetzen', (input) => {
     expect(legalSchema.safeParse(input).success).toBe(false);
+  });
+  it('verlangt eine eigenständige Durchsicht statt nur einen Scope-Wechsel', () => {
+    const issues = publicationIssues(readyPolicy.legal, null, {
+      ...readyPolicy.review,
+      reviewedOn: null,
+      reviewedVersion: null,
+      providerReviewedOn: null,
+    });
+    expect(issues).toEqual([
+      'Eigenständige Textdurchsicht der Betreiberanmeldung offen.',
+      'Cloudflare-Vertrag und Kontoeinstellungen noch zu prüfen.',
+    ]);
+  });
+  it('bindet die Betreiber-Durchsicht an Textfassung und exakte Origin', () => {
+    expect(
+      publicationIssues(
+        readyPolicy.legal,
+        readyPolicy.review.adminOrigin,
+        readyPolicy.review,
+      ),
+    ).toEqual([]);
+    expect(
+      publicationIssues(
+        readyPolicy.legal,
+        'https://other.example.test',
+        readyPolicy.review,
+      ),
+    ).toContain('Datenschutzdurchsicht gilt nicht für diese Betreiberadresse.');
+    expect(
+      publicationIssues(readyPolicy.legal, null, {
+        ...readyPolicy.review,
+        reviewedVersion: 'older',
+      }),
+    ).toContain('Eigenständige Textdurchsicht der Betreiberanmeldung offen.');
+  });
+  it.each([
+    { adminOrigin: 'not a url' },
+    { adminOrigin: '' },
+    { adminOrigin: 'https://admin.example.test/' },
+    { adminOrigin: 'https://user:password@admin.example.test' },
+    { adminOrigin: 'http://admin.example.test' },
+    { adminOrigin: 'https://admin.example.test/privacy' },
+    { reviewedOn: '2026-02-30' },
+    { providerReviewedOn: 'yes' },
+    { extra: true },
+  ])('verwirft ungültige Datenschutz-Einrichtungsdaten', (input) => {
+    expect(
+      operatorPrivacySchema.safeParse({ ...readyPolicy.review, ...input })
+        .success,
+    ).toBe(false);
   });
 });

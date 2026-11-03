@@ -20,13 +20,17 @@ Medieneinbettungen, Cookies und persistente Besucherspeicherung sind im geprüft
 Galeriecode nicht eingerichtet. Atelier-Eingaben bleiben im Browser. Verlinkte
 Anbieterinformationen werden erst beim Aufruf des Links geladen.
 
-GitHub-/Cloudflare-Betreiberanmeldung ist extern weiterhin nicht eingerichtet. Die
+Die GitHub App wurde am 03.11. separat beauftragt, registriert und nur auf `evolvera`
+installiert. Secrets und Worker sind weiterhin nicht eingerichtet; die Anmeldung ist aus. Die
 Texte versprechen keinen aktiven Login und behandeln diese zukünftige Verarbeitung
 nicht als bereits vorhanden. Vor Aktivierung braucht sie konkrete ergänzte Hinweise.
 Die [Einrichtungsvorlage](operator-setup.md) und der separate
 [Datenschutzentwurf zur Anmeldung](operator-privacy-draft.md) bereiten dies lokal vor.
-Sie sind keine aktualisierte öffentliche Datenschutzerklärung und keine Durchsicht
-des neuen Prüfumfangs. Die bestehende Veröffentlichungssperre bleibt erhalten.
+Am 03.11. sind die neuen Hinweise und unabhängigen Durchsichtsgates lokal umgesetzt.
+`privacyScope:pages-and-operator` ist vorbereitet. Eigene Textdurchsicht wurde am
+03.11. für die gewählte Origin und Version `2026-11-03.1` ausdrücklich bestätigt;
+Cloudflare-Vertrags-/Kontoprüfung bleibt offen. Keine Änderung der öffentlichen
+Datenschutzerklärung oder Veröffentlichungsfreigabe. Die Publikationssperre greift weiter.
 
 ## Durchsicht und Veröffentlichung
 
@@ -53,8 +57,8 @@ vorbereitenden Schritte; Push/erstes Deployment sind inzwischen beauftragt:
 `npm run check:publication` prüft streng validierte Kontaktangaben, dokumentierte
 Durchsicht und den vorgesehenen Datenschutzhinweisumfang. Im Pages-Workflow läuft
 dies vor Archivschreiben und Build/Upload. Lokale Builds und CI bleiben für Entwürfe
-möglich. Bei später gesetzter Betreiber-Origin verlangt die Prüfung zunächst die
-Erweiterung der Datenschutzinformationen und des zugehörigen Prüfumfangs. Sie
+möglich. Der neue Scope verlangt außerdem eine eigene Textdurchsicht mit passender
+Version/Origin und geprüften Cloudflare-Kontobedingungen. Sie
 bescheinigt keine rechtliche Vollständigkeit und ersetzt keinen Betreiberauftrag.
 
 Mit dem konkreten Deploymentauftrag ist die App nun als „Testversion“ beschriftet.

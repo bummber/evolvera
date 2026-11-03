@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { beforeAll, beforeEach, afterEach, expect, it, vi } from 'vitest';
-import worker from '../workers/admin';
+import { createWorker } from '../workers/admin';
+import { readyPolicy } from './fixtures/legal';
 import type { Env } from '../workers/admin';
 import { Sessions } from '../workers/admin/store';
 import type { Storage } from '../workers/admin/store';
@@ -55,6 +56,7 @@ class MemoryNamespace {
   }
 }
 const origin = 'https://admin.example.test';
+const worker = createWorker(readyPolicy);
 let env: Env,
   namespace: MemoryNamespace,
   privatePem: string,
@@ -507,4 +509,83 @@ it('weist eine leere Origin auch am Health-Endpunkt ohne Parserausnahme ab', asy
   });
   expect(response.status).toBe(503);
   expect(await response.json()).toEqual({ configurationReady: false });
+});
+
+it('liefert rechtliche Hinweise vor Login und auch deaktiviert ohne Cookie, Sitzung oder GitHub-Aufruf', async () => {
+  for (const path of ['/privacy', '/imprint']) {
+    const response = await worker.fetch(request(path), {
+      ...env,
+      ENABLED: 'false',
+      ADMIN_ORIGIN: '',
+    });
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Set-Cookie')).toBeNull();
+    expect(response.headers.get('Cache-Control')).toBe('no-store');
+    const text = await response.text();
+    expect(text).toContain('Testperson Beispiel');
+    expect(text).toContain('href="/privacy"');
+    expect(text).toContain('href="/imprint"');
+    expect(text).not.toContain('href="/login"');
+    expect(text).not.toContain(env.GITHUB_CLIENT_SECRET);
+    expect(text).not.toContain(privatePem);
+  }
+  expect(namespace.stores.size).toBe(0);
+  expect(fetch).not.toHaveBeenCalled();
+  const response = await worker.fetch(
+    new Request(origin + '/privacy', { method: 'HEAD' }),
+    env,
+  );
+  expect(response.status).toBe(200);
+  expect(await response.text()).toBe('');
+});
+
+it.each([
+  {
+    ...readyPolicy,
+    legal: { ...readyPolicy.legal, privacyScope: 'pages-only' as const },
+  },
+  { ...readyPolicy, review: { ...readyPolicy.review, reviewedOn: null } },
+  {
+    ...readyPolicy,
+    review: { ...readyPolicy.review, reviewedVersion: 'older' },
+  },
+  {
+    ...readyPolicy,
+    review: {
+      ...readyPolicy.review,
+      adminOrigin: 'https://other.example.test',
+    },
+  },
+  {
+    ...readyPolicy,
+    review: { ...readyPolicy.review, providerReviewedOn: null },
+  },
+])(
+  'sperrt direkte Aktivierung ohne passende Datenschutzdurchsicht auch ohne Galerie-Link',
+  async (policy) => {
+    const draftWorker = createWorker(policy);
+    const health = await draftWorker.fetch(request('/health'), env);
+    expect(health.status).toBe(503);
+    expect(await health.json()).toEqual({ configurationReady: false });
+    const response = await draftWorker.fetch(request('/login'), env);
+    expect(response.status).toBe(503);
+    expect(response.headers.get('Set-Cookie')).toBeNull();
+    const privacy = await draftWorker.fetch(request('/privacy'), env);
+    expect(privacy.status).toBe(200);
+    expect(await privacy.text()).toContain(
+      'Entwurf · noch nicht zur Veröffentlichung freigegeben',
+    );
+    expect(namespace.stores.size).toBe(0);
+    expect(fetch).not.toHaveBeenCalled();
+  },
+);
+
+it('escaped Kontaktdaten und setzt aktive Inhalte nicht als HTML ein', async () => {
+  const safeWorker = createWorker({
+    ...readyPolicy,
+    legal: { ...readyPolicy.legal, fullName: '<img src=x onerror=alert(1)>' },
+  });
+  const text = await (await safeWorker.fetch(request('/imprint'), env)).text();
+  expect(text).toContain('&lt;img');
+  expect(text).not.toContain('<img');
 });

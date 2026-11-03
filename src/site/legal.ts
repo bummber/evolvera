@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import raw from '../../config/legal.json';
+import { operatorPrivacy, operatorPrivacyIssues } from './operator-privacy';
+import type { OperatorPrivacy } from './operator-privacy';
 
 const text = z.string().trim().min(1).max(160);
 export const legalSchema = z.strictObject({
@@ -15,7 +17,7 @@ export const legalSchema = z.strictObject({
       city: text,
     })
     .nullable(),
-  privacyScope: z.literal('pages-only'),
+  privacyScope: z.enum(['pages-only', 'pages-and-operator']),
   reviewedOn: z.iso.date().nullable(),
 });
 export type LegalDetails = z.infer<typeof legalSchema>;
@@ -25,6 +27,7 @@ export const legalDetails = legalSchema.parse(raw);
 export function publicationIssues(
   details: LegalDetails,
   adminOrigin: string | null,
+  review: OperatorPrivacy = operatorPrivacy,
 ): string[] {
   const issues: string[] = [];
   if (!details.fullName) issues.push('Betreibername fehlt.');
@@ -32,9 +35,13 @@ export function publicationIssues(
   if (!details.address) issues.push('Ladungsfähige Anschrift fehlt.');
   if (!details.reviewedOn)
     issues.push('Textdurchsicht vor Veröffentlichung offen.');
-  if (adminOrigin)
+  if (adminOrigin && details.privacyScope === 'pages-only')
     issues.push(
       'Datenschutzhinweise für die eingerichtete Betreiberanmeldung ergänzen.',
+    );
+  if (details.privacyScope === 'pages-and-operator')
+    issues.push(
+      ...operatorPrivacyIssues(review, adminOrigin ?? review.adminOrigin),
     );
   return issues;
 }

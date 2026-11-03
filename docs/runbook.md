@@ -8,15 +8,27 @@ Live: https://bummber.github.io/evolvera/ — [Deploymentbericht](first-pages-de
 Siehe [Veröffentlichungsvorbereitung](publication-preparation.md). Vor Pages zusätzlich
 `npm run check:publication` ausführen; fehlende Textdurchsicht oder noch nicht
 abgedeckte Betreiberanmeldung verhindern Upload. Die Galerie ist veröffentlicht;
-die Betreiberfunktion bleibt lokal implementiert und extern nicht eingerichtet.
+die Betreiberfunktion bleibt lokal implementiert; die GitHub App ist inzwischen
+installiert, der Worker extern noch nicht eingerichtet.
 Die 40 Testwerke sind abgenommen, keine offizielle Serie. Historische Daten und
 Generator 0.2.0 bleiben erhalten.
 
 Zusatzstand 02.11.: Der Betreiber hat ein Cloudflare-Konto angelegt; die getrennte
 Codex-MCP-Verbindung mit drei Basisrechten funktioniert nach Neustart. Vier Werkzeuge
 lesend erfolgreich geprüft, ein Konto gefunden. Das aktiviert keine Evolvera-Anmeldung.
-Konkreter Workers-Tarif, Worker-Origin, GitHub App und Deployment bleiben offen.
-Details und nächster Schritt im [Übergabestand](HANDOFF.md).
+Am 03.11. Workers Free im Dashboard als aktueller Tarif bestätigt, vorhandene
+Subdomain lesend geprüft. Betreiber hat für die Einrichtungsvorlage
+`https://evolvera-admin.alexander-brocker.workers.dev` ausgewählt; noch nicht eingerichtet.
+GitHub `/user` bestätigt `bummber`/`46008719`, Remote bleibt `9ad1fa7`.
+GitHub App am 03.11. separat freigegeben, registriert und ausschließlich auf
+`bummber/evolvera` installiert: Contents read/write und Metadata read-only.
+Kennungen/Nachweis in der [Einrichtungskarte](operator-setup.md). Keine Secrets oder
+privaten Schlüssel erzeugt; Worker-Deployment bleibt offen, keine zusätzlichen MCP-Rechte.
+Details und nächster Freigabepunkt im [Übergabestand](HANDOFF.md).
+Auf Fortsetzungsauftrag lokal neue Betreiber-Datenschutzhinweise und unabhängige
+Durchsichtsgates umgesetzt. Pages-Prüfung und direkte Worker-Aktivierung bleiben
+wegen offener Cloudflare-Kontoprüfung gesperrt. Textdurchsicht für die gewählte
+Worker-Origin am 03.11. ausdrücklich bestätigt und dokumentiert. Kein Live-Update.
 
 ## Lokal prüfen
 
@@ -29,6 +41,9 @@ mit `--dry-run`: kein Cloudflare-Upload. Telemetrie ist in Projektbefehlen deakt
 `npm run dev` startet die Galerie. `npm run worker:dev` startet den separaten Worker
 auf Loopback/Port 8787. `/health` liefert ohne Einrichtung HTTP 503 und
 `{"configurationReady":false}`; `/settings` erklärt den fehlenden Zugang.
+`/privacy` und `/imprint` liefern auch deaktiviert Rechtstexte ohne Sitzung und
+GitHub-Aufruf. Alle Worker-HTML-Seiten verlinken sie. Der Betreiber-Datenschutztext
+wird mit der Galerie aus gemeinsamem Inhalt erzeugt; lokal derzeit als Entwurf.
 Keine Demo-Sitzung, keine Demo-Speicherung und kein lokaler Ersatz für GitHub.
 Die echte Betreiberoberfläche wird nach Einrichtung über ihre HTTPS-Origin geöffnet.
 
@@ -43,23 +58,24 @@ Betriebsstand interpretiert. Bei aktuellem deaktiviertem Stand: null neue Werke.
 `--apply` ist zusätzlich auf den freigegebenen GitHub-Workflow und das feste Repository
 begrenzt; lokal kein vorgesehener Schreibbefehl.
 
-## Externe Einrichtung – noch nicht ausgeführt
+## Externe Einrichtung – GitHub App installiert, Worker noch offen
 
 Konkrete Werte, Rechte, Grenzen und Freigabereihenfolge stehen in der
-[Einrichtungsvorlage vom 02.11.2026](operator-setup.md). Sie ist keine Beauftragung.
+[Einrichtungsvorlage, aktualisiert am 03.11.2026](operator-setup.md). Die Dokumentation selbst ist keine Beauftragung.
 Keine Konten, Apps, zusätzlichen Rechte, Secrets oder Deployments ohne den konkreten
 Betreiberauftrag einrichten. Keine Secrets im Chat.
 
-1. Cloudflare-Konto, Workers Free und gewünschte HTTPS-Origin bestätigen. Vorgeschlagen:
-   `https://evolvera-admin.<bestätigte-account-subdomain>.workers.dev`. Noch nicht eingerichtet.
+1. Cloudflare-Konto und Workers Free am 03.11. lesend bestätigt. Für die Vorlage ausgewählt:
+   `https://evolvera-admin.alexander-brocker.workers.dev`. Noch nicht eingerichtet.
    SQLite-Binding `SESSIONS`, Klasse `Sessions`, Migration `v1` sind lokal vorbereitet;
    keine zusätzliche D1-/KV-Datenbank nötig. `workers_dev:false`/`preview_urls:false`
    bleiben bis zum entsprechenden Auftrag bestehen.
-2. GitHub App nur im Betreiberkonto und nur auf `bummber/evolvera` installieren.
-   Contents read/write und erforderliche Metadaten genügen. Keine weiteren Rechte.
-   Contents gilt auf Repositoryebene; nur der Worker begrenzt auf den festen
-   Konfigurationspfad. Betreiber-ID `46008719` wurde lesend verifiziert und ist vor
-   Hinterlegung mit dem angemeldeten Konto abzugleichen.
+2. GitHub App auf separaten Auftrag am 03.11. im Betreiberkonto registriert und nur
+   auf `bummber/evolvera` installiert. Contents read/write und Metadata read-only,
+   keine weiteren Rechte. Contents gilt auf Repositoryebene; nur der Worker begrenzt
+   auf den festen Konfigurationspfad. Betreiber-ID `46008719` gegen das angemeldete
+   Konto `bummber` abgeglichen. Keine Schlüssel oder Secrets erzeugt; Anlage/Übertragung
+   vor Durchführung gesondert konkretisieren und freigeben lassen.
 3. Callback exakt `<ADMIN_ORIGIN>/auth/callback`, Oberfläche `/settings`. Login,
    Callback und Moduswahl als Top-Level-Navigation auf derselben Worker-Origin.
    Nichtgeheime Variablen: `ADMIN_ORIGIN`, `OWNER_ID`, `GITHUB_CLIENT_ID`,
@@ -73,10 +89,14 @@ Betreiberauftrag einrichten. Keine Secrets im Chat.
    übernehmen. Sichere Secret-Eingabe erst mit Auftrag; **`wrangler secret put` und
    `secret delete` deployen unmittelbar**. Das ist ebenfalls freigabepflichtig.
 5. Vor Aktivierung [Datenschutzentwurf](operator-privacy-draft.md) vervollständigen,
-   Hinweise auf Galerie und Worker vor Login erreichbar machen, Publikationsprüfung
-   erweitern und separate Textdurchsicht bestätigen lassen. Der bisherige
-   `pages-only`-Prüfumfang genügt nicht. Die Pages-Prüfung sperrt keinen direkten
-   Worker-Deploy; dafür ist die Freigabe unabhängig erforderlich.
+   tatsächlichen Vertrag/DPA und Kontoeinstellungen prüfen und separate Textdurchsicht
+   bestätigen lassen. Hinweise auf Galerie/Worker und neue Prüfungen sind lokal
+   umgesetzt. `config/operator-privacy.json` bindet Durchsicht an Origin/Textversion;
+   Textdurchsicht vom 03.11. mit Version `2026-11-03.1` dokumentiert, Nachweis der
+   Cloudflare-Kontoprüfung weiterhin null. Die frühere Pages-Durchsicht genügt nicht.
+   Direkter Worker-Login bleibt ebenfalls gesperrt. Das Runtimegate verhindert keinen
+   Code-Upload; dessen Freigabe ist unabhängig erforderlich. Sicheren Secret-Ablauf
+   anhand der [Vorbereitung](operator-secrets.md) konkret freigeben.
 6. Erst nach konkretem Deployment-/Aktivierungsauftrag `ENABLED=true` setzen.
    Echtes Ende-zu-Ende prüfen: Betreiber/Fremdkonto, PKCE/State, Ablauf und Logout,
    Origin/CSRF, Konflikt und Commitverifikation, auch mit blockierten Drittanbieter-Cookies.

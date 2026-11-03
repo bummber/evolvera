@@ -1,5 +1,5 @@
+import './validation';
 import { z } from 'zod';
-z.config({ jitless: true });
 import { modeLabels } from '../../src/art/schema/config';
 import type { GenerationConfig } from '../../src/art/schema/config';
 import {
@@ -13,6 +13,17 @@ import {
 import type { GitHubEnv } from './github';
 import { loginRecord, recordCall, sessionRecord } from './store';
 import type { SessionNamespace } from './store';
+import { legalDetails, legalSchema } from '../../src/site/legal';
+import {
+  operatorPrivacy,
+  operatorPrivacySchema,
+} from '../../src/site/operator-privacy';
+import {
+  escapeHtml as escape,
+  legalPage,
+  workerPublicationIssues,
+} from './legal';
+import type { PrivacyPolicy } from './legal';
 export { Sessions } from './store';
 export type Env = GitHubEnv & {
   ENABLED: string;
@@ -75,14 +86,6 @@ const redirect = (where: string, setCookie?: string) =>
       ...(setCookie ? { 'Set-Cookie': setCookie } : {}),
     }),
   });
-const escape = (value: unknown) =>
-  String(value).replace(
-    /[&<>"']/g,
-    (char) =>
-      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[
-        char
-      ]!,
-  );
 function html(body: string, status = 200, setCookie?: string) {
   const nonce = randomToken();
   const result = headers({
@@ -91,7 +94,7 @@ function html(body: string, status = 200, setCookie?: string) {
   });
   if (setCookie) result.set('Set-Cookie', setCookie);
   return new Response(
-    `<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evolvera · Betreiber</title><style nonce="${nonce}">body{margin:0;background:#eeeae2;color:#181919;font:16px/1.6 Arial,sans-serif}main{max-width:640px;padding:32px 20px;margin:auto}h1{font-size:clamp(2rem,8vw,4rem);line-height:1;letter-spacing:-.05em}label{display:block;margin-top:24px}select,button{font:inherit;max-width:100%;padding:12px;min-height:44px;margin:12px 0}button{cursor:pointer;background:#181919;color:#eeeae2;border:1px solid}a{color:inherit}p{overflow-wrap:anywhere}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #c83920;outline-offset:3px}.notice{border-top:2px solid #c83920;padding:16px 0}</style><main><p>EVOLVERA / BETREIBER</p>${body}<p><a href="https://bummber.github.io/evolvera/#/einstellungen">Zurück zur Galerie</a></p></main></html>`,
+    `<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evolvera · Betreiber</title><style nonce="${nonce}">body{margin:0;background:#eeeae2;color:#181919;font:16px/1.6 Arial,sans-serif}main{max-width:640px;padding:32px 20px;margin:auto}h1{font-size:clamp(2rem,8vw,4rem);line-height:1;letter-spacing:-.05em}label{display:block;margin-top:24px}select,button{font:inherit;max-width:100%;padding:12px;min-height:44px;margin:12px 0}button{cursor:pointer;background:#181919;color:#eeeae2;border:1px solid}a{color:inherit}p,li,address{overflow-wrap:anywhere}h2{line-height:1.25;margin-top:32px}address{font-style:normal}nav a{display:inline-block;padding:8px 12px 8px 0}a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #c83920;outline-offset:3px}.notice{border-top:2px solid #c83920;padding:16px 0}</style><main><p>EVOLVERA / BETREIBER</p>${body}<nav aria-label="Rechtliche Informationen"><a href="/privacy">Datenschutz</a> <a href="/imprint">Impressum</a></nav><p><a href="https://bummber.github.io/evolvera/#/einstellungen">Zurück zur Galerie</a></p></main></html>`,
     { status, headers: result },
   );
 }
@@ -129,9 +132,25 @@ async function form(request: Request) {
     new TextDecoder('utf-8', { fatal: true }).decode(bytes),
   );
 }
-async function handle(request: Request, env: Env) {
-  const ready = setup.safeParse(env).success && !!env.SESSIONS;
+async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
+  const ready =
+    setup.safeParse(env).success &&
+    !!env.SESSIONS &&
+    workerPublicationIssues(policy, env.ADMIN_ORIGIN).length === 0;
   const url = new URL(request.url);
+  if (
+    ['GET', 'HEAD'].includes(request.method) &&
+    ['/privacy', '/imprint'].includes(url.pathname)
+  ) {
+    const response = html(
+      legalPage(
+        policy,
+        url.pathname === '/privacy' ? 'privacy' : 'imprint',
+        env.ADMIN_ORIGIN,
+      ),
+    );
+    return request.method === 'HEAD' ? new Response(null, response) : response;
+  }
   if (url.pathname === '/health')
     return Response.json(
       { configurationReady: ready },
@@ -139,7 +158,7 @@ async function handle(request: Request, env: Env) {
     );
   if (!ready)
     return html(
-      '<h1>Noch nicht eingerichtet.</h1><p>Die echte GitHub-Anmeldung ist noch nicht verfügbar. Es wurden keine Einstellungen gespeichert.</p>',
+      '<h1>Noch nicht eingerichtet.</h1><p>Die echte GitHub-Anmeldung ist noch nicht verfügbar. Es wurden keine Einstellungen gespeichert. Einrichtung und Datenschutzdurchsicht müssen vor Aktivierung abgeschlossen sein.</p>',
       503,
     );
   if (url.origin !== env.ADMIN_ORIGIN)
@@ -257,21 +276,28 @@ async function handle(request: Request, env: Env) {
   }
   return html('<h1>Seite nicht gefunden.</h1>', 404);
 }
-export default {
-  async fetch(request: Request, env: Env) {
-    try {
-      return await handle(request, env);
-    } catch (error) {
-      const status =
-        error instanceof GitHubFailure
-          ? [400, 401, 403, 409, 413, 415].includes(error.status)
-            ? error.status
-            : 502
-          : 503;
-      return html(
-        `<h1>${status === 409 ? 'Speicherkonflikt.' : 'Vorgang nicht bestätigt.'}</h1><p>${status === 409 ? 'Der Git-Stand wurde zwischenzeitlich geändert. Bitte die Einstellungen frisch laden; fremde Änderungen wurden nicht überschrieben.' : 'Anmeldung oder Speicherung konnte nicht sicher abgeschlossen werden. Es wird kein Erfolg behauptet.'}</p><a href="/settings">Einstellungen neu laden</a>`,
-        status,
-      );
-    }
-  },
-};
+export function createWorker(input: PrivacyPolicy) {
+  const policy = {
+    legal: legalSchema.parse(input.legal),
+    review: operatorPrivacySchema.parse(input.review),
+  };
+  return {
+    async fetch(request: Request, env: Env) {
+      try {
+        return await handle(request, env, policy);
+      } catch (error) {
+        const status =
+          error instanceof GitHubFailure
+            ? [400, 401, 403, 409, 413, 415].includes(error.status)
+              ? error.status
+              : 502
+            : 503;
+        return html(
+          `<h1>${status === 409 ? 'Speicherkonflikt.' : 'Vorgang nicht bestätigt.'}</h1><p>${status === 409 ? 'Der Git-Stand wurde zwischenzeitlich geändert. Bitte die Einstellungen frisch laden; fremde Änderungen wurden nicht überschrieben.' : 'Anmeldung oder Speicherung konnte nicht sicher abgeschlossen werden. Es wird kein Erfolg behauptet.'}</p><a href="/settings">Einstellungen neu laden</a>`,
+          status,
+        );
+      }
+    },
+  };
+}
+export default createWorker({ legal: legalDetails, review: operatorPrivacy });

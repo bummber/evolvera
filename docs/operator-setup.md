@@ -1,7 +1,7 @@
 # Betreiberanmeldung – konkrete Einrichtungsvorlage
 
-Stand: 02.11.2026. **Nur Vorbereitung der Betreiberfunktion, keine Worker-/App-Einrichtung
-oder Aktivierungsfreigabe.** Das Cloudflare-Konto besteht inzwischen; die lesende
+Stand: 03.11.2026. **GitHub App separat freigegeben, registriert und installiert;
+keine Worker-/Secret-Einrichtung oder Aktivierungsfreigabe.** Das Cloudflare-Konto besteht; die lesende
 Codex-MCP-Verbindung wurde separat beauftragt und erfolgreich geprüft. Details im
 [Übergabestand](HANDOFF.md#cloudflare-mcp-und-lokale-entwicklungswerkzeuge).
 Die vorhandene Implementierung in `workers/admin` wird
@@ -16,20 +16,26 @@ weiterverwendet. Phase 4 bleibt offen; Serienstart und EP-01 gehören nicht hier
 - GitHub-API: `PAGES_DEPLOYMENT_ENABLED=true`, Tagesautomatisierungsvariable nicht
   gesetzt. `main` meldet `protected:false`, keine Repository-Rulesets. Keine
   Schutzregeln verändert; später bei Einrichtung erneut lesen.
-- `users/bummber`: Typ `User`, numerische ID **`46008719`**. Vor Hinterlegung mit
-  dem tatsächlich angemeldeten Betreiberkonto abgleichen; nicht aus dem Namen ableiten.
+- GitHub `/user` am 03.11.2026: angemeldetes Konto **`bummber`**, numerische ID
+  **`46008719`**. Remote-Commit erneut lesend als `9ad1fa7` bestätigt.
 - `ENABLED=false`, `ADMIN_ORIGIN` leer, Galerie-`adminOrigin:null`. Keine produktive
-  Worker-Konfiguration oder GitHub-App-Installation eingerichtet. Cloudflare-MCP
-  liest erfolgreich genau ein Konto; der Workers-Tarif ist noch nicht geprüft.
+  Worker-Konfiguration eingerichtet. GitHub App am 03.11. separat beauftragt und nur
+  auf `bummber/evolvera` installiert; Kennungen und Nachweis unten. Cloudflare-MCP
+  liest am 03.11. erneut erfolgreich genau ein Konto. Im vorhandenen Dashboard ist
+  **Workers Free** als „Current plan“ bestätigt: 0 US-Dollar, 100.000 Requests/Tag,
+  10 ms CPU pro Aufruf. Keine Tarifänderung oder zusätzlichen MCP-Rechte.
   Keine Secrets gelesen.
 - Generation aus, Startdatum null, Serienfreigabe false, Modus `traceable`, Revision 1.
   Die unversionierte `PRD_v1.1_backup.md` bleibt erhalten und außerhalb des Commits.
 
 ## Vorschlag und benötigte Rechte
 
-Für das nichtkommerzielle Testprojekt bietet sich die Adresse
-`https://evolvera-admin.<bestätigte-account-subdomain>.workers.dev` an. Die tatsächliche
-Subdomain ist offen. Das braucht keine eigene Domain und keine DNS-Umstellung.
+Im Dashboard ist `alexander-brocker.workers.dev` bereits als Account-Subdomain vorhanden;
+die Workers-&-Pages-Übersicht meldet noch keine Projekte. Der Betreiber hat am 03.11.
+für die Einrichtungsvorlage die Adresse
+`https://evolvera-admin.alexander-brocker.workers.dev` ausgewählt. Die vollständige
+Worker-Adresse ist noch nicht eingerichtet oder auf Erreichbarkeit geprüft.
+Das braucht keine eigene Domain und keine DNS-Umstellung.
 `workers_dev:false` wird erst bei beauftragtem Deployment bewusst geändert;
 `preview_urls:false` bleibt bestehen. Keine zusätzliche Cloudflare-GitHub-Buildintegration.
 
@@ -50,41 +56,58 @@ der App-Freigabe ausdrücklich berücksichtigen. Ein PAT ist hierfür nicht vorg
 
 | Feld                                 | Wert / Herkunft                                                                                                                                                         |
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cloudflare-Konto / Tarif             | Konto vorhanden und per MCP lesend erkannt; konkreter Workers-Free-Tarif noch zu prüfen, kein kostenpflichtiger Wechsel                                                 |
+| Cloudflare-Konto / Tarif             | Konto per MCP lesend erkannt; Workers Free am 03.11.2026 im Dashboard als aktueller Tarif bestätigt, kein kostenpflichtiger Wechsel                                     |
 | Worker / Speicher                    | `evolvera-admin`; Binding `SESSIONS`, Klasse `Sessions`, Migration `v1`, `new_sqlite_classes` bereits vorhanden; keine D1-/KV-Datenbank anlegen                         |
-| `ADMIN_ORIGIN`                       | Bestätigte vollständige HTTPS-Origin ohne Pfad oder abschließenden Slash                                                                                                |
-| App-Name                             | Vorschlag `Evolvera Betreiber bummber`; weltweite Verfügbarkeit bei Registrierung prüfen                                                                                |
+| `ADMIN_ORIGIN`                       | Für die Vorlage ausgewählt: `https://evolvera-admin.alexander-brocker.workers.dev`; ausführbare Konfiguration weiterhin leer                                            |
+| App-Name                             | `Evolvera Betreiber bummber`, registriert im Konto `bummber`; Slug `evolvera-betreiber-bummber`                                                                         |
 | Homepage URL                         | `https://bummber.github.io/evolvera/`                                                                                                                                   |
 | Callback URL                         | Exakt `<ADMIN_ORIGIN>/auth/callback`; kein Pages-Hash und keine zusätzliche Test-URL                                                                                    |
 | Oberfläche / Login                   | `<ADMIN_ORIGIN>/settings` / `<ADMIN_ORIGIN>/login`, jeweils Top-Level-Navigation                                                                                        |
 | App-Optionen                         | Webhooks inaktiv, keine Events, Device Flow aus, Setup URL leer; OAuth während Installation aus, Login später explizit starten; ablaufende User-Tokens aktiviert lassen |
-| `OWNER_ID`                           | `46008719`, nach Betreiberabgleich                                                                                                                                      |
-| `GITHUB_CLIENT_ID` / `GITHUB_APP_ID` | Nichtgeheime Kennungen aus der neu freigegebenen App-Registrierung                                                                                                      |
-| `GITHUB_INSTALLATION_ID`             | Tatsächliche Installation für `bummber/evolvera` prüfen; nicht mit App-ID verwechseln                                                                                   |
+| `OWNER_ID`                           | `46008719`, am 03.11.2026 gegen das tatsächlich angemeldete GitHub-Konto `bummber` abgeglichen                                                                          |
+| `GITHUB_CLIENT_ID` / `GITHUB_APP_ID` | `Iv23liYblHBrFsNZZllG` / `5595636`, nach erfolgreicher Registrierung bei GitHub abgelesen                                                                               |
+| `GITHUB_INSTALLATION_ID`             | `178198041`; erfolgreiche Installation auf `bummber`, ausgewählt ausschließlich `bummber/evolvera`                                                                      |
 | `GITHUB_CLIENT_SECRET`               | Ausschließlich Cloudflare-Secret, Wert nicht dokumentieren                                                                                                              |
 | `GITHUB_PRIVATE_KEY_PKCS8`           | Ausschließlich Cloudflare-Secret, RSA-Schlüssel in PKCS#8; geschützte lokale Konvertierung siehe Runbook                                                                |
 | `ENABLED` / Galerie-Link             | Bleiben `false` / `null` bis zur jeweiligen Aktivierungs-/Veröffentlichungsfreigabe                                                                                     |
 
-App-ID, Client-ID, Installation und Worker-Origin existieren noch nicht als bestätigte
-Einrichtungswerte. Keine erfundenen Werte in die ausführbare Konfiguration eintragen.
+App-Registrierung und Installation wurden ausdrücklich freigegeben und am 03.11.
+abgeschlossen. GitHub bestätigt die Installation; die persistierte Einstellungsseite
+zeigt **Only select repositories**, genau **bummber/evolvera**, **Metadata read-only**
+und **Contents read/write**. Keine weiteren Rechte oder Repositories ausgewählt.
+Die App ist nur auf dem eigenen Konto installierbar. Nach GitHub-Sudo-Abfrage hat
+der Betreiber die erneute Anmeldung selbst durchgeführt.
+
+[App-Einstellungen](https://github.com/settings/apps/evolvera-betreiber-bummber),
+[persistierte Installation](https://github.com/settings/installations/178198041).
+GitHub ließ die Installation ohne privaten Schlüssel abschließen. Kein privater
+Schlüssel oder Client-Secret erzeugt, gelesen oder übertragen; keine echte
+Anmeldung oder GitHub-Schreibprüfung. Kennungen und ausgewählte Origin nur hier
+dokumentiert; ausführbare Konfiguration weiterhin unverändert. Secretanlage,
+Cloudflare-Berechtigungen, Veröffentlichung und Aktivierung nicht beauftragt.
 
 ## Reihenfolge der getrennt freizugebenden Aktionen
 
-1. **Als Nächstes besprechen:** Im nun vorhandenen Cloudflare-Konto den konkreten
-   Workers-Free-Tarif und die gewünschte Account-Subdomain prüfen. MCP ist mit den
-   Basisrechten `offline_access`, `user:read`, `account:read` verbunden; weitergehende
-   Lese-/Schreibrechte sind nicht freigegeben. Tarif alternativ im Dashboard ansehen.
+1. **Am 03.11. erledigt:** Workers Free und vorhandene Account-Subdomain im Dashboard
+   lesend geprüft; Betreiber hat die oben genannte Worker-Origin für die Vorlage
+   ausgewählt. MCP behält ausschließlich die Basisrechte `offline_access`, `user:read`,
+   `account:read`; Tarif-/Worker-API mit zusätzlichen Rechten nicht verwendet.
    Keine Berechtigungserweiterung oder Tarifänderung aus dieser Vorlage ableiten.
-2. **App-Einrichtung:** Nach Bestätigung der Origin und der oben genannten Rechte
-   App registrieren, nur auf `evolvera` installieren, IDs abgleichen. Privaten Schlüssel
-   und Client-Secret nur im freigegebenen sicheren Ablauf erzeugen/übertragen. Diese
-   Freigabe umfasst noch kein Worker-Deployment und keinen Repository-Push.
+2. **App-Einrichtung am 03.11. erledigt:** Nach ausdrücklicher Freigabe registriert,
+   ausschließlich auf `evolvera` installiert, IDs und persistierten Umfang geprüft.
+   Privaten Schlüssel und Client-Secret erst im noch gesondert freizugebenden sicheren
+   Ablauf erzeugen/übertragen. Kein Worker-Deployment oder Repository-Push freigegeben.
 3. **Datenschutz vor Aktivierung:** [Datenfluss und Textentwurf](operator-privacy-draft.md)
    mit dem tatsächlichen Konto, Anbieterrollen, Bedingungen und Origin vervollständigen.
-   Hinweise in Galerie **und auf der Worker-Seite vor dem Login** erreichbar machen.
-   Publikationsschema/-prüfung um diesen eigenständig bestätigten Prüfumfang ergänzen;
+   Hinweise sind lokal in Galerie **und auf der Worker-Seite vor dem Login** umgesetzt.
+   Publikationsschema/-prüfung und direktes Worker-Aktivierungsgate sind ergänzt;
    die Pages-Durchsicht vom 02.11. gilt dafür nicht automatisch. Die fertige Fassung
-   vor Aktivierung gezielt zur Veröffentlichung freigeben lassen.
+   vor Aktivierung gezielt durchsehen und zur Veröffentlichung freigeben lassen.
+   Die Textdurchsicht ist am 03.11. ausdrücklich bestätigt: `reviewedOn:2026-11-03`,
+   `reviewedVersion:2026-11-03.1`. `providerReviewedOn` bleibt bis zur tatsächlichen
+   Vertrags-/Kontoprüfung null. Keine Veröffentlichung daraus ableiten.
+   Sichere Secret-Anlage/-Übertragung ist [konkret vorbereitet](operator-secrets.md),
+   aber nicht ausgeführt oder freigegeben.
 4. **Deployment gesondert:** Prüfergebnis und konkrete Worker-Konfiguration zeigen;
    erst nach Auftrag hochladen. Falls zunächst deaktiviert bereitgestellt, liefert
    `/health` weiterhin 503/`configurationReady:false`. `wrangler secret put` und

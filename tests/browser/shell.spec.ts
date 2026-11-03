@@ -118,6 +118,40 @@ test('Tastatur, aktiver Navigationspunkt und ruhige HTML-/CSS-Shell', async ({
   await expect(page.getByText('Noch keine Werke im Archiv.')).toBeVisible();
 });
 
+test('Betreiber-Datenschutz ist als Entwurf lesbar, ohne Login oder Workerabruf', async ({
+  page,
+}) => {
+  const external: string[] = [];
+  page.on('request', (request) => {
+    if (new URL(request.url()).origin !== 'http://127.0.0.1:4173')
+      external.push(request.url());
+  });
+  await page.goto('./#/datenschutz');
+  await expect(
+    page.getByRole('heading', {
+      name: 'Betreiberbereich und GitHub-Anmeldung',
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole('heading', {
+      name: 'Erforderliche Cookies und Sitzungsdaten',
+    }),
+  ).toBeVisible();
+  await expect(page.getByLabel('Entwurfsstatus')).toContainText(
+    'Cloudflare-Vertrag und Kontoeinstellungen noch zu prüfen.',
+  );
+  await expect(
+    page.getByRole('link', { name: 'Cloudflare-Datenschutzerklärung' }),
+  ).toHaveAttribute('href', 'https://www.cloudflare.com/privacypolicy/');
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  expect(external).toEqual([]);
+  expect(await page.context().cookies()).toEqual([]);
+});
+
 test('Navigation ist auf Desktop und Mobil erreichbar, Escape schließt das mobile Menü', async ({
   page,
 }) => {
