@@ -16,11 +16,20 @@ import {
   artworkV2Schema,
 } from '../src/art/schema/artwork';
 import type { Artwork } from '../src/art/schema/artwork';
-import { initialSettings, snapshotSettings } from '../src/operator/settings';
+import { snapshotSettings } from '../src/operator/settings';
 import { generateTitle } from '../src/art/titles/generate';
 import { origin } from './fixtures/artworks';
 
 const saved = raw.chains.map(validatePreviewChain);
+// Snapshot invariants use fixed test data, independent of operator mode commits.
+const fixtureSettings = snapshotSettings({
+  schemaVersion: 1,
+  revision: 1,
+  seriesStartDate: null,
+  generationEnabled: false,
+  timezone: 'Europe/Berlin',
+  inheritanceMode: 'traceable',
+});
 function inputFor(
   work = saved[0]!.works[2]!,
   parents: readonly Artwork[] = saved[0]!.works.slice(0, 2),
@@ -33,7 +42,7 @@ function inputFor(
     scheduledFor: work.scheduledFor,
     runStartedAt: work.runStartedAt,
     settings: {
-      ...initialSettings,
+      ...fixtureSettings,
       inheritanceMode: work.inheritanceMode,
       revision: work.settingsRevision,
     },
@@ -151,7 +160,7 @@ describe('Determinismus, Snapshot und reale Uhr', () => {
     expect(a.generatedAt).toBe('2000-01-03T03:00:02Z');
   });
   it('verwendet bei Nachholung denselben Einstellungssnapshot und zeigt den Laufstart korrekt', () => {
-    const config = { ...initialSettings };
+    const config = { ...fixtureSettings };
     const snapshot = snapshotSettings(config);
     config.inheritanceMode = 'free';
     config.revision = 2;
@@ -168,7 +177,7 @@ describe('Determinismus, Snapshot und reale Uhr', () => {
     expect(work.dna).toEqual(
       generateArtwork(inputFor(), () => '2000-01-03T03:00:02Z').dna,
     );
-    expect(initialSettings).toMatchObject({
+    expect(fixtureSettings).toMatchObject({
       generationEnabled: false,
       seriesStartDate: null,
       inheritanceMode: 'traceable',
@@ -186,7 +195,7 @@ describe('Determinismus, Snapshot und reale Uhr', () => {
       generation: 11,
       scheduledFor: '2000-01-11T04:00:00+01:00',
       runStartedAt: '2000-01-11T03:00:01Z',
-      settings: { ...initialSettings, inheritanceMode: 'free', revision: 2 },
+      settings: { ...fixtureSettings, inheritanceMode: 'free', revision: 2 },
     };
     const next = generateArtwork(request, () => '2000-01-11T03:00:02Z');
     expect(next.parentIds).toEqual(parents.map((parent) => parent.id));

@@ -124,7 +124,7 @@ test('Tastatur, aktiver Navigationspunkt und ruhige HTML-/CSS-Shell', async ({
   await expect(page.getByText('Noch keine Werke im Archiv.')).toBeVisible();
 });
 
-test('Betreiber-Datenschutz ist als Entwurf lesbar, ohne Login oder Workerabruf', async ({
+test('Durchgesehener Betreiber-Datenschutz ist ohne Login oder Workerabruf lesbar', async ({
   page,
 }) => {
   const external: string[] = [];
@@ -143,9 +143,15 @@ test('Betreiber-Datenschutz ist als Entwurf lesbar, ohne Login oder Workerabruf'
       name: 'Erforderliche Cookies und Sitzungsdaten',
     }),
   ).toBeVisible();
-  await expect(page.getByLabel('Entwurfsstatus')).toContainText(
-    'Cloudflare-Vertrag und Kontoeinstellungen noch zu prüfen.',
-  );
+  await expect(page.getByLabel('Entwurfsstatus')).toHaveCount(0);
+  await expect(
+    page.getByText(
+      'Die Sitzung enthält Betreiber-ID, CSRF-Wert und Ablaufzeit',
+      {
+        exact: false,
+      },
+    ),
+  ).toBeVisible();
   await expect(
     page.getByRole('link', { name: 'Cloudflare-Datenschutzerklärung' }),
   ).toHaveAttribute('href', 'https://www.cloudflare.com/privacypolicy/');

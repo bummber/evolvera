@@ -1,7 +1,22 @@
 # Betreiberanmeldung – Datenschutzvorbereitung
 
-Stand: 03.11.2026. **Textdurchsicht ausdrücklich bestätigt; Cloudflare-Vertrags-/
-Kontoprüfung noch offen, nicht veröffentlicht.** Lokal ist `privacyScope:pages-and-operator` vorbereitet. Die
+Aktueller Stand 03.11.2026: Nach separater Upload-/Aktivierungsfreigabe ist die
+geprüfte Fassung `2026-11-03.1` auf dem neuen Worker veröffentlicht. `/privacy` und
+`/imprint` liefern HTTP 200 ohne Sitzung/Cookie und entsprechen exakt den lokal
+gerenderten Rechtstextfragmenten. Loggingzustand lesend geprüft. Der Betreiber
+bestätigt inzwischen den erfolgreichen GitHub-Login bis zu den Einstellungen,
+ohne etwas gespeichert zu haben. Umfassende Sitzungsabnahme bleibt offen.
+Die öffentliche Pages-Fassung bleibt unverändert.
+[Deploymentbericht](operator-first-upload.md#freigegeben-und-ausgeführt--03112026).
+Die folgenden Abschnitte sind historische Vorbereitung, keine offenen Erstuploadgates.
+
+Vorheriger Nachtrag 03.11.2026: **Lokale Anbieterprüfung abgeschlossen**, siehe
+[Nachweise und Grenzen](provider-review.md). `providerReviewedOn:2026-11-03`;
+Textfassung/Version unverändert, keine Veröffentlichung oder Aktivierung. Die folgenden
+Abschnitte dokumentieren die frühere Vorbereitung mit damals noch offener Prüfung.
+
+Stand der Vorbereitung: 03.11.2026. **Textdurchsicht ausdrücklich bestätigt; Cloudflare-Vertrags-/
+Kontoprüfung damals noch offen, nicht veröffentlicht.** Lokal ist `privacyScope:pages-and-operator` vorbereitet. Die
 öffentliche Pages-Fassung bleibt unverändert auf dem bisherigen Remote-Stand.
 Die Anmeldung ist aus. Dieser Entwurf ist kein Beleg einer rechtlichen Prüfung
 und schaltet das Veröffentlichungsgate nicht frei.

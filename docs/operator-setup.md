@@ -1,5 +1,20 @@
 # Betreiberanmeldung – konkrete Einrichtungsvorlage
 
+Aktueller Stand 03.11.2026: Der separat freigegebene erste Worker-Upload ist
+abgeschlossen. `evolvera-admin` ist mit beiden Secrets, SQLite-Sitzungsspeicher und
+Anmeldeaktivierung nur für `bummber` öffentlich erreichbar. Health meldet bereit,
+Rechtstexte geprüft. Der Betreiber bestätigt den erfolgreichen GitHub-Login und
+sichtbare Einstellungen, ohne etwas gespeichert zu haben. Modusspeicherung und
+umfassende Sitzungsprüfung bleiben offen.
+[Ergebnis und genaue Grenzen](operator-first-upload.md#freigegeben-und-ausgeführt--03112026).
+Die folgenden Abschnitte dokumentieren frühere Vorbereitungsstände; deren
+Erstuploadfreigabe ist erledigt. Galerie-Origin bleibt null, kein Pages-Push.
+
+Vorheriger Nachtrag 03.11.2026: [Lokale Anbieterprüfung abgeschlossen](provider-review.md),
+`providerReviewedOn:2026-11-03`. Textfassung und Origin unverändert. Die unten
+beschriebene offene Kontoprüfung ist damit für die lokale Vorbereitung erledigt;
+Secrets, Schreibrechte, Upload und Aktivierung bleiben separat zu beauftragen.
+
 Stand: 03.11.2026. **GitHub App separat freigegeben, registriert und installiert;
 keine Worker-/Secret-Einrichtung oder Aktivierungsfreigabe.** Das Cloudflare-Konto besteht; die lesende
 Codex-MCP-Verbindung wurde separat beauftragt und erfolgreich geprüft. Details im

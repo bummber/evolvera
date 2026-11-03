@@ -1,16 +1,475 @@
 # Evolvera – aktueller Übergabestand
 
 Stand: 03.11.2026. Aktueller Betreiberauftrag hat Vorrang. Die öffentliche
-**Pages-Testversion ist veröffentlicht und geprüft**. Betreiberanmeldung und
-Worker-Einrichtung sind noch offen. Cloudflare-Konto und lesende Codex-MCP-Verbindung
+**Pages-Testversion ist veröffentlicht und geprüft**. Der Betreiberworker ist seit
+03.11.2026 separat veröffentlicht und aktiviert; der Betreiber hat den erfolgreichen
+GitHub-Login, Abmelden/Neuanmelden und inzwischen die Modusrunde bis traceable/3
+bestätigt. Einzelne Nachweise und Grenzen stehen im neuesten Block unten.
+Cloudflare-Konto und lesende Codex-MCP-Verbindung
 sind inzwischen vorhanden und geprüft. Kein offizieller Serienstart.
 Die GitHub App wurde am 03.11. separat freigegeben, registriert und ausschließlich
-auf `bummber/evolvera` installiert; Secrets und Worker fehlen weiterhin.
+auf `bummber/evolvera` installiert; die lokale Secret-Ablage ist inzwischen bestätigt,
+der Worker ist inzwischen samt beiden Secrets und SQLite-Sitzungsspeicher eingerichtet.
 Auf anschließenden Fortsetzungsauftrag sind Datenschutzhinweise und unabhängige
 Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gewählte
-Worker-Adresse wurde anschließend ausdrücklich bestätigt; Cloudflare-Kontoprüfung offen.
+Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
+inzwischen abgeschlossen. Konkrete Upload-Vorbereitung und offene Freigaben siehe unten.
 
-## Aktueller Stand – lokaler Werkbuch-Checkpoint am 03.11.2026
+## Aktuelle Chat-Übergabe – 03.11.2026, lokale Zusammenführung isoliert geprüft
+
+Auf „Wie geht es weiter“ den lokalen Abgleich vorbereitet, ohne Commit, Push oder
+Deployment. GitHub rein lesend bestätigt: weiterhin `f793247`, drei Commits seit
+`9ad1fa7`, insgesamt nur Modusdatei und Snapshot-Test verändert. Lokales HEAD bleibt
+`5afbe7b` mit vier lokalen Commits und allen bisherigen uncommittierten Arbeiten.
+
+In temporärer Kopie des vorhandenen Repositories beide vorhandenen Historien ohne
+neue Commits per `git merge-tree` konfliktfrei kombiniert, alle berücksichtigten
+lokalen Arbeitsdateien bytegleich überlagert und Remote traceable/Revision 3 erhalten.
+Unversioniertes PRD-Backup ausgeschlossen und im eigentlichen Projekt bytegleich
+erhalten. **Eigentlicher Arbeitsbaum weiterhin traceable/1; noch kein tatsächlicher Merge.**
+
+Kombinierter Kandidat geprüft: `check:publication` Exit 0, `npm run check` mit
+**165 Tests**, Datenprüfung, Build und Worker-Dry-Run erfolgreich; echter lokaler
+workerd-/SQLite-Test erfolgreich; Browser am kombinierten Build **68 bestanden,
+sechs bewusste Doppelaufruf-Skips**, sechs Kunstreferenzen unverändert. Nur
+synthetische Daten und isolierte Test-Repositories, keine neue Designrunde.
+
+[Vollständiger Kandidat, Prüfnachweise und genaue Dateiauswahl](integration-preparation.md).
+Nächster Freigabepunkt: **genau zwei lokale Commits** – Sicherung der benannten
+22 Dateien, danach kontrollierte Zusammenführung mit Remote einschließlich Revision 3
+und erforderlicher Prüfungen in einem Mergecommit. Kein Push oder Deployment,
+kein Galerie-Link oder Serienstart aus dieser Vorbereitung ableiten.
+Die bestehende Sperre für lokale Commits bleibt bis zur ausdrücklichen Freigabe.
+
+Nach der Vorbereitung Statusdokumente auch im isolierten Kandidaten aktualisiert
+und dort Formatprüfung erfolgreich. Im eigentlichen Projekt `npm run check` nach
+Dokumentation erneut erfolgreich mit **165 Tests**, Datenprüfung, Build und
+deaktiviertem Worker-Dry-Run. Keine neue Browser-/Runtime-Suite nach den reinen
+Dokumentationsänderungen; obige Nachweise stammen aus dem kombinierten Kandidaten.
+
+## Vorheriger Stand – 03.11.2026, Rückwechsel traceable/3 gespeichert
+
+Betreiber hat den einmaligen Rückwechsel free/2 → traceable/3 samt Moduscommit und
+CI-/Pages-Folge mit **„ja“** freigegeben, selbst gespeichert und meldet
+**„Nachvollziehbare Vererbung Revision 3“**. Lesend auf GitHub bestätigt:
+[`f793247`](https://github.com/bummber/evolvera/commit/f7932479a839a6176160eabe4edc675133aacafb),
+03.11.2026, **23:02:39 Uhr MEZ**, Elterncommit `75f11ae`, ausschließlich
+`config/generation.json` geändert. Remote **traceable/Revision 3**, Generierung false,
+Startdatum null, Serienfreigabe false. Keine Speicherung durch den Agenten.
+
+[CI](https://github.com/bummber/evolvera/actions/runs/41727228799) und
+[Pages](https://github.com/bummber/evolvera/actions/runs/41727228841) für genau diesen
+Commit **erfolgreich**; Build/Deploy erfolgreich, Generierung korrekt übersprungen.
+Öffentlich HTTP 200, HTML und vier initiale Assets bytegleich zum isolierten
+Remote-Build mit traceable/3; Archiv weiter leer. Remote-main und Seriengates erneut
+lesend bestätigt. Keine neue manuelle Browser-/Geräteabnahme.
+[Vollständiger Modusbericht](operator-mode-test.md).
+
+Lokales HEAD `5afbe7b`, vier lokale Commits seit `9ad1fa7`, ungefetchte
+`origin/main`-Referenz weiterhin `9ad1fa7`. Tatsächliches Remote inzwischen drei
+Commits weiter (Hinwechsel, Testfix, Rückwechsel). Lokale Modusdatei weiter
+traceable/1; **Remote-Revision 3 beim späteren Abgleich erhalten**. Alle bisherigen
+Arbeiten und PRD-Backup erhalten. Kein lokaler Commit/Push/Merge/Reset, kein
+Worker-Update oder Serienstart aus diesem Prüfschritt.
+
+Nach Abschluss der Nachprüfung nächsten Arbeitsschritt gemeinsam sichten:
+lokalen Stand mit Remote-Änderungen geordnet zusammenführen und separat eine
+Veröffentlichung des bereits abgenommenen Werkbuch-Designs vorbereiten.
+Keine neue Designrunde und keine implizite Publikationsfreigabe.
+
+Nach Statusdokumentation `npm run check` erneut erfolgreich mit **165 Tests**,
+Format/Lint/Typen, Datenprüfung, Build und deaktiviertem Worker-Dry-Run.
+Keine neue lokale Browser-/Runtime-Suite für die reine Dokumentationsänderung;
+GitHub-Läufe und öffentliche HTTP-/Byteprüfungen sind die neuen externen Nachweise.
+
+## Vorheriger Stand – 03.11.2026, gezielter CI-Testfix veröffentlicht
+
+Betreiber hat ausschließlich den Ein-Datei-Testfix samt CI-/Pages-Folge mit
+**„Freigabe erteilt“** beauftragt. Einmalig via GitHub-Contents-API als
+[`75f11ae`](https://github.com/bummber/evolvera/commit/75f11aed4481a56b67ece6bdff67354053857ab6)
+übernommen; Elterncommit `4f1186f8280d9db25b261a9de13dc081cd35e060`.
+Vorher frischer Head-/Datei-SHA-Abgleich, danach genau eine geänderte Datei
+`tests/evolution.test.ts` und bytegleicher geprüfter Inhalt bestätigt.
+
+Keine lokalen Design-/Worker-/Dokumentationsdateien mit veröffentlicht, kein
+weiteres Worker-Deployment. Modusdatei auf GitHub bytegleich: **free/Revision 2**,
+Generierung aus, Startdatum null. Lokale Modusdatei weiter traceable/1.
+[CI](https://github.com/bummber/evolvera/actions/runs/41726299381) und
+[Pages](https://github.com/bummber/evolvera/actions/runs/41726299386) **erfolgreich**
+für genau diesen Commit. Pages-Build/Deploy erfolgreich, Generierungsschritt korrekt
+übersprungen. Öffentliche Pages-GETs HTTP 200; HTML und vier initiale Assets bytegleich
+zum isolierten Remote-Build mit free/2 und Testfix, offizieller Index weiter leer.
+Remote-main und unveränderte Modusdatei danach erneut lesend bestätigt.
+[Vollständiger Bericht](operator-mode-test.md).
+
+Lokales HEAD `5afbe7b` und alle Arbeiten erhalten, keine lokale Git-Mutation;
+`origin/main` weiter ungefetchter Stand `9ad1fa7`, tatsächliches Remote jetzt zwei
+Commits weiter. Nicht blind pullen, zurücksetzen oder force-pushen. Kein weiterer
+Moduswechsel, Rückwechsel oder Serienstart aus dieser Freigabe ableiten.
+
+Nach Statusdokumentation lokal `npm run check` erneut erfolgreich mit **165 Tests**,
+Format/Lint/Typen, Datenprüfung, Build und deaktiviertem Worker-Dry-Run. Keine neue
+lokale Browser-/Runtime-Suite für diese reine Dokumentationsänderung. Erfolgreiche
+GitHub-Läufe und HTTP-/Bytevergleich sind die neuen externen Nachweise.
+
+## Vorheriger Stand – 03.11.2026, free/2 gespeichert, CI-Testfix lokal
+
+Betreiber meldet Speicherkonflikt und bestätigt nach erneutem Laden **„Maximale
+Freiheit Revision 2“**. GitHub ausschließlich lesend geprüft: `main` jetzt
+`4f1186f8280d9db25b261a9de13dc081cd35e060`, Commit 03.11., 22:45:47 Uhr MEZ,
+nur `config/generation.json` geändert. **Remote: free/Revision 2**; Generierung false,
+Startdatum null, Serienfreigabe false, offizieller Index leer. Kein weiterer
+Speicherversuch oder Rückwechsel durch den Agenten; keine Freigabe dafür abgeleitet.
+
+Konfliktursache nicht abschließend nachgewiesen; ein zweites Absenden der alten
+Revision ist plausibel, aber nicht als Tatsache dokumentiert. Der Moduscommit selbst
+ist nachgewiesen. Beide ausgelösten Workflows scheitern an einem Test, der die echte
+Betreiberkonfiguration übernimmt, aber fest traceable/1 erwartet. Pages-Deploy wurde
+übersprungen, bisherige Veröffentlichung bleibt bestehen.
+
+Lokal nur `tests/evolution.test.ts` auf feste synthetische Einstellungen umgestellt.
+Keine Generator-/Kunst-/Archiv-/Worker- oder Konfigurationsänderung in diesem Schritt.
+Auf altem Remote-Code in isoliertem Git-Repository mit synthetischem free/2 exakt
+reproduziert; nach dem Testfix 131 Tests, Build/Datenprüfung, separater Worker-Dry-Run,
+Runtime und 32 Browserfälle erfolgreich. Danach synthetisch traceable/3: 131 Tests
+erfolgreich. Relativer Worker-Ausgabepfad im isolierten Gesamtcheck zunächst blockiert,
+separater absoluter Ausgabepfad innerhalb des Testrepos erfolgreich.
+[Vollständige Nachweise und konkreter Freigabevorschlag](operator-mode-test.md).
+
+Abschließend im aktuellen Projekt `npm run check` erfolgreich: **165 Tests**,
+Format/Lint/Typen, Datenprüfung, Build und deaktivierter Worker-Dry-Run.
+Keine neue aktuelle Browser-/Runtime-Suite für die reine Test-/Dokumentationsänderung;
+die oben genannten neuen 32 Browserfälle/Runtime stammen ausdrücklich aus dem
+isolierten alten Remote-Code. Format-/Diff-/Backupprüfung erfolgreich.
+
+**Testfix noch nicht auf GitHub.** Nächster gesonderter Vorschlag: ausschließlich
+die eine Testdatei auf Remote-main übernehmen, samt einem Commit und möglichen
+CI-/Pages-Läufen. Keine lokale Design-/Worker-Veröffentlichung, kein Modusrückwechsel
+oder Serienstart daraus ableiten. Bis dahin nicht erneut speichern.
+
+Lokales HEAD weiter `5afbe7b`, reale lokale Konfiguration weiter traceable/1.
+Die lokale `origin/main`-Referenz bleibt ungefetchter Stand `9ad1fa7`; tatsächliches
+Remote ist nun einen Moduscommit weiter, lokale vier Commits und uncommittierte
+Arbeiten vollständig erhalten. Kein Pull/Reset/Merge/Commit/Push ausgeführt.
+
+## Vorheriger Stand – 03.11.2026, Live-Logout bestätigt
+
+Nach Veröffentlichung des Formular-Fixes hat der Betreiber auf den vorgelegten
+Testablauf (Einstellungen frisch laden, abmelden, erneut laden, dann neu anmelden)
+mit **„Funktioniert“** geantwortet. Der Abmelde-/Neuanmeldetest ist damit durch den
+Betreiber bestätigt. Aktive zuletzt geprüfte Cloudversion bleibt
+`08317969-9743-4a86-84c2-a57afd3b7e75`; kein weiteres Deployment erforderlich.
+
+Dieser Nachtrag dokumentiert ausschließlich die Rückmeldung, keine eigene
+Sitzungseinsicht oder neue Cloudprüfung. Die frühere Logoutstörung ist für diesen
+Praxisablauf behoben bestätigt. Umfassende Sitzungsabnahme, Ablauf, Konflikte,
+negative Cloud-Authentifizierungsfälle und Safari/Firefox bleiben offen.
+
+Echte Modusspeicherung bleibt ungeprüft und nicht freigegeben; ein solcher Test
+kann Git-Commits und Pages-Läufe auslösen und wird vor Durchführung gesondert
+vorgelegt. Nächsten Arbeitsschritt gemeinsam sichten. Kein Commit/Push,
+Pages-Update, Tokenwiderruf oder Serienstart aus der Rückmeldung ableiten.
+Generierung false, Serienstart null, Serienfreigabe false, traceable/Revision 1,
+leeres offizielles Archiv und Galerie-Origin null unverändert. Alle Arbeiten erhalten.
+
+Für diesen reinen Dokumentationsnachtrag `npm run check` erneut erfolgreich mit
+**165 Tests**, Datenprüfung, Build und deaktiviertem Worker-Dry-Run. Keine externe
+Abfrage und keine neue Browser-/Runtime-Suite; Format-/Diff-/Backupprüfung erfolgreich.
+
+## Vorheriger Stand – 03.11.2026, Formular-Fix veröffentlicht
+
+Betreiber hat das konkrete Worker-Code-Update mit **„Freigabe erteilt“** beauftragt.
+Einmalig auf dem bestehenden `evolvera-admin` ausgeführt, am **03.11.2026 um
+22:38 Uhr MEZ**, Exit 0. Aktive Version `08317969-9743-4a86-84c2-a57afd3b7e75`,
+100 Prozent Traffic; Deployment-ID `7b452a7b-678c-4444-a98c-e82f46ff8d85`.
+[Bericht, Ursache, Tests und Grenzen](operator-form-fix.md).
+
+- Vorher Token/Gültigkeit, erwartete alte Liveversion, Variablen, Secret-Bindings,
+  SQLite und Logging nur lesend bestätigt. Token aktiv bis 04.11.2026, 23:59:59 MEZ.
+- Nur Code mit vorhandener ignorierter Vorlage hochgeladen, keine Secretdatei
+  gelesen/hochgeladen und keine Rotation. Danach beide bisherigen Secret-Bindings,
+  **derselbe SQLite-Namespace**, Migration `v1`, Variablen und Laufzeitdatum bestätigt.
+  workers.dev aktiv; Preview URLs/Logpush aus, keine Tail-Consumer, Observability
+  weiterhin deaktiviert/API `null`. Wrangler-Dateilogs und Telemetrie aus.
+- `/health`, `/privacy`, `/imprint` per öffentlichem curl-GET: jeweils HTTP 200,
+  keine Cookies, `no-store`, `no-referrer` und Schutzheader bestätigt. Health bereit;
+  Rechtstextfragmente exakt gleich zur durchgesehenen Fassung `2026-11-03.1`.
+- **Echter Logout des korrigierten Workers noch offen.** Betreiber soll die
+  Einstellungen frisch laden, abmelden und erneut laden: danach muss die
+  Anmeldeansicht erscheinen. Anschließend selbst erneut anmelden, nichts speichern.
+  Keine Sitzung/Cookies/Codes vom Agenten gelesen, kein Live-Modusschreibtest.
+- Kein Commit/Push, Pages-Update oder Generierung. Alle lokalen Arbeiten erhalten;
+  HEAD `5afbe7b`, vier lokale Commits vor bekanntem `origin/main`, kein GitHub-Abgleich.
+  Galerie-Origin null; Generierung false, Startdatum null, Serienfreigabe false,
+  traceable/Revision 1 und offizielles Archiv leer. Private Originaldateien erhalten.
+
+Der vorige Reparaturschritt prüfte unveränderten Code mit 165 Tests, echtem lokalen
+workerd/SQLite und 68 bestandenen Browserfällen (sechs bewusste Doppelaufruf-Skips).
+Dieses Deployment ändert daran keine Implementierung. Die hier neue Cloudprüfung
+ist ausschließlich lesend; umfassende Sitzungsabnahme und Safari/Firefox bleiben offen.
+
+Nach der Deployment-Dokumentation `npm run check` erneut vollständig erfolgreich
+mit **165 Tests**, Datenprüfung, Build und deaktiviertem Worker-Dry-Run.
+Keine neue Browser-/Runtime-Suite; deren Nachweis stammt aus dem Reparaturschritt.
+Dateivergleich seit Beginn dieses Deploymentauftrags: ausschließlich die fünf
+zugehörigen Statusdokumente geändert, keine Dateien gelöscht; Format-/Diff- und
+bytegleiche PRD-Backupprüfung erfolgreich.
+
+## Vorheriger Stand – 03.11.2026, Logoutfehler lokal behoben
+
+Nach erfolgreichem Login meldet der Betreiber beim Abmelden „Vorgang nicht bestätigt.“;
+„Einstellungen neu laden“ zeigt die weiterhin gültige Sitzung. **Kein erfolgreicher
+Logout.** Lokal mit echtem Chromium reproduziert: native Formular-POSTs unter
+`no-referrer` senden `Origin:null`; die bisherige Originprüfung weist sie mit
+HTTP 403 ab, bevor ein Widerruf stattfindet. Auch Modusspeicherung betroffen;
+kein echter Modusschreibversuch erfolgt.
+
+Lokal korrigiert: zusätzlich zur exakten Origin nur `Origin:null` zusammen mit
+`Sec-Fetch-Site:same-origin`, `Sec-Fetch-Mode:navigate` und
+`Sec-Fetch-Dest:document` akzeptieren. Sitzung und CSRF bleiben verpflichtend,
+`no-referrer` und Datenschutzfassung unverändert. Neue negative Unitfälle,
+workerd-/SQLite-Nachweise und native Browserformulare mit synthetischen Daten.
+[Ursache, Prüfumfang und konkretes Update](operator-form-fix.md).
+
+Tatsächlich geprüft: `npm run check` mit **165 Tests**, Datenprüfung, Build und
+Worker-Dry-Run erfolgreich; `worker:test-runtime` einschließlich Formularlogout
+und abgewiesener fremder Herkunft erfolgreich. `test:browser` am gebauten Stand:
+**68 bestanden, sechs bewusste Doppelaufruf-Skips**, sechs Kunstreferenzen unverändert.
+Aktive Upload-Vorlage mit synthetischen Secrets erneut per Dry-Run erfolgreich.
+Keine neue Cloudprüfung; Browsernachweis Chromium Desktop/320px, nicht Safari/Firefox.
+
+**Korrektur noch nicht veröffentlicht.** Cloudworker unverändert; bis zum
+freigegebenen Update keinen Modus speichern. Nächster Freigabepunkt ist nur das
+beschriebene Code-Update mit bestehenden Secrets/Speicher, danach lesende
+Health-/Rechtstextprüfung und Logouttest durch den Betreiber. Kein Commit/Push,
+Pages-Update oder Serienstart. Vorhandene Arbeiten und bytegleiches PRD-Backup
+erhalten. HEAD weiter `5afbe7b`, vier lokale Commits vor bekanntem `origin/main`;
+keine Remoteabfrage in diesem Reparaturschritt.
+
+## Vorheriger Stand – 03.11.2026, Betreiberlogin bestätigt
+
+Der Betreiber meldet: **„Die Authorisierung per Github war erfolgreich. Ich sehe
+die Einstellungen und habe nichts gespeichert“**. Damit ist der erste echte Login
+bis zur Einstellungsansicht durch den Betreiber bestätigt. Kein eigener Zugriff
+des Agenten auf Sitzung, Cookies, Callback-Code oder Tokens; keine Geheimnisse
+angefordert oder ausgegeben. Laut vorhandener Implementierung setzt die sichtbare
+Einstellungsansicht auch das erfolgreiche Lesen der GitHub-Moduskonfiguration voraus.
+Dies ist ein positiver Praxisnachweis aus der Betreiberbestätigung, keine neue
+automatisierte Cloudprüfung und keine umfassende Sitzungsabnahme.
+
+Kein Modus gespeichert; kein Speichertest oder weiterer Pages-Lauf beauftragt.
+Abmelden/Widerruf, Ablauf, Konflikte und reale negative Authentifizierungsfälle
+bleiben offen. Nächsten Arbeitsschritt gemeinsam sichten; eine Modusspeicherprüfung
+mit möglichem Git-Commit/Pages-Lauf benötigt einen passenden weiteren Auftrag.
+Galerie-Veröffentlichung, Commit/Push, Tokenwiderruf, Generierung und Serienstart
+sind aus dieser Rückmeldung nicht freigegeben. Alle bisherigen Arbeiten erhalten;
+nur die lokale Statusdokumentation aktualisiert. Seriengates unverändert gesperrt.
+
+Für diesen Statusnachtrag `npm run check` erneut vollständig erfolgreich mit
+**155 Tests**, Datenprüfung, Build und deaktiviertem Worker-Dry-Run. Keine externe
+Abfrage, neue Bereitstellung oder Browser-/Runtime-Suite; Implementierung unverändert.
+Format-/Diffprüfung erfolgreich, PRD-Backup bytegleich erhalten.
+
+## Vorheriger Stand – 03.11.2026, Worker veröffentlicht
+
+Der Betreiber hat die konkret vorgelegten drei Schritte mit **„Ich gebe die Schritte
+frei“** beauftragt: erstmaliger gemeinsamer Worker-/Secret-Upload, SQLite-Speicher
+und Anmeldeaktivierung nur für `bummber`, anschließend lesende Nachprüfung.
+Diese Freigabe wurde ausgeführt; **keinen weiteren Erstupload wiederholen**.
+
+- Neuer `evolvera-admin` unter
+  `https://evolvera-admin.alexander-brocker.workers.dev`, Deployment am
+  **03.11.2026 um 22:12 Uhr MEZ**. Deployment-ID
+  `ea0224e4-267b-4605-bb03-b6ccc8a09080`, aktive Version
+  `86dadc05-c9fd-4a9c-ab23-15a3494a58ee` mit 100 Prozent Traffic.
+- Vorher erneut ausschließlich GET: Token aktiv bis **04.11.2026, 23:59:59 MEZ**,
+  Zielworker noch nicht vorhanden, erwartete Account-Subdomain. Danach einmaliger
+  Upload mit projektlokalem Wrangler 4.154.0 und der bestehenden ignorierten Vorlage
+  `work/operator-deploy/wrangler.jsonc`; beide echten Secrets gemeinsam über die
+  geschützte externe JSON-Datei. Wrangler-Dateilogs und Telemetrie deaktiviert;
+  keine Secretwerte oder rohen Wrangler-Ausgaben ausgegeben. Exit 0.
+- Cloudzustand lesend bestätigt: genau ein Worker; beide Secret-Bindings vorhanden,
+  Variablen entsprechen der Vorlage, feste Betreiber-ID `46008719`, Binding
+  `SESSIONS`/Klasse `Sessions`, SQLite-Namespace, Migration `v1`, Laufzeitdatum
+  `2026-10-28`. workers.dev aktiv, Preview URLs aus, Logpush aus, keine Tail-Consumer.
+  Deaktivierte Observability wird von der API als fehlendes Feld beziehungsweise
+  `null` zurückgegeben, nicht als explizites `false`. Gegen separate Script-Settings
+  und die Behandlung fehlender Observability im installierten Wrangler geprüft;
+  keine zusätzliche Änderung oder zweites Deployment erforderlich.
+- Öffentliche GETs auf `/health`, `/privacy`, `/imprint`: jeweils **HTTP 200**,
+  keine Cookies, `no-store`, `no-referrer` und Sicherheitsheader bestätigt.
+  Health meldet `configurationReady:true`. Rechtstextfragmente SHA-256-gleich zur
+  lokalen, durchgesehenen gemeinsamen Fassung `2026-11-03.1`; kein Entwurfshinweis.
+  Alle drei Seiten zusätzlich im nativen Browser sichtbar geprüft. Python-urllib
+  erhielt zuvor Cloudflare 1010/HTTP 403; normale Browsernavigation und curl
+  funktionieren. Keine Schutzregel abgeschwächt.
+- Echten Login **nicht gestartet**, keine OAuth-/Sitzungsabnahme und kein
+  Modusspeichertest behauptet. Nächster Schritt ist der direkte Login durch den
+  Betreiber über `/login`; noch keinen Modus speichern. GitHub-App-Schlüsselpaar,
+  Callback und echte Sitzungen sind erst damit praktisch nachweisbar.
+- `main`/HEAD `5afbe7b`, vier lokale Commits vor bekanntem `origin/main` erhalten;
+  kein neuer Remoteabgleich, Commit oder Push. Alle vorhandenen Arbeiten erhalten.
+  Nur Dokumentation zum erfolgten Upload fortgeschrieben. Versionierter
+  Workerstandard bleibt deaktiviert; Galerie-`adminOrigin:null`. Kein Pages-Update.
+- Generierung `false`, Serienstart `null`, `seriesAuthorized:false`, Modus
+  `traceable`, Revision 1, offizielles Archiv leer. Die 40 Testwerke bleiben separat
+  abgenommen. Keine Kunst-, Generator-, Archiv-, UI- oder Sitzungscodeänderung.
+- Private Originaldateien nicht überschrieben oder gelöscht. Der temporäre Token
+  bleibt bis zum dokumentierten Ablauf unverändert; Aufräumen/Widerruf ist ein
+  gesonderter Betreiberauftrag, keine neuen Zugangsdaten anfordern.
+
+[Uploadbericht und Prüfgrenzen](operator-first-upload.md),
+[aktueller Wiedereinstieg](NEXT-START.md). Frühere offene Uploadfreigaben und
+Erstupload-Anweisungen in den folgenden historischen Blöcken sind erledigt.
+
+Abschließend `npm run check` vollständig erfolgreich: Format/Lint/Typen,
+**155 Tests**, Daten-/Vorschauprüfung, Build und Worker-Dry-Run des deaktivierten
+Projektstandards. `check:publication` unmittelbar vor dem Upload erfolgreich.
+Keine neue Browserregressions- oder synthetische Worker-Runtime-Suite, da nur
+Dokumentation geändert wurde; die drei öffentlichen Worker-Seiten wurden wie oben
+beschrieben live geprüft. Letzter lokaler Runtime-/Galerie-Browsernachweis bleibt
+der Anbieterprüfschritt mit 66 Browserfällen und sechs bewussten Doppelaufruf-Skips.
+Safari/Firefox, echte Geräte/Safe-Area, umfassende WCAG-Abnahme und Cloud-Login offen.
+
+## Vorherige Chat-Übergabe – 03.11.2026, vor Uploadfreigabe
+
+Auf Betreiberwunsch aktuellen Stand und Startprompt für einen neuen Chat festhalten.
+**Dieser Übergabeauftrag erteilt keine Upload-/Aktivierungsfreigabe.** Es wurde zuvor
+konkret um diese Freigabe gebeten, der Betreiber hat stattdessen die Übergabe gewünscht.
+Im neuen Chat an genau diesem Punkt fortsetzen; keine neue Design-, Vertrags- oder
+Secret-Eingaberunde beginnen. [Kopierbarer Startprompt](NEXT-START.md).
+
+- Bestehendes Projekt `/Users/abrocker/ai_o_projects/evolvera`, `main`, HEAD
+  **`5afbe7b`**, vier lokale Commits vor dem bekannten `origin/main` (`9ad1fa7`).
+  `origin` bleibt `https://github.com/bummber/evolvera.git`. Kein neuer Remoteabgleich.
+  Die zehn positiv gesichteten Werkbuch-Pakete sind in `5afbe7b` lokal gesichert;
+  das Werkbuch-Design ist nicht veröffentlicht. Die nachfolgenden Anbieter-/Upload-
+  Vorbereitungen liegen **uncommittiert** vor, einschließlich `provider-review.md`
+  und `operator-first-upload.md`. Sämtliche Änderungen und unversionierten Dateien
+  erhalten. PRD-Backup unversioniert und bytegleich; nicht aufnehmen/formatieren.
+- Lokale Anbieterprüfung abgeschlossen, `providerReviewedOn:2026-11-03`;
+  Betreiber-Datenschutzfassung `2026-11-03.1` mit bestätigter Textdurchsicht.
+  `npm run check:publication` zuletzt **Exit 0**. Keine alte Begrüßungsmail oder
+  zusätzliche Vertragsurkunde verlangen. Nachweise/Grenzen in [provider-review.md](provider-review.md).
+  Keine anwaltliche Freigabe oder vollständige persönliche DPA-Lektüre behaupten.
+- GitHub App ist registriert und nur auf `bummber/evolvera` installiert.
+  Der Betreiber hat beide GitHub-App-Geheimnisse lokal geschützt abgelegt:
+  `~/.evolvera-operator-setup/worker-secrets.json`. Befristeter Cloudflare-Zugang:
+  `~/.evolvera-operator-setup/cloudflare-auth.json`. Beide Dateien außerhalb von Git;
+  0700/0600 und erwartete Struktur ohne Wertausgabe geprüft. Keine Secrets erneut
+  anfordern oder anzeigen; kein `cat`, kein Debugtrace, keine Werte in Befehlsargumenten.
+- Token-Policy vor manueller Erstellung im Browser geprüft: ausschließlich
+  **Workers Admin im Zielkonto**. Echte lesende API-Prüfung danach: Token active,
+  Ablauf **04.11.2026 23:59:59 MEZ**, 0 Worker, erwartete Account-Subdomain.
+  Im neuen Chat Uhrzeit/Ablauf sowie aktuellen Zielzustand erneut nur lesend prüfen.
+  Vorhandenen gültigen Token nutzen, abgelaufenen nicht umgehen; MCP bleibt lesend.
+- Der versionierte Workerstandard ist **deaktiviert**. Die separate ignorierte
+  Upload-Vorlage `work/operator-deploy/wrangler.jsonc` ist synthetisch per Dry-Run
+  geprüft und sieht die direkte Anmeldeaktivierung vor. `synthetic-secrets.json`
+  dort ist ausschließlich Testmaterial, niemals für einen echten Upload verwenden.
+  Reale Dateien ausschließlich über geschützte Tool-Eingabe verwenden. Lokale
+  Runtime-/Auth-Tests bleiben isoliert und verwenden ausschließlich synthetische Daten.
+  Echte lesende Anbieterprüfungen sind davon getrennt.
+- Bereits konkret vorgelegter Umfang: neuen `evolvera-admin` unter
+  `https://evolvera-admin.alexander-brocker.workers.dev` samt beiden GitHub-App-Secrets
+  und SQLite-Sitzungsspeicher bereitstellen, Anmeldung nur für Betreiber `bummber`
+  aktivieren; danach Health und öffentliche Rechtstexte lesend prüfen. **Offene
+  Betreiberfreigabe für genau diesen Upload-/Aktivierungsschritt.** Keine Galerie-
+  Veröffentlichung oder Modus-Speichertests daraus ableiten; Moduscommits auf `main`
+  können Pages auslösen. Details in [operator-first-upload.md](operator-first-upload.md).
+- Letzter tatsächlicher Prüfstand: `npm run check` mit **155 Tests**, Datenprüfung,
+  Build und Worker-Dry-Run; im Anbieterprüfschritt zudem lokaler
+  `npm run worker:test-runtime` erfolgreich und `npm run test:browser` mit **66
+  bestanden, sechs bewussten Doppelaufruf-Skips**. Sechs Kunstreferenzen unverändert;
+  100 Seiten-/Breitenkombinationen ohne horizontalen Dokumentüberlauf. Keine neue
+  manuelle Bildsichtung. Safari/Firefox, reale Geräte/Safe-Area, umfassende WCAG-
+  Abnahme und echte Anmeldung bleiben offen; Evolution zeigt Werk und geladene Eltern.
+- Generierung `false`, Startdatum `null`, `seriesAuthorized:false`, Modus `traceable`,
+  Revision 1, offizielles Archiv leer. Kunstabnahme der 40 Testwerke bleibt separat
+  erhalten. Galerie-Origin null; kein Worker-Upload, Git-Push oder Tarifwechsel.
+
+In diesem Übergabeschritt ausschließlich HANDOFF und NEXT-START aktualisiert.
+`npm run check` erneut vollständig erfolgreich mit **155 Tests**, Datenprüfung,
+Build und Worker-Dry-Run; Format-/Diff-/Backupprüfung erfolgreich. Keine neue
+Browser-/Runtime-Suite für die reine Dokumentation; deren letzter Nachweis ist oben
+ausdrücklich zugeordnet.
+Keine neuen Commits, externen Aufrufe, Ressourcen, Rechte oder Deployments.
+Temporäre Helfer und generierte Typen unter `/private/tmp` sind nicht dauerhaft
+garantiert. Die private Secret-Ablage liegt dagegen im Benutzerverzeichnis und ist
+kein Projektartefakt; vorhandene Dateien vor einer Neuerzeugung ohne Wertausgabe prüfen.
+
+## Vorheriger Stand – Uploadzugang lesend geprüft am 03.11.2026
+
+Betreiber bestätigt lokal abgelegten Cloudflare-Token. Ordner-/Dateirechte 0700/0600,
+Eigentümer, Struktur und Zielkonto-Zuordnung ohne Wertausgabe geprüft. Ausschließlich
+GET-Prüfungen mit dem echten Token: **active**, gültig bis **04.11.2026 23:59:59 MEZ**,
+**0 Worker**, `evolvera-admin` noch nicht vorhanden; Account-Subdomain passt.
+`npm run check:publication` erneut Exit 0. Kein externer Schreibaufruf.
+[Vollständiger Umfang und Prüfgrenzen](operator-first-upload.md#lesende-vorprüfung-mit-dem-bereitgestellten-token).
+
+Vorbereiteter nächster Auftrag: neuen `evolvera-admin` mit beiden geschützten GitHub-
+App-Secrets, SQLite-Sitzungsspeicher und öffentlicher workers.dev-Route hochladen,
+direkte Betreiberanmeldung aktivieren, danach Health/Rechtstexte lesend prüfen.
+**Diesen Upload-/Aktivierungsauftrag noch nicht erteilt.** Galerie-Push und echte
+Modusspeichertests mit möglichem Pages-Lauf sind ausgenommen. Keine neue Serie oder
+Generierung; übrige Gates erhalten. Vor Upload Zielzustand frisch lesen.
+Änderungen weiterhin lokal uncommittiert; kein Push/Deployment oder neue MCP-Rechte.
+Token und GitHub-App-Secrets nie im Chat, Git, Logs oder lokalen Tests verwenden.
+Die strukturelle Prüfung und die genannten echten lesenden Anbieteraufrufe sind
+keine synthetischen Runtime-Tests und kein Login-Nachweis.
+
+## Vorheriger Stand – Secret-Ablage bestätigt, Upload vorbereitet am 03.11.2026
+
+Betreiber meldet „Die lokale Secret-Datei ist erstellt“. Ordner 0700, Datei 0600,
+Eigentümer und erwartete JSON-/PKCS#8-Hüllenstruktur ohne Wertausgabe geprüft.
+Keine echte Authentifizierung oder Verwendung der Secrets in lokalen Tests.
+[Konkrete Upload-Vorlage, Tokenumfang und Prüfgrenzen](operator-first-upload.md).
+
+Die separate Vorlage unter ignoriertem `work/operator-deploy/` ist synthetisch per
+Worker-Dry-Run geprüft und sieht nach gesondertem Auftrag direkte Anmeldung am
+Worker vor. Der versionierte Workerstandard ist weiterhin deaktiviert; Galerie-
+Origin null. Noch kein Uploadtoken vorhanden oder externe Ressource angelegt.
+Vorschlag für die erstmalige Anlage: befristeter account-owned Token, nur Zielkonto,
+Workers-Produktrolle Admin; anschließend Editor nur auf dem angelegten Worker.
+Vor Tokenanlage den Umfang zeigen, Tokenwert ausschließlich lokal unsichtbar eingeben.
+Keine neue MCP-Berechtigung, kein breites Wrangler-OAuth oder Tarifwechsel.
+
+Anbieterprüfung und frühere Tests bleiben erhalten. Keine Commits, Pushes,
+Deployments, Generierung oder Serienaktivierung. Der nächste Betreiberauftrag
+muss Tokenanlage und anschließend den konkreten Upload-/Aktivierungsumfang abdecken;
+Modusspeichertest mit möglichem Pages-Lauf bleibt separat. PRD-Backup erhalten.
+
+## Vorheriger Stand – lokale Anbieterprüfung am 03.11.2026
+
+Nach Checkpoint `5afbe7b` Konto-/Vertragsprüfung auf Fortsetzungsauftrag abgeschlossen.
+Betreiber bestätigt Workers Free per Screenshot, vorhandene Subdomain und direkte
+GitHub-Anmeldung bei Cloudflare; keine Begrüßungsmail vorhanden. Abschnitt 6.1
+persönlich gelesen und weitere Vorbereitung gewünscht. Die öffentlichen
+Self-Serve-/DPA-/Datenschutztexte und der tatsächliche Datenfluss wurden erneut
+geprüft. [Nachweise und Grenzen](provider-review.md).
+
+`providerReviewedOn:2026-11-03` lokal dokumentiert; gemeinsame Datenschutzfassung
+und Textversion unverändert. Keine vollständige persönliche DPA-Lektüre oder
+historische Vertragsannahme aus der Rückmeldung abgeleitet. Die Betreiberfunktion
+speichert kurzlebige Anmelde-/Sitzungsdaten; die gegenteilige Annahme des Betreibers
+im Chat ausdrücklich korrigiert. Keine externe Einrichtung daraus abgeleitet.
+
+Nächster abgegrenzter Schritt nach Sichtung: sicherer GitHub-App-Schlüssel-/Secret-Ablauf
+gemäß [operator-secrets.md](operator-secrets.md), gesondert konkret beauftragen.
+Keine neuen Schlüssel, Secrets, Cloudflare-Schreibrechte, Workerroute, Commits,
+Pushes oder Deployments in diesem Prüfschritt. Galerie-Origin null, Worker aus,
+Generierung aus, Startdatum null und Serienfreigabe false unverändert.
+Öffentlicher Stand nicht neu geprüft oder verändert. Die folgenden Vermerke
+beschreiben die früheren Prüfstände mit damals noch offener Anbieterprüfung.
+
+Tatsächlich geprüft: `npm run check` mit **155 Tests**, Build und Worker-Dry-Run;
+`npm run worker:test-runtime` lokal mit isoliertem Speicher/synthetischen Daten;
+`npm run test:browser`: **66 bestanden, sechs bewusste Doppelaufruf-Skips**, sechs
+Kunstreferenzen unverändert. `npm run check:publication` jetzt **Exit 0**.
+Kein Abschwächen der Gates; negative Unit-/Runtime-Fälle bleiben erhalten.
+Alle Änderungen dieses Prüfschritts uncommittiert. PRD-Backup bytegleich erhalten.
+
+## Vorheriger Stand – lokaler Werkbuch-Checkpoint am 03.11.2026
 
 Nach dem Wiedereinstieg wurde ein ausschließlich lokaler Werkbuch-Checkpoint
 vorgeschlagen: bestehende Browsersuite am gebauten Stand ausführen, Dateiauswahl

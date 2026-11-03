@@ -77,12 +77,55 @@ export default {
     const seen = await recordCall(env.SESSIONS, session, { operation: 'read' });
     await recordCall(env.SESSIONS, session, { operation: 'revoke' });
     const gone = await recordCall(env.SESSIONS, session, { operation: 'read' });
+    const ready = createWorker(readyPolicy);
+    const browserSession = 'b'.repeat(43);
+    const csrf = 'c'.repeat(43);
+    await recordCall(env.SESSIONS, browserSession, {
+      operation: 'issue',
+      record: {
+        kind: 'session',
+        ownerId: '123',
+        csrf,
+        expires: Date.now() + 3600000,
+      },
+    });
+    const logoutRequest = (site: string) =>
+      new Request(readyPolicy.review.adminOrigin + '/logout', {
+        method: 'POST',
+        body: new URLSearchParams({ csrf }),
+        headers: {
+          Cookie: `__Host-evolvera-session=${browserSession}`,
+          Origin: 'null',
+          'Sec-Fetch-Site': site,
+          'Sec-Fetch-Mode': 'navigate',
+          'Sec-Fetch-Dest': 'document',
+        },
+      });
+    const unsafeLogout = await ready.fetch(
+      logoutRequest('cross-site'),
+      draftEnv,
+    );
+    const stillThere = await recordCall(env.SESSIONS, browserSession, {
+      operation: 'read',
+    });
+    const browserLogout = await ready.fetch(
+      logoutRequest('same-origin'),
+      draftEnv,
+    );
+    const browserGone = await recordCall(env.SESSIONS, browserSession, {
+      operation: 'read',
+    });
     return Response.json({
       disabledCorrectly:
         health.status === 503 && disabled.configurationReady === false,
       atomicConsumeCount: responses.filter(Boolean).length,
       sessionSeen: !!seen,
       sessionRevoked: gone === null,
+      browserFormLogout:
+        browserLogout.status === 303 &&
+        browserGone === null &&
+        browserLogout.headers.get('Set-Cookie')?.includes('Max-Age=0') === true,
+      unsafeFormRejected: unsafeLogout.status === 403 && !!stillThere,
       legalWithoutSession:
         privacy.status === 200 &&
         privacy.headers.get('Set-Cookie') === null &&

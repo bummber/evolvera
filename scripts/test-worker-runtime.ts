@@ -54,6 +54,8 @@ try {
     atomicConsumeCount: 1,
     sessionSeen: true,
     sessionRevoked: true,
+    browserFormLogout: true,
+    unsafeFormRejected: true,
     legalWithoutSession: true,
     privacyGateClosed: true,
   });

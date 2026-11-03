@@ -246,7 +246,16 @@ async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
     request.method === 'POST' &&
     ['/settings/mode', '/logout'].includes(url.pathname)
   ) {
-    if (request.headers.get('Origin') !== env.ADMIN_ORIGIN)
+    const requestOrigin = request.headers.get('Origin');
+    // Native POST forms under no-referrer send Origin:null (Fetch Standard).
+    // Accept only top-level form navigation proven same-origin by browser-owned
+    // Fetch Metadata; null/missing/foreign origins alone never grant access.
+    const sameOriginForm =
+      requestOrigin === 'null' &&
+      request.headers.get('Sec-Fetch-Site') === 'same-origin' &&
+      request.headers.get('Sec-Fetch-Mode') === 'navigate' &&
+      request.headers.get('Sec-Fetch-Dest') === 'document';
+    if (requestOrigin !== env.ADMIN_ORIGIN && !sameOriginForm)
       throw new GitHubFailure(403);
     const body = await form(request);
     if (body.getAll('csrf').length !== 1 || body.get('csrf') !== session.csrf)

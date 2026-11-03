@@ -1,5 +1,62 @@
 # Betrieb und spätere Einrichtung
 
+Neueste Vorbereitung: Lokaler und externer Stand isoliert konfliktfrei kombiniert,
+Remote-Revision 3 erhalten, Gesamtcheck mit 165 Tests, Runtime und 68 Browserfälle
+erfolgreich. Noch kein Merge oder Commit im eigentlichen Projekt. Vorgeschlagen
+sind genau zwei lokale Commits ohne Push/Deployment; Freigabe noch offen.
+[Kandidat, genaue Dateiauswahl und Prüfnachweise](integration-preparation.md).
+
+Neuester Stand: Betreiber hat den separat mit „ja“ freigegebenen Rückwechsel selbst
+gespeichert und traceable/Revision 3 bestätigt. Remote-Commit `f793247`, ausschließlich
+Modusdatei, Generierung/Serienstart aus. CI und Pages erfolgreich, Build/Deploy
+bestätigt, Generierung übersprungen. Öffentliche Dateien bytegleich zum isolierten
+traceable/3-Build, Archiv leer. Keine weitere Speicherung; lokale Datei weiter traceable/1,
+Remote-Revision 3 beim späteren Abgleich erhalten.
+[Modusbericht und Prüfergebnisse](operator-mode-test.md).
+
+Vorheriger Nachtrag: Ein-Datei-CI-Testfix auf separaten Auftrag als Remote-Commit
+`75f11aed4481a56b67ece6bdff67354053857ab6` übernommen, ausschließlich
+`tests/evolution.test.ts`. Remote-Modusdatei bytegleich free/2, Generierung aus.
+CI und Pages für diesen Commit erfolgreich, Generierung korrekt übersprungen.
+Öffentliches HTML und vier initiale Assets bytegleich zum isolierten Remote-Build;
+offizielles Archiv weiter leer. Ergebnis im
+[Modusbericht](operator-mode-test.md). Kein lokaler Design-/Worker-Push.
+Die nachfolgende frühere Aufforderung zur Testfix-Freigabe ist damit erledigt.
+
+Neuester Stand 03.11.2026: Remote-Modus **free/Revision 2** gespeichert, zusätzliche
+Konfliktanzeige gemeldet. CI-/Pages-Testphase wegen einer an die veränderliche
+Betreiberkonfiguration gekoppelten Testannahme fehlgeschlagen, Deploy übersprungen.
+Nur Testfix lokal vorbereitet; **nicht erneut speichern oder ungefragt pushen**.
+Lokale Modusdatei weiter traceable/1, Remote einen Moduscommit vor altem 9ad1fa7.
+[Nachweise, Git-Grenzen und gezielter Freigabevorschlag](operator-mode-test.md).
+
+Aktueller Reparaturstand 03.11.2026: Formular-/Logout-Fix separat freigegeben und
+um 22:38 Uhr MEZ als Code-Update veröffentlicht. Aktive Version
+`08317969-9743-4a86-84c2-a57afd3b7e75`; bestehende Secrets und derselbe SQLite-Namespace
+erhalten. Health/Rechtstexte lesend erfolgreich geprüft. Der Betreiber bestätigt
+den anschließenden Abmelde-/Neuanmeldetest mit „Funktioniert“.
+Noch keinen Modus speichern; Schreibtest separat vorlegen. Kein weiteres Deployment nötig.
+[Ursache, Tests und Updatebericht](operator-form-fix.md).
+
+Aktueller Stand 03.11.2026: Der ausdrücklich freigegebene erste Worker-Upload samt
+beiden Secrets, SQLite-Sitzungsspeicher und Anmeldeaktivierung ist ausgeführt.
+Live: `https://evolvera-admin.alexander-brocker.workers.dev`.
+Health und öffentliche Rechtstexte erfolgreich geprüft; Logging und Preview URLs
+aus. Der Betreiber hat den ersten GitHub-Login selbst ausgeführt und bestätigt
+sichtbare Einstellungen, ohne zu speichern. Modusspeichertest und umfassende
+Sitzungsprüfung bleiben offen; nächsten Schritt gemeinsam sichten, noch keinen
+Modus speichern. Kein Pages-Push und keine Serienaktivierung.
+[Vollständiger Bericht](operator-first-upload.md#freigegeben-und-ausgeführt--03112026).
+Die nachfolgenden Einrichtungsabschnitte sind historische Vorbereitung. Für spätere
+Änderungen zuerst den vorhandenen Cloudzustand lesen, keinen Erstupload wiederholen.
+Versionierter Workerstandard bleibt für lokale Prüfungen deaktiviert; Live-Upload
+verwendete die getrennte ignorierte Vorlage. Galerie-Origin weiterhin null.
+
+Vorheriger Nachtrag 03.11.2026: [Lokale Anbieterprüfung abgeschlossen](provider-review.md),
+`providerReviewedOn:2026-11-03`. Die früher erwähnte Kontoprüfung ist für die lokale
+Vorbereitung erledigt. Reale Logging-Konfiguration beim späteren Deployment prüfen;
+keine Secrets, Bereitstellung oder Aktivierung aus dieser Prüfung ableiten.
+
 Aktualisierung 02.11.2026: Erster Push und GitHub-CI erfolgreich, Repository danach
 auf separaten Auftrag öffentlich geschaltet. Anschließend Betreiberangaben bestätigt,
 Push und erstes Pages-Testdeployment separat freigegeben und erfolgreich ausgeführt.

@@ -3,8 +3,7 @@ import { beforeAll, beforeEach, afterEach, expect, it, vi } from 'vitest';
 import { createWorker } from '../workers/admin';
 import { readyPolicy } from './fixtures/legal';
 import type { Env } from '../workers/admin';
-import { Sessions } from '../workers/admin/store';
-import type { Storage } from '../workers/admin/store';
+import { MemoryNamespace } from './fixtures/session-memory';
 import { appJwt, base64url } from '../workers/admin/github';
 const config = {
   schemaVersion: 1,
@@ -14,47 +13,6 @@ const config = {
   timezone: 'Europe/Berlin',
   inheritanceMode: 'traceable',
 };
-class MemoryStorage implements Storage {
-  data = new Map<string, unknown>();
-  tail: Promise<unknown> = Promise.resolve();
-  alarm = 0;
-  async get<T>(key: string) {
-    return this.data.get(key) as T | undefined;
-  }
-  async put(key: string, value: unknown) {
-    this.data.set(key, value);
-  }
-  async delete(key: string) {
-    return this.data.delete(key);
-  }
-  async deleteAll() {
-    this.data.clear();
-  }
-  async setAlarm(time: number) {
-    this.alarm = time;
-  }
-  transaction<T>(callback: (txn: Storage) => Promise<T>): Promise<T> {
-    const pending = this.tail.then(() => callback(this));
-    this.tail = pending.catch(() => {});
-    return pending;
-  }
-}
-class MemoryNamespace {
-  stores = new Map<string, MemoryStorage>();
-  objects = new Map<string, Sessions>();
-  idFromName(name: string) {
-    return name;
-  }
-  get(id: unknown) {
-    const key = String(id);
-    if (!this.objects.has(key)) {
-      const storage = new MemoryStorage();
-      this.stores.set(key, storage);
-      this.objects.set(key, new Sessions({ storage }));
-    }
-    return this.objects.get(key)!;
-  }
-}
 const origin = 'https://admin.example.test';
 const worker = createWorker(readyPolicy);
 let env: Env,
@@ -470,6 +428,101 @@ it('beendet die Sitzung serverseitig; alte Cookies können danach nicht speicher
   ).toBe(401);
   expect(putCount).toBe(0);
 });
+it('akzeptiert native no-referrer-Formulare nur mit Same-Origin-Navigationsnachweis und CSRF', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  function nativeForm(path: string, body: URLSearchParams) {
+    const value = request(path, cookie, body, 'null');
+    value.headers.set('Sec-Fetch-Site', 'same-origin');
+    value.headers.set('Sec-Fetch-Mode', 'navigate');
+    value.headers.set('Sec-Fetch-Dest', 'document');
+    return value;
+  }
+  const savedResponse = await worker.fetch(
+    nativeForm(
+      '/settings/mode',
+      new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
+    ),
+    env,
+  );
+  expect(savedResponse.status).toBe(200);
+  expect(saved).toEqual({ ...config, inheritanceMode: 'free', revision: 2 });
+  expect(putCount).toBe(1);
+  const invalidCsrf = await worker.fetch(
+    nativeForm('/logout', new URLSearchParams({ csrf: 'wrong' })),
+    env,
+  );
+  expect(invalidCsrf.status).toBe(403);
+  expect((await settings(cookie)).text).toContain('Kommende Werke.');
+  const logout = await worker.fetch(
+    nativeForm('/logout', new URLSearchParams({ csrf })),
+    env,
+  );
+  expect(logout.status).toBe(303);
+  expect(logout.headers.get('Set-Cookie')).toContain('Max-Age=0');
+  expect(
+    await (await worker.fetch(request('/settings', cookie), env)).text(),
+  ).toContain('Mit GitHub anmelden');
+  expect(
+    (
+      await worker.fetch(
+        nativeForm(
+          '/settings/mode',
+          new URLSearchParams({ csrf, mode: 'free', revision: '2' }),
+        ),
+        env,
+      )
+    ).status,
+  ).toBe(401);
+  expect(putCount).toBe(1);
+});
+it.each([
+  { origin: 'null' },
+  {
+    origin: undefined,
+    site: 'same-origin',
+    mode: 'navigate',
+    dest: 'document',
+  },
+  { origin: 'null', site: 'cross-site', mode: 'navigate', dest: 'document' },
+  { origin: 'null', site: 'same-site', mode: 'navigate', dest: 'document' },
+  { origin: 'null', site: 'none', mode: 'navigate', dest: 'document' },
+  { origin: 'null', site: 'same-origin', mode: 'cors', dest: 'document' },
+  { origin: 'null', site: 'same-origin', mode: 'navigate', dest: 'iframe' },
+  { origin: 'null', site: 'same-origin' },
+  {
+    origin: 'https://attacker.test',
+    site: 'same-origin',
+    mode: 'navigate',
+    dest: 'document',
+  },
+])(
+  'verweigert unsichere Formularherkunft $origin/$site/$mode/$dest vor Widerruf und Git-Schreiben',
+  async ({ origin: requestOrigin, site, mode, dest }) => {
+    const { cookie } = await login();
+    const { csrf } = await settings(cookie);
+    for (const path of ['/logout', '/settings/mode']) {
+      const value = request(
+        path,
+        cookie,
+        new URLSearchParams(
+          path === '/logout' ? { csrf } : { csrf, mode: 'free', revision: '1' },
+        ),
+      );
+      value.headers.delete('Origin');
+      for (const [key, header] of Object.entries({
+        Origin: requestOrigin,
+        'Sec-Fetch-Site': site,
+        'Sec-Fetch-Mode': mode,
+        'Sec-Fetch-Dest': dest,
+      }))
+        if (header !== undefined) value.headers.set(key, header);
+      expect((await worker.fetch(value, env)).status).toBe(403);
+    }
+    expect(putCount).toBe(0);
+    expect((await settings(cookie)).text).toContain('Kommende Werke.');
+  },
+);
 it('signiert kurzlebige App-JWTs korrekt und liefert Schutzheader ohne CORS-Freigabe', async () => {
   const jwt = await appJwt(env);
   const [header, payload, signature] = jwt.split('.');

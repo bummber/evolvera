@@ -1,5 +1,23 @@
 # Betreiber-Secrets – vorbereiteter sicherer Ablauf
 
+Aktueller Stand 03.11.2026: Der konkret freigegebene gemeinsame Upload beider
+Secrets und des Workers ist erfolgreich ausgeführt. Beide Secret-Bindings sind
+lesend bestätigt; keine Werte ausgegeben. Private Originaldateien unverändert
+erhalten, Wrangler-Dateilogs beim Upload deaktiviert. Der Betreiber bestätigt den
+erfolgreichen GitHub-Login bis zur Einstellungsansicht, ohne zu speichern;
+kein erneuter Secret-Upload ohne passenden Auftrag.
+[Deployment und Prüfgrenzen](operator-first-upload.md#freigegeben-und-ausgeführt--03112026).
+Die folgenden Abschnitte dokumentieren die frühere Vorbereitung.
+
+Vorheriger Nachtrag 03.11.2026: Betreiber meldet lokale Secret-Datei erstellt.
+Ordner-/Dateirechte 0700/0600, erwartete JSON-Struktur und PKCS#8-Hülle ohne
+Wertausgabe geprüft. Keine echten Zugangsdaten in Chat/Git oder für lokale Tests.
+Upload-Vorlage synthetisch per Dry-Run geprüft; befristeter Cloudflare-Token inzwischen
+lokal abgelegt und ausschließlich lesend geprüft (active, Zielkonto/Subdomain passen,
+0 Worker). Echter Upload-/Aktivierungsauftrag weiterhin offen.
+[Konkreter nächster Schritt und Umfang](operator-first-upload.md).
+Die folgenden Abschnitte dokumentieren die vorherige Vorbereitung.
+
 Stand: 03.11.2026. **Nur lokal vorbereitet.** Es wurden keine echten Secrets,
 privaten Schlüssel oder Cloudflare-Schreibberechtigungen angelegt. Der Auftrag für
 die GitHub-App-Registrierung/Installation umfasste diese Schritte nicht.

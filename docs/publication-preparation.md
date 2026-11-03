@@ -1,5 +1,18 @@
 # Öffentliche Vorschau – Betreiberangaben und Datenschutz
 
+Aktueller Stand 03.11.2026: Der Betreiberworker ist nach gesonderter Freigabe
+veröffentlicht und aktiviert; seine öffentlichen Rechtstexte sind geprüft.
+Der Betreiber bestätigt den erfolgreichen GitHub-Login und sichtbare Einstellungen,
+ohne etwas zu speichern. Keine Modusspeicherung daraus beauftragt oder geprüft.
+[Worker-Deploymentbericht](operator-first-upload.md#freigegeben-und-ausgeführt--03112026).
+Kein neuer Pages-Push; die öffentliche Galerie bleibt auf dem bisherigen Stand.
+Galerie-Origin null, Generierung aus und Serienstart offen. Die folgenden
+Abschnitte dokumentieren frühere Vorbereitungsstände.
+
+Vorheriger Nachtrag 03.11.2026: [Lokale Anbieterprüfung abgeschlossen](provider-review.md),
+`providerReviewedOn:2026-11-03`. Die folgenden Abschnitte dokumentieren frühere
+Prüfstände. Keine neue Veröffentlichungsfreigabe; Textfassung/Version unverändert.
+
 Stand: 02.11.2026. Die Angaben wurden bestätigt; anschließend wurden Push und erstes
 Pages-Testdeployment ausdrücklich freigegeben und erfolgreich durchgeführt.
 Live: https://bummber.github.io/evolvera/ — [Deploymentbericht](first-pages-deployment.md).
