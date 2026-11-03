@@ -21,6 +21,9 @@ import { initialSettings } from '../operator/settings';
 import { ArtRenderer } from '../art/renderer/ArtRenderer';
 import { ArtStage } from '../art/renderer/ArtStage';
 import { WorkProvenance } from './WorkProvenance';
+import { StageFrame } from './StageFrame';
+import { WorkTitle } from './WorkTitle';
+import { EvolutionBraid } from './EvolutionBraid';
 
 type Resource<T> =
   { status: 'loading' } | { status: 'error' } | { status: 'ready'; value: T };
@@ -79,6 +82,7 @@ function Heading({
 function Failure({ work = false }: { work?: boolean }) {
   return (
     <div className="notice" role="alert">
+      <span className="notice-label">Fehler</span>
       <h2>
         {work ? 'Werk gerade nicht verfügbar' : 'Archiv gerade nicht verfügbar'}
       </h2>
@@ -86,7 +90,11 @@ function Failure({ work = false }: { work?: boolean }) {
         Die Werkdaten konnten nicht geladen oder geprüft werden. Das ist kein
         leeres Archiv. Es wird nichts neu erzeugt.
       </p>
-      <button type="button" onClick={() => window.location.reload()}>
+      <button
+        className="secondary-button"
+        type="button"
+        onClick={() => window.location.reload()}
+      >
         Erneut laden
       </button>
     </div>
@@ -168,7 +176,8 @@ export default function ArchivePage({
   if (!key)
     return (
       <Heading title="Unbekannte Sammlung" eyebrow="Adresse prüfen">
-        <p role="alert">
+        <p className="notice" role="alert">
+          <span className="notice-label">Fehler</span>
           Diese Testsammlung gibt es nicht. Bitte wähle eine vorhandene
           Sammlung.
         </p>
@@ -194,9 +203,14 @@ export default function ArchivePage({
 }
 function Empty({ context }: { context: 'today' | 'gallery' | 'evolution' }) {
   return (
-    <div className={`empty-state ${context === 'today' ? 'stage' : ''}`}>
-      <span className="stage-mark" aria-hidden="true">
-        {context === 'today' ? '01 — ∞' : '—'}
+    <div
+      className={`empty-state ${context === 'today' ? 'stage' : 'empty-message'}`}
+    >
+      <span
+        className={context === 'today' ? 'stage-mark' : 'empty-marker'}
+        aria-hidden="true"
+      >
+        {context === 'today' ? '01 — ∞' : '?'}
       </span>
       <h2>
         {context === 'today'
@@ -258,8 +272,13 @@ function Today({ reader }: { reader: ArchiveReader }) {
             Was bleibt? Was verändert sich? Was kommt als Nächstes?
           </p>
           <div className="hero-actions">
-            <Link className="primary-link" to="/kunstpruefung">
-              40 Testwerke entdecken ↗
+            <Link
+              className="primary-link"
+              to="/kunstpruefung"
+              aria-label="40 Testwerke entdecken ↗"
+            >
+              <span>40 Testwerke entdecken</span>
+              <span aria-hidden="true">↗</span>
             </Link>
             <Link className="text-link" to="/galerie">
               Zur Galerie
@@ -270,44 +289,51 @@ function Today({ reader }: { reader: ArchiveReader }) {
           </div>
         </div>
         <div className="home-stage">
-          {reader.index.works.length ? (
-            <div className="empty-state stage">
-              <h2>Noch kein fälliges Werk.</h2>
-              <p>
-                Ein neues Tageswerk erscheint frühestens ab 04:00 Uhr Berliner
-                Zeit.
-              </p>
-            </div>
-          ) : (
-            <Empty context="today" />
-          )}
+          <StageFrame>
+            {reader.index.works.length ? (
+              <div className="empty-state stage">
+                <h2>Noch kein fälliges Werk.</h2>
+                <p>
+                  Ein neues Tageswerk erscheint frühestens ab 04:00 Uhr Berliner
+                  Zeit.
+                </p>
+              </div>
+            ) : (
+              <Empty context="today" />
+            )}
+          </StageFrame>
         </div>
       </div>
-      <section className="series-info" aria-labelledby="series-heading">
-        <div className="series-intro">
-          <span className="badge">Vor Serienstart</span>
-          <h2 id="series-heading">Die erste Seite ist noch offen.</h2>
-          <p>
-            Das Startdatum steht noch nicht fest. Offizielle Werke werden
-            derzeit nicht generiert.
-          </p>
-        </div>
-        <dl>
-          <div>
-            <dt>Geplanter Rhythmus</dt>
-            <dd>Täglich ab 04:00 · Berlin</dd>
-          </div>
-          <div>
-            <dt>Voreingestellter Modus</dt>
-            <dd>{modeLabels[initialSettings.inheritanceMode]}</dd>
-          </div>
-        </dl>
-        <p className="muted">
-          Die 40 getrennten Testwerke aus beiden Modi sind ausdrücklich
-          abgenommen. Datum und Aktivierung der offiziellen Serie bleiben offen.
-        </p>
-      </section>
+      <SeriesInfo />
     </>
+  );
+}
+function SeriesInfo() {
+  return (
+    <section className="series-info" aria-labelledby="series-heading">
+      <div className="series-intro">
+        <span className="badge">Vor Serienstart</span>
+        <h2 id="series-heading">Die erste Seite ist noch offen.</h2>
+        <p>
+          Das Startdatum steht noch nicht fest. Offizielle Werke werden derzeit
+          nicht generiert.
+        </p>
+      </div>
+      <dl>
+        <div>
+          <dt>Geplanter Rhythmus</dt>
+          <dd>Täglich ab 04:00 · Berlin</dd>
+        </div>
+        <div>
+          <dt>Voreingestellter Modus</dt>
+          <dd>{modeLabels[initialSettings.inheritanceMode]}</dd>
+        </div>
+      </dl>
+      <p className="muted">
+        Die 40 getrennten Testwerke aus beiden Modi sind ausdrücklich
+        abgenommen. Datum und Aktivierung der offiziellen Serie bleiben offen.
+      </p>
+    </section>
   );
 }
 function Gallery({ reader }: { reader: ArchiveReader }) {
@@ -335,40 +361,55 @@ function Gallery({ reader }: { reader: ArchiveReader }) {
       ...(term ? { suche: term } : {}),
     });
   return (
-    <Heading
-      title="Galerie"
-      eyebrow={
-        reader.key === 'official'
-          ? 'Das bleibende Gedächtnis'
-          : 'Eine Testsammlung · zwanzig Generationen'
-      }
-    >
-      <p className="intro">
-        Neueste zuerst. Entdecke Verwandtschaften und Brüche. Jedes Werk behält
-        seine Farben, seine Komposition und seinen Titel.
-      </p>
+    <section className="gallery-page">
+      <header className="gallery-heading">
+        <div className="gallery-title">
+          <Heading
+            title="Galerie"
+            eyebrow={
+              reader.key === 'official'
+                ? 'Das bleibende Gedächtnis'
+                : 'Eine Testsammlung · zwanzig Generationen'
+            }
+          />
+        </div>
+        <div className="gallery-tools">
+          <p className="intro">
+            Neueste zuerst. Entdecke Verwandtschaften und Brüche. Jedes Werk
+            behält seine Farben, seine Komposition und seinen Titel.
+          </p>
+          {reader.index.works.length > 0 && (
+            <form className="gallery-search" onSubmit={find}>
+              <label htmlFor="gallery-search">
+                Titel oder Werkdatum suchen
+              </label>
+              <div>
+                <input
+                  key={term}
+                  id="gallery-search"
+                  name="suche"
+                  type="search"
+                  defaultValue={term}
+                  maxLength={160}
+                />
+                <button className="dark-button" type="submit">
+                  Suchen
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </header>
       {reader.index.works.length === 0 ? (
         <Empty context="gallery" />
       ) : (
         <>
-          <form className="gallery-search" onSubmit={find}>
-            <label htmlFor="gallery-search">Titel oder Werkdatum suchen</label>
-            <div>
-              <input
-                key={term}
-                id="gallery-search"
-                name="suche"
-                type="search"
-                defaultValue={term}
-                maxLength={160}
-              />
-              <button type="submit">Suchen</button>
-            </div>
-          </form>
           {!result || result.outOfRange ? (
             <div className="notice">
               <h2>Diese Galerieseite gibt es nicht.</h2>
-              <Link to={pageLink(1)}>Zur ersten Seite</Link>
+              <Link className="text-link" to={pageLink(1)}>
+                Zur ersten Seite
+              </Link>
             </div>
           ) : (
             <>
@@ -377,31 +418,44 @@ function Gallery({ reader }: { reader: ArchiveReader }) {
               </p>
               {result.rows.length ? (
                 <div className="archive-grid">
-                  {result.rows.map((row) => (
+                  {result.rows.map((row, index) => (
                     <WorkCard
                       key={`${reader.key}:${row.id}`}
                       reader={reader}
                       row={row}
+                      featured={index === 0}
                     />
                   ))}
                 </div>
               ) : (
-                <p className="notice">
-                  Keine Werke zu dieser Suche.{' '}
-                  <Link to={collectionLink('/galerie', reader.key)}>
-                    Alle Werke ansehen
-                  </Link>
+                <p className="empty-message">
+                  <span className="empty-marker" aria-hidden="true">
+                    ?
+                  </span>
+                  <span>
+                    Keine Werke zu dieser Suche.{' '}
+                    <Link
+                      className="text-link"
+                      to={collectionLink('/galerie', reader.key)}
+                    >
+                      Alle Werke ansehen
+                    </Link>
+                  </span>
                 </p>
               )}
               <nav className="pagination" aria-label="Galerieseiten">
                 {page > 1 && (
-                  <Link to={pageLink(page - 1)}>← Neuere Werke</Link>
+                  <Link className="secondary-link" to={pageLink(page - 1)}>
+                    ← Neuere Werke
+                  </Link>
                 )}
                 <span>
                   Seite {page} / {result.pages}
                 </span>
                 {page < result.pages && (
-                  <Link to={pageLink(page + 1)}>Ältere Werke →</Link>
+                  <Link className="secondary-link" to={pageLink(page + 1)}>
+                    Ältere Werke →
+                  </Link>
                 )}
               </nav>
             </>
@@ -412,15 +466,17 @@ function Gallery({ reader }: { reader: ArchiveReader }) {
         Alle Kacheln zeigen gespeicherte HTML-/CSS-Kunst im festen Ruhezustand.
         Bewegung läuft ausschließlich im geöffneten Hauptwerk.
       </p>
-    </Heading>
+    </section>
   );
 }
 function WorkCard({
   reader,
   row,
+  featured = false,
 }: {
   reader: ArchiveReader;
   row: ArchiveIndex['works'][number];
+  featured?: boolean;
 }) {
   const task = useCallback(
     (signal: AbortSignal) => reader.read(row.id, signal),
@@ -428,33 +484,39 @@ function WorkCard({
   );
   const state = useResource(`${reader.key}:${row.id}`, task);
   return (
-    <article className="archive-card">
+    <article
+      className={`archive-card${featured ? ' archive-card-featured' : ''}`}
+    >
       <Link
         to={collectionLink(`/werk/${row.id}`, reader.key)}
         aria-label={`Generation ${row.generation}: ${row.title}`}
       >
-        {state.status === 'ready' ? (
-          <ArtRenderer source={state.value} />
-        ) : (
-          <div
-            className="card-placeholder"
-            role={state.status === 'error' ? 'alert' : 'status'}
-          >
-            {state.status === 'error'
-              ? 'Werkdaten nicht verfügbar'
-              : 'Werk wird geladen …'}
-          </div>
-        )}
-        <div className="card-meta">
-          <span>Generation {row.generation}</span>
-          <time dateTime={row.id}>{dateLabel(row.id)}</time>
+        <div className="card-art">
+          {state.status === 'ready' ? (
+            <ArtRenderer source={state.value} />
+          ) : (
+            <div
+              className="card-placeholder"
+              role={state.status === 'error' ? 'alert' : 'status'}
+            >
+              {state.status === 'error'
+                ? 'Werkdaten nicht verfügbar'
+                : 'Werk wird geladen …'}
+            </div>
+          )}
         </div>
-        <h2>{row.title}</h2>
-        {state.status === 'ready' && (
-          <span className="card-mode">
-            {modeLabels[state.value.inheritanceMode]}
-          </span>
-        )}
+        <div className="card-body">
+          <div className="card-meta">
+            <span>Generation {row.generation}</span>
+            <time dateTime={row.id}>{dateLabel(row.id)}</time>
+          </div>
+          <h2>{row.title}</h2>
+          {state.status === 'ready' && (
+            <span className="card-mode">
+              {modeLabels[state.value.inheritanceMode]}
+            </span>
+          )}
+        </div>
       </Link>
     </article>
   );
@@ -473,16 +535,18 @@ function Detail({
     : date;
   if (!id && evolution)
     return (
-      <Heading title="Evolution" eyebrow="Woher etwas kommt">
-        <p className="intro">
-          Zwei unabhängige Ursprünge. Danach sind immer die letzten beiden
-          Generationen die Eltern.
-        </p>
-        <Empty context="evolution" />
-        <Link className="text-link" to="/kunstpruefung">
-          Evolution an Testwerken erkunden ↗
-        </Link>
-      </Heading>
+      <section className="evolution-empty">
+        <Heading title="Evolution" eyebrow="Woher etwas kommt">
+          <p className="intro">
+            Zwei unabhängige Ursprünge. Danach sind immer die letzten beiden
+            Generationen die Eltern.
+          </p>
+          <Empty context="evolution" />
+          <Link className="text-link" to="/kunstpruefung">
+            Evolution an Testwerken erkunden ↗
+          </Link>
+        </Heading>
+      </section>
     );
   if (!workDateSchema.safeParse(id).success)
     return (
@@ -505,36 +569,36 @@ function Detail({
       </Heading>
     );
   return (
-    <>
-      {evolution && (
-        <form className="evolution-picker">
-          <label htmlFor="evolution-work">
-            Werk für den Herkunftsvergleich
-          </label>
-          <select
-            id="evolution-work"
-            value={id}
-            onChange={(event) => {
-              const next = new URLSearchParams(search);
-              next.set('werk', event.target.value);
-              setSearch(next);
-            }}
-          >
-            {reader.index.works.map((row) => (
-              <option key={row.id} value={row.id}>
-                Generation {row.generation} · {row.title}
-              </option>
-            ))}
-          </select>
-        </form>
-      )}
-      <WorkView
-        key={`${reader.key}:${id}:${evolution}`}
-        reader={reader}
-        id={id}
-        evolution={evolution}
-      />
-    </>
+    <WorkView
+      key={`${reader.key}:${id}:${evolution}`}
+      reader={reader}
+      id={id}
+      evolution={evolution}
+      evolutionPicker={
+        evolution ? (
+          <form className="evolution-picker">
+            <label htmlFor="evolution-work">
+              Werk für den Herkunftsvergleich
+            </label>
+            <select
+              id="evolution-work"
+              value={id}
+              onChange={(event) => {
+                const next = new URLSearchParams(search);
+                next.set('werk', event.target.value);
+                setSearch(next);
+              }}
+            >
+              {reader.index.works.map((row) => (
+                <option key={row.id} value={row.id}>
+                  Generation {row.generation} · {row.title}
+                </option>
+              ))}
+            </select>
+          </form>
+        ) : undefined
+      }
+    />
   );
 }
 function WorkView({
@@ -542,11 +606,13 @@ function WorkView({
   id,
   evolution = false,
   todayLabel,
+  evolutionPicker,
 }: {
   reader: ArchiveReader;
   id: string;
   evolution?: boolean;
   todayLabel?: string;
+  evolutionPicker?: ReactNode;
 }) {
   const task = useCallback(
     (signal: AbortSignal) => loadWorkContext(reader, id, signal),
@@ -554,14 +620,26 @@ function WorkView({
   );
   const state = useResource(`${reader.key}:${id}`, task);
   if (state.status === 'loading')
-    return <p role="status">Werk und Herkunft werden geladen …</p>;
-  if (state.status === 'error') return <Failure work />;
+    return (
+      <>
+        {evolutionPicker}
+        <p role="status">Werk und Herkunft werden geladen …</p>
+      </>
+    );
+  if (state.status === 'error')
+    return (
+      <>
+        {evolutionPicker}
+        <Failure work />
+      </>
+    );
   return (
     <WorkPresentation
       reader={reader}
       data={state.value}
       evolution={evolution}
       todayLabel={todayLabel}
+      evolutionPicker={evolutionPicker}
     />
   );
 }
@@ -570,14 +648,21 @@ function Related({
   title,
   works,
   empty,
+  child,
+  parentOrder,
 }: {
   reader: ArchiveReader;
   title: string;
   works: Artwork[];
   empty: string;
+  child?: Artwork;
+  parentOrder?: Artwork;
 }) {
   return (
-    <section className="related-section" aria-label={title}>
+    <section
+      className={`related-section${child ? ' parent-diagram' : ''}`}
+      aria-label={title}
+    >
       <h2>{title}</h2>
       {works.length ? (
         <div className="relation-grid">
@@ -590,6 +675,14 @@ function Related({
             >
               <ArtRenderer source={work} />
               <span>
+                {(child || parentOrder) && (
+                  <>
+                    {(child ?? parentOrder)!.parentIds.indexOf(work.id) === 0
+                      ? 'A'
+                      : 'B'}{' '}
+                    ·{' '}
+                  </>
+                )}
                 Generation {work.generation} · {dateLabel(work.id)}
               </span>
               <h3>{work.title}</h3>
@@ -597,7 +690,23 @@ function Related({
           ))}
         </div>
       ) : (
-        <p className="muted">{empty}</p>
+        <p className="empty-message">
+          <span className="empty-marker" aria-hidden="true">
+            ?
+          </span>
+          <span>{empty}</span>
+        </p>
+      )}
+      {child && works.length === 2 && (
+        <>
+          <div className="parent-bracket" aria-hidden="true" />
+          <p className="diagram-child">
+            <span className="diagram-child-art" aria-hidden="true">
+              <ArtRenderer source={child} />
+            </span>
+            <span>Dieses Werk · Generation {child.generation}</span>
+          </p>
+        </>
       )}
     </section>
   );
@@ -607,124 +716,270 @@ function WorkPresentation({
   data,
   evolution,
   todayLabel,
+  evolutionPicker,
 }: {
   reader: ArchiveReader;
   data: WorkContext;
   evolution: boolean;
   todayLabel?: string;
+  evolutionPicker?: ReactNode;
 }) {
   const { work, parents, successors } = data;
-  return (
+  const detail = !todayLabel && !evolution;
+  const heading = (
     <>
       <p className="eyebrow">
         {todayLabel ?? (evolution ? 'Evolution' : 'Ein Werk im Zusammenhang')} ·
         Generation {work.generation}
         {reader.key !== 'official' ? ' · Testwerk' : ''}
       </p>
-      <h1 className="work-title">{work.title}</h1>
+      {detail ? (
+        <WorkTitle work={work} />
+      ) : (
+        <h1 className="work-title">{work.title}</h1>
+      )}
       <div className="work-dateline">
-        <time dateTime={work.id}>{dateLabel(work.id)}</time>
-        <span>{modeLabels[work.inheritanceMode]}</span>
-        {work.isCatchUp && <span className="badge">Nachgeholt</span>}
+        <time className="info-chip" dateTime={work.id}>
+          {dateLabel(work.id)}
+        </time>
+        <span className="info-chip">{modeLabels[work.inheritanceMode]}</span>
+        {work.isCatchUp && (
+          <span className="badge badge-accent">Nachgeholt</span>
+        )}
       </div>
-      <div className="work-layout">
+    </>
+  );
+  const actions = (
+    <div className="work-actions">
+      <Link
+        className="text-link"
+        to={collectionLink(`/werk/${work.id}`, reader.key)}
+      >
+        Direktlink zum Werk ↗
+      </Link>
+      <Link
+        className="text-link"
+        to={collectionLink('/evolution', reader.key, { werk: work.id })}
+      >
+        Herkunft ansehen ↗
+      </Link>
+      <Link to={collectionLink('/galerie', reader.key)}>Zur Galerie</Link>
+    </div>
+  );
+  const metadata = (
+    <details className="work-metadata" open={detail ? true : undefined}>
+      <summary>Werkdaten ansehen</summary>
+      <dl>
         <div>
-          <ArtStage key={`${reader.key}:${work.id}`} source={work} />
-          <div className="work-actions">
-            <Link to={collectionLink(`/werk/${work.id}`, reader.key)}>
-              Direktlink zum Werk ↗
-            </Link>
-            <Link
-              to={collectionLink('/evolution', reader.key, { werk: work.id })}
-            >
-              Herkunft ansehen ↗
-            </Link>
-            <Link to={collectionLink('/galerie', reader.key)}>Zur Galerie</Link>
-          </div>
+          <dt>Werkdatum</dt>
+          <dd>
+            {dateLabel(work.id)} ·{' '}
+            {reader.key === 'official'
+              ? 'vorgesehenes Seriendatum'
+              : 'simuliertes Testdatum'}
+          </dd>
         </div>
-        <aside className="work-information">
-          <WorkProvenance work={work} />
-          <details className="work-metadata">
-            <summary>Werkdaten ansehen</summary>
-            <dl>
-              <div>
-                <dt>Werkdatum</dt>
-                <dd>
-                  {dateLabel(work.id)} ·{' '}
-                  {reader.key === 'official'
-                    ? 'vorgesehenes Seriendatum'
-                    : 'simuliertes Testdatum'}
-                </dd>
+        <div>
+          <dt>Geplanter Termin</dt>
+          <dd>
+            <time dateTime={work.scheduledFor}>
+              {instantLabel(work.scheduledFor)}
+            </time>
+          </dd>
+        </div>
+        <div>
+          <dt>Lauf gestartet</dt>
+          <dd>
+            <time dateTime={work.runStartedAt}>
+              {instantLabel(work.runStartedAt)}
+            </time>
+          </dd>
+        </div>
+        <div>
+          <dt>
+            Tatsächlich erstellt
+            {reader.key !== 'official' ? ' (simuliert)' : ''}
+          </dt>
+          <dd>
+            <time dateTime={work.generatedAt}>
+              {instantLabel(work.generatedAt)}
+            </time>
+          </dd>
+        </div>
+        <div>
+          <dt>Zeitzone der Angaben</dt>
+          <dd>Europe/Berlin</dd>
+        </div>
+        <div>
+          <dt>Nachholstatus</dt>
+          <dd>
+            {work.isCatchUp
+              ? 'Nachgeholt · Lauf erst in einem späteren Tageszyklus gestartet'
+              : 'Keine Nachholung'}
+          </dd>
+        </div>
+        <div>
+          <dt>Gespeicherte Einstellung</dt>
+          <dd>
+            {modeLabels[work.inheritanceMode]} · Revision{' '}
+            {work.settingsRevision}
+          </dd>
+        </div>
+        <div>
+          <dt>Versionen</dt>
+          <dd>
+            Schema {work.schemaVersion} · Generator {work.generatorVersion} ·
+            Lexikon {work.lexiconVersion} · Renderer {work.rendererVersion}
+          </dd>
+        </div>
+        <div>
+          <dt>Seed</dt>
+          <dd className="seed-value">{work.seed}</dd>
+        </div>
+      </dl>
+    </details>
+  );
+  const information = (
+    <aside className="work-information">
+      <WorkProvenance work={work} />
+      {metadata}
+    </aside>
+  );
+  const stage = <ArtStage key={`${reader.key}:${work.id}`} source={work} />;
+  return (
+    <>
+      {detail ? (
+        <section className="work-detail">
+          <div className="detail-toolbar">
+            <Link
+              className="secondary-link"
+              to={collectionLink('/galerie', reader.key)}
+            >
+              ← Galerie
+            </Link>
+            <span>Generation {work.generation}</span>
+          </div>
+          <div className="work-layout detail-hero">
+            <div className="detail-story">
+              {heading}
+              {actions}
+            </div>
+            <div className="detail-stage">
+              <StageFrame generation={work.generation}>{stage}</StageFrame>
+            </div>
+          </div>
+          <div className="detail-inheritance">
+            <Related
+              reader={reader}
+              title="Elternwerke"
+              works={parents}
+              child={work}
+              empty="Ursprungswerk – unabhängig generiert, ohne Elternwerke."
+            />
+            <aside className="work-information">
+              <WorkProvenance work={work} decorated />
+            </aside>
+          </div>
+          {metadata}
+        </section>
+      ) : todayLabel ? (
+        <section className="today-work">
+          <div className="home-kicker home-meta">
+            <span>{todayLabel}</span>
+            <time dateTime={work.id}>
+              {new Intl.DateTimeFormat('de-DE', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                timeZone: 'UTC',
+              }).format(new Date(`${work.id}T12:00:00Z`))}
+            </time>
+            <span>
+              {reader.key === 'official'
+                ? '04:00 Berlin'
+                : 'Simuliertes Testdatum'}
+            </span>
+          </div>
+          <div className="home-hero">
+            <div className="home-editorial">
+              {heading}
+              <div className="hero-actions">
+                <Link
+                  className="primary-link"
+                  aria-label="Herkunft ansehen ↗"
+                  to={collectionLink('/evolution', reader.key, {
+                    werk: work.id,
+                  })}
+                >
+                  <span>Herkunft ansehen</span>
+                  <span aria-hidden="true">↗</span>
+                </Link>
+                <Link
+                  className="secondary-link"
+                  to={collectionLink(`/werk/${work.id}`, reader.key)}
+                >
+                  Direktlink zum Werk ↗
+                </Link>
+                <Link
+                  className="text-link"
+                  to={collectionLink('/galerie', reader.key)}
+                >
+                  Zur Galerie
+                </Link>
               </div>
-              <div>
-                <dt>Geplanter Termin</dt>
-                <dd>
-                  <time dateTime={work.scheduledFor}>
-                    {instantLabel(work.scheduledFor)}
-                  </time>
-                </dd>
-              </div>
-              <div>
-                <dt>Lauf gestartet</dt>
-                <dd>
-                  <time dateTime={work.runStartedAt}>
-                    {instantLabel(work.runStartedAt)}
-                  </time>
-                </dd>
-              </div>
-              <div>
-                <dt>
-                  Tatsächlich erstellt
-                  {reader.key !== 'official' ? ' (simuliert)' : ''}
-                </dt>
-                <dd>
-                  <time dateTime={work.generatedAt}>
-                    {instantLabel(work.generatedAt)}
-                  </time>
-                </dd>
-              </div>
-              <div>
-                <dt>Zeitzone der Angaben</dt>
-                <dd>Europe/Berlin</dd>
-              </div>
-              <div>
-                <dt>Nachholstatus</dt>
-                <dd>
-                  {work.isCatchUp
-                    ? 'Nachgeholt · Lauf erst in einem späteren Tageszyklus gestartet'
-                    : 'Keine Nachholung'}
-                </dd>
-              </div>
-              <div>
-                <dt>Gespeicherte Einstellung</dt>
-                <dd>
-                  {modeLabels[work.inheritanceMode]} · Revision{' '}
-                  {work.settingsRevision}
-                </dd>
-              </div>
-              <div>
-                <dt>Versionen</dt>
-                <dd>
-                  Schema {work.schemaVersion} · Generator{' '}
-                  {work.generatorVersion} · Lexikon {work.lexiconVersion} ·
-                  Renderer {work.rendererVersion}
-                </dd>
-              </div>
-              <div>
-                <dt>Seed</dt>
-                <dd className="seed-value">{work.seed}</dd>
-              </div>
-            </dl>
-          </details>
-        </aside>
-      </div>
-      <div className="work-relations">
-        <Related
-          reader={reader}
-          title="Elternwerke"
-          works={parents}
-          empty="Ursprungswerk – unabhängig generiert, ohne Elternwerke."
-        />
+            </div>
+            <div className="home-stage">
+              <StageFrame generation={work.generation}>{stage}</StageFrame>
+            </div>
+          </div>
+          <div className="today-information">{information}</div>
+        </section>
+      ) : (
+        <section className="evolution-page">
+          <header className="evolution-page-heading">
+            <div>{heading}</div>
+            <div className="evolution-page-tools">
+              <p className="intro">
+                Zwei unabhängige Ursprünge. Danach sind immer die letzten beiden
+                Generationen die Eltern.
+              </p>
+              {evolutionPicker}
+            </div>
+          </header>
+          <EvolutionBraid reader={reader} work={work} parents={parents} />
+          <div className="work-layout evolution-cards">
+            <section
+              className="evolution-current"
+              aria-label="Ausgewähltes Werk"
+            >
+              <h2>Ausgewähltes Werk</h2>
+              {stage}
+              <h3>{work.title}</h3>
+              {actions}
+            </section>
+            <Related
+              reader={reader}
+              title="Elternwerke"
+              works={parents}
+              parentOrder={work}
+              empty="Ursprungswerk – unabhängig generiert, ohne Elternwerke."
+            />
+          </div>
+          <div className="evolution-analysis">{information}</div>
+        </section>
+      )}
+      <div
+        className={`work-relations${detail || evolution ? ' detail-relations' : ''}`}
+      >
+        {!detail && !evolution && (
+          <Related
+            reader={reader}
+            title="Elternwerke"
+            works={parents}
+            empty="Ursprungswerk – unabhängig generiert, ohne Elternwerke."
+          />
+        )}
         <Related
           reader={reader}
           title="Direkte Nachfolger"
@@ -732,6 +987,7 @@ function WorkPresentation({
           empty="In dieser Sammlung sind noch keine direkten Nachfolger vorhanden."
         />
       </div>
+      {todayLabel && !initialSettings.generationEnabled && <SeriesInfo />}
       {reader.key !== 'official' && (
         <p className="atelier-notice">
           Testwerk aus einer getrennten Zwanzigerkette. Die Daten sind

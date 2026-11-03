@@ -1,4 +1,4 @@
-import type { Artwork } from '../art/schema/artwork';
+import type { Artwork, InheritanceDecision } from '../art/schema/artwork';
 const percent = (value: string | number) =>
   (Number(value) * 100).toLocaleString('de-DE', { maximumFractionDigits: 4 });
 const labels: Record<string, string> = {
@@ -18,7 +18,57 @@ const traitValue = (value: string | number, path: string) =>
     : field(path) === 'rotation'
       ? `${value}°`
       : `${percent(value)} %`;
-export function WorkProvenance({ work }: { work: Artwork }) {
+function TraitPreview({ decision }: { decision: InheritanceDecision }) {
+  const trait = field(decision.target.path);
+  const value = decision.target.value;
+  if (
+    (trait === 'background' || trait === 'color') &&
+    typeof value === 'string'
+  )
+    return (
+      <span
+        className="trait-preview trait-color"
+        style={{ backgroundColor: value }}
+        aria-hidden="true"
+      />
+    );
+  if (trait === 'rotation' && typeof value === 'number')
+    return (
+      <span className="trait-preview" aria-hidden="true">
+        <span
+          className="trait-rotation"
+          style={{ transform: `rotate(${value}deg)` }}
+        />
+      </span>
+    );
+  if ((trait === 'width' || trait === 'height') && typeof value === 'number')
+    return (
+      <span className="trait-preview" aria-hidden="true">
+        <span
+          className={`trait-${trait}`}
+          style={
+            trait === 'width'
+              ? { width: `${value * 28}px` }
+              : { height: `${value * 28}px` }
+          }
+        />
+      </span>
+    );
+  return null;
+}
+export function WorkProvenance({
+  work,
+  decorated = false,
+}: {
+  work: Artwork;
+  decorated?: boolean;
+}) {
+  const value = (raw: string | number, path: string) =>
+    decorated ? (
+      <span className="proof-value">{traitValue(raw, path)}</span>
+    ) : (
+      traitValue(raw, path)
+    );
   const fresh =
     work.schemaVersion === 2 &&
     work.evolution.recipe.base.source === 'new' &&
@@ -36,16 +86,37 @@ export function WorkProvenance({ work }: { work: Artwork }) {
               : 'Freie Mischung und Veränderung. Nur die gespeicherten Beiträge werden als sichtbare Übernahmen benannt.'}
       </p>
       {work.evolution.decisions.length > 0 && (
-        <ol className="inheritance-proofs">
+        <ol
+          className="inheritance-proofs"
+          role={decorated ? 'list' : undefined}
+        >
           {work.evolution.decisions.map((decision, index) => (
             <li key={index}>
+              {decorated && (
+                <span
+                  className={`proof-parent dna-${decision.parentId === work.parentIds[0] ? 'a' : 'b'}`}
+                  aria-hidden="true"
+                >
+                  {decision.parentId === work.parentIds[0] ? 'A' : 'B'}
+                </span>
+              )}
               <strong>
                 Elternteil {decision.parentId === work.parentIds[0] ? 'A' : 'B'}{' '}
                 · {labels[field(decision.target.path)] ?? 'Merkmal'}{' '}
-                {decision.operation.kind === 'copy'
-                  ? `${traitValue(decision.target.value, decision.target.path)} übernommen`
-                  : `von ${traitValue(decision.source.value, decision.source.path)} auf ${traitValue(decision.target.value, decision.target.path)} verändert`}
+                {decision.operation.kind === 'copy' ? (
+                  <>
+                    {value(decision.target.value, decision.target.path)}{' '}
+                    übernommen
+                  </>
+                ) : (
+                  <>
+                    von {value(decision.source.value, decision.source.path)} auf{' '}
+                    {value(decision.target.value, decision.target.path)}{' '}
+                    verändert
+                  </>
+                )}
               </strong>
+              {decorated && <TraitPreview decision={decision} />}
               <details>
                 <summary>Beleg ansehen</summary>
                 <dl>

@@ -75,9 +75,13 @@ describe('Hash-Routing der lokalen Vorschau', () => {
       ).toBeDisabled();
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
     expect(
-      screen.getByText(modeLabels[initialSettings.inheritanceMode], {
-        exact: true,
-      }),
+      within(screen.getByRole('main')).getByText(
+        modeLabels[initialSettings.inheritanceMode],
+        {
+          exact: true,
+          selector: '.settings-status dd',
+        },
+      ),
     ).toBeVisible();
   });
   it('kennzeichnet Ladefehler statt leere oder erfundene Werke zu zeigen', async () => {

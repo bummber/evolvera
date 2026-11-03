@@ -10,7 +10,247 @@ Auf anschließenden Fortsetzungsauftrag sind Datenschutzhinweise und unabhängig
 Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gewählte
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; Cloudflare-Kontoprüfung offen.
 
-## Übergabe an den neuen Design-Chat – 03.11.2026
+## Aktueller Stand – lokaler Werkbuch-Checkpoint am 03.11.2026
+
+Nach dem Wiedereinstieg wurde ein ausschließlich lokaler Werkbuch-Checkpoint
+vorgeschlagen: bestehende Browsersuite am gebauten Stand ausführen, Dateiauswahl
+sichten und lokal sichern. Der Betreiber hat diesen nächsten Schritt mit
+„Mach weiter“ beauftragt. Dies erweitert den vorherigen reinen Bestandsauftrag
+um die lokale Sicherung, nicht um Push, Veröffentlichung oder externe Einrichtung.
+Die positive Designsichtung bleibt abgeschlossen; keine neue Designrunde.
+
+- Ausgangsstand erneut geprüft: bestehendes Projekt, `main`, HEAD `8a324da`,
+  drei lokale Commits vor dem bekannten `origin/main`, `origin` unverändert
+  `https://github.com/bummber/evolvera.git`. Kein neuer Remoteabgleich.
+- Die vorhandene Werkbuch-Umsetzung einschließlich Komponenten, CSS, lokalen
+  Schriftpaketen/OFL-Lizenzen, Tests und Designdokumentation wird gezielt mit
+  Commit-Titel `chore: checkpoint reviewed Werkbuch design locally` gesichert.
+  Den resultierenden Hash mit `git log -1` lesen. Das PRD-Backup bleibt
+  unversioniert und bytegleich; Build-, Browser- und Workerausgaben bleiben ignoriert.
+  In diesem Checkpoint keine Produkt-, Kunst-, Daten- oder Konfigurationsänderung;
+  nur der bestehende Stand und aktualisierte Übergabedokumentation.
+- Node 24.21.0/npm 12.2.0. `npm run check` erneut vollständig erfolgreich:
+  Format/Lint/Typen, **155 Tests**, Datenprüfung, Produktionsbuild und lokaler
+  Worker-Dry-Run. Nach dem Build `npm run test:browser`: **66 bestanden, sechs
+  bewusste Doppelaufruf-Skips**. Sechs unveränderte Kunstreferenzen bestanden;
+  100 Seiten-/Breitenkombinationen bei 320/390/768/1024/1440 px ohne horizontalen
+  Dokumentüberlauf, externe Requests oder `img/svg/canvas`. Tastatur/Fokus,
+  lange Titel, Reduced Motion und Menügrenze erneut automatisiert geprüft.
+  Keine neue manuelle Bildsichtung oder Designabnahme daraus ableiten.
+- Worker-/Sitzungscode unverändert; kein separater `worker:test-runtime`-Lauf.
+  Der bestehende Browserfall nutzte einen isolierten lokalen Worker mit
+  temporärem Speicher und synthetischen Daten. Safari/Firefox, physische Geräte,
+  echte Safe-Area und vollständige WCAG-Abnahme bleiben offen.
+- `npm run check:publication` erneut erwarteter Exit 1, ausschließlich
+  „Cloudflare-Vertrag und Kontoeinstellungen noch zu prüfen.“
+  `providerReviewedOn:null`; Secrets, Worker-Bereitstellung und echte Anmeldung
+  weiterhin offen. Keine externe Prüfung oder Einrichtung in diesem Schritt.
+- Generierung `false`, Startdatum `null`, `seriesAuthorized:false`, Modus
+  `traceable`, Revision 1 und offizielles Archiv leer. Kunstabnahme der 40
+  Testwerke bleibt separat erhalten. Geschützte Kunst-/Archiv-/Daten-/Betreiber- und
+  Konfigurationspfade sowie Referenzbilder gegenüber dem Ausgangs-HEAD unverändert.
+
+Nächster Vorschlag nach gemeinsamer Sichtung des Checkpoints: die offene
+Cloudflare-Vertrags-/Kontoprüfung als eigenen **lesenden** Auftrag abgrenzen
+(tatsächlicher Vertragspartner, wirksame Bedingungen/DPA, Logging-Einstellungen).
+Keine Vereinbarung annehmen, Rechte erweitern, Secrets erzeugen oder deployen.
+Eine tatsächliche Durchsicht erst nach ihrem Nachweis dokumentieren; gegebenenfalls
+Textversion und Textdurchsicht erneuern. Veröffentlichung und Betreiber-Einrichtung
+bleiben eigene Aufträge. Ein Push auf `main` kann Pages starten.
+
+## Vorheriger Wiedereinstieg nach positiver Designsichtung – 03.11.2026
+
+Der Betreiber hat nach Abschluss von Paket 10 bestätigt: „Ich habe mir die Änderungen
+angeschaut und sie sehen gut aus.“ Der lokale gestalterische Stand der **zehn
+Werkbuch-Pakete ist damit positiv gesichtet**. Der anschließende Auftrag umfasst nur
+die Statusdokumentation und einen Startprompt für einen neuen Chat im selben Projekt.
+Keine weitere Gestaltung, Implementierung, Sicherungscommits oder Veröffentlichung
+aus dieser Rückmeldung ableiten. Frühere Vorschläge zur gemeinsamen Designsichtung
+in der folgenden Paketchronik sind durch diese Rückmeldung erledigt.
+
+- Bestehender Ordner `/Users/abrocker/ai_o_projects/evolvera`, `main`, HEAD `8a324da`,
+  `origin` `https://github.com/bummber/evolvera.git`. Drei lokale Commits seit dem
+  bekannten `origin/main`; kein neuer Remoteabgleich. Sämtliche Designänderungen,
+  Schriften, neuen Komponenten, CSS- und Testdateien liegen **uncommittiert** vor.
+  Auch unversionierte Dateien erhalten; insbesondere PRD-Backup nicht aufnehmen
+  oder formatieren. Dies ist eine dokumentierte Übergabe, kein neuer Git-Checkpoint.
+- Letzter UI-Prüfstand aus Paket 10: **155 Tests** im Gesamtcheck; **66 Browserfälle
+  bestanden, sechs bewusste Doppelaufruf-Skips**. 100 Seiten-/Breitenkombinationen
+  bei 320/390/768/1024/1440 px ohne horizontalen Dokumentüberlauf, sechs unveränderte
+  Kunstreferenzen. Details und Einschränkungen in [design-implementation.md](design-implementation.md#paket-10--feinschliff).
+  Safari/Firefox, physische Geräte, echte Safe-Area und vollständige WCAG-Abnahme offen;
+  Evolution zeigt bewusst das ausgewählte Werk mit bereits geladenen Eltern,
+  kein vollständiges Gesamtarchiv-Geflecht.
+- Generierung `false`, Startdatum `null`, `seriesAuthorized:false`, Modus `traceable`,
+  Revision 1, offizielles Archiv leer. Die frühere Abnahme der 40 Testwerke bleibt
+  unabhängig von der Designsichtung und Serienfreigabe erhalten.
+- Öffentlicher Pages-Stand zuletzt dokumentiert `9ad1fa7`; das neue Werkbuch-Design
+  ist ausschließlich lokal. GitHub App registriert/installiert; Secrets, Worker-
+  Bereitstellung und echte Anmeldung weiterhin offen. Keine externe Einrichtung
+  in diesem Dokumentationsschritt erneut geprüft.
+- Textdurchsicht für die geplante Betreiber-Origin/Version bestätigt;
+  `providerReviewedOn:null`. `npm run check:publication` jetzt erneut ausgeführt:
+  erwarteter Exit 1, ausschließlich „Cloudflare-Vertrag und Kontoeinstellungen noch
+  zu prüfen.“ Ein späterer Push auf `main` kann den vorhandenen Pages-Workflow starten;
+  weder Push noch Secretbefehle oder Deployment sind aus diesem Stand freigegeben.
+- In diesem Übergabeschritt nur Dokumentation geändert. `npm run check` mit 155 Tests,
+  Build und Worker-Dry-Run erneut erfolgreich; Formatierung und `git diff --check`
+  geprüft. Kein neuer Browser-/Worker-Runtime-Lauf, da UI/Routing und Worker unverändert.
+  PRD-Backup weiterhin bytegleich; geschützte Kunst-/Daten-/Betreiberpfade unverändert.
+
+[Kopierbarer Startprompt für den nächsten Chat](NEXT-START.md). Zunächst Bestand
+prüfen und den nächsten abgegrenzten Schritt vorschlagen. Externe Voraussetzungen
+und technische Restprüfungen getrennt benennen; aus der Designsichtung keine
+Veröffentlichungs-, Anmelde- oder Serienfreigabe ableiten.
+
+## Werkbuch-Designauftrag – 03.11.2026
+
+Der anschließende ausdrückliche Designauftrag ersetzt die frühere Warteanweisung
+unten: zehn Pakete planen, ausschließlich **Paket 1 (Tokens/lokale Schrift) und
+2 (Preview-Leiste/Header/Desktopnavigation/Footer)** lokal umsetzen. Quelle eindeutig
+`docs/design-system.md`, vollständig gelesen und nur mit Prettier formatiert.
+[Umsetzungsstand, Schriftbegründung, Prüfungen und Folgeauftrag](design-implementation.md).
+Die Schriftdatei wurde vor dem Einbau binär auf `wdth` 62–125 geprüft. Kunst,
+Generatoren, Daten, Referenzbilder, Betreiberlogik und sämtliche Gates bleiben erhalten.
+PRD-Backup unverändert und unversioniert; keine Commits, Pushes oder Deployments.
+Vor **Paket 3 (mobiles Overlay und Dock)** den Stand gemeinsam sichten; kein weiterer
+Designumfang aus diesem Vermerk ableiten. Externe Einrichtung weiterhin zurückgestellt.
+Abschließend `npm run check` mit 149 Tests, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: 40 bestanden, sechs doppelte Aufrufe bewusst übersprungen.
+100 Ansichten über alle fünf Breiten ohne horizontalen Überlauf; Kontaktbögen und
+Footer gesichtet. Sechs Kunstreferenzen unverändert bestanden. Prüfgrenzen und
+Testkorrekturen stehen im verlinkten Umsetzungsvermerk.
+
+**Anschließender Folgeauftrag:** Nach gezeigtem Stand und vorgeschlagenem Auftrag
+für Paket 3 antwortete der Betreiber „ok“. Darauf ausschließlich **Paket 3** lokal
+fortgesetzt: dunkles natives Details-Overlay, Fokus-/Scrollbindung, Dock unter
+1000 px mit erhaltenen Testsammlungslinks, Safe-Area und Platz unter dem Inhalt.
+Generatoren, Kunst, Daten, Betreiberlogik und sämtliche Gates bleiben erhalten;
+keine neuen Abhängigkeiten, Commits, Pushes oder Deployments. Prüfstand und
+Grenzen im [Umsetzungsvermerk](design-implementation.md#paket-3--mobiles-overlay-und-dock).
+Paket 3 abschließend geprüft: `npm run check` mit 149 Tests, Build und Worker-Dry-Run;
+`npm run test:browser` mit **44 bestanden, sechs bewussten Doppelaufruf-Skips**.
+Alle fünf Breiten ohne horizontalen Überlauf; Overlay/Dock und Kontaktbögen gesichtet,
+sechs Kunstreferenzen unverändert. Safari/Firefox, echte Geräte/Safe-Area offen.
+Vor Paket 4 gemeinsam sichten und neuen abgegrenzten Auftrag entgegennehmen.
+
+**Paket 4 anschließend ausdrücklich lokal beauftragt:** gemeinsame Buttons/Links,
+Infochips/Badges, native Felder und Leer-/Fehlerzustände nach Werkbuch 7.6–7.9/7.20.
+Umsetzung in separatem Shell-Baustein-CSS und vorhandenen UI-Komponenten. Texte,
+Routen, Bedienelemente und Betreiber-Sperre erhalten; keine Filterfunktion, keine
+neuen Abhängigkeiten, keine Kunst-/Daten-/Renderer-/Konfigurationsänderung.
+Prüfungen und Grenzen im [Umsetzungsvermerk](design-implementation.md#paket-4--gemeinsame-bausteine).
+Paket 4 abgeschlossen: `npm run check` mit 149 Tests, Build und Worker-Dry-Run;
+`npm run test:browser`: **46 bestanden, sechs bewusste Doppelaufruf-Skips**.
+Alle fünf Breiten ohne horizontalen Überlauf, Kontaktbögen und Leer-/Fehlerzustände
+gesichtet; sechs Kunstreferenzen unverändert. Grenzen wie Safari/Firefox und echte
+Geräte weiter offen; keine vollständige WCAG-Abnahme behauptet.
+Paket 5 erst nach gemeinsamer Sichtung und neuem Auftrag. Alles weiterhin lokal,
+kein Commit, Push oder Deployment; Veröffentlichung und Seriengates unverändert.
+
+**Paket 5 anschließend lokal fortgesetzt:** Nach „es geht und sieht gut aus“ und
+„ok, leg los“ ausschließlich Heute und Bühnenrahmen umgesetzt. Mobile Bühne vor
+dem Text, ab 1000 px rechts; CSS-Schnittmarken, Materialetikett und tatsächliche
+Generation bei vorhandenen Werken. Bestehende Leertexte/Überschriften erhalten,
+Serieninfo dunkel gestaltet. Kein Countdown, keine neue Funktion oder Abhängigkeit.
+ArtStage, Kunst, Daten, Referenzbilder und Betreiberlogik unverändert. Details und
+Evolution behalten ihren bisherigen Aufbau. Prüfstand und Grenzen im
+[Umsetzungsvermerk](design-implementation.md#paket-5--heute-und-bühnenrahmen).
+`npm run check` mit 149 Tests, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: **48 bestanden, sechs Doppelaufruf-Skips**. 100 Ansichten
+über fünf Breiten ohne horizontalen Überlauf; Kontaktbögen und volle leere Heute-Seite
+sowie Testwerk-Heroaufnahmen gesichtet. Alle sechs Kunstreferenzen unverändert.
+Safari/Firefox, physische Geräte und echte Safe-Area bleiben offen.
+Vor Paket 6 gemeinsam sichten: nächster abgegrenzter Auftrag ist Galerie und
+Werkkarten, mit erhaltenen Such-/Seiten-/Sammlungs-URLs und ruhiger Kunst. Kein
+neuer Filter. Alles weiterhin lokal, kein Commit, Push, Deployment oder Serienstart.
+
+**Paket 6 danach mit „du kannst starten“ freigegeben:** Galerie und Werkkarten
+lokal gestaltet. Zweispaltiger Desktopkopf, Linien am Zähler, erstes Werk der
+jeweiligen Seite/Suche hervorgehoben, vier Desktopspalten und zwei versetzte mobile
+Kartenspalten. Hochformatige Kartenrahmen zeigen die quadratische Kunst vollständig;
+ArtRenderer unverändert. Suche, zwölf plus acht Werke, Pagination, Fehlerzustände,
+Sammlungslinks und zugängliche Kartennamen erhalten. Keine zusätzliche Datenabfrage,
+Filterfunktion oder neue Abhängigkeit. Prüfstand im
+[Umsetzungsvermerk](design-implementation.md#paket-6--galerie-und-werkkarten).
+`npm run check` mit 149 Tests, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: **50 bestanden, sechs Doppelaufruf-Skips**. Alle fünf
+Breiten und volle Galerieaufnahmen gesichtet; 100 Ansichten ohne horizontalen
+Überlauf. Sechs Kunstreferenzen unverändert. Safari/Firefox und echte Geräte offen.
+Nächster Vorschlag nach gemeinsamer Sichtung: Paket 7, Werkdetail mit Herkunft,
+Titel-DNA und Werkdaten aus vorhandenen Werten. Kein Paket 8, keine neue Funktion.
+Alles weiterhin lokal, Serie aus; kein Commit, Push oder Deployment.
+
+**Paket 7 danach mit „Du kannst starten“ freigegeben:** Werkdetail lokal gestaltet,
+mobil Bühne zuerst, auf Desktop links; Eltern-Klammer aus tatsächlichen Referenzen,
+Merkmalsbelege mit A/B und dekorativen Zielwertvorschauen, Titel-DNA nur aus
+gespeicherten Fragmenten. Mehrdeutige/überlappende Fundstellen bleiben unmarkiert,
+Legende bleibt. Neun Werkdatenfelder unverändert und standardmäßig offen.
+Keine Teilenfunktion; ArtStage, Kunst, Daten und Betreiberlogik unverändert.
+Heute und Evolution behalten ihre Darstellung; keine neuen Abhängigkeiten.
+[Umsetzungsstand und Grenzen](design-implementation.md#paket-7--werkdetail-herkunft-und-werkdaten).
+`npm run check`: **153 Tests**, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: **52 bestanden, sechs Doppelaufruf-Skips**. Sechs
+Kunstreferenzen unverändert. Alle fünf Breiten ohne horizontalen Überlauf;
+Kontaktbögen und zusätzliche ganze Detailaufnahmen gesichtet. Safari/Firefox,
+physische Geräte und echte Safe-Area weiter offen.
+Vor Paket 8 gemeinsam sichten: Vorschlag Evolution nach Werkbuch mit bestehender
+Auswahl, tatsächlichen Beziehungen und Sammlungslinks. Kein Paket 9, keine neue
+Funktion oder Generierung. Alles lokal, kein Commit, Push, Deployment oder Serienstart.
+
+**Paket 8 danach mit „Bitte starte 8“ beauftragt:** Evolution lokal als vertikaler/
+horizontaler Zopf des ausgewählten Werks mit seinen bereits geladenen Eltern.
+Semantische Liste, CSS-Linien, ruhige echte Vorschauen, drei Desktopkarten und
+erhaltene Auswahl/Belege/Metadaten/Nachfolger. A/B aus tatsächlichen Eltern-IDs;
+abweichende Zuordnung der Werkbuch-Skizze nicht übernommen. Kein Gesamtarchiv-Laden
+oder vorgetäuschter durchgehender Pfad zu den Ursprüngen. Ursprung 1/2 ohne Kanten;
+Werkauswahl auch bei Ladefehler nutzbar. h1-Texte erhalten, ArtStage/Renderer unverändert.
+[Umsetzung und Grenzen](design-implementation.md#paket-8--evolution).
+`npm run check`: **155 Tests**, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: **56 bestanden, sechs Doppelaufruf-Skips**. Sechs
+Kunstreferenzen unverändert, 100 Ansichten über fünf Breiten ohne horizontalen
+Dokumentüberlauf. Kontaktbögen und ganze Evolutionsansichten gesichtet. Safari/Firefox,
+echte Geräte und Gesamtarchiv-Geflecht offen. Keine neuen Abhängigkeiten oder
+Änderungen an Kunst, Daten, Konfiguration oder Betreiberlogik. Alles lokal, kein
+Commit, Push, Deployment oder Serienstart.
+Nach gemeinsamer Sichtung nächster Vorschlag: Paket 9, Über und Einstellungen im
+Rahmen bestehender Logik. Keine neue Anmeldung, Speicherfunktion oder Generierungsschalter.
+
+**Paket 9 danach mit „bitte starte paket 9“ beauftragt:** Über-Seite mit fünf
+Kapiteln, Hash-Router-Sprungmarken und rein erklärenden HTML/CSS-Diagrammen;
+Originaltexte und Überschriften erhalten. Einstellungen als Status-/Zugangsansicht
+mit zwei nativen gesperrten Moduskarten aus dem tatsächlichen Konfigurationswert.
+Bestehende Auth-Bedingung und Betreiber-Sperre erhalten; keine Sitzung, Speicherung
+oder Generierungsschalter. Keine neuen Abhängigkeiten, Kunst-/Daten-/Backendänderung.
+[Umsetzung und Prüfgrenzen](design-implementation.md#paket-9--über-und-einstellungen).
+`npm run check`: **155 Tests**, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: **60 bestanden, sechs Doppelaufruf-Skips**. Alle fünf
+Breiten ohne horizontalen Überlauf, sechs Kunstreferenzen unverändert. Kontaktbögen
+und ganze Informationsseiten auf Desktop/Mobil gesichtet. Sprungmarken mit Fokus,
+Reload und gleichem Ziel geprüft; Moduskarten ändern beim Klick nichts. Safari/Firefox,
+echte Geräte, Safe-Area und echte Betreiberanmeldung weiter offen.
+Nach gemeinsamer Sichtung Paket 10 vorschlagen: Feinschliff der bestehenden Shell,
+Tastatur/Fokus, Reduced Motion und Kontraste. Alles weiterhin lokal, kein Commit,
+Push, Deployment oder Serienstart.
+
+**Paket 10 mit „ok, mach den Feinschliff“ lokal beauftragt:** ausgeglichene
+Informationsüberschriften und begrenzte automatische Worttrennung langer Werktitel.
+Originaltexte, Titel-DNA und Kunst erhalten. Drei neue Browserfälle je Projekt
+prüfen 30 Tastaturdurchläufe bis zum Footer über fünf Breiten, 15 lange Titelansichten,
+Reduced Motion und die Menügrenze 999/1000 px. Kontrast-/Trefferflächenstichproben
+ohne Befund im erfassten Umfang; kein vollständiges WCAG-Audit.
+[Prüfungen, Zwischenstände und Grenzen](design-implementation.md#paket-10--feinschliff).
+`npm run check`: **155 Tests**, Build und Worker-Dry-Run erfolgreich;
+`npm run test:browser`: **66 bestanden, sechs Doppelaufruf-Skips**. Alle fünf
+Breiten ohne horizontalen Dokumentüberlauf; Kontaktbögen und lange Titel gesichtet.
+Sechs Kunstreferenzen unverändert. Safari/Firefox, echte Geräte/Safe-Area, vollständige
+WCAG-Abnahme und externe Betreiberprüfung bleiben offen. Keine neuen Abhängigkeiten
+oder Änderungen an Kunst, Generatoren, Daten, Konfiguration oder Betreiberlogik.
+Zehn Gestaltungspakete lokal umgesetzt; nächster Schritt ist gemeinsame Sichtung
+und Designabnahme. Kein weiteres Paket automatisch starten, kein Commit, Push,
+Deployment, Serienstart oder Generierung aus diesem Stand ableiten.
+
+## Übergabe an den neuen Design-Chat – 03.11.2026 (vorheriger Stand)
 
 **Aktueller Betreiberauftrag:** Den erreichten Stand sichern. Der Betreiber möchte
 vor der nächsten Veröffentlichung das Design anpassen und gibt den konkreten

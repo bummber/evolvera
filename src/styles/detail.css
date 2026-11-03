@@ -1,0 +1,286 @@
+/* Werkbuch package 7: only the work detail shell and its provenance decoration. */
+.detail-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--rule);
+}
+.detail-toolbar > span {
+  font: 400 11px/1.5 var(--font-mono);
+  text-transform: uppercase;
+}
+.work-detail .detail-hero {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: 'stage' 'story';
+  gap: var(--space-8);
+}
+.detail-story {
+  grid-area: story;
+}
+.detail-stage {
+  grid-area: stage;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  display: grid;
+  align-content: center;
+  background: var(--paper-raised);
+}
+.work-detail .work-title {
+  font-size: clamp(52px, 7vw, 90px);
+  line-height: 0.92;
+  hyphens: auto;
+  hyphenate-limit-chars: 8 4 4;
+  text-wrap: balance;
+  margin-bottom: var(--space-6);
+}
+.work-detail .work-dateline {
+  gap: var(--space-2);
+  margin-block: var(--space-6);
+}
+.work-detail .dna-a {
+  --dna-color: var(--dna-a);
+}
+.work-detail .dna-b {
+  --dna-color: var(--dna-b);
+}
+.title-fragment {
+  box-shadow: inset 0 -0.13em 0 var(--dna-color);
+}
+.title-dna-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  list-style: none;
+  font: 400 11px/1.5 var(--font-mono);
+}
+.title-dna-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dna-key {
+  width: 16px;
+  height: 4px;
+  background: var(--dna-color);
+}
+.work-detail .work-actions {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule-soft);
+}
+.work-detail .work-actions a {
+  font-size: 14px;
+}
+.detail-inheritance {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--section-gap);
+  margin-top: var(--section-gap);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule);
+}
+.work-detail .parent-diagram > h2 {
+  font-size: clamp(28px, 3vw, 40px);
+}
+.parent-diagram .relation-grid {
+  gap: 24px;
+}
+.parent-diagram .related-card h3 {
+  margin-block: 8px 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.parent-diagram .related-card:hover h3 {
+  color: var(--accent-text);
+}
+.parent-bracket {
+  position: relative;
+  width: calc(50% + 12px);
+  height: 24px;
+  margin: 16px auto 24px;
+  border: 1.5px solid var(--ink);
+  border-top: 0;
+  border-radius: 0 0 4px 4px;
+}
+.parent-bracket::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 0.75px);
+  width: 1.5px;
+  height: 24px;
+  background: var(--ink);
+}
+.diagram-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 8px 16px 8px 8px;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-pill);
+  font: 400 11px/1.5 var(--font-mono);
+}
+.diagram-child-art {
+  display: grid;
+  align-items: center;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--paper-raised);
+}
+.work-detail .inheritance-proofs {
+  margin-block: var(--space-6);
+  padding: 0;
+  list-style: none;
+}
+.work-detail .inheritance-proofs li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 28px;
+  align-items: start;
+  gap: 0 12px;
+  padding: 14px 0;
+  border-color: var(--rule-soft);
+}
+.proof-parent {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--dna-color);
+  font: 600 11px/1 var(--font-mono);
+}
+.proof-parent.dna-b {
+  color: var(--on-accent);
+}
+.work-detail .inheritance-proofs strong {
+  grid-column: 2;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.proof-value {
+  font: 400 13px/1.5 var(--font-mono);
+}
+.trait-preview {
+  grid-column: 3;
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+}
+.trait-color {
+  border: 1px solid var(--ink);
+}
+.trait-rotation {
+  width: 24px;
+  height: 2px;
+  background: var(--ink);
+}
+.trait-width {
+  height: 8px;
+  background: var(--ink);
+}
+.trait-height {
+  width: 8px;
+  background: var(--ink);
+}
+.work-detail .inheritance-proofs details {
+  grid-column: 2 / -1;
+  min-width: 0;
+}
+.work-detail .inheritance-proofs summary,
+.work-detail .recipe-details summary {
+  font-size: 14px;
+}
+.work-detail .inheritance-proofs dd {
+  font-size: 13px;
+}
+.work-detail .recipe-details p {
+  font-size: 14px;
+}
+.work-detail > .work-metadata {
+  margin-top: var(--section-gap);
+  border-block: 1px solid var(--rule);
+}
+.work-detail .work-metadata > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+  list-style: none;
+  font-size: 19px;
+  font-weight: 700;
+}
+.work-detail .work-metadata > summary::-webkit-details-marker {
+  display: none;
+}
+.work-detail .work-metadata > summary::after {
+  content: '+';
+  font: 400 22px/1 var(--font-mono);
+}
+.work-detail .work-metadata[open] > summary::after {
+  content: '−';
+}
+.work-detail .work-metadata > dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+  gap: 24px;
+  margin: 0;
+  padding-block: var(--space-4) var(--space-8);
+}
+.work-detail .work-metadata dl > div {
+  min-width: 0;
+}
+.work-detail .work-metadata dt {
+  color: var(--ink-soft);
+  font: 400 10px/1.5 var(--font-mono);
+  text-transform: uppercase;
+}
+.work-detail .work-metadata dd {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.work-detail .work-metadata .seed-value {
+  font: 400 13px/1.6 var(--font-mono);
+}
+.detail-relations {
+  grid-template-columns: minmax(0, 1fr);
+  margin-top: var(--section-gap);
+}
+.detail-relations .relation-grid {
+  max-width: 720px;
+}
+@media (min-width: 390px) {
+  .work-detail .work-title {
+    font-size: clamp(60px, 7vw, 90px);
+  }
+}
+@media (min-width: 1000px) {
+  .work-detail .detail-hero {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-areas: 'stage story';
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+  .detail-inheritance {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(32px, 4vw, 64px);
+  }
+}

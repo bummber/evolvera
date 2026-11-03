@@ -11,7 +11,7 @@ async function openAtelier(page: import('@playwright/test').Page) {
 
 test('Gespeicherte Familien, Ruhevorschauen und visuelle Referenzen', async ({
   page,
-}) => {
+}, testInfo) => {
   await openAtelier(page);
   await expect(page.locator('.study-card')).toHaveCount(12);
   await expect(page.locator('.study-card [data-state=rest]')).toHaveCount(12);
@@ -23,10 +23,30 @@ test('Gespeicherte Familien, Ruhevorschauen und visuelle Referenzen', async ({
     await page.getByRole('button', { name, exact: true }).click();
     const work = page.locator('.atelier-main [data-renderer]');
     await expect(work).toHaveAttribute('data-state', 'rest');
-    await expect(work).toHaveScreenshot(`renderer-v1-${file}.png`, {
-      threshold: 0.25,
-      maxDiffPixelRatio: 0.01,
-    });
+    // Fix only the capture geometry to the original reference raster. The
+    // pre-Werkbuch dimensions/subpixel origins keep shell typography and scroll
+    // position out of the artwork comparison; renderer pixels/tolerances stay.
+    const style = await work.getAttribute('style');
+    await work.evaluate((node, mobile) => {
+      Object.assign((node as HTMLElement).style, {
+        position: 'fixed',
+        zIndex: '100',
+        left: mobile ? '20px' : '20.1875px',
+        top: mobile ? '20.515625px' : '20.015625px',
+        width: mobile ? '280px' : '660.484375px',
+      });
+    }, testInfo.project.name === 'mobile-chromium');
+    try {
+      await expect(work).toHaveScreenshot(`renderer-v1-${file}.png`, {
+        threshold: 0.25,
+        maxDiffPixelRatio: 0.01,
+      });
+    } finally {
+      await work.evaluate((node, original) => {
+        if (original === null) node.removeAttribute('style');
+        else node.setAttribute('style', original);
+      }, style);
+    }
     expect(
       await work.locator('[data-art-element]').count(),
     ).toBeLessThanOrEqual(50);

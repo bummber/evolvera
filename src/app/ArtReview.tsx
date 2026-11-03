@@ -43,9 +43,11 @@ export default function ArtReview() {
               <div className="hero-actions">
                 <Link
                   className="primary-link"
+                  aria-label="Sammlung durchsehen ↗"
                   to={collectionLink('/galerie', chain.inheritanceMode)}
                 >
-                  Sammlung durchsehen ↗
+                  <span>Sammlung durchsehen</span>
+                  <span aria-hidden="true">↗</span>
                 </Link>
                 <Link
                   className="text-link"

@@ -89,10 +89,15 @@ export default function Atelier() {
               onChange={(event) => setSeed(event.target.value)}
               autoComplete="off"
             />
-            <button type="submit">
+            <button className="primary-button" type="submit">
               Studie aus Seed erzeugen <span aria-hidden="true">↗</span>
             </button>
-            {error && <p role="alert">{error}</p>}
+            {error && (
+              <p className="notice" role="alert">
+                <span className="notice-label">Fehler</span>
+                {error}
+              </p>
+            )}
           </form>
           <dl>
             <div>

@@ -1,0 +1,314 @@
+/* Werkbuch package 8: an honest view of the already loaded work context. */
+.evolution-page-heading {
+  display: grid;
+  gap: var(--space-8);
+  margin-bottom: var(--section-gap);
+}
+.evolution-page-heading > div {
+  min-width: 0;
+}
+.evolution-page .work-title {
+  font-size: clamp(52px, 7vw, 90px);
+  line-height: 0.92;
+  hyphens: auto;
+  hyphenate-limit-chars: 8 4 4;
+  text-wrap: balance;
+}
+.evolution-page-heading .work-dateline {
+  margin-bottom: 0;
+}
+.evolution-page-tools .intro {
+  margin-bottom: var(--space-6);
+}
+.evolution-page .evolution-picker {
+  max-width: none;
+  margin-bottom: 0;
+}
+.lineage-heading {
+  border-top: 1px solid var(--rule);
+  padding-top: var(--space-4);
+}
+.lineage-heading h2 {
+  margin-bottom: var(--space-3);
+}
+.lineage-heading p,
+.lineage-note {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.lineage-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding: 0;
+  margin: var(--space-6) 0;
+  list-style: none;
+  font: 400 11px/1.5 var(--font-mono);
+}
+.lineage-legend li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lineage-a {
+  --edge-color: var(--ink);
+}
+.lineage-b {
+  --edge-color: var(--accent);
+}
+.lineage-key {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 3px;
+  background: var(--edge-color);
+}
+.lineage-scroll {
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.lineage-scroll:focus-visible {
+  outline: var(--focus);
+  outline-offset: var(--focus-offset);
+}
+.lineage-track {
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    var(--paper-raised) 0 96px,
+    transparent 96px
+  );
+}
+.lineage-lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.lineage-lines::before {
+  content: '';
+  position: absolute;
+  top: 48px;
+  left: 39px;
+  width: 1.5px;
+  height: calc((var(--node-count) - 1) * 96px);
+  background: var(--rule-faint);
+}
+.lineage-edge {
+  position: absolute;
+  top: calc(48px + var(--edge-start) * 96px);
+  height: calc(var(--edge-length) * 96px);
+}
+.lineage-straight {
+  left: 39px;
+  width: 3px;
+  background: var(--edge-color);
+}
+.lineage-arc {
+  left: 4px;
+  width: 36px;
+  border: 3px solid var(--edge-color);
+  border-right: 0;
+  border-radius: 36px 0 0 36px;
+}
+.lineage-nodes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lineage-nodes > li {
+  position: relative;
+  height: 96px;
+  min-width: 0;
+}
+.lineage-nodes a {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  align-items: center;
+  height: 100%;
+  padding-right: 8px;
+  text-decoration: none;
+}
+.lineage-preview {
+  display: block;
+  width: 44px;
+  margin-left: 18px;
+  background: var(--paper);
+}
+.lineage-selected .lineage-preview {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+.lineage-label {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.lineage-label > span {
+  font: 400 10px/1.4 var(--font-mono);
+  color: var(--ink-soft);
+}
+.lineage-label .lineage-generation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 4px;
+}
+.lineage-generation time {
+  white-space: nowrap;
+}
+.lineage-label strong {
+  font-size: 15px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.lineage-nodes a:hover strong {
+  color: var(--accent-text);
+}
+.lineage-note {
+  max-width: 80ch;
+  margin-top: var(--space-6);
+}
+.evolution-page .evolution-cards {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  margin-top: var(--section-gap);
+}
+.evolution-current {
+  min-width: 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--ink);
+  color: var(--on-ink);
+}
+.evolution-current h2 {
+  font-size: clamp(24px, 2.5vw, 32px);
+  margin-bottom: var(--space-5);
+}
+.evolution-current h3 {
+  font-size: 22px;
+  line-height: 1.15;
+  margin-block: var(--space-5) var(--space-3);
+  overflow-wrap: anywhere;
+}
+.evolution-current .art-controls {
+  border-color: var(--rule-on-ink);
+}
+.evolution-current .art-controls button {
+  border: 1px solid var(--on-ink-soft);
+}
+.evolution-current .art-controls > span {
+  color: var(--on-ink-soft);
+}
+.evolution-current .work-actions {
+  margin-bottom: 0;
+  gap: 8px 20px;
+}
+.evolution-current .work-actions a:hover {
+  color: var(--accent-on-dark);
+}
+.evolution-cards .related-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+.evolution-analysis {
+  margin-top: var(--section-gap);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule);
+}
+.evolution-analysis .inheritance-proofs strong,
+.evolution-analysis .inheritance-proofs summary,
+.evolution-analysis .recipe-details summary,
+.evolution-analysis .recipe-details p {
+  font-size: 14px;
+}
+.evolution-analysis .inheritance-proofs dd {
+  font-size: 13px;
+}
+@media (min-width: 1000px) {
+  .evolution-page-heading {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(32px, 4vw, 64px);
+    align-items: end;
+  }
+  .lineage-track {
+    width: calc(var(--node-count) * 160px);
+    margin-inline: auto;
+    background: linear-gradient(
+      to left,
+      var(--paper-raised) 0 160px,
+      transparent 160px
+    );
+  }
+  .lineage-nodes {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .lineage-nodes > li {
+    flex: 0 0 160px;
+    height: 380px;
+  }
+  .lineage-nodes a {
+    display: block;
+    padding: 0;
+  }
+  .lineage-preview {
+    position: absolute;
+    top: 102px;
+    left: 32px;
+    width: 96px;
+    margin: 0;
+  }
+  .lineage-label {
+    position: absolute;
+    top: 264px;
+    left: 5px;
+    width: 150px;
+    text-align: center;
+  }
+  .lineage-label .lineage-generation {
+    justify-content: center;
+  }
+  .lineage-lines::before {
+    top: 149px;
+    left: 80px;
+    width: calc((var(--node-count) - 1) * 160px);
+    height: 2px;
+  }
+  .lineage-edge {
+    left: calc(
+      (var(--node-count) - 1 - var(--edge-start) - var(--edge-length)) * 160px +
+        80px
+    );
+    width: calc(var(--edge-length) * 160px);
+  }
+  .lineage-straight {
+    top: 149px;
+    height: 3px;
+  }
+  .lineage-arc {
+    top: 52px;
+    height: 50px;
+    border: 3px solid var(--edge-color);
+    border-bottom: 0;
+    border-radius: 160px 160px 0 0 / 50px 50px 0 0;
+  }
+  .evolution-page .evolution-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+  .evolution-cards > .related-section {
+    grid-column: span 2;
+  }
+  .evolution-analysis > .work-information {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+  }
+  .evolution-analysis .work-metadata {
+    margin-top: 0;
+  }
+}

@@ -109,10 +109,16 @@ test('Tastatur, aktiver Navigationspunkt und ruhige HTML-/CSS-Shell', async ({
   await expect(page.getByRole('main')).toBeFocused();
   const menu = page.locator('summary');
   if (await menu.isVisible()) await menu.click();
-  await page.getByRole('link', { name: 'Galerie', exact: true }).click();
+  const navigation = page.getByRole('navigation', {
+    name: (await menu.isVisible())
+      ? 'Mobile Hauptnavigation'
+      : 'Hauptnavigation',
+    exact: true,
+  });
+  await navigation.getByRole('link', { name: 'Galerie', exact: true }).click();
   if (await menu.isVisible()) await menu.click();
   await expect(
-    page.getByRole('link', { name: 'Galerie', exact: true }),
+    navigation.getByRole('link', { name: 'Galerie', exact: true }),
   ).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('img, svg, canvas')).toHaveCount(0);
   await expect(page.getByText('Noch keine Werke im Archiv.')).toBeVisible();

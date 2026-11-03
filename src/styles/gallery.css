@@ -1,0 +1,153 @@
+/* Werkbuch package 6: gallery shell; renderer geometry and artwork stay intact. */
+.gallery-heading {
+  display: grid;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.gallery-title,
+.gallery-tools {
+  min-width: 0;
+}
+.gallery-title h1 {
+  margin-bottom: 0;
+}
+.gallery-tools .intro {
+  margin: 0;
+}
+.gallery-search {
+  max-width: none;
+  margin: var(--space-6) 0 0;
+}
+.gallery-count {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  padding: 12px 0;
+  margin: 0 0 var(--space-8);
+  border-block: 1px solid var(--rule);
+  color: var(--ink-soft);
+}
+.gallery-page .archive-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-8) var(--space-4);
+  align-items: start;
+}
+.archive-card-featured {
+  grid-column: 1 / -1;
+}
+.archive-card:not(.archive-card-featured):nth-child(odd) {
+  padding-top: 56px;
+}
+.archive-card > a {
+  display: grid;
+  gap: var(--space-3);
+}
+.card-art {
+  display: grid;
+  align-content: center;
+  min-width: 0;
+  aspect-ratio: 4 / 5;
+  background: var(--paper-raised);
+}
+.archive-card-featured .card-art,
+.archive-card:nth-child(odd) .card-art {
+  aspect-ratio: 1;
+}
+.card-art .card-placeholder {
+  min-width: 0;
+  font-size: 12px;
+  padding: 12px;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+.card-body {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+.archive-card .card-meta {
+  justify-content: start;
+  gap: 4px 10px;
+  margin: 0;
+  font-size: 10px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+}
+.archive-card h2 {
+  margin: 0;
+  font-size: clamp(15px, 1.5vw, 19px);
+  font-weight: 700;
+  font-stretch: 100%;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  hyphens: auto;
+}
+.archive-card > a:hover h2 {
+  color: var(--accent-text);
+  text-decoration: none;
+}
+.archive-card .card-mode {
+  font: 400 10px/1.5 var(--font-mono);
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
+}
+.archive-card-featured h2 {
+  font-size: clamp(34px, 4vw, 60px);
+  font-weight: 900;
+  font-stretch: var(--stretch-display);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.gallery-page .pagination {
+  margin-block: var(--section-gap) var(--space-8);
+  padding-block: var(--space-5);
+  border-block: 1px solid var(--rule);
+}
+.gallery-page > .muted {
+  max-width: 68ch;
+  font-size: 14px;
+}
+@media (min-width: 640px) {
+  .gallery-page .archive-grid {
+    gap: var(--space-10) var(--space-6);
+  }
+  .archive-card-featured {
+    grid-row: span 2;
+  }
+  .archive-card-featured .card-body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .archive-card-featured h2 {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .archive-card-featured .card-mode {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right;
+  }
+}
+@media (min-width: 1000px) {
+  .gallery-heading {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+    gap: clamp(32px, 4vw, 64px);
+    margin-bottom: var(--space-10);
+  }
+  .gallery-title h1 {
+    font-size: clamp(100px, 13vw, 180px);
+  }
+  .gallery-page .archive-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-10) var(--space-6);
+  }
+  .archive-card-featured {
+    grid-column: span 2;
+  }
+  .archive-card:not(.archive-card-featured):nth-child(odd) {
+    padding-top: 0;
+  }
+  .archive-card:not(.archive-card-featured) .card-art {
+    aspect-ratio: 4 / 5;
+  }
+}
