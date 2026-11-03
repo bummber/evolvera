@@ -15,7 +15,49 @@ Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gew
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
 inzwischen abgeschlossen. Konkrete Upload-Vorbereitung und offene Freigaben siehe unten.
 
-## Aktuelle Chat-Übergabe – 03.11.2026, lokale Zusammenführung isoliert geprüft
+## Aktuelle Chat-Übergabe – 03.11.2026, lokaler Stand zusammengeführt
+
+Betreiber hat genau die zwei vorgelegten lokalen Commits mit **„Freigabe erteilt“**
+beauftragt; Push/Deployment bleiben ausgenommen. Zuerst Sicherungscommit
+**`238cbdaee1eab859b7e12cbd097abcbc35126e74`** mit exakt 22 benannten Dateien
+erstellt. Alle vorherigen vier lokalen Commits und Arbeiten erhalten; PRD-Backup
+ausgeschlossen und bytegleich.
+
+Danach frischer GitHub-Head-/Konfigurationsabgleich, Fetch von `origin/main` auf
+**`f7932479a839a6176160eabe4edc675133aacafb`** im bestehenden Repository und
+konfliktfreie Zusammenführung mit `--no-commit --no-ff`. Testfix bereits identisch;
+nur die Modusdatei wurde zusätzlich bytegleich von Remote übernommen. **Auch die
+reale lokale Konfiguration jetzt traceable/Revision 3.** Generierung false,
+Startdatum null, Serienfreigabe false, Archiv leer, Galerie-Origin null und
+versionierter Worker deaktiviert.
+
+Abschließender lokaler Mergecommit hat die Eltern `238cbda` und `f793247`;
+aktuellen Hash mit `git log -1` lesen. Keine Historienumschreibung, kein Pull/Reset
+oder Force-Push. Nach Abschluss ist lokales main sechs Commits vor origin/main.
+[Vollständiger Bericht und frühere isolierte Nachweise](integration-preparation.md).
+Die alten Hinweise „ungefetchtes origin/main“ und „lokal Revision 1“ in den
+folgenden historischen Blöcken sind erledigt.
+
+Kein Push, Pages-/Worker-Deployment oder weiterer Moduswechsel. Die bestehende
+öffentliche Galerie bleibt auf `f793247`, das neue Werkbuch-Design weiterhin lokal;
+Liveworker zuletzt `08317969-9743-4a86-84c2-a57afd3b7e75`. Keine Secrets gelesen
+oder verändert. PRD-Backup unversioniert erhalten.
+
+Vor dem nächsten Arbeitspaket gemeinsam den gesicherten Stand sichten. Danach
+Galerie-Link zum geprüften Betreiberworker und die separate Veröffentlichung des
+bereits abgenommenen Designs vorbereiten. Keine neue Designrunde und keine
+Serienfreigabe daraus ableiten.
+
+Im tatsächlichen zusammengeführten Arbeitsbaum vor dem Mergecommit geprüft:
+`check:publication` Exit 0, `npm run check` mit **165 Tests**, Datenprüfung, Build
+und Worker-Dry-Run erfolgreich. `worker:test-runtime` erfolgreich;
+`test:browser` am gebauten Stand mit `CI=true`: **68 bestanden**, sechs bewusste
+Doppelaufruf-Skips, sechs Kunstreferenzen unverändert. Kein neuer manueller
+Design-/Gerätenachweis. Ergebnisdokumentation danach gezielt format-/diffgeprüft.
+Alle 22 Eingangsdateien bytegleich im Sicherungscommit erhalten; weitere
+Eingangsdateien ausser freigegebener Modus-/Statusanpassung unverändert.
+
+## Vorheriger Stand – 03.11.2026, lokale Zusammenführung isoliert geprüft
 
 Auf „Wie geht es weiter“ den lokalen Abgleich vorbereitet, ohne Commit, Push oder
 Deployment. GitHub rein lesend bestätigt: weiterhin `f793247`, drei Commits seit

@@ -1,4 +1,53 @@
-# Lokale Zusammenführung – isoliert geprüft, noch nicht ausgeführt
+# Lokale Zusammenführung – freigegeben und übernommen
+
+## Tatsächliche lokale Zusammenführung – 03.11.2026
+
+Der Betreiber hat die konkret vorgelegten **zwei lokalen Commits ohne Push** mit
+**„Freigabe erteilt“** beauftragt. Die nachfolgenden Abschnitte dokumentieren die
+vorherige isolierte Vorbereitung; deren alte Freigabesperre ist für genau diesen
+Umfang erledigt. Keine Veröffentlichungs- oder Serienfreigabe daraus ableiten.
+
+1. Lokaler Sicherungscommit **`238cbdaee1eab859b7e12cbd097abcbc35126e74`** enthält
+   exakt die unten benannten 22 Dateien. Er sichert alle vorher uncommittierten
+   Betreiber-/Datenschutz-/Test-/Dokumentationsarbeiten und erhält alle vier
+   bisherigen lokalen Commits. PRD-Backup, Secrets und generierte Ausgaben ausgeschlossen.
+2. Nach frischer lesender GitHub-Prüfung `origin/main` im bestehenden Projekt auf
+   `f7932479a839a6176160eabe4edc675133aacafb` gefetcht und konfliktfrei mit
+   `--no-commit --no-ff` zusammengeführt. Der Testfix war bereits identisch;
+   die einzige zusätzliche Produktdatei im Merge ist `config/generation.json`,
+   bytegleich zu Remote übernommen: **traceable/Revision 3**.
+
+Die abschließende lokale Sicherung ist ein Mergecommit mit den beiden Eltern
+`238cbdaee1eab859b7e12cbd097abcbc35126e74` und
+`f7932479a839a6176160eabe4edc675133aacafb`; den resultierenden Hash mit `git log -1`
+ablesen. Historien weder umgeschrieben noch verworfen. Kein Force-Push.
+`origin` bleibt `https://github.com/bummber/evolvera.git`.
+
+Eigentliche lokale Modusdatei jetzt ebenfalls Revision **3**, Generierung false,
+Startdatum null, Serienfreigabe false, offizieller Index leer. Galerie-Origin null
+und versionierter Workerstandard deaktiviert. Der Liveworker und die veröffentlichte
+Galerie werden durch lokale Commits nicht geändert. Alle früheren Arbeiten erhalten;
+PRD-Backup bleibt unversioniert und bytegleich. Keine neuen Zugangsdaten gelesen.
+
+Im tatsächlichen zusammengeführten Arbeitsbaum vor dem Mergecommit neu ausgeführt:
+`check:publication` Exit 0; `npm run check` mit **165 Tests**, Format/Lint/Typen,
+Datenprüfung, Build und deaktiviertem Worker-Dry-Run erfolgreich;
+`worker:test-runtime` mit workerd/SQLite erfolgreich; `test:browser` am gebauten
+Stand mit `CI=true`: **68 bestanden**, sechs bewusste Doppelaufruf-Skips und sechs
+unveränderte Kunstreferenzen. Keine neue manuelle Design- oder Geräteabnahme.
+
+Erhaltung zusätzlich über SHA-256 nachgewiesen: Alle 22 ursprünglichen Eingangsdateien
+liegen bytegleich im Sicherungscommit; alle weiteren Eingangsdateien bleiben bis
+auf die freigegebene Modusdatei und aktuelle Statusdokumente unverändert.
+PRD-Backup weiterhin unversioniert und bytegleich. Endgültige Ergebnisdokumentation
+nach den Tests nur auf Format/Diff geprüft; keine Produktänderung danach.
+
+Nächster Schritt ist eine gemeinsame Sichtung des gesicherten Stands, danach die
+separate Vorbereitung des Galerie-Links zum geprüften Betreiberworker und der
+Veröffentlichung des abgenommenen Werkbuch-Designs. Kein Push, Deployment, Moduswechsel
+oder Serienstart aus dieser lokalen Freigabe ableiten. Keine neue Designrunde.
+
+## Historische Vorbereitung vor dieser Freigabe
 
 Stand 03.11.2026. Auf „Wie geht es weiter“ den nächsten abgegrenzten Schritt
 vorbereitet: vorhandene lokale Arbeiten und erfolgreiche Remote-Modusrunde erhalten

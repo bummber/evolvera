@@ -1,5 +1,10 @@
 # Modusspeicherung – gespeicherter Stand und gezielt veröffentlichter CI-Testfix
 
+Späterer lokaler Abgleich: Sicherungscommit `238cbda`, danach Remote `f793247`
+konfliktfrei zusammengeführt. Lokale Modusdatei jetzt ebenfalls traceable/Revision 3;
+frühere Hinweise auf lokales traceable/1 unten sind historisch.
+[Aktueller lokaler Integrationsbericht](integration-preparation.md). Kein Push.
+
 ## Freigegebener Rückwechsel gespeichert – 03.11.2026
 
 Der Betreiber hat den einmaligen Rückwechsel von free/2 auf traceable/3 samt

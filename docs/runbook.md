@@ -1,5 +1,15 @@
 # Betrieb und spätere Einrichtung
 
+Neuester Abschluss 03.11.2026: Zwei lokale Commits separat freigegeben.
+Sicherungscommit `238cbda` mit 22 benannten Dateien erstellt; anschließend
+`origin/main` auf `f793247` gefetcht und konfliktfrei zusammengeführt. Abschließender
+Mergecommit hat Eltern `238cbda` und `f793247`; aktuellen Hash aus Git lesen.
+Reale lokale und Remote-Konfiguration jetzt traceable/Revision 3, Generierung aus.
+Kein Push/Deployment, Galerie-Origin weiter null. Vor dem nächsten Arbeitspaket
+gesicherten Stand gemeinsam sichten; Designveröffentlichung separat vorbereiten.
+[Lokaler Integrationsbericht](integration-preparation.md).
+Die folgenden Vorbereitungs-/Freigabehinweise sind historische Zwischenstände.
+
 Neueste Vorbereitung: Lokaler und externer Stand isoliert konfliktfrei kombiniert,
 Remote-Revision 3 erhalten, Gesamtcheck mit 165 Tests, Runtime und 68 Browserfälle
 erfolgreich. Noch kein Merge oder Commit im eigentlichen Projekt. Vorgeschlagen
