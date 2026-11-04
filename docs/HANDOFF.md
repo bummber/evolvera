@@ -14,9 +14,235 @@ der Worker ist inzwischen samt beiden Secrets und SQLite-Sitzungsspeicher einger
 Auf anschließenden Fortsetzungsauftrag sind Datenschutzhinweise und unabhängige
 Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gewählte
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
-inzwischen abgeschlossen. Konkrete Upload-Vorbereitung und offene Freigaben siehe unten.
+inzwischen abgeschlossen. Lokale Integration und aktueller Auftragsumfang siehe unten.
 
-## Aktuelle Chat-Übergabe – 04.11.2026, echte Modusrunde und Sicherung abgeschlossen
+## Aktuelle Chat-Übergabe – 04.11.2026, Veröffentlichung konkret vorbereitet
+
+Auf **„Mach weiter“** nach dem Korrekturabschluss den im vorigen Block benannten
+Sicherungs-/Commit-/Push-/Pages-Umfang konkret vorbereitet. Vollständige Vorlage
+und Dateiauswahl in [gallery-publication-preparation.md](gallery-publication-preparation.md).
+Noch keine Freigabe oder Ausführung von Sicherung, Commit, Fetch/Merge, Push oder
+Deployment. Keine externe Einstellung geändert.
+
+- HEAD/main weiterhin `02f9d6f6595d7ed0d783c32eb865f3c4758e889a`, gespeichertes
+  origin/main `a66d0b4`. Remote-main jetzt frisch per `git ls-remote` und Branch-API
+  ebenfalls `a66d0b49041149d3734a2e5bee2b56a5fc6f30b6`, kein Ref-Update.
+- Repository öffentlich, main Standardbranch und laut Branch-API nicht geschützt.
+  Pages ist als Workflow-Veröffentlichung eingerichtet. Umgebung github-pages
+  erlaubt main; nur Branchregel, keine gelesene Reviewer-/Wartezeitregel.
+  Pages-Schalter true, Tagesautomatisierungsvariable nicht gesetzt. Keine neuen
+  CI-/Deploy-/Liveworker-/Cookie-/Sitzungsnachweise aus diesen Metadaten ableiten.
+- Genau sieben lokale Arbeitsdateien uncommittiert: HANDOFF, NEXT-START,
+  gallery-publication-preparation, pre-series-acceptance und Runbook unter docs,
+  src/styles/shell.css sowie neuer tests/browser/loading-stability.spec.ts.
+  Die sechs vorherigen Arbeiten erhalten, nur den Veröffentlichungsbericht
+  zusätzlich fortgeschrieben. PRD-Backup extra unversioniert/bytegleich.
+- Zur Freigabe: neue Sicherung
+  `/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-pages-L01-02f9d6f.tar.gz`
+  mit genau sieben Dateien plus Manifest/Byteprüfung; vorhandene Archive erhalten.
+  Danach genau ein lokaler Sieben-Dateien-Commit auf 02f9d6f und regulärer
+  Fast-forward-Push einschließlich `2ffb420`/`02f9d6f`, insgesamt drei lokale Commits.
+  Vollständiger Unterschied zu Remote umfasst 19 Dateien, nicht nur den CSS-Fix.
+- Push startet beide vorhandenen CI-/Pages-Workflows. Bei unveränderten Gates
+  Generierungsschritt übersprungen; kein Serienwerk, keine Modusrevisionserhöhung,
+  kein Worker-Upload. Frischer Vorabgleich bleibt Teil der späteren Ausführung;
+  bei Abweichung stoppen, keine Historienumschreibung oder blinde Integration.
+- CSS und neuer Ladetest bytegleich zum zuvor geprüften Korrekturstand mit
+  166 Tests und 70 bestandenen Browserfällen/sechs bewussten Skips, sechs
+  unveränderten Kunstreferenzen. Die neun Kaltstartmessungen bleiben gültig;
+  keine neue lokale Browser-/Runtime-/Kunst-/Geräte-/Cookie-Runde nur für diese Texte.
+  Konfiguration, Worker, Workflows, Archiv, Lockfile und PRD bytegleich zu Remote;
+  traceable/5, Generierung false, Startdatum null, Serienfreigabe false, Index leer.
+
+Prüfung dieser Veröffentlichungsvorbereitung im isolierten Klon bestanden:
+`npm run check:publication` und `npm run check` mit **166 Tests**, Format/Lint/Typen,
+Daten-/Vorschauprüfung, Build und deaktiviertem Worker-Dry-Run. Alle **22 Builddateien
+bytegleich** zum mit 70 Browserfällen geprüften Korrekturstand. Kein neuer lokaler
+Browser-/Runtime-Lauf für diese Texte; reinen Ergebnisnachtrag anschließend gezielt
+format-/diffgeprüft, keinen weiteren Gesamtcheck danach behauptet.
+Keine vollständige WCAG-/Sitzungs-/GPU-/Feldabnahme oder neue Serienfreigabe. Kleine schriftbedingte
+Restverschiebungen und frühere ungeklärte Konfliktursache bleiben dokumentiert.
+Nächster Schritt: genau diese Vorlage gemeinsam sichten und die sieben Dateien,
+Sicherung, drei zu pushenden Commits sowie ausgelöste CI-/Pages-Nachkontrolle
+ausdrücklich freigeben lassen. Keine Aktivierung, Designrunde, Phase 5 oder EP-01.
+
+## Vorherige Chat-Übergabe – 04.11.2026, L-01 lokal korrigiert
+
+Der Betreiber hat den konkret vorgelegten lokalen Korrektur-/Prüfumfang mit
+**„Freigegeben“** beauftragt. Ergebnis: zusätzliche Platzreservierung ausschließlich
+während der Ladezustände in shell.css und neuer Regressionstest; App.tsx/index.html
+bleiben nach Variantenvergleich unverändert. Keine neue Designrunde oder Abhängigkeit.
+[Vollständiger Vergleich und Grenzen](pre-series-acceptance.md#lokale-korrektur-l-01--04112026).
+
+- Dominanter Footer-Sprung in den drei gemessenen Szenarien beseitigt. Je drei
+  abschließende Kaltstarts unter denselben Bedingungen wie zuvor: CLS Heute
+  `0,10348 → 0,00140`, Galerie `0,12316 → 0,02108`, bewegtes Testwerk
+  `0,10648 → 0,00018`. Ansichtsbereitschaft Median `1,953 / 2,562 / 2,573 s`,
+  gegenüber vorher −4 bis +8 ms Unterschied. Kleine Restverschiebungen dokumentiert;
+  keine Feld-/GPU-/INP-Abnahme oder vollständige Restabnahme daraus ableiten.
+- Nur vier zusätzliche CSS-Zeilen in `src/styles/shell.css`. Direkter Ladestatus
+  im main reserviert `100svh` für beide Phasen (Routenmodul und Archivdaten).
+  Nach Laden gilt wieder das bestehende Layout. Vorhandene Archivo-Schrift als
+  preload isoliert geprüft: CLS null, aber im orientierenden Heute-Lauf rund
+  eine halbe Sekunde langsamere Ansichtsbereitschaft; deshalb nicht übernommen.
+- `tests/browser/loading-stability.spec.ts` neu: neun Ansichts-/Breitenkombinationen
+  und 18 kontrollierte Ladephasen bei 320/390/1440 Pixeln. Gegenprobe am unveränderten
+  Vorher-Build scheitert am tatsächlichen Footerfehler (784 statt mindestens 900 Pixel).
+  Mit Korrektur beide Projektfälle bestanden. Testnavigation auf eindeutige
+  Dokument-Queries berichtigt, damit jeder Fall tatsächlich das Modul neu lädt.
+- HEAD/main weiter `02f9d6f6595d7ed0d783c32eb865f3c4758e889a`, gespeichertes
+  origin/main `a66d0b4`, main zwei lokale Commits voraus. Sechs lokale Arbeitsdateien:
+  die vier erhaltenen Dokumentupdates plus shell.css und neuer Browsertest.
+  Zusätzlich PRD-Backup unversioniert/bytegleich. Bestehende Sicherungsarchive
+  unverändert, enthalten diese sechs Updates nicht. Keine neue Sicherungsfreigabe.
+- Generator, Titelgenerator, Renderer, Archiv, Kunstdateien, Referenzen, Worker,
+  Konfiguration und Lockfile unverändert. Kein echter Login-/Modus-/Cookiezugriff,
+  kein Remote-/Variablenabgleich, Git-Commit, Fetch/Merge, Push oder Deployment.
+  Weiter traceable/5, Generierung false, Startdatum null, `seriesAuthorized:false`,
+  offizielles Archiv leer. Frühere Konfliktursache weiter ungeklärt.
+
+Abschließende Prüfungen dieses Korrekturpakets bestanden: `npm run check` mit
+**166 Tests**, Format/Lint/Typen, Daten-/Vorschauprüfung, Build und deaktiviertem
+Worker-Dry-Run. Danach `CI=true npm run test:browser`: **70 bestanden**, sechs
+bewusste Skips, alle sechs Kunstreferenzen unverändert. Geladene Heute-/Galerie-
+Screenshots außerdem bytegleich zum Vorherstand. Isolierter Klon, synthetische
+Zugänge, keine kopierten Secret-Dateien; Workerausgaben außerhalb dist/Git.
+Reiner Ergebnisnachtrag danach gezielt format-/diffgeprüft, kein weiterer Gesamt-/
+Browserlauf danach behauptet. Keine zusätzliche Worker-Runtime-/Drei-Engine-Suite.
+Varianten, Gegenprobe und Messungen nur temporär unter
+`/private/tmp/evolvera-loading-fix-20261104-dmbutejs`, dauerhafte Ergebnisse im Bericht.
+
+Nächster Schritt nach gemeinsamer Sichtung: genauen lokalen Sicherungs-/Commit-/
+Push-/Pages-Umfang des gesamten Standes vorbereiten und separat freigeben lassen.
+Diese Korrekturfreigabe enthält keinen solchen Auftrag. Keine erneuten Kunst-,
+Geräte- oder Cookie-Modustests; keine Phase 5, EP-01 oder Serienaktivierung.
+
+## Vorherige Chat-Übergabe – 04.11.2026, gezielte Restabnahme mit Befund L-01
+
+Nach konkreter Vorlage hat der Betreiber das lokale Prüf-/Berichtspaket mit
+**„Freigegeben“** beauftragt. Zugänglichkeit, Zuordnung vorhandener Autorisierungs-
+nachweise und Leistung wurden im vereinbarten Umfang geprüft. Ergebnisse und
+Messmethoden stehen in der [Abnahmematrix](pre-series-acceptance.md#gezielte-lokale-restabnahme-am-04112026).
+Produktänderungen sind ausdrücklich anschließend vorzulegen; keine bereits erteilte
+Freigabe für den unten vorgeschlagenen Korrekturschritt.
+
+- Git unverändert: HEAD/main `02f9d6f6595d7ed0d783c32eb865f3c4758e889a`, gespeichertes
+  origin/main `a66d0b4`, main zwei lokale Commits voraus. Die vier bisherigen
+  Dokumentupdates bleiben uncommittiert und wurden um die Ergebnisse ergänzt.
+  PRD-Backup zusätzlich unversioniert/bytegleich, beide Sicherungsarchive erhalten.
+  Keine neue Git-/Remote-/Cloudaktion oder echte Modusspeicherung.
+- Isolierter Repositoryklon, nur vorhandene Testwerke, Node 24.21.0 und installiertes
+  Playwright/Chromium. Build erfolgreich, erster Versuch durch Sandbox-EPERM am
+  tsx-Socket blockiert, Wiederholung mit lokalen Prozessrechten erfolgreich.
+  Keine Secret-Dateien übernommen, keine Abhängigkeit oder Kunstreferenz geändert.
+- Zugänglichkeit: 15 Seiten-/Breitenkombinationen bei 320/390/1440 Pixeln sowie
+  zwei Mobilmenüs. 1.235 Textkontrastmessungen ohne Unterschreitung, 302 Seiten-
+  und 50 Menü-Fokusbeobachtungen; mobile Ziele mindestens 44 × 44 Pixel. Beschreibungen
+  beider Hauptwerke in sechs Chromium-Zugänglichkeitsbäumen bestätigt. Kein
+  bestätigter Fehler im geprüften Umfang, keine vollständige WCAG-/Screenreader-
+  oder neue Geräteabnahme. Menüselektor und Dock-Überdeckungsannahme des ad-hoc-
+  Skripts wurden korrigiert, keine Produktänderung oder gelockerte Anforderung.
+- Autorisierung: PRD 9.5/A-19/A-21/A-25 mit Code und den bestehenden Tests zugeordnet;
+  keine neue konkrete Lücke erkannt, kein zusätzlicher Login-/Sitzungs-/Cloudlauf.
+  Frühere Konfliktursache weiter ungeklärt; bestehende Cookie-/Modusrunde bleibt erledigt.
+- Leistung: je drei Kaltstarts von Heute, Galerie und vorhandenem bewegtem Werk,
+  390 × 844 Pixel, 150 ms Latenz, 1,6 Mbit/s Download, 0,75 Mbit/s Upload, CPU-Faktor 4.
+  Ansichtsbereitschaft im Median 1,945 / 2,566 / 2,571 s; LCP 1,620 / 2,048 / 1,396 s.
+  **Offen L-01:** reproduzierbare Layoutverschiebung, CLS 0,10348 / 0,12316 / 0,10648.
+  Zusätzlicher Diagnoselauf je Szenario: größter sichtbarer Sprung am Footer beim
+  Nachladen, weitere an Wortmarke/Überschrift bzw. gallery-tools. Keine Kausalanteile
+  durch Variantenvergleich bewiesen. Konkreter Ansatz: Ladeplatzhalter/Platzreservierung
+  und Schriftwechsel in App.tsx/shell.css; noch keine Korrektur umgesetzt.
+- Galerie zwölf ruhende Kacheln, bewegtes Hauptwerk 54 Elemente/21 laufend, zusätzliche
+  Vorschauen ruhend. Drei-Sekunden-rAF-Stichprobe ohne Abstand über 50 ms; keine
+  tatsächliche GPU-/Geräte-FPS-Messung oder INP-Abnahme. Fremdabrufe, Schreibrequests,
+  Cookies und Seitenfehler in den lokalen Messläufen null. Keine neue Designrunde,
+  Kunst-, Cookie-, Geräte- oder vollständige Browser-/Worker-Runtime-Runde.
+
+Dokumentations-Gesamtcheck dieses Ergebnispakets im isolierten Klon erfolgreich:
+`npm run check`, **166 Tests** einschließlich bestehender synthetischer
+Autorisierungstests, Format/Lint/Typen, Daten-/Vorschauprüfung, Build und deaktivierter
+Worker-Dry-Run. Reiner Ergebnis-/Präzisierungsnachtrag danach gezielt format-/diffgeprüft;
+kein weiterer Gesamtcheck oder regulärer Browser-/Runtime-Lauf danach behauptet.
+Messskripte, JSON, Screenshots und Playwright-Traces liegen nur temporär unter
+`/private/tmp/evolvera-rest-review-20261104-0o8rdrwo`; der Abnahmebericht enthält den
+dauerhaften Ergebnisstand. Kein vollständiger Chrome-Performance-/GPU-Trace.
+
+Nächster abgegrenzter Schritt nach gemeinsamer Sichtung: Korrekturvorschlag L-01
+für `src/app/App.tsx`, `src/styles/shell.css` und einen gezielten verzögerten
+Lade-Browsertest konkret freigeben lassen. Anschließend wäre der gleiche lokale
+Messvergleich samt vorgeschriebenen Checks sinnvoll. Veröffentlichung und Serien-
+freigabe bleiben getrennte spätere Aufträge. Aktuell weiter traceable/5,
+Generierung false, Startdatum null, `seriesAuthorized:false`, Archiv leer.
+Kein neuer Commit, Push, Deployment, Moduswechsel, Phase 5 oder EP-01.
+
+## Vorherige Chat-Übergabe – 04.11.2026, Revision 5 lokal integriert
+
+Nach genauer Vorlage hat der Betreiber mit **„ja“** eine neue Sicherung, einen
+gezielten Fetch und genau zwei lokale Commits freigegeben. Dieser Umfang ist erledigt.
+Die anschließende Freigabe **„Freigegeben“** gilt ausschließlich dem Dokumentations-
+abschluss in HANDOFF, NEXT-START, Runbook und Abnahmematrix sowie der konkreten
+Restabnahmeliste mit `npm run check`. Kein weiterer Commit, Push, Deployment,
+Moduswechsel oder Serienstart ist daraus beauftragt.
+
+- Sicherungscommit `2ffb420619d7e8fc42d4f0b0eaa8338e84d2e36c` enthält exakt die
+  17 zuvor benannten Arbeitsdateien. Alle Eingangsbytes sind darin erhalten;
+  das zusätzliche PRD-Backup wurde nicht aufgenommen.
+- Gezielter Fetch von `origin/main`: `a66d0b49041149d3734a2e5bee2b56a5fc6f30b6`.
+  Elternfolge `d844e3f → 2534192 → a66d0b4` geprüft; beide Remotecommits ändern
+  ausschließlich Modus/Revision in `config/generation.json`. Unmittelbar vor dem
+  lokalen Merge denselben Remote-HEAD nochmals mit `git ls-remote` bestätigt.
+- Lokales HEAD/main jetzt `02f9d6f6595d7ed0d783c32eb865f3c4758e889a`, Mergeeltern
+  `2ffb420` und `a66d0b4`. Gespeichertes `origin/main` auf `a66d0b4`, main zwei
+  lokale Commits voraus. Kein Push. Im jetzigen Dokumentationspaket kein neuer
+  Fetch oder Remoteabgleich; gespeicherte Referenz und letzter Livebefund unterscheiden.
+- Unabhängiger temporärer Repositoryklon ohne übernommene Secret-Dateien, nur
+  synthetische Testzugänge. Kandidat konfliktfrei; alle 17 Dateien bytegleich.
+  Geprüfter Kandidat und finaler Mergecommit haben denselben Git-Baum
+  `baa7b8621e333ddb865b8236779f2d80dcb27560`. Zusätzlich zum Sicherungscommit wurde
+  ausschließlich die Remote-Modusdatei übernommen, Blob
+  `488c9842d8dc53e66a70c251227a5b3140bed98c`.
+- Lokal jetzt **traceable/Revision 5**, Generierung false, Startdatum null,
+  `seriesAuthorized:false`, offizielles Archiv leer. Produktionscode, Worker,
+  Generator, Renderer, Kunst, Referenzen und Lockfile unverändert. Liveworker,
+  Secrets und SQLite-Sitzungen erhalten; kein Worker-Upload oder Livezugang.
+- Neue Sicherung:
+  `/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-integration-d844e3f.tar.gz`,
+  86.264 Bytes, SHA-256
+  `7acadd0aa8c38e3919a28991b72053114d4b70154a844d2c1d49ccdaa46ff281`.
+  Exakt 17 Dateien plus Manifest, anschließend byteweise geprüft. Das alte Archiv
+  mit SHA-256 `a5e4da144a884eff2ece43028a2d1f343e1c51d2807c76dd9fb4ef996810e932`
+  bleibt unverändert. Beide Archive enthalten nicht die jetzt folgenden vier
+  Dokumentupdates. PRD-Backup weiterhin unversioniert und bytegleich zu PRD.md.
+- Tatsächlich am Integrationskandidaten bestanden: `npm run check:publication`,
+  `npm run check` mit **166 Tests**, Datenprüfung, Build und deaktiviertem Worker-
+  Dry-Run; `npm run worker:test-runtime` mit echtem lokalem workerd/SQLite;
+  `CI=true npm run test:browser` mit **68 bestanden**, sechs bewussten Skips,
+  Kunstreferenzen unverändert. Erster Publikationsprüfversuch durch Sandbox-EPERM
+  am tsx-IPC-Socket blockiert; mit lokalen Prozessrechten erfolgreich wiederholt.
+  Die Zusatzsuite in drei Engines, Kunst-, Geräte- und echten Cookie-/Speichertests
+  wurden nicht erneut ausgeführt; ihre bisherigen Nachweise gelten weiter.
+
+Prüfung dieses Dokumentationspakets: `npm run check` mit **166 Tests**, Format/Lint/
+Typen, Daten-/Vorschauprüfung, Build und deaktiviertem Worker-Dry-Run erfolgreich.
+Ausgeführt im unabhängigen temporären Repositoryklon mit genau den vier Dokument-
+updates, ohne kopierte Secret-Dateien, nur synthetischen Testzugängen und Worker-
+ausgaben außerhalb dist/Git. Kein zusätzlicher Browser-/Runtime-/Cloudlauf für diese
+Dokumentation. Reiner Ergebnisnachtrag anschließend gezielt format-/diffgeprüft;
+kein weiterer Gesamtcheck danach behauptet. Die vier Ergebnis-/Starttexte bleiben
+lokal uncommittiert. Temporäre Integrationsbelege unter
+`/private/tmp/evolvera-integration-20261104-s6zeie_9` sind keine dauerhafte Ablage;
+dieser Bericht und Git enthalten den maßgeblichen Ergebnisstand.
+
+Nächster abgegrenzter Schritt: die [konkrete Restabnahmeliste](pre-series-acceptance.md#konkrete-restabnahmeliste-nach-lokaler-integration)
+gemeinsam sichten. Sie benennt vorhandene Nachweise, noch gezielt zu klärende
+PRD-Anforderungen, spätere Stabilisierung und erst nach Aktivierung mögliche
+Betriebsnachweise. Keine neue Prüfung oder Abnahme allein durch diese Liste.
+Veröffentlichung der lokalen Commits und eine spätere Serienfreigabe jeweils
+separat mit genauen Dateien, Revisionen und Folgen vorbereiten. Keine neue
+Designrunde, Phase 5 oder EP-01. [Aktueller Startprompt](NEXT-START.md).
+
+## Vorherige Chat-Übergabe – 04.11.2026, echte Modusrunde und Sicherung abgeschlossen
 
 Der Betreiber hat nach konkreter Vorlage mit **„Leg los“** A (zwei Moduswechsel samt
 Git-/CI-/Pages-Folgen) und B (genau benanntes lokales Sicherungsarchiv) freigegeben.

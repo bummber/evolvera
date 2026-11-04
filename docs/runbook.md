@@ -1,5 +1,135 @@
 # Betrieb und spätere Einrichtung
 
+## Aktueller Stand – Veröffentlichung am 04.11.2026 vorbereitet
+
+Auf „Mach weiter“ den genauen nächsten Sicherungs-/Commit-/Push-/Pages-Umfang
+vorbereitet, noch nicht ausgeführt oder freigegeben. [Konkrete Vorlage](gallery-publication-preparation.md)
+mit sieben benannten Arbeitsdateien, neuem Archivpfad, einem zusätzlichen lokalen
+Commit und regulärem Push samt den beiden vorhandenen lokalen Commits. Gegenüber
+Remote insgesamt 19 Dateidifferenzen, einschließlich der bisherigen lokalen Tests
+und Berichte. PRD-Backup bleibt zusätzlich unversioniert/bytegleich und ausgeschlossen.
+
+Remote-main frisch `a66d0b4`, lokal main weiter `02f9d6f`, zwei lokale Commits voraus.
+Repository öffentlich/main Standardbranch, Pages per Workflow, Umgebung erlaubt main;
+PAGES_DEPLOYMENT_ENABLED=true, EVOLVERA_AUTOMATION_ENABLED nicht gesetzt. Nur gelesen,
+keine externen Einstellungen geändert. Vor Ausführung erneut abgleichen; bei
+abweichendem Remote/Gates stoppen, keine blinde Integration oder Historienumschreibung.
+
+Push würde beide bestehenden Workflows auslösen und bei erfolgreichen Prüfungen
+die Vorschau veröffentlichen. Generierungsschritt bei unveränderten Gates übersprungen;
+dateibasierte Seriengates bleiben ebenso geschlossen, traceable/5 und Archiv leer.
+Kein Worker-Upload oder echter Modus-/Login-/Sitzungszugriff vorgesehen. Nachkontrolle
+mit tatsächlichen Lauf-IDs, Artefaktvergleich und anonymer 320/1440px-Stichprobe
+separat im Freigabeumfang; kein neuer Erfolg vor Ausführung behauptet.
+
+CSS/Regressionstest unverändert zum bereits geprüften Korrekturstand. Für die reinen
+Vorbereitungstexte Publikationsprüfung und Gesamtcheck isoliert mit 166 Tests bestanden;
+22 Builddateien bytegleich zum browsergeprüften Korrekturstand. Reiner Ergebnisnachtrag
+danach gezielt geprüft; Details im neuesten HANDOFF. Keine pauschale neue Browser-/
+Runtime-/Kunst-/Geräte-/Cookie-Runde.
+Sieben lokale Arbeitsdateien uncommittiert erhalten, beide bisherigen Archive unverändert.
+Noch kein neuer Sicherungs-/Commit-/Push-/Deployauftrag, kein Startdatum, Phase 5 oder EP-01.
+
+## Vorheriger Stand – L-01 am 04.11.2026 lokal korrigiert
+
+Auf separat freigegebenen lokalen Korrekturauftrag reserviert main während eines
+direkten Ladestatus nun mindestens `100svh`. Routenmodul und Archivdaten laden so,
+dass der Footer beim Kaltstart nicht zunächst im ersten Sichtbereich erscheint.
+Geladene Ansichten behalten die bisherigen Regeln. Nur vier CSS-Zeilen in shell.css;
+kein App.tsx-/index.html-/Font-/Renderer-/Generator-/Worker-/Konfigurationswechsel.
+Ausprobierter Fontpreload wegen langsamerer erster Ansicht nicht übernommen.
+
+Neuer gezielter Browsertest unter `tests/browser/loading-stability.spec.ts`:
+neun Ansichts-/Breitenkombinationen, zwei separat blockierte Ladephasen pro Fall.
+Erkennt den ursprünglichen Fehler im isolierten Vorher-Build; beide Projektfälle
+mit Korrektur bestanden. Neun abschließende Kaltstartmessungen: CLS Heute
+`0,00140`, Galerie `0,02108`, bewegtes Werk `0,00018`, zuvor `0,10348 / 0,12316 /
+0,10648`. Kleine Restverschiebungen bleiben dokumentiert; keine tatsächliche Feld-/
+GPU-/INP-Abnahme. [Vergleich und Grenzen](pre-series-acceptance.md#lokale-korrektur-l-01--04112026).
+Abschließend Gesamtcheck mit 166 Tests und reguläre Browserprüfung mit 70 bestandenen
+Fällen/sechs bewussten Skips erfolgreich; sechs Kunstreferenzen unverändert.
+Reinen Ergebnisnachtrag anschließend gezielt geprüft; Details im neuesten HANDOFF.
+
+Sechs lokale Arbeitsdateien uncommittiert erhalten: vier bisherige Statusdokumente,
+shell.css und neuer Browsertest. PRD-Backup zusätzlich unversioniert/bytegleich;
+beide Archive unverändert, neue Updates darin nicht enthalten. HEAD/main `02f9d6f`,
+gespeichertes origin/main `a66d0b4`, zwei lokale Commits voraus. Vor dem nächsten
+Paket gemeinsam sichten; danach genauen Sicherungs-/Commit-/Push-/Pages-Umfang
+separat vorbereiten. Keine solche Freigabe aus dem Korrekturauftrag ableiten.
+Generierung false, Startdatum null, traceable/5, Serienfreigabe false, Archiv leer.
+Keine neue Einrichtung, Modusrunde, Veröffentlichung, Designrunde, Phase 5 oder EP-01.
+
+## Vorheriger Stand – gezielte Restabnahme am 04.11.2026
+
+Nach separater Freigabe das lokale Prüf-/Berichtspaket ausgeführt. Zugänglichkeit
+auf 15 Seiten-/Breitenkombinationen plus zwei Mobilmenüs im beschriebenen Umfang
+ohne bestätigten Fehler; Autorisierung anhand vorhandener Tests PRD 9.5/A-19/A-21/
+A-25 zugeordnet. Drei Kaltstarts je Leistungsszenario und je ein zusätzlicher
+Diagnoselauf ausschließlich gegen den isolierten lokalen Build. Bedingungen und
+dauerhafte Ergebnisse im [Abnahmebericht](pre-series-acceptance.md#gezielte-lokale-restabnahme-am-04112026).
+
+**Offener Befund L-01:** CLS 0,10348–0,12316 bei 390 × 844 Pixeln, 150 ms Latenz,
+1,6 Mbit/s Download und CPU-Faktor 4. Größter beobachteter Sprung am Footer während
+des Nachladens, kleinere an Wortmarke/Überschrift/gallery-tools. Ladeplatzhalter,
+Platzreservierung und Schriftwechsel sind konkrete Ansatzpunkte. Kein Produktfix
+beauftragt oder umgesetzt. Nächster Schritt: begrenzten Vorschlag in App.tsx,
+shell.css und einem gezielten verzögerten Lade-Browsertest gemeinsam sichten.
+Keine neue Designrunde oder Phase 5.
+
+HEAD/main weiter `02f9d6f`, gespeichertes origin/main `a66d0b4`, main zwei lokale
+Commits voraus. Ausschließlich die vier vorhandenen Dokumentupdates um Ergebnisse
+ergänzt; uncommittiert erhalten. Prüfstand nach Dokumentation im neuesten HANDOFF.
+Keine neue vollständige Browser-/Runtime-/Drei-Engine-Suite, kein echter Login oder
+Moduswechsel, keine Remote-/Variablenprüfung. Vorhandene Betreiber-/Kunst-/Geräte-
+nachweise erhalten. Die lokalen Messungen sind keine vollständige WCAG-/Sitzungs-/
+GPU-/Feldabnahme. Bestehende Sicherungen und PRD-Backup unverändert.
+
+Weiter traceable/5, Generierung false, Startdatum null, Serienfreigabe false, Archiv
+leer. Kein neuer Commit, Fetch/Merge, Push, Deployment oder Serienstart.
+
+## Vorheriger Stand – lokale Integration am 04.11.2026 abgeschlossen
+
+Lokales HEAD/main `02f9d6f6595d7ed0d783c32eb865f3c4758e889a`, Eltern
+`2ffb420` (exakt 17 zuvor uncommittierte Dateien) und `a66d0b4` (Remote-Modusrunde).
+Gespeichertes origin/main `a66d0b4`, main zwei lokale Commits voraus, kein Push.
+Die zwei Remotecommits ändern ausschließlich Modus/Revision; sie sind integriert.
+Lokal **traceable/5**, Generierung false, Startdatum null, Serienfreigabe false,
+offizielles Archiv leer. Revision 5 nicht auf 3 zurücksetzen. Letzter frischer
+Remoteabgleich vor dem Merge bestätigte `a66d0b4`; für die folgenden Dokumentupdates
+kein neuer Cloud-/Variablenabgleich. Gespeicherte Refs sind kein aktueller Livebefund.
+
+Sicherung, vollständige Commit-/Baumnachweise und Prüfsummen im
+[neuesten HANDOFF](HANDOFF.md). Neue Sicherung
+`2026-11-04-pre-integration-d844e3f.tar.gz`: 17 Dateien plus Manifest byteweise geprüft,
+SHA-256 `7acadd0aa8c38e3919a28991b72053114d4b70154a844d2c1d49ccdaa46ff281`.
+Alte Sicherung erhalten. Alle 17 Dateien im Sicherungs-/Mergecommit bytegleich;
+PRD-Backup weiterhin zusätzlich unversioniert und bytegleich. Beide Sicherungsarchive
+enthalten nicht die vier anschließenden Dokumentupdates.
+
+Integrationskandidat: Publikationsprüfung, Gesamtcheck mit 166 Tests, Datenprüfung,
+Build, deaktivierter Worker-Dry-Run und lokaler workerd-/SQLite-Test erfolgreich.
+Browser am gebauten Kandidaten: 68 bestanden, sechs bewusste Skips, Kunstreferenzen
+unverändert. Finaler Git-Baum exakt wie geprüft. Keine neue Remote-CI/Pages-Runde
+für diese lokalen Commits. Ergebnis des anschließenden reinen Dokumentationschecks
+im neuesten HANDOFF; dafür kein neuer Browser-/Runtime-Lauf.
+
+Aktuell freigegeben ist ausschließlich der Dokumentationsabschluss in HANDOFF,
+NEXT-START, Runbook und Abnahmematrix mit konkreter Restabnahmeliste und Gesamtcheck.
+Diese vier Updates bleiben uncommittiert. Nächster Schritt ist die gemeinsame
+[Sichtung der Restabnahmeliste](pre-series-acceptance.md#konkrete-restabnahmeliste-nach-lokaler-integration).
+Noch keine technische Prüfung aus dieser Liste beauftragt, keine vollständige
+Abnahme oder Risikofreigabe erteilt. Kunst-, Geräte-, Login- und Cookie-Modustests
+bleiben erledigt. Bestehenden Liveworker, Secrets und Sitzungen erhalten.
+Veröffentlichung und spätere Serienaktivierung jeweils separat mit genauen Dateien,
+Revisionen und möglichen CI-/Pages-/Archivfolgen vorbereiten; kein neuer Commit,
+Push, Deployment, Moduswechsel, Startdatum, Phase 5 oder EP-01 aus diesem Paket.
+
+## Historische Abschlüsse und Vorbereitungen
+
+Die folgenden Absätze dokumentieren ihre damaligen Stände. Aussagen wie „lokal
+Revision 3“, „uncommittierte 17 Dateien“ oder „Integration offen“ sind durch den
+aktuellen Stand oben erledigt und erteilen keinen neuen Auftrag.
+
 Aktueller Abschluss des echten Cookie-Speichertests am 04.11.2026: Nach konkreter
 Freigabe traceable/3 → free/4 → traceable/5 durch den Betreiber gespeichert. Remote
 zuletzt `a66d0b49041149d3734a2e5bee2b56a5fc6f30b6`, beide CI-/Pages-Läufe erfolgreich;
@@ -157,9 +287,10 @@ auf Loopback/Port 8787. `/health` liefert ohne Einrichtung HTTP 503 und
 `{"configurationReady":false}`; `/settings` erklärt den fehlenden Zugang.
 `/privacy` und `/imprint` liefern auch deaktiviert Rechtstexte ohne Sitzung und
 GitHub-Aufruf. Alle Worker-HTML-Seiten verlinken sie. Der Betreiber-Datenschutztext
-wird mit der Galerie aus gemeinsamem Inhalt erzeugt; lokal derzeit als Entwurf.
+wird mit der Galerie aus gemeinsamem Inhalt erzeugt; die Textdurchsicht und
+bestehende Veröffentlichung sind dokumentiert, nicht erneut als Entwurf behandeln.
 Keine Demo-Sitzung, keine Demo-Speicherung und kein lokaler Ersatz für GitHub.
-Die echte Betreiberoberfläche wird nach Einrichtung über ihre HTTPS-Origin geöffnet.
+Die bestehende echte Betreiberoberfläche wird über ihre eingerichtete HTTPS-Origin geöffnet.
 
 `npm run worker:test-runtime` startet einen separaten lokalen Test-Worker auf
 127.0.0.1:8789 mit temporärem SQLite-Speicher, prüft Einmalverbrauch, Sitzung und
@@ -176,7 +307,7 @@ begrenzt; lokal kein vorgesehener Schreibbefehl.
 
 Stand 04.11.2026: Galerie und bestehender Worker sind eingerichtet und veröffentlicht,
 GitHub App nur auf bummber/evolvera installiert, Login/Logout und Modusrunde bis
-traceable/5 nachgewiesen; lokal noch traceable/3, Integration offen. Keine Wiederholung
+traceable/5 nachgewiesen; lokal ebenfalls traceable/5, Integration in `02f9d6f` erledigt. Keine Wiederholung
 der Einrichtung oder Secret-Eingabe
 aufgrund der folgenden historischen Schritte. Die versionierte Worker-Vorlage ist
 bewusst deaktiviert; der echte Worker wurde separat bereitgestellt.

@@ -1,4 +1,252 @@
-# Aktueller Startprompt – nach Modusrunde bis Revision 5 am 04.11.2026
+# Aktueller Startprompt – Veröffentlichung vorbereitet am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+AGENTS.md, neuesten HANDOFF-Block, NEXT-START, gallery-publication-preparation,
+pre-series-acceptance und operator-cookie-check unter docs lesen.
+Fachliche Quelle docs/PRD.md v1.1. Zuerst Bestand/Git lesend prüfen und gemeinsam
+sichten. Alle vorhandenen Arbeiten erhalten; frühere Freigaben sind erledigt.
+
+Konkrete Veröffentlichungsvorlage liegt in docs/gallery-publication-preparation.md:
+genau sieben Dateien lokal sichern und committen, regulärer Push samt zwei
+vorhandenen lokalen Commits, ausgelöste CI-/Pages-Läufe und anonyme Nachkontrolle.
+Dieser Startprompt erteilt noch keine solche Freigabe. Erst genauen Umfang vorlegen;
+keine Sicherung, Commit, Fetch/Merge, Push oder Deployment ohne passenden Auftrag.
+
+HEAD/main 02f9d6f6595d7ed0d783c32eb865f3c4758e889a, gespeichertes origin/main
+a66d0b49041149d3734a2e5bee2b56a5fc6f30b6; main zwei lokale Commits voraus.
+Remote a66d0b4 in dieser Vorbereitung frisch mit ls-remote und Branch-API bestätigt.
+GitHub öffentlich, main Standardbranch/nicht geschützt, Pages-Workflow eingerichtet,
+Pages-Umgebung erlaubt main. PAGES_DEPLOYMENT_ENABLED=true, Tagesautomatisierungs-
+variable nicht gesetzt. Vor tatsächlicher Ausführung frisch abgleichen und bei
+Abweichung stoppen; kein blindes Pull/Reset/Rebase oder Force-Push.
+
+Sieben uncommittierte Arbeitsdateien erhalten:
+docs/HANDOFF.md, docs/NEXT-START.md, docs/gallery-publication-preparation.md,
+docs/pre-series-acceptance.md, docs/runbook.md, src/styles/shell.css,
+tests/browser/loading-stability.spec.ts. PRD_v1.1_backup.md zusätzlich unversioniert
+und bytegleich; nicht aufnehmen/formatieren. Beide bisherigen Sicherungsarchive
+erhalten, die jetzigen sieben Updates sind darin nicht enthalten. Neuer benannter
+Archivpfad ist nur vorgeschlagen, nicht erstellt; vollständige Auswahl/Prüfplan im Bericht.
+
+Ein späterer neuer Commit umfasst nur diese sieben Dateien. Der reguläre Push
+würde außerdem 2ffb420 und 02f9d6f mitnehmen: insgesamt drei lokale Commits,
+19 geänderte Dateien gegenüber a66d0b4. Die 17 früheren Arbeiten sind bereits
+in 2ffb420 gesichert und im Merge erhalten. Keine pauschale Aufnahme des Backups.
+
+L-01 lokal korrigiert: nur vier CSS-Zeilen zur Platzreservierung im Ladestatus
+plus Regressionstest für neun Ansichts-/Breitenkombinationen/18 Ladephasen.
+App.tsx/index.html/Fonts/Renderer/Kunst/Generator/Worker/Konfiguration/Workflows/
+Lockfile unverändert. 166 Tests und reguläre 70 Browserfälle/sechs bewusste Skips,
+sechs Kunstreferenzen unverändert; neuer Prüfnachtrag für die Veröffentlichungstexte
+im HANDOFF. Kein neuer Browser-/Runtime-Lauf allein für diese Vorbereitung.
+Kleine Schriftverschiebungen und frühere Konfliktursache bleiben als Grenzen erhalten;
+keine Kunst-/Geräte-/Cookie-/Modusrunden pauschal wiederholen.
+
+Generierung false, Startdatum null, traceable/5, seriesAuthorized:false, Archiv leer.
+Veröffentlichung startet keine Serie. Vor Serienaktivierung eigenständige Freigabe
+mit künftigem Datum, aktueller Revision, Dateien und Actions-Schalter nötig.
+Bestehenden Worker/Secrets/SQLite-Sitzungen erhalten, keine neue Einrichtung,
+Cookie-/Token-/Logeinsicht; MCP bleibt lesend. Lokale Tests isoliert/synthetisch,
+Workerausgaben außerhalb dist/Git. Keine neue Designrunde, Phase 5 oder EP-01.
+```
+
+## Historischer Startprompt – vor der Veröffentlichungsvorbereitung
+
+# Historischer Startprompt – L-01 lokal korrigiert am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+AGENTS.md, neuesten HANDOFF-Block, NEXT-START, pre-series-acceptance und
+operator-cookie-check unter docs lesen. Fachliche Quelle docs/PRD.md v1.1.
+Zuerst Bestand/Git lesend prüfen, alle Arbeiten erhalten und gemeinsam sichten.
+
+L-01 wurde separat freigegeben lokal korrigiert: vier CSS-Zeilen reservieren
+100svh während eines direkten main-Ladestatus, sowohl für Routenmodul als auch
+Archivdaten. Geladenes Layout unverändert. Neuer Regressionstest prüft neun
+Ansichts-/Breitenkombinationen und 18 Ladephasen; Vorher-Gegenprobe scheitert
+am tatsächlichen Fehler, beide Projektfälle am Korrekturstand bestanden.
+Fontpreload isoliert verglichen, wegen langsamerer erster Ansicht nicht übernommen;
+App.tsx/index.html und Schriftdateien bleiben unverändert.
+
+Je drei abschließende Kaltstarts: CLS Heute 0,00140 (vorher 0,10348), Galerie
+0,02108 (0,12316), bewegtes Werk 0,00018 (0,10648). Kleine Restverschiebungen
+bleiben dokumentiert. Gleiche lokale Messbedingungen wie zuvor; keine Feld-/GPU-/
+INP-Abnahme. Abschließend npm run check mit 166 Tests und reguläre Browserprüfung
+mit 70 bestanden/sechs bewussten Skips erfolgreich; sechs Kunstreferenzen unverändert.
+Ergebnisnachtrag anschließend gezielt format-/diffgeprüft, Details im neuesten HANDOFF.
+Bestehende Kunst-/Geräte-/Cookie-/Modusnachweise nicht pauschal wiederholen.
+
+HEAD/main 02f9d6f6595d7ed0d783c32eb865f3c4758e889a; gespeichertes origin/main
+a66d0b49041149d3734a2e5bee2b56a5fc6f30b6, main zwei lokale Commits voraus.
+Sechs uncommittierte Arbeitsdateien erhalten: docs/HANDOFF.md, docs/NEXT-START.md,
+docs/pre-series-acceptance.md, docs/runbook.md, src/styles/shell.css und neu
+tests/browser/loading-stability.spec.ts. PRD_v1.1_backup.md zusätzlich unversioniert
+und bytegleich; nicht aufnehmen/formatieren. Alle 17 früheren Arbeitsdateien in
+2ffb420 gesichert und in 02f9d6f erhalten. Generator, Renderer, Kunst, Archiv,
+Worker, Konfiguration, Referenzen und Lockfile unverändert.
+
+Beide bisherigen Sicherungsarchive/Prüfsummen im HANDOFF erhalten; die jetzigen
+sechs Updates sind darin nicht enthalten. Kein neuer Commit/Fetch/Merge/Push oder
+Deployment im Korrekturpaket. Keine neue Sicherungs-/Commitfreigabe ableiten.
+Kein aktueller Remote-/Variablenabgleich; gespeicherte Refs sind kein Livebeweis.
+
+Nächster abgegrenzter Vorschlag nach gemeinsamer Sichtung: genauen lokalen
+Sicherungs-/Commit-/Push-/Pages-Umfang des gesamten Standes konkret vorbereiten
+und separat freigeben lassen. Noch keine solche Aktion aus diesem Startprompt.
+Korrekturfreigabe ist erledigt und erteilt keinen Veröffentlichungsauftrag.
+Keine neue Designrunde, Phase 5 oder EP-01; spätere Serienfreigabe bleibt eigenständig.
+
+Generierung false, Startdatum null, traceable/5, seriesAuthorized:false, Archiv leer.
+Bestehenden Worker/Secrets/SQLite-Sitzungen erhalten; keine Cookie-/Token-/Logeinsicht
+oder neue Einrichtung. MCP bleibt lesend. Lokale Tests isoliert/synthetisch,
+Workerausgaben außerhalb dist/Git. Frühere Konfliktursache weiterhin ungeklärt.
+```
+
+## Historischer Startprompt – vor der lokalen Korrektur L-01
+
+# Historischer Startprompt – gezielte Restabnahme am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+AGENTS.md, neuesten HANDOFF-Block, NEXT-START, pre-series-acceptance und
+operator-cookie-check unter docs lesen. Fachliche Quelle docs/PRD.md v1.1.
+Zuerst Bestand/Git lesend prüfen, alle Arbeiten erhalten und gemeinsam sichten.
+
+HEAD/main 02f9d6f6595d7ed0d783c32eb865f3c4758e889a, gespeichertes origin/main
+a66d0b49041149d3734a2e5bee2b56a5fc6f30b6, main zwei lokale Commits voraus.
+Revision 5 ist integriert. Vier uncommittierte Dokumentupdates erhalten:
+docs/HANDOFF.md, docs/NEXT-START.md, docs/runbook.md, docs/pre-series-acceptance.md.
+PRD_v1.1_backup.md zusätzlich unversioniert und bytegleich; nicht aufnehmen/formatieren.
+Alle 17 früheren Arbeitsdateien in 2ffb420 gesichert und im Merge erhalten;
+Produktionscode, Worker, Kunst, Generator, Renderer, Referenzen und Lockfile unverändert.
+Beide Sicherungsarchive/Prüfsummen im HANDOFF erhalten; sie enthalten die jetzigen
+vier Dokumentupdates nicht. Keine neue Sicherungs-/Commitfreigabe ableiten.
+
+Lokales Prüf-/Berichtspaket R-01 bis R-03 ist erledigt: 15 Ansichten/Breiten und
+zwei Mobilmenüs; Text-/Fokuskontraste, mobile Zielgrößen und sechs tatsächliche
+Chromium-Zugänglichkeitsbäume ohne bestätigten Fehler im geprüften Umfang.
+Autorisierung nach PRD 9.5/A-19/A-21/A-25 vorhandenen Nachweisen zugeordnet,
+keine neue konkrete Testlücke erkannt. Keine vollständige externe Abnahme behaupten.
+
+Offen L-01: lokaler Kaltstart mit 150 ms/1,6 Mbit/s/CPU-Faktor 4 ergibt reproduzierbar
+CLS 0,10348 (Heute), 0,12316 (Galerie), 0,10648 (bewegtes Testwerk). Größter Beitrag
+am Footer beim Nachladen, weitere Verschiebungen an Wortmarke/Überschrift/gallery-tools.
+Ansichtsbereitschaft Median 1,945/2,566/2,571 s. Bericht enthält Bedingungen,
+Grenzen, Quellen und konkrete Messungen; keine tatsächliche GPU-/Feld-/INP-Abnahme.
+Keine Produktkorrektur vorgenommen. Nächster Vorschlag: Ladeplatzhalter/Platzreservierung
+in src/app/App.tsx und src/styles/shell.css stabilisieren, Schriftwechsel prüfen,
+gezielten verzögerten Ladetest unter tests/browser/loading-stability.spec.ts ergänzen.
+Diesen begrenzten Umfang erst gemeinsam sichten und zur Freigabe vorlegen;
+keine neue Designrunde oder Phase 5 daraus ableiten. Keine neue Abhängigkeit nötig.
+
+Prüfstand nach Berichtsdokumentation im neuesten HANDOFF lesen. Ad-hoc-Messungen
+und Screenshots/Playwright-Traces nur temporär; Projektbericht/Git sind maßgeblich.
+Frühere Integration: 166 Tests, workerd/SQLite, reguläre 68 Browserfälle mit sechs
+bewussten Skips und unveränderten Kunstreferenzen bestanden. Diese nicht als neue
+Voll-/Runtime-Läufe der gezielten Restabnahme ausgeben. Keine erneuten Kunst-,
+Geräte-, Login-, Cookie- oder Modusspeichertests; ihre Nachweise bleiben erledigt.
+Frühere zusätzliche Konfliktursache weiterhin ungeklärt.
+
+Generierung false, Startdatum null, traceable/5, seriesAuthorized:false, Archiv leer.
+Kein neuer Remote-/Variablenabgleich im Prüf-/Berichtspaket; gespeicherte Refs sind
+kein aktueller Livebeweis. Bestehenden Worker, Secrets und SQLite-Sitzungen erhalten;
+keine Cookie-/Token-/Logeinsicht oder neue Einrichtung. MCP bleibt lesend.
+Lokale Tests nur isoliert/synthetisch, Workerausgaben außerhalb dist/Git.
+Kein Commit, Fetch/Merge, Push, Deployment, Moduswechsel oder Serienstart aus
+diesem Startprompt. Veröffentlichung, zukünftiges Startdatum und Aktivierung
+weiterhin eigenständig vorzulegen; keine Phase 5 oder EP-01.
+```
+
+## Historischer Startprompt – vor der gezielten Restabnahme
+
+# Historischer Startprompt – nach lokaler Integration am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+Lies AGENTS.md, neuesten Block in docs/HANDOFF.md, docs/NEXT-START.md,
+docs/pre-series-acceptance.md und docs/operator-cookie-check.md.
+Fachliche Quelle bleibt docs/PRD.md v1.1. Historische Freigaben sind erledigt.
+
+Zuerst Bestand und Git ausschließlich lesend prüfen und gemeinsam sichten.
+Nächster abgegrenzter Schritt ist die gemeinsame Bewertung der konkreten
+Restabnahmeliste in docs/pre-series-acceptance.md: gezielte noch offene
+PRD-Nachweise, spätere Stabilisierung und Betriebsnachweise nach Aktivierung.
+Erst daraus den nächsten konkreten Prüf-/Arbeitsumfang vorlegen; keine pauschale
+Wiederholung erledigter Kunst-, Geräte-, Login-, Cookie- oder Modusspeichertests.
+Kein neuer Commit, Fetch/Merge, Push, Deployment, Moduswechsel oder Serienstart
+aus diesem Startprompt. Keine Phase 5, neue Designrunde oder EP-01 beginnen.
+
+Lokales HEAD/main: 02f9d6f6595d7ed0d783c32eb865f3c4758e889a.
+Eltern: Sicherungscommit 2ffb420619d7e8fc42d4f0b0eaa8338e84d2e36c und
+Remote-Moduscommit a66d0b49041149d3734a2e5bee2b56a5fc6f30b6.
+Gespeichertes origin/main: a66d0b4, main zwei lokale Commits voraus.
+Der letzte echte Remoteabgleich unmittelbar vor dem Merge bestätigte a66d0b4;
+für diese Dokumentation kein neuer Remoteabgleich. Ein später nötiger frischer
+Abgleich ist rein lesend vorzunehmen, keinen gespeicherten Ref als Livebeweis nutzen.
+Die zwei Remote-Moduscommits sind vollständig integriert. Lokal traceable/5;
+Revision niemals auf 3 zurücksetzen. Kein blindes Pull, Reset oder Force-Push.
+
+Alle 17 bisherigen Arbeitsdateien sind bytegleich in 2ffb420 gesichert und im
+Merge erhalten. Jetzt nur vier lokale Dokumentupdates: docs/HANDOFF.md,
+docs/NEXT-START.md, docs/runbook.md, docs/pre-series-acceptance.md. Diese erhalten;
+aktuellen Git-Zustand prüfen. docs/PRD_v1.1_backup.md bleibt zusätzlich unversioniert
+und bytegleich zu docs/PRD.md; nicht aufnehmen oder formatieren.
+Produktionscode, Worker, Generator, Renderer, Kunst und Lockfile unverändert.
+
+Neue verifizierte Sicherung mit exakt 17 Dateien plus Manifest:
+/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-integration-d844e3f.tar.gz
+SHA-256 7acadd0aa8c38e3919a28991b72053114d4b70154a844d2c1d49ccdaa46ff281.
+Altes Archiv 2026-11-04-stand-d844e3f.tar.gz mit Prüfsumme a5e4da14… ebenfalls
+unverändert erhalten; volle Prüfsumme im HANDOFF. Beide Archive enthalten nicht
+die vier jetzigen Dokumentupdates. Keine neue Sicherungs-/Commitfreigabe ableiten.
+
+Am isolierten Integrationskandidaten bestanden: check:publication, npm run check
+mit 166 Tests, Datenprüfung/Build/deaktiviertem Worker-Dry-Run; workerd/SQLite;
+CI=true npm run test:browser mit 68 bestanden, sechs bewussten Skips und
+unveränderten Kunstreferenzen. Finaler Mergebaum exakt wie geprüft:
+baa7b8621e333ddb865b8236779f2d80dcb27560. Keine Remote-CI für die lokalen Commits.
+Prüfstand nach den vier Dokumentupdates im neuesten HANDOFF lesen; kein neuer
+Browser-/Runtime-Lauf für diese Dokumentation. Temporäre Belege können fehlen.
+
+Erledigt: zehn Designpakete/40 Testwerke abgenommen, Werkbuch samt Betreiber-Link
+veröffentlicht; iPhone/Safari inklusive gespeicherter Webapp ohne Auffälligkeiten;
+echte Anmeldung/Logout/Reload sowie traceable/3 -> free/4 -> traceable/5 unter
+derselben Cookieeinstellung bestätigt. Beide Moduscommits, CI-/Pages-Läufe und
+je 22 öffentliche Dateien geprüft. Diese Nachweise bleiben erhalten. Frühere
+zusätzliche Konfliktursache ungeklärt; kein absichtlicher Livekonflikt als Diagnose.
+
+Bestehenden Worker, Secrets und SQLite-Sitzungen erhalten. Keine neue Einrichtung,
+Secret-Eingabe, Logaktivierung oder Cookieeinsicht. MCP bleibt lesend. Lokale Tests
+nur mit synthetischen Zugängen und isolierten Git-Repositories; Workerausgaben
+außerhalb dist/Git. Kein Worker-Upload oder Verwaltungstoken für Dokumentation nötig.
+Bei später tatsächlich nötigem Tokenzugriff Gültigkeit frisch prüfen; keinen Ablauf
+umgehen oder ungefragt Rechte/Tokens einrichten.
+
+Generierung false, Startdatum null, traceable/5, seriesAuthorized:false, Archiv leer.
+Pages-Schalter beim letzten Speichertest true, Automatisierungsschalter nicht gesetzt;
+keine aktuelle Variablenprüfung in diesem Dokumentationspaket. Vollständige WCAG-,
+Sitzungs-/Negativfall- und Performanceabnahme nicht behaupten. Die Liste ordnet
+fehlende Nachweise zur gemeinsamen Entscheidung ein, erteilt keine Risikoabnahme.
+Spätere Veröffentlichung und Serienfreigabe separat vorbereiten. Startdatum bleibt
+offen; echte Betriebsnachweise erst nach ausdrücklich beauftragter Aktivierung.
+```
+
+## Historischer Startprompt – vor der lokalen Integration
+
+# Historischer Startprompt – nach Modusrunde bis Revision 5 am 04.11.2026
 
 ```text
 Bitte Evolvera im bestehenden Projekt fortsetzen:

@@ -1,4 +1,163 @@
-# Galerie-Link und Werkbuch – veröffentlicht und geprüft
+# Veröffentlichungsvorlage – lokale Restabnahme und L-01
+
+## Aktuelle Vorbereitung – 04.11.2026, noch keine Veröffentlichung
+
+Auf **„Mach weiter“** nach dem abgeschlossenen lokalen Korrekturpaket den nächsten
+abgegrenzten Schritt vorbereitet: gesamte Dateiauswahl, Sicherung, lokaler Commit,
+regulärer Push und erwartete CI-/Pages-Folgen konkret zur Freigabe vorlegen.
+Keine dieser Schreib-/Veröffentlichungsaktionen bisher ausgeführt. Historische
+Freigaben sind erledigt. Aktueller Betreiberauftrag und PRD.md v1.1 haben Vorrang.
+
+### Frisch lesend bestätigter Ausgangspunkt
+
+- HEAD/main `02f9d6f6595d7ed0d783c32eb865f3c4758e889a`, gespeichertes origin/main
+  `a66d0b49041149d3734a2e5bee2b56a5fc6f30b6`. Letzteren Stand jetzt erneut mit
+  `git ls-remote` und GitHub-Branch-API bestätigt. Kein Fetch oder Ref-Update.
+- Zwei lokale Commits noch unveröffentlicht: `2ffb420` (17 genau benannte frühere
+  Arbeitsdateien gesichert) und `02f9d6f` (beide Remote-Moduscommits integriert).
+  Alle vorhandenen Historien bleiben erhalten. Ein weiterer regulärer Commit
+  würde auf `02f9d6f` aufbauen; der Push umfasst danach drei lokale Commits.
+- GitHub-Repository öffentlich, Standardbranch main; main laut Branch-API nicht
+  geschützt. Pages verwendet das bestehende Workflow-Verfahren unter
+  `https://bummber.github.io/evolvera/`. Umgebung github-pages erlaubt main über
+  ihre vorhandene Branchregel; keine Reviewer-/Wartezeitregel in der gelesenen
+  Konfiguration. Keine Sichtbarkeits-, Rechte- oder Umgebungseinstellung geändert.
+- `PAGES_DEPLOYMENT_ENABLED=true`, `EVOLVERA_AUTOMATION_ENABLED` nicht gesetzt,
+  insgesamt nur die Pages-Repositoryvariable vorhanden. Keine Variable geändert.
+- Lokal und gepinnter Remotecommit bytegleich: `config/generation.json` mit
+  traceable/5, Generierung false, Startdatum null; release.json mit Serienfreigabe
+  false und bestehender Kunstabnahme, offizieller Index leer. Worker, Workflows,
+  Lockfile und PRD ebenfalls unverändert gegenüber Remote. Kein Liveworker-,
+  Sitzungs-, Cookie- oder Tokenzugriff und kein neuer CI-/Deploymentnachweis.
+
+### Genau vorzulegender Sicherungs- und Commitumfang
+
+Vor Ausführung nochmals Git-Zustand, Dateihashes und Remote/Gates prüfen. Bei
+anderem Remote-HEAD, geänderten Gates, zusätzlichen lokalen Dateien oder unsicherer
+Historie stoppen und neu sichten; kein blindes Pull, Reset, Rebase oder Force-Push.
+Insbesondere niemals eine inzwischen neuere Konfigurationsrevision überschreiben.
+
+1. **Neue lokale Sicherung**, ohne bestehende Archive zu überschreiben:
+   `/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-pages-L01-02f9d6f.tar.gz`.
+   Der Zielpfad ist jetzt nicht vorhanden. Genau die folgenden sieben Arbeitsdateien
+   plus BACKUP-MANIFEST.json mit Basiscommit, Git-Zustand, Größen und SHA-256 sichern;
+   Archiv anschließend byteweise prüfen. Bisherige zwei Archive/Prüfsummen erhalten.
+2. **Ein zusätzlicher lokaler Commit** mit genau denselben sieben Dateien,
+   vorgeschlagener Titel `fix: stabilize initial page loading and record acceptance`.
+   Nur explizite Pfade aufnehmen, Inhalt und Index vor dem Commit vergleichen.
+   Kein pauschales add, keine weiteren Produkt-/Teständerungen aus dieser Vorlage.
+
+```text
+docs/HANDOFF.md
+docs/NEXT-START.md
+docs/gallery-publication-preparation.md
+docs/pre-series-acceptance.md
+docs/runbook.md
+src/styles/shell.css
+tests/browser/loading-stability.spec.ts
+```
+
+PRD_v1.1_backup.md bleibt zusätzlich unversioniert und bytegleich zu PRD.md;
+weder ins Archiv noch in den Commit aufnehmen oder formatieren. Keine .git-,
+Secret-, .env-, .dev.vars-, node_modules-, dist- oder Workerausgaben sichern/stagen.
+Das Manifest dokumentiert den Ausschluss des PRD-Backups samt Gleichheitsnachweis.
+Die 17 früheren Arbeitsdateien sind bereits in `2ffb420` enthalten; deren
+Sicherungscommit und beide bestehenden Archive werden unverändert erhalten.
+
+### Vollständiger Unterschied zum derzeitigen Remote
+
+Der Push enthält nicht nur den CSS-Fix. Einschließlich der beiden vorhandenen
+lokalen Commits unterscheidet sich der vorgesehene Endstand in genau 19 Dateien
+von `a66d0b4` (die sieben obigen sind darin enthalten):
+
+```text
+README.md
+docs/HANDOFF.md
+docs/NEXT-START.md
+docs/gallery-publication-preparation.md
+docs/operator-cookie-check.md
+docs/phase-4-results.md
+docs/pre-series-acceptance.md
+docs/publication-preparation.md
+docs/runbook.md
+package.json
+playwright.acceptance.config.ts
+scripts/test-worker-runtime.ts
+src/styles/shell.css
+tests/acceptance/prestart.spec.ts
+tests/browser/loading-stability.spec.ts
+tests/browser/operator-forms.spec.ts
+tests/fixtures/browser.ts
+tests/operator.test.ts
+tests/runtime/worker.ts
+```
+
+Produktwirkung: vier CSS-Zeilen reservieren Platz ausschließlich im Ladestatus;
+fertige Ansichten und sechs Kunstreferenzen bleiben erhalten. Zusätzlich werden
+die bisherigen lokalen Restabnahme-/Formular-/Sitzungsnachweise samt opt-in-
+Zusatzsuite erstmals versioniert veröffentlicht. package.json ergänzt nur das
+Testskript, keine neue Abhängigkeit oder Lockfileänderung. Keine Kunst, Archivdaten,
+Generator-, Renderer-, Worker-, Anmelde-, Konfigurations- oder Workflowänderung.
+
+### Vorgesehener regulärer Push und seine Folgen
+
+3. Nach erfolgreicher Sicherung/Prüfung und freigegebenem lokalem Commit nochmals
+   Remote/Gates prüfen, dann ausschließlich regulär `git push origin main:main`.
+   Fast-forward von `a66d0b4` auf den dann bekannten neuen Commit, einschließlich
+   `2ffb420` und `02f9d6f`. Keine Historienumschreibung, kein zusätzlicher Moduswechsel.
+4. Der main-Push startet **beide bestehenden Workflows**:
+   „Local quality equivalent“ führt Gesamtcheck, workerd/SQLite und reguläre
+   Browserprüfung aus. „Validated daily archive and Pages“ prüft Publikationsangaben,
+   Code/Tests, Gesamtcheck, workerd/SQLite und Browser, baut und veröffentlicht dist.
+   Die opt-in-Drei-Engine-Zusatzsuite wird dadurch nicht zusätzlich gestartet.
+5. Bei unveränderten Gates wird der Generierungsschritt wegen nicht gesetzter
+   Automatisierungsvariable **übersprungen**. Generierung false, Startdatum null,
+   Serienfreigabe false und leerer Index bleiben außerdem bytegleich erhalten.
+   Ein Push startet kein Serienwerk und erhöht keine Modusrevision.
+6. Bestehende Prüfungen auf veralteten Build/Artifact-HEAD und die gemeinsame
+   Publish-Sperre bleiben aktiv. Bei Fehler oder neuerem Remote stoppen, kein
+   automatisches erneutes Deployment, kein Force-Push oder Zurücksetzen.
+
+Ein erfolgreicher Pages-Lauf macht die Ladekorrektur öffentlich; der bestehende
+Cloudflare-Worker wird weder hochgeladen noch umkonfiguriert. Keine neue Anmeldung,
+Secret-/Token-Einrichtung, Vertragsrunde oder Umstellung erforderlich.
+
+### Prüfnachweise und vorgesehene Nachkontrolle
+
+Bereits am identischen Produkt-/Teststand lokal im isolierten Repository bestanden:
+`npm run check` mit **166 Tests**, Build und deaktiviertem Worker-Dry-Run;
+`CI=true npm run test:browser` mit **70 bestanden**, sechs bewussten Skips und sechs
+unveränderten Kunstreferenzen. Neuer Ladetest erkennt im Vorher-Build den Fehler
+und besteht korrigiert bei 320/390/1440 Pixeln. Neun abschließende Kaltstartmessungen
+belegen CLS `0,00140 / 0,02108 / 0,00018`, ohne relevante Ladezeitänderung.
+Kleine Schriftverschiebungen und begrenzte Labor-/Abnahmeabdeckung bleiben dokumentiert.
+
+Für diese reine Veröffentlichungsvorbereitung Publikationsprüfung und vorgeschriebenen
+Gesamtcheck nach den Dokumentupdates isoliert ausgeführt: **166 Tests**, Format/Lint/
+Typen, Daten-/Vorschauprüfung, Build und deaktivierter Worker-Dry-Run erfolgreich.
+Alle **22 Builddateien bytegleich** zum mit 70 Browserfällen geprüften Korrekturstand.
+Ergebnisnachtrag danach gezielt format-/diffgeprüft, kein weiterer Gesamtcheck danach.
+Keine neue lokale Browser-/Runtime-/Kunst-/Geräte-/
+Cookie-Runde allein für diese Texte. CSS und Test bleiben bytegleich zum geprüften
+Korrekturstand. Kein neuer Browser- oder Deploymenterfolg wird vorweggenommen.
+
+Nach einer späteren ausdrücklichen Freigabe umfasst die Nachkontrolle: beide
+Workflow-IDs dem tatsächlichen Push-Commit zuordnen, CI und Pages-Build/Deploy sowie
+übersprungene Generierung bestätigen. Alle öffentlichen Dateien mit dem zugehörigen
+Pages-Artefakt byteweise vergleichen; anonyme Stichprobe von Heute, Galerie,
+Werkdetail und Einstellungen bei 320/1440 Pixeln, inklusive Lade-/Leerzustand und
+korrektem Betreiber-Link. Keine echte Anmeldung oder Speicherung. Revision 5,
+geschlossene Seriengates, leerer Index und Remote-Endstand abschließend lesen.
+Ergebnisnachtrag ausschließlich in den fünf benannten Status-/Berichtsdokumenten
+lokal uncommittiert festhalten; CSS und Browsertest dabei unverändert lassen.
+Kein zusätzlicher Ergebniscommit oder Push aus derselben Freigabe.
+
+**Zur Freigabe steht ausschließlich:** neue Sieben-Dateien-Sicherung, ein lokaler
+Sieben-Dateien-Commit, regulärer Push samt zwei vorhandenen lokalen Commits und die
+dadurch ausgelösten CI-/Pages-Läufe mit obiger Nachkontrolle. Keine Aktivierung,
+Startdatumsentscheidung, Modusänderung, neue Designrunde, Phase 5 oder EP-01.
+
+## Historischer Veröffentlichungsbericht – Galerie-Link und Werkbuch
 
 ## Freigegeben und ausgeführt – 04.11.2026
 

@@ -565,6 +565,10 @@ main {
   padding-top: 50px;
   min-height: 65vh;
 }
+/* Reserve the first viewport through both route and archive loading. */
+main:has(> [role='status']) {
+  min-height: 100svh;
+}
 .eyebrow {
   font: 10px/1.5 var(--font-mono);
   text-transform: uppercase;
