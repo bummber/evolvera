@@ -1,6 +1,12 @@
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import type { Artwork } from '../../src/art/schema/artwork';
+const settings = JSON.parse(
+  readFileSync(
+    new URL('../../config/generation.json', import.meta.url),
+    'utf8',
+  ),
+) as { generationEnabled: boolean; seriesStartDate: string | null };
 
 // Read the same fixtures already validated by the build, without importing the
 // browser bundle's JSON modules into Playwright's Node process.
@@ -15,6 +21,9 @@ test('Heute rahmt leere und gespeicherte Bühnen ohne Verzerrung oder erfundene 
   page,
 }, testInfo) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.route('**/artworks/index.json', (route) =>
+    route.fulfill({ json: { schemaVersion: 1, works: [] } }),
+  );
   await page.goto('./#/');
   const heading = page.getByRole('heading', {
     name: 'Form wird Zukunft.',
@@ -35,12 +44,31 @@ test('Heute rahmt leere und gespeicherte Bühnen ohne Verzerrung oder erfundene 
   if (page.viewportSize()!.width < 1000)
     expect(frameBox!.y).toBeLessThan(titleBox!.y);
   else expect(frameBox!.x).toBeGreaterThan(titleBox!.x);
-  await expect(page.locator('.series-info')).toContainText(
-    'Das Startdatum steht noch nicht fest.',
-  );
-  await expect(page.locator('.series-info')).toContainText(
-    'Offizielle Werke werden derzeit nicht generiert.',
-  );
+  if (settings.generationEnabled) {
+    await expect(page.locator('.series-info')).toContainText(
+      `Serienstart ${settings.seriesStartDate}.`,
+    );
+    await expect(page.locator('.series-info')).toContainText(
+      'Die tägliche Generierung ist aktiviert.',
+    );
+    await expect(page.locator('.series-info')).not.toContainText(
+      'Startdatum steht noch nicht fest',
+    );
+  } else if (settings.seriesStartDate) {
+    await expect(page.locator('.series-info')).toContainText(
+      `Serienstart ${settings.seriesStartDate}.`,
+    );
+    await expect(page.locator('.series-info')).toContainText(
+      'Die offizielle Generierung ist pausiert.',
+    );
+  } else {
+    await expect(page.locator('.series-info')).toContainText(
+      'Das Startdatum steht noch nicht fest.',
+    );
+    await expect(page.locator('.series-info')).toContainText(
+      'Offizielle Werke werden derzeit nicht generiert.',
+    );
+  }
   await expect(frame.locator('[data-renderer]')).toHaveCount(0);
   await page.screenshot({
     path: testInfo.outputPath('today-before-series.png'),

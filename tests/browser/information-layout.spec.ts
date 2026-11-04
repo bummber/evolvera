@@ -10,6 +10,7 @@ const settings = JSON.parse(
   inheritanceMode: string;
   revision: number;
   generationEnabled: boolean;
+  seriesStartDate: string | null;
 };
 const operator = JSON.parse(
   readFileSync(new URL('../../config/operator.json', import.meta.url), 'utf8'),
@@ -100,7 +101,11 @@ test('Über-Kapitel behalten Hash-Routing, Direktlinks und Tastaturfokus', async
   await page.goto('./#/ueber#about-preview');
   await expect(page.locator('#about-preview')).toBeFocused();
   await expect(page.locator('#about-preview')).toContainText(
-    'Die offizielle Kunstserie ist noch nicht gestartet.',
+    settings.generationEnabled
+      ? `Die tägliche Generierung ist aktiviert. Serienstart ${settings.seriesStartDate}.`
+      : settings.seriesStartDate
+        ? `Die offizielle Generierung ist pausiert. Serienstart ${settings.seriesStartDate}.`
+        : 'Die offizielle Kunstserie ist noch nicht gestartet.',
   );
   await page
     .getByRole('link', { name: '40 Testwerke sichten', exact: true })
@@ -129,8 +134,13 @@ test('Moduskarten zeigen den echten Stand und erlauben in der Galerie keine Änd
   await expect(status.locator('dd').nth(1)).toHaveText(
     String(settings.revision),
   );
-  if (!settings.generationEnabled)
-    await expect(status).toContainText('Deaktiviert · Startdatum offen');
+  await expect(status).toContainText(
+    settings.generationEnabled
+      ? `Aktiv · Serienstart ${settings.seriesStartDate}`
+      : settings.seriesStartDate
+        ? `Deaktiviert · Serienstart ${settings.seriesStartDate}`
+        : 'Deaktiviert · Startdatum offen',
+  );
   const modes = page.getByRole('group', {
     name: 'Vererbungsmodus',
     exact: true,

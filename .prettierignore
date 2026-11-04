@@ -4,6 +4,8 @@ coverage
 playwright-report
 test-results
 package-lock.json
+# Canonical archive bytes are generated and validated, never reformatted.
+public/artworks/**/*.json
 docs/PRD.md
 docs/PRD_v1.1_backup.md
 docs/extensions/PRD-EP01.md

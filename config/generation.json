@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "revision": 5,
-  "seriesStartDate": null,
-  "generationEnabled": false,
+  "revision": 6,
+  "seriesStartDate": "2026-11-04",
+  "generationEnabled": true,
   "timezone": "Europe/Berlin",
   "inheritanceMode": "traceable"
 }

@@ -122,6 +122,9 @@ test('Evolution zeigt tatsächliche A/B-Eltern, ruhige Knoten und unabhängige U
     path: testInfo.outputPath('evolution-origin.png'),
     fullPage: true,
   });
+  await page.route('**/artworks/index.json', (route) =>
+    route.fulfill({ json: { schemaVersion: 1, works: [] } }),
+  );
   await page.goto('./#/evolution');
   await expect(
     page.getByRole('heading', { name: 'Evolution', exact: true, level: 1 }),

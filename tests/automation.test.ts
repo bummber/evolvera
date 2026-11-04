@@ -1,7 +1,15 @@
 // @vitest-environment node
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import {
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+  rmSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { afterEach, describe, expect, it } from 'vitest';
 import releaseRecord from '../config/release.json';
 const release = { ...releaseRecord, seriesAuthorized: false };
@@ -211,6 +219,44 @@ describe('Tageslauf ohne Datei-/Netzwerkzugriff', () => {
   });
 });
 describe('Echte isolierte lokale Git-Repositories ohne GitHub-Zugriff', () => {
+  it('schützt kanonische Werkbytes vor Formatierung und prüft sonstige JSON-Dateien weiter', () => {
+    const { root } = repo();
+    const plan = prepareRun(
+      { ...start, runStartedAt: '2000-01-01T04:00:00+01:00' },
+      () => '2000-01-01T03:00:01Z',
+    );
+    for (const [name, bytes] of plan.files) file(root, name, bytes);
+    file(
+      root,
+      '.prettierignore',
+      readFileSync(new URL('../.prettierignore', import.meta.url), 'utf8'),
+    );
+    const checkFormat = () =>
+      spawnSync(
+        process.execPath,
+        [
+          fileURLToPath(
+            new URL(
+              '../node_modules/prettier/bin/prettier.cjs',
+              import.meta.url,
+            ),
+          ),
+          '--check',
+          '.',
+        ],
+        { cwd: root, encoding: 'utf8' },
+      );
+    const valid = checkFormat();
+    expect(valid.status, valid.stdout + valid.stderr).toBe(0);
+    file(root, 'config/format-control.json', '{"needs":"formatting"}');
+    const control = checkFormat();
+    expect(control.status).toBe(1);
+    expect(control.stdout + control.stderr).toContain(
+      'config/format-control.json',
+    );
+    for (const [name, bytes] of plan.files)
+      expect(readFileSync(path.join(root, name), 'utf8')).toBe(bytes);
+  });
   it('archiviert atomar, erkennt Historie und erzeugt nach Deployfehler dieselben Werke nicht erneut', () => {
     const { root, base } = repo();
     const plan = planAt(root, base, start.runStartedAt, clock);

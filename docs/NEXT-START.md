@@ -1,4 +1,101 @@
-# Aktueller Startprompt – Veröffentlichung vorbereitet am 04.11.2026
+# Aktueller Startprompt – Serienstartvorlage heute, noch nicht aktiviert
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen.
+AGENTS.md, neuesten HANDOFF, NEXT-START, series-start-preparation,
+pre-series-acceptance und operator-cookie-check lesen; fachlich PRD v1.1.
+Zuerst Bestand/Git lesend prüfen und die konkrete Serienstartvorlage gemeinsam sichten.
+
+HEAD/main und zuletzt gelesenes Remote 52e43423d8ccfa40ff07e55bd10c0318eb609d3b.
+Echt weiterhin traceable/5, Generierung false, Startdatum null,
+seriesAuthorized:false, Archiv leer; Pages true, Automatisierungsvariable ungesetzt.
+13 lokale Arbeitsdateien samt sieben Startkorrekturen erhalten. Für spätere Aktivierung
+würden genau zwei Konfigurationen dazukommen: insgesamt 15 benannte Dateien im Bericht.
+PRD-Backup zusätzlich unversioniert/bytegleich, alle drei Sicherungsarchive erhalten.
+Noch keine neue Sicherung, echter Commit, Fetch/Merge, Push, Deployment, Variable,
+Workflowstart oder Modusspeicherung aus der Vorbereitung.
+
+Betreiber wählte ausschließlich für die geprüfte Datumsvorlage „heute“ = 04.11.2026
+Berlin. Aktive Revision 6 und synthetisches Erstwerk nur im temporären Klon ohne
+Remote. Kein Übertragen dieser Daten ins echte Archiv. Lokal korrigiert: Formatgate
+für kanonische JSON-Bytes, explizite Leerzustandsfixtures und konfigurationsgerechte
+Statustexte; Details und tatsächliche Prüfungen im neuen Bericht/HANDOFF lesen.
+Aktiver Kandidat: Gesamtcheck 167 Tests, Browser 70 bestanden/sechs bestehende Skips.
+Deaktivierter Stand mit 13 Arbeitsdateien in zweitem isoliertem Klon: Gesamtcheck
+167 Tests, drei geänderte Browserdateien mit zehn bestandenen Fällen. Abschließend
+Remote/Gates um 17:26:56 MEZ frisch lesend unverändert bestätigt. Details im HANDOFF.
+
+Vor Freigabe sofortigen Erstlauf heute, laufende tägliche Automatisierung, Revision,
+genaue Dateien, neue Sicherung/Commit/Push, CI/Pages und manuelle Wiederholung mit
+deploy:false konkret vorlegen. Datumsauswahl ist noch keine solche Freigabe.
+Vorlage nach Berliner Datumswechsel nicht ausführen oder ungefragt umdatieren;
+ab Folgetag 04:00 könnten sonst zwei fällige Ursprünge gleichzeitig entstehen.
+Bei Remote-/Revisionsabweichungen stoppen und sichten, kein Force-Push/Blindreset.
+Keine neue Kunst-/Cookie-/Modusrunde, Worker-/Secret-/Sitzungsänderung, Phase 5 oder EP-01.
+```
+
+## Vorheriger Startprompt – L-01 veröffentlicht
+
+# Aktueller Startprompt – L-01 veröffentlicht am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+AGENTS.md, neuesten HANDOFF-Block, NEXT-START, gallery-publication-preparation,
+pre-series-acceptance und operator-cookie-check unter docs lesen.
+Fachliche Quelle docs/PRD.md v1.1. Zuerst Bestand/Git lesend prüfen, alle Arbeiten
+erhalten und den veröffentlichten Stand samt Restgrenzen gemeinsam sichten.
+Kein neuer Schreib-/Veröffentlichungs-/Serienauftrag aus diesem Startprompt.
+
+Freigegebene Veröffentlichung ist abgeschlossen: HEAD/main und origin/main
+52e43423d8ccfa40ff07e55bd10c0318eb609d3b, Elterncommit 02f9d6f. Genau sieben
+Dateien committed, regulärer Push von a66d0b4 samt 2ffb420/02f9d6f; zusammen
+19 Dateidifferenzen. Kein Force-Push oder zusätzliche Modusrunde. Remote-Endstand
+nach Veröffentlichung frisch bestätigt, vor späteren Aktionen erneut lesend prüfen.
+
+CI 41857781816 und Pages 41857781840 für 52e4342 erfolgreich: je 166 Tests,
+70 Browserfälle/sechs bewusste Skips, workerd/SQLite erfolgreich, Generierung
+übersprungen. Artefakt 13337733414: alle 22 öffentlichen Dateien bytegleich zum
+Artefakt und geprüften lokalen Build. Anonyme Liveprüfung zehn Kombinationen bei
+320/1440 plus verzögerter Ladestatus bestanden; Linkziel und Revision 5 korrekt,
+keine Fremdabrufe/Schreibrequests/Cookies/Seitenfehler/Überlauf. Keine echte Anmeldung.
+
+Neue Sicherung mit genau sieben Dateien plus Manifest vor Commit/Veröffentlichung:
+/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-pages-L01-02f9d6f.tar.gz
+SHA-256 66b9e1ad151f2735ee243a882e57854eb7fa333c2ae1396cc798ad51f403bd98.
+Byteweise geprüft, zwei ältere Archive erhalten. Diese Sicherung enthält noch nicht
+die fünf anschließenden Ergebnisupdates; nichts überschreiben oder automatisch sichern.
+
+Uncommittiert erhalten: docs/HANDOFF.md, docs/NEXT-START.md,
+docs/gallery-publication-preparation.md, docs/pre-series-acceptance.md, docs/runbook.md.
+PRD_v1.1_backup.md zusätzlich unversioniert/bytegleich; nicht aufnehmen/formatieren.
+CSS und Ladetest sind jetzt veröffentlicht. Keine weitere Änderung oder zweiter
+Ergebniscommit/Push aus erledigten Freigaben. Die 17 früheren Arbeiten sind gesichert
+und veröffentlicht, nicht erneut als uncommittiertes Integrationspaket behandeln.
+
+Prüfstand nach den fünf Ergebnisdokumenten im neuesten HANDOFF lesen. Keine neue
+lokale Browser-/Runtime-Runde allein für Dokumentation behaupten. Vorige Kunst-,
+Geräte-, Login-, Cookie- und Modusabnahmen bleiben erledigt. L-01 ist im begrenzten
+Umfang korrigiert, kleine Schriftverschiebungen und Laborgrenzen dokumentiert;
+keine vollständige WCAG-/Sitzungs-/GPU-/Feldabnahme daraus ableiten. Frühere
+zusätzliche Konfliktursache bleibt ungeklärt, keine Produktionskonflikte provozieren.
+
+Weiter traceable/5, Generierung false, Startdatum null, seriesAuthorized:false,
+offizielles Archiv leer. Pages true, Tagesautomatisierungsvariable nicht gesetzt.
+Vor einem späteren Serienauftrag Restgrenzen gemeinsam bewerten und erst dann
+zukünftiges Berliner Startdatum, aktuelle Revision, Dateien und Actions-Schalter
+konkret zur separaten Freigabe vorbereiten. Kein Startdatum wählen oder aktivieren.
+Keine neue Designrunde, Phase 5 oder EP-01. Bestehenden Worker/Secrets/SQLite-Sitzungen
+erhalten; keine Cookie-/Token-/Logeinsicht oder Neueinrichtung, MCP bleibt lesend.
+Lokale Tests nur isoliert/synthetisch, Workerausgaben außerhalb dist/Git.
+```
+
+## Historischer Startprompt – vor der freigegebenen Veröffentlichung
+
+# Historischer Startprompt – Veröffentlichung vorbereitet am 04.11.2026
 
 ```text
 Bitte Evolvera im bestehenden Projekt fortsetzen:

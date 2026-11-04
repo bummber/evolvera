@@ -180,18 +180,28 @@ function About() {
               <div className="chapter-copy">
                 <div className="chapter-heading">
                   <span aria-hidden="true">05</span>
-                  <h2 id="about-preview-heading">Stand dieser Vorschau</h2>
+                  <h2 id="about-preview-heading">
+                    {initialSettings.generationEnabled
+                      ? 'Stand der Serie'
+                      : 'Stand dieser Vorschau'}
+                  </h2>
                 </div>
                 <p>
-                  Dies ist die Testversion von Evolvera. Im getrennten
-                  Testatelier stehen erste unabhängige Studien mit
+                  {initialSettings.generationEnabled
+                    ? 'Dies ist Evolvera.'
+                    : 'Dies ist die Testversion von Evolvera.'}{' '}
+                  Im getrennten Testatelier stehen erste unabhängige Studien mit
                   HTML-/CSS-Renderer bereit. Die getrennte Testsammlung zeigt 40
                   Werke in beiden Modi mit Galerie, Herkunftsvergleich und
                   poetischen Titeln. Die 40 Testwerke sind abgenommen.
                   {operatorSettings.adminOrigin
                     ? ' Die Betreiberanmeldung ist auf einer eigenen geschützten Betreiberseite eingerichtet.'
                     : ' Die Betreiberfunktion ist lokal vorbereitet; die Betreiberanmeldung ist noch nicht eingerichtet.'}{' '}
-                  Die offizielle Kunstserie ist noch nicht gestartet.
+                  {initialSettings.generationEnabled
+                    ? `Die tägliche Generierung ist aktiviert. Serienstart ${initialSettings.seriesStartDate}.`
+                    : initialSettings.seriesStartDate
+                      ? `Die offizielle Generierung ist pausiert. Serienstart ${initialSettings.seriesStartDate}.`
+                      : 'Die offizielle Kunstserie ist noch nicht gestartet.'}
                 </p>
                 <div className="about-actions">
                   <Link className="primary-link" to="/kunstpruefung">
@@ -238,7 +248,9 @@ function Settings() {
                 <dd>
                   {initialSettings.generationEnabled
                     ? `Aktiv · Serienstart ${initialSettings.seriesStartDate}`
-                    : 'Deaktiviert · Startdatum offen'}
+                    : initialSettings.seriesStartDate
+                      ? `Deaktiviert · Serienstart ${initialSettings.seriesStartDate}`
+                      : 'Deaktiviert · Startdatum offen'}
                 </dd>
               </div>
             </dl>

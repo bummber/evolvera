@@ -1,6 +1,66 @@
-# Veröffentlichungsvorlage – lokale Restabnahme und L-01
+# Restabnahme und L-01 – veröffentlicht und geprüft
 
-## Aktuelle Vorbereitung – 04.11.2026, noch keine Veröffentlichung
+## Freigegeben und ausgeführt – 04.11.2026, L-01
+
+Der Betreiber hat den konkret vorgelegten Sicherungs-, Commit-, regulären Push-
+und CI-/Pages-Umfang samt Nachkontrolle mit **„ja“** freigegeben. Dieser Auftrag
+ist vollständig ausgeführt. Keine zusätzliche Commit-/Push- oder Serienfreigabe.
+
+- Neue Sicherung erstellt und byteweise geprüft:
+  `/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-pages-L01-02f9d6f.tar.gz`,
+  **91.796 Bytes**, SHA-256
+  `66b9e1ad151f2735ee243a882e57854eb7fa333c2ae1396cc798ad51f403bd98`.
+  Genau die sieben unten aufgeführten Arbeitsdateien plus Manifest; PRD-Backup
+  ausgeschlossen, unversioniert/bytegleich erhalten. Beide älteren Archive unverändert.
+- Commit **`52e43423d8ccfa40ff07e55bd10c0318eb609d3b`**, Elterncommit `02f9d6f`,
+  04.11.2026 **16:26:12 MEZ**, mit exakt sieben freigegebenen Dateien. Vor Sicherung
+  und unmittelbar vor Push Remote/Gates erneut lesend geprüft; unverändert `a66d0b4`,
+  öffentlich/main, Pages true, Tagesautomatisierung nicht gesetzt, Pages-Umgebung
+  erlaubt main. Keine externe Konfiguration geändert.
+- Regulärer Fast-forward-Push `a66d0b4 → 52e4342` einschließlich der beiden vorhandenen
+  lokalen Commits `2ffb420`/`02f9d6f`; insgesamt 19 Dateidifferenzen wie unten benannt.
+  Kein Force-Push, Fetch, Rebase oder zusätzlicher Moduswechsel. HEAD/main und
+  origin/main danach synchron auf `52e4342`, Remote abschließend frisch bestätigt.
+- [CI erfolgreich](https://github.com/bummber/evolvera/actions/runs/41857781816),
+  [Pages-Build/Deployment erfolgreich](https://github.com/bummber/evolvera/actions/runs/41857781840),
+  jeweils ausdrücklich für `52e4342`. In beiden Läufen **166 Tests** und **70 bestandene
+  Browserfälle**, sechs bewusste Skips; workerd-/SQLite-Schritte erfolgreich.
+  Diese Zahlen aus den jeweiligen Laufprotokollen extrahiert, keine lokalen Zahlen
+  als Remoteergebnis übernommen. Generierung im Pages-Lauf **übersprungen**.
+- Pages-Artefakt **`13337733414`**, SHA-256
+  `b0ce989830aa9328ce5499601ac513c45dc28958adb6548d4e62367e9ce42d5e`.
+  Alle **22 öffentlichen Dateien bytegleich** zum Artefakt und zum geprüften lokalen
+  Build. Archivindex dabei leer. Dateiliste/Hashes und Prüfaufnahmen nur temporär
+  unter `/private/tmp/evolvera-release-L01-20261104-a47ypnzd`; Bericht/Git sind maßgeblich.
+- Anonyme Live-Chromium-Nachkontrolle: Heute, traceable-Galerie, Werkdetail beider
+  Modi und Einstellungen bei 320/1440 Pixeln, **zehn Kombinationen** bestanden.
+  Zusätzlich blockierter Routenmodulabruf bei 320 Pixeln: Footer auf Höhe **1099**
+  bei 900 Pixeln Sichtbereich, Ladekorrektur wirksam. Korrektes Betreiber-Linkziel,
+  Revision 5, gesperrte Moduskarten, kein horizontaler Überlauf oder img/svg/canvas;
+  keine Fremdabrufe, Schreibrequests, Cookies oder Seitenfehler. Öffentliche Heute-
+  Ansicht bei 320 und Einstellungen bei 1440 Pixeln zusätzlich sichtbar gesichtet.
+- Erster Live-Prüfskriptversuch brach durch vorzeitiges Entfernen eines noch
+  laufenden Requesthandlers ab (`Route is already handled`). Reihenfolge im
+  temporären Prüfskript korrigiert; abschließender Lauf erfolgreich. Keine Änderung
+  am veröffentlichten Produkt, keine neue CI-/Deployrunde oder gelockerte Prüfung.
+- Remote-Endstand über GitHub-Dateien und Branch frisch verifiziert: traceable/5,
+  Generierung false, Startdatum null, `seriesAuthorized:false`, offizielles Archiv
+  leer. Pages true, Tagesautomatisierungsvariable weiterhin nicht gesetzt.
+  Kein Worker-Upload, echte Anmeldung, Modusspeichern oder Sitzungs-/Secretzugriff.
+
+Die Vorlage und der Sicherungsstand unten sind historisch. Fünf Ergebnisdokumente
+(HANDOFF, NEXT-START, dieser Bericht, Abnahmematrix und Runbook) bleiben nach der
+Veröffentlichung lokal uncommittiert. CSS und Browsertest unverändert zum Commit;
+das neue Archiv enthält noch nicht diese fünf Ergebnisnachträge. Kein zusätzlicher
+Commit oder Push beauftragt. Dokumentations-Gesamtcheck im isolierten Klon des
+veröffentlichten Commits mit 166 Tests, Datenprüfung, Build und deaktiviertem
+Worker-Dry-Run erfolgreich; 22 Builddateien weiterhin bytegleich zum Artefakt.
+Ergebniszeile danach gezielt format-/diffgeprüft, kein weiterer Gesamt-/Browser-/
+Runtime-Lauf danach behauptet. Details im neuesten HANDOFF.
+Kleine Schriftverschiebungen, Laborgrenzen und frühere Konfliktursache bleiben
+dokumentiert; keine vollständige WCAG-/Sitzungs-/Feldabnahme oder Serienfreigabe.
+
+## Historische Vorbereitung – 04.11.2026, vor der Veröffentlichungsfreigabe
 
 Auf **„Mach weiter“** nach dem abgeschlossenen lokalen Korrekturpaket den nächsten
 abgegrenzten Schritt vorbereitet: gesamte Dateiauswahl, Sicherung, lokaler Commit,

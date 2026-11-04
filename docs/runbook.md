@@ -1,6 +1,59 @@
 # Betrieb und spätere Einrichtung
 
-## Aktueller Stand – Veröffentlichung am 04.11.2026 vorbereitet
+## Aktuell – Serienstartvorlage 04.11.2026, noch gesperrt
+
+Auf „Mach weiter“ und die Datumsauswahl „heute“ ist die eigenständige
+[Serienstartvorlage](series-start-preparation.md) mit genau 15 vorgeschlagenen
+Commitdateien vorbereitet. 13 Arbeitsdateien liegen lokal vor; echte Konfigurationen
+bleiben unverändert traceable/5, false/null/false, Archiv leer. Keine neue Sicherung,
+echter Commit/Push, Variable, Workflowauslösung oder Veröffentlichung.
+
+Der isolierte aktive Kandidat mit synthetischem Erstwerk besteht Gesamtcheck
+(167 Tests) und Browser (70 bestanden/sechs bestehende Skips). Die sieben nötigen
+Startkorrekturen liegen lokal vor, ohne echte Gates zu öffnen. Isolierte Probe
+bestätigt genau ein erstes Ursprungswerk heute und unveränderte Wiederholung;
+Generation 2 erst am 05.11. ab 04:00. Vorlage nach Berliner Datumswechsel nicht
+ungefragt ausführen. Erst konkrete separate Betreiberfreigabe für sofortigen Erstlauf,
+Tagesautomatisierung, Sicherung/Commit/Push/Pages und deploy:false-Wiederholung.
+Deaktivierter Stand zusätzlich im isolierten Klon mit Gesamtcheck (167 Tests) und
+zehn Fällen der drei geänderten Browserdateien geprüft. Remote-/Gateabgleich um
+17:26:56 MEZ unverändert. Tatsächliche Prüfungen und Grenzen im neuesten HANDOFF
+und der Vorlage beachten.
+
+## Aktueller Stand – L-01 am 04.11.2026 veröffentlicht
+
+Der konkret vorgelegte Sicherungs-/Sieben-Dateien-Commit-/Push-/Pages-Umfang ist
+auf **„ja“** erledigt. HEAD/main und origin/main synchron `52e4342`, Elterncommit
+`02f9d6f`; regulärer Fast-forward von `a66d0b4` einschließlich `2ffb420`/`02f9d6f`,
+insgesamt 19 Dateidifferenzen. [Vollständiger Veröffentlichungsbericht](gallery-publication-preparation.md).
+Keine zusätzliche Commit-/Pushfreigabe aus diesem Ergebnis.
+
+Neue lokale Sicherung `2026-11-04-pre-pages-L01-02f9d6f.tar.gz`: sieben Dateien plus
+Manifest byteweise geprüft, SHA-256
+`66b9e1ad151f2735ee243a882e57854eb7fa333c2ae1396cc798ad51f403bd98`.
+Beide älteren Archive und PRD-Backup erhalten; Backup weiterhin unversioniert/bytegleich.
+Die fünf anschließenden Ergebnisdokumente sind im Archiv noch nicht enthalten.
+
+CI 41857781816 und Pages 41857781840 für diesen Commit erfolgreich: je 166 Tests,
+70 Browserfälle/sechs bewusste Skips; workerd/SQLite erfolgreich. Generierung
+übersprungen. Alle 22 öffentlichen Dateien bytegleich zum Pages-Artefakt 13337733414
+und geprüften lokalen Build. Anonyme Liveprüfung zehn Kombinationen bei 320/1440
+und verzögerter Ladestatus bestanden; Linkziel/Revision 5 korrekt, keine automatischen
+Fremdabrufe, Schreibrequests, Cookies oder Seitenfehler. Kein Login/Modusspeichern.
+
+Remote-Endstand und Gates nach Veröffentlichung frisch gelesen: traceable/5,
+Generierung false, Startdatum null, Serienfreigabe false, offizielles Archiv leer;
+Pages true, Tagesautomatisierungsvariable nicht gesetzt. Kein Worker-Upload,
+Secret-/Sitzungszugriff oder neue Einrichtung. Kleine Schriftverschiebungen und
+weitere Abnahmegrenzen bleiben dokumentiert; keine Serienfreigabe daraus ableiten.
+
+Fünf Ergebnis-/Startdokumentupdates bleiben uncommittiert, CSS/Test unverändert.
+Abschließenden Dokumentationscheck im neuesten HANDOFF lesen; keine zusätzliche
+lokale Browser-/Runtime-Runde für reine Ergebnisdokumente. Vor dem nächsten Paket
+gemeinsam sichten, spätere Serienfreigabe mit Datum/Revision/Dateien/Actions-Schalter
+gesondert vorbereiten. Keine Aktivierung, neue Designrunde, Phase 5 oder EP-01.
+
+## Vorheriger Stand – Veröffentlichung am 04.11.2026 vorbereitet
 
 Auf „Mach weiter“ den genauen nächsten Sicherungs-/Commit-/Push-/Pages-Umfang
 vorbereitet, noch nicht ausgeführt oder freigegeben. [Konkrete Vorlage](gallery-publication-preparation.md)

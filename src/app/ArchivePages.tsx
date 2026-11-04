@@ -221,7 +221,11 @@ function Empty({ context }: { context: 'today' | 'gallery' | 'evolution' }) {
       </h2>
       <p>
         {context === 'today'
-          ? 'Die Bühne ist bereit. Die offizielle Serie hat noch nicht begonnen.'
+          ? initialSettings.generationEnabled
+            ? 'Die Bühne ist bereit. Das erste offizielle Werk ist noch nicht veröffentlicht.'
+            : initialSettings.seriesStartDate
+              ? 'Die Bühne ist bereit. Die offizielle Generierung ist pausiert.'
+              : 'Die Bühne ist bereit. Die offizielle Serie hat noch nicht begonnen.'
           : context === 'gallery'
             ? 'Nach dem Serienstart bleibt jedes Werk mit seinem Datum dauerhaft erhalten.'
             : 'Erst das dritte Werk verbindet die beiden unmittelbar vorherigen Generationen.'}
@@ -312,11 +316,26 @@ function SeriesInfo() {
   return (
     <section className="series-info" aria-labelledby="series-heading">
       <div className="series-intro">
-        <span className="badge">Vor Serienstart</span>
-        <h2 id="series-heading">Die erste Seite ist noch offen.</h2>
+        <span className="badge">
+          {initialSettings.generationEnabled
+            ? 'Serie aktiviert'
+            : initialSettings.seriesStartDate
+              ? 'Generierung pausiert'
+              : 'Vor Serienstart'}
+        </span>
+        <h2 id="series-heading">
+          {initialSettings.generationEnabled
+            ? 'Die erste Veröffentlichung steht bevor.'
+            : initialSettings.seriesStartDate
+              ? 'Die Serie ist pausiert.'
+              : 'Die erste Seite ist noch offen.'}
+        </h2>
         <p>
-          Das Startdatum steht noch nicht fest. Offizielle Werke werden derzeit
-          nicht generiert.
+          {initialSettings.generationEnabled
+            ? `Serienstart ${initialSettings.seriesStartDate}. Die tägliche Generierung ist aktiviert.`
+            : initialSettings.seriesStartDate
+              ? `Serienstart ${initialSettings.seriesStartDate}. Die offizielle Generierung ist pausiert.`
+              : 'Das Startdatum steht noch nicht fest. Offizielle Werke werden derzeit nicht generiert.'}
         </p>
       </div>
       <dl>
@@ -331,7 +350,9 @@ function SeriesInfo() {
       </dl>
       <p className="muted">
         Die 40 getrennten Testwerke aus beiden Modi sind ausdrücklich
-        abgenommen. Datum und Aktivierung der offiziellen Serie bleiben offen.
+        abgenommen.
+        {!initialSettings.seriesStartDate &&
+          ' Datum und Aktivierung der offiziellen Serie bleiben offen.'}
       </p>
     </section>
   );
@@ -991,8 +1012,9 @@ function WorkPresentation({
       {reader.key !== 'official' && (
         <p className="atelier-notice">
           Testwerk aus einer getrennten Zwanzigerkette. Die Daten sind
-          simuliert. Die 40 Testwerke sind abgenommen; die offizielle Serie ist
-          noch nicht gestartet.
+          simuliert. Die 40 Testwerke sind abgenommen.
+          {!initialSettings.seriesStartDate &&
+            ' Die offizielle Serie ist noch nicht gestartet.'}
         </p>
       )}
     </>

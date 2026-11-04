@@ -1,6 +1,39 @@
 # Abnahme vor Serienstart
 
-Stand: 04.11.2026, nach lokaler Integration in `02f9d6f`. Die 17 Arbeitsdateien
+## Ergänzung – Serienstartvorlage vom 04.11.2026
+
+Betreiberantwort zur isolierten Datumsvorlage: **„heute“ = 04.11.2026 Berlin**.
+[Konkrete Vorlage und Dateiauswahl](series-start-preparation.md). Noch keine
+Serienfreigabe/Aktivierung: echt weiterhin traceable/5, false/null/false, Archiv leer.
+Im isolierten aktiven Kandidaten mit synthetischem Erstwerk drei Startprobleme
+korrigiert: kanonische JSON-Formatierung, zwei implizite Leerzustandstests und
+festgeschriebene Vorstarttexte. Sieben Korrekturdateien lokal übernommen.
+Gesamtcheck 167 Tests, Browser 70 bestanden/sechs bestehende Skips. Zusätzlich
+Erstwerk/aktiven Leerzustand bei 320/1440 und Laufplan samt bytegleicher Wiederholung,
+Snapshot und zweitem unabhängigem Ursprung erst am Folgetag geprüft.
+Deaktivierter Stand in zweitem isoliertem Klon: Gesamtcheck 167 Tests und zehn
+bestandene Fälle der drei geänderten Browserdateien; keine zusätzliche vollständige
+Browser-/Runtime-Abnahme. Frischer lesender Remote-/Gateabgleich unverändert. Erste echte
+Archivierung/Veröffentlichung und echte Wiederholung bleiben offen. Keine erledigten
+Kunst-, Geräte-, Cookie- oder Modusabnahmen pauschal wiederholt. Restgrenzen unten
+bleiben bestehen und müssen bei einer gesonderten Serienentscheidung akzeptiert werden.
+
+## Veröffentlichter Ausgangspunkt – L-01
+
+Stand: 04.11.2026, L-01 ist nach separater Freigabe mit **`52e4342` veröffentlicht**.
+HEAD/main und origin/main synchron, CI 41857781816 und Pages 41857781840 erfolgreich:
+je 166 Tests und 70 Browserfälle/sechs bewusste Skips, workerd/SQLite bestanden,
+Generierung übersprungen. Alle 22 öffentlichen Dateien bytegleich zum Artefakt
+13337733414 und geprüften lokalen Build; anonyme Liveprüfung zehn Kombinationen
+bei 320/1440 plus Ladestatus bestanden. [Vollständiger Bericht](gallery-publication-preparation.md).
+Weiter traceable/5, Generierung false, Startdatum null, `seriesAuthorized:false`,
+Archiv leer. Keine vollständige externe Abnahme oder Serienfreigabe. Fünf neue
+Ergebnisdokumentupdates bleiben uncommittiert; CSS und Test sind veröffentlicht.
+Die folgenden Ausgangsstände/Prüfungen bleiben mit ihrem damaligen Umfang erhalten.
+
+### Ausgangspunkt vor der Veröffentlichung
+
+Nach lokaler Integration in `02f9d6f`: Die 17 Arbeitsdateien
 sind vollständig in `2ffb420` gesichert; die Remote-Modusrunde bis `a66d0b4` ist
 integriert. Lokales main zwei Commits vor gespeichertem origin/main, **traceable/5**,
 Generierung false, Startdatum null, `seriesAuthorized:false`, offizielles Archiv leer.
@@ -485,9 +518,10 @@ Gegenprobe, Messungen und Traces unter
 dauerhafte Nachweis. Beide Sicherungsarchive enthalten die neuen lokalen Updates
 nicht; vorhandenes PRD-Backup bleibt zusätzlich unversioniert/bytegleich.
 
-Nächster Schritt: den lokal korrigierten Stand mit den kleinen dokumentierten
-Restverschiebungen gemeinsam sichten. Anschließend kann eine genaue Commit-/Push-/
-Pages-Vorlage für den gesamten lokalen Stand vorbereitet werden. Serienstart,
+Der hier beschriebene Korrekturstand ist inzwischen als `52e4342` veröffentlicht
+und live geprüft; die konkrete Freigabe ist erledigt. Nächster Schritt: den
+veröffentlichten Stand und die kleinen dokumentierten Restverschiebungen gemeinsam
+sichten. Serienstart,
 Startdatum und Automatisierung bleiben unabhängig und unverändert deaktiviert.
 
 ## Konkrete Restabnahmeliste nach lokaler Integration
@@ -514,7 +548,8 @@ vor Serienfreigabe zu beheben. Keine pauschale Verlagerung solcher Befunde nach 
 Die Tabelle bewahrt den ursprünglichen Prüfumfang. Für R-01/R-02 ist der gezielte
 Nachweisabgleich inzwischen oben abgeschlossen, für R-03 sind Messwerte und die
 begrenzte Korrektur L-01 dokumentiert. Empfohlene nächste gemeinsame Entscheidung:
-Ergebnisse und Restgrenzen sichten, danach den genauen Veröffentlichungsumfang vorbereiten.
+Ergebnisse und Restgrenzen des inzwischen veröffentlichten Standes sichten,
+danach gegebenenfalls eine eigenständige Serienstartvorbereitung beauftragen.
 R-04 als bekannte Grenze erhalten. R-05 separat vorbereiten,
 R-06 bis zur ausdrücklichen Aktivierung offen lassen und R-07 nicht automatisch starten.
 Diese Dokumentation nimmt keine Betreiberentscheidung über verbleibende Risiken vorweg.
@@ -581,7 +616,7 @@ Temporäre frühere erfolgreiche Abnahmeaufnahmen unter
 im ignorierten `test-results/acceptance`. Beide sind keine dauerhaft garantierte
 Ablage. Dieser Bericht enthält den maßgeblichen Ergebnisstand. Die damaligen
 17 Arbeitsdateien sind inzwischen in `2ffb420` gesichert und in `02f9d6f` integriert;
-die vier anschließenden Dokumentupdates, shell.css und der neue Lade-Browsertest
-bleiben lokal uncommittiert; der fortgeschriebene Veröffentlichungsbericht kommt
-als siebte Arbeitsdatei hinzu. Das PRD-Backup bleibt zusätzlich ausgeschlossen.
+die sieben späteren Korrektur-/Vorbereitungsdateien sind nun in `52e4342`
+veröffentlicht. Nur fünf anschließende Ergebnisdokumentupdates bleiben uncommittiert.
+Das PRD-Backup bleibt zusätzlich unversioniert/bytegleich und ausgeschlossen.
 Kein weiterer Commit/Push aus älteren Freigaben.

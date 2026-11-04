@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "seriesAuthorized": false,
+  "seriesAuthorized": true,
   "artReview": {
     "status": "approved",
     "approvedOn": "2026-10-28",

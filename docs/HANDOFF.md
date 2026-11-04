@@ -16,7 +16,102 @@ Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gew
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
 inzwischen abgeschlossen. Lokale Integration und aktueller Auftragsumfang siehe unten.
 
-## Aktuelle Chat-Übergabe – 04.11.2026, Veröffentlichung konkret vorbereitet
+## Aktuelle Chat-Übergabe – 04.11.2026, Serienstart mit Datum heute vorbereitet
+
+Auf „Mach weiter“ die nächste eigenständige Serienstart-Vorlage isoliert geprüft.
+Der Betreiber wählte auf die konkrete Datumsrückfrage **„heute“ = 04.11.2026 Berlin**.
+Das erlaubt noch keine Aktivierung oder Veröffentlichung. Maßgebliche neue Vorlage:
+[series-start-preparation.md](series-start-preparation.md), genaue 15-Dateien-Auswahl,
+Sicherungsvorschlag, Gateänderungen und Ausführungs-/Stoppplan.
+
+Echtes HEAD/main weiter `52e4342`, traceable/5, Generierung false, Startdatum null,
+Serienfreigabe false, Archiv leer. Kein echter Commit, Fetch/Merge, Push, Deployment,
+Workflowstart, Variablenwechsel oder neuer Moduswechsel. Die fünf bisherigen
+Ergebnisdokumente und das unversionierte bytegleiche PRD-Backup erhalten.
+
+Im isolierten Klon ohne Remote aktive Revision 6/Datum 04.11./Serienfreigabe mit
+synthetischem Erstwerk geprüft: Gesamtcheck 167 Tests, Browser 70 bestanden/sechs
+bestehende Skips, zusätzliche anonyme Anzeigeprüfung je sechs Kombinationen bei
+320/1440. Reiner Laufplan: heute genau ein unabhängiger Ursprung, Wiederholung ohne
+Änderungen, zweiter unabhängiger Ursprung erst 05.11. ab 04:00, Originalbytes und
+Snapshot erhalten. Synthetische Konfiguration/Werke niemals ins echte Archiv kopieren.
+
+Startblocker korrigiert: Formatierung überspringt kanonische Archivbytes mit
+positivem/negativem Regressionstest; zwei Leerzustands-Browsertests verwenden einen
+explizit leeren Index; Statusaussagen von Heute/Über/Testwerken folgen der
+Konfiguration. Sieben Korrekturdateien auch lokal übernommen, ohne echte Gates zu
+ändern. Kein Renderer-/Kunst-/Generator-/Worker-Eingriff oder Designpaket.
+
+Zweiter isolierter Klon mit allen 13 Arbeitsdateien, echten weiterhin geschlossenen
+Gates und leerem Archiv: `npm run check` mit 167 Tests sowie die drei geänderten
+Browserdateien gegen den Build mit zehn bestandenen Fällen. Kein zusätzlicher
+vollständiger Browser-/Runtime-Lauf für diesen Stand. Publikationsgate am aktiven
+Kandidaten technisch erfolgreich. Abschließend Remote/Dateien/Flags um 17:26:56 MEZ
+ausschließlich lesend bestätigt: beide Heads 52e4342, traceable/5, false/null/false,
+Archiv leer, Pages true, Automation nicht gesetzt. 13 Arbeitsdateien plus PRD-Backup
+bleiben uncommittiert; ein Aktivierungscommit würde genau 15 Dateien umfassen. Belege temporär unter `/private/tmp/evolvera-series-prep-20261104-ojraw5iz`;
+der dauerhafte Bericht bleibt maßgeblich. Alte Kunst-/Cookie-/Gerätetests erledigt,
+keine neue umfassende externe Abnahme. Heute nach 04:00 hieße Aktivierung sofortiges
+Erstwerk. Vorlage verfällt bei Berliner Datumswechsel; keine ungefragte Nachholung.
+Vor einer externen Aktion genaue Aktivierungs-/Publikationsfreigabe einholen.
+
+## Vorherige Chat-Übergabe – 04.11.2026, L-01 veröffentlicht und geprüft
+
+Der Betreiber hat die genaue Sieben-Dateien-Sicherung, einen lokalen Commit,
+regulären Push samt zwei vorhandenen Commits und die ausgelösten CI-/Pages-Läufe
+mit Nachkontrolle durch **„ja“** freigegeben. Dieser Umfang ist erledigt.
+[Dauerhafter Veröffentlichungsbericht](gallery-publication-preparation.md).
+
+- HEAD/main und origin/main synchron auf **`52e43423d8ccfa40ff07e55bd10c0318eb609d3b`**,
+  Elterncommit `02f9d6f`. Genau sieben freigegebene Dateien committed, regulärer
+  Fast-forward-Push von `a66d0b4` samt `2ffb420`/`02f9d6f`, insgesamt 19 Dateidifferenzen.
+  Keine Historienumschreibung, kein weiterer Commit oder Push aus dieser Freigabe.
+- Neue verifizierte Sicherung:
+  `/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-pages-L01-02f9d6f.tar.gz`,
+  91.796 Bytes, SHA-256
+  `66b9e1ad151f2735ee243a882e57854eb7fa333c2ae1396cc798ad51f403bd98`.
+  Sieben Dateien plus Manifest byteweise geprüft; beide älteren Archive erhalten.
+  PRD-Backup weiter zusätzlich unversioniert und bytegleich, in keinem Archiv/Commit
+  aufgenommen. Neues Archiv enthält noch nicht die fünf jetzigen Ergebnisnachträge.
+- [CI 41857781816 erfolgreich](https://github.com/bummber/evolvera/actions/runs/41857781816),
+  [Pages 41857781840 Build/Deploy erfolgreich](https://github.com/bummber/evolvera/actions/runs/41857781840),
+  exakt für `52e4342`. Beide Läufe: 166 Tests, 70 Browserfälle, sechs bewusste Skips;
+  workerd/SQLite erfolgreich. Tatsächliche Laufzählungen verifiziert, Generierung
+  im Pages-Lauf übersprungen. Keine erneute opt-in-Drei-Engine- oder Kunstabnahme.
+- Artefakt `13337733414`: alle 22 öffentlichen Dateien bytegleich zum Laufartefakt
+  und zum geprüften lokalen Build. Anonyme Liveprüfung zehn Ansichts-/Breitenkombinationen
+  bei 320/1440 Pixeln plus verzögerter Ladestatus bei 320 bestanden; korrekter Link,
+  Revision 5, leeres offizielles Archiv, keine Fremdabrufe/Schreibrequests/Cookies/
+  Seitenfehler/Überlauf. Heute 320 und Einstellungen 1440 sichtbar gesichtet.
+  Ein Request-Aufräumfehler des temporären Prüfskripts vor dem endgültigen Erfolg
+  korrigiert; keine Produktänderung oder zweite Veröffentlichung dafür.
+- Remote-Endstand frisch per Git und GitHub-Dateien/Gates bestätigt: traceable/5,
+  Generierung false, Startdatum null, `seriesAuthorized:false`, Archiv leer,
+  Pages true, Tagesautomatisierungsvariable nicht gesetzt. Worker, Secrets und
+  Sitzungen administrativ unverändert; keine echte Anmeldung oder Modusspeicherung.
+- Genau fünf neue Ergebnis-/Startdokumentupdates bleiben uncommittiert: HANDOFF,
+  NEXT-START, gallery-publication-preparation, pre-series-acceptance und Runbook.
+  CSS und neuer Ladetest sind veröffentlicht und bleiben unverändert. Kein zusätzlicher
+  Ergebniscommit/Push, keine neue Sicherungsfreigabe aus diesem Abschluss ableiten.
+
+Dokumentations-Gesamtcheck der fünf Ergebnisnachträge im isolierten Klon des
+veröffentlichten Commits erfolgreich: `npm run check`, **166 Tests**, Format/Lint/
+Typen, Daten-/Vorschauprüfung, Build und deaktivierter Worker-Dry-Run. Alle 22
+Builddateien weiterhin bytegleich zum veröffentlichten Artefakt. Keine zusätzliche
+lokale Browser-/Runtime-Suite für diese reinen Dokumente. Reinen Ergebnisnachtrag
+anschließend gezielt format-/diffgeprüft, kein weiterer Gesamtcheck danach behauptet.
+Temporäre Belege unter `/private/tmp/evolvera-release-L01-20261104-a47ypnzd` sind
+keine dauerhafte Ablage. Der Bericht und Git enthalten den maßgeblichen Stand.
+Keine zusätzliche lokale Browser-/Runtime-Runde für diese reinen Dokumente behaupten.
+
+Vor dem nächsten Paket gemeinsam den veröffentlichten Stand und die Restgrenzen
+sichten. Kleine Schriftverschiebungen, keine umfassende WCAG-/Sitzungs-/GPU-/Feldabnahme
+und die frühere ungeklärte Konfliktursache bleiben ausgewiesen. Erst danach eine
+spätere eigenständige Serienfreigabe mit zukünftigem Datum, aktueller Revision,
+genauen Dateien und Actions-Schalter vorbereiten. Keine Aktivierung, neue Designrunde,
+Phase 5 oder EP-01. Die bisherigen Kunst-/Geräte-/Login-/Cookie-Modustests sind erledigt.
+
+## Vorherige Chat-Übergabe – 04.11.2026, Veröffentlichung konkret vorbereitet
 
 Auf **„Mach weiter“** nach dem Korrekturabschluss den im vorigen Block benannten
 Sicherungs-/Commit-/Push-/Pages-Umfang konkret vorbereitet. Vollständige Vorlage
