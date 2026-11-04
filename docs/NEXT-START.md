@@ -1,4 +1,267 @@
-# Aktueller Startprompt – Galerie lokal vorbereitet am 04.11.2026
+# Aktueller Startprompt – nach Modusrunde bis Revision 5 am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+Lies AGENTS.md, docs/HANDOFF.md (neuester Übergabeblock), docs/NEXT-START.md,
+docs/pre-series-acceptance.md und docs/operator-cookie-check.md.
+Fachliche Quelle bleibt docs/PRD.md v1.1. Historische Texte und erledigte Freigaben
+erweitern diesen Auftrag nicht.
+
+Zuerst Bestand und Git ausschließlich lesend prüfen, alle vorhandenen Arbeiten
+erhalten und den Stand kurz gemeinsam sichten. Als nächsten abgegrenzten Schritt
+den sicheren lokalen Abgleich mit den zwei Remote-Moduscommits konkret vorbereiten:
+genaue Dateiauswahl, Erhaltung aller uncommittierten Arbeiten, lokaler Sicherungs-
+und Integrationsplan sowie passende isolierte Prüfungen. Erst den konkreten Umfang
+zur Freigabe vorlegen; noch kein lokaler Commit, Fetch/Merge, Push oder Deployment.
+Bei Bedarf Remote frisch lesend prüfen, kein blindes Pull/Reset/Force-Push.
+
+Lokales HEAD/main und gespeichertes origin/main weiterhin exakt:
+d844e3fd623c19ce3185e1e9f165536aab0b5606.
+Remote im abgeschlossenen Speichertest zuletzt:
+a66d0b49041149d3734a2e5bee2b56a5fc6f30b6, Elterncommit
+25341921a5224d8addc70965b40ad695a6780523, dessen Elterncommit d844e3f.
+Die zwei Commits ändern ausschließlich config/generation.json, nur Modus/Revision.
+Remote traceable/5, lokal weiter traceable/3. Remote-Revision 5 nicht zurücksetzen.
+Gespeichertes origin/main ist veraltet; Git-status-Gleichstand ist keine aktuelle
+Remoteprüfung. Im abschließenden Übergabeschritt fand kein neuer Remoteabgleich statt.
+
+17 Arbeitsdateien bleiben uncommittiert: vollständige Liste im neuesten HANDOFF.
+Alle erhalten, auch neue Tests/Dokumente/Firefox-Fixture. docs/PRD_v1.1_backup.md
+bleibt zusätzlich unversioniert und bytegleich zu PRD.md; nicht aufnehmen/formatieren.
+Produktionscode, Konfiguration, Lockfile, Kunst/Generator/Renderer/Archiv unverändert.
+
+Die zuvor genau freigegebene lokale Sicherung ist erledigt:
+/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-stand-d844e3f.tar.gz
+SHA-256 a5e4da144a884eff2ece43028a2d1f343e1c51d2807c76dd9fb4ef996810e932.
+17 Dateien plus Manifest byteweise geprüft, PRD-Backup ausgeschlossen. Archiv nicht
+überschreiben; es stammt VOR den anschließenden sieben Übergabe-/Ergebnisdokument-
+updates. Keine neue Sicherungscommit-/Archiv-/Pushfreigabe daraus ableiten.
+
+Erledigt: Werkbuch-Design und Betreiber-Link veröffentlicht; zehn Designpakete und
+40 Testwerke abgenommen. iPhone/Safari einschließlich gespeicherter Webapp ohne
+Auffälligkeiten; echte Anmeldung/Logout/Reload nach Cookieanleitung bestätigt.
+Auch der konkret freigegebene echte Speichertest im privaten iPhone-Safari unter
+derselben Cookieeinstellung ist abgeschlossen: traceable/3 -> free/4 -> traceable/5.
+Betreiber bestätigte beide Anzeigen; Git-Konfiguration unabhängig verifiziert.
+Beide CI-/Pages-Läufe erfolgreich, Generierung jeweils übersprungen, je 22 öffentliche
+Dateien bytegleich zum zugehörigen Laufartefakt. Lauf-IDs und Commitnachweise im
+Cookiebericht. Keine pauschale Wiederholung dieser Kunst-/Geräte-/Login-/Speichertests.
+Die dafür erteilte Freigabe „Leg los“ ist für Modusrunde und Sicherungsarchiv erledigt.
+Logout nach der neuen Runde nur empfohlen, nicht nochmals bestätigt; früherer
+Logout-/Reloadnachweis bleibt bestehen. Frühere zusätzliche Konfliktursache ungeklärt.
+
+Vorherige lokale Nachweise: Gesamtcheck mit 166 Tests, Datenprüfung/Build/deaktivierter
+Worker-Dry-Run; vollständige Zusatzsuite sechs bestanden in Chromium/Firefox/WebKit,
+120 Seiten-/Breitenkombinationen und drei synthetische Login-/Formularläufe. Zwei
+reguläre Chromium-Formularfälle zusätzlich bestanden. Reguläre 68 Browserfälle mit
+sechs bewussten Skips/sechs unveränderten Kunstreferenzen und workerd/SQLite sind
+frühere erfolgreiche Nachweise. Neue Remote-Läufe verwenden versionierten Remote-Code;
+die 17 lokalen Arbeiten/opt-in-Zusatzsuite sind nicht mitveröffentlicht. Tatsächlichen
+Prüfstand nach Übergabedokumentation im neuesten HANDOFF lesen. Keine neuen lokalen
+Browser-/Runtime-Läufe für reine Dokumentation behaupten.
+
+Bestehenden Worker, Secrets und SQLite-Sitzungen erhalten. Keine neue Einrichtung,
+Secret-Eingabe, Logs oder Cookieeinsicht. Kein Worker-Upload/Cloudflare-Verwaltungstoken
+für diesen Schritt nötig. Bei später tatsächlich nötigem Tokenzugriff Gültigkeit
+frisch prüfen; keinen Ablauf umgehen oder ungefragt Rechte/Tokens neu einrichten.
+MCP bleibt lesend. Lokale Tests ausschließlich mit synthetischen Zugängen und
+isolierten Git-Repositories; Workerausgaben außerhalb von dist und Git.
+
+Generierung false, Startdatum null, Remote traceable/Revision 5,
+seriesAuthorized:false, offizielles Archiv leer. Pages-Schalter beim Speichertest
+true, Automatisierungsschalter nicht gesetzt. Vollständige WCAG-/Sitzungs-/Performance-
+abnahme und offizieller Betriebsnachweis bleiben offen. Erst nach bewusstem lokalen
+Abgleich und gemeinsamer Restabnahme eine spätere Serienfreigabe mit Datum, Dateien,
+Revision und Actions-Schalter vorbereiten. Keine Aktivierung, neue Designrunde,
+Phase 5 oder EP-01 aus diesem Wiedereinstieg ableiten.
+```
+
+## Historischer Startprompt – vor der freigegebenen Modusrunde
+
+# Historischer Startprompt – bestätigter Cloud-Login am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+Kein neues Projekt oder Repository anlegen.
+
+Lies AGENTS.md, docs/HANDOFF.md (neuester Übergabeblock), docs/NEXT-START.md,
+docs/pre-series-acceptance.md und docs/operator-cookie-check.md. Fachliche Quelle
+bleibt docs/PRD.md v1.1. Historische Texte/Freigaben erweitern diesen Auftrag nicht.
+
+Mein Auftrag: zuerst Bestand und Git ausschließlich lesend prüfen, alle vorhandenen
+Arbeiten erhalten und den Stand kurz gemeinsam sichten. Danach den verbleibenden
+echten Modusspeichertest im privaten iPhone-Safari mit derselben Cookieeinstellung
+konkret vorbereiten: frischer Remote-/Konfigurationsabgleich, genauer Umfang,
+erwartete Revisionen, möglicher Rückwechsel und ausgelöste Git-/CI-/Pages-Folgen.
+Erst den vollständig vorbereiteten Schritt zur ausdrücklichen Freigabe vorlegen.
+Noch keinen echten Speichervorgang, Commit, Push oder Deployment ausführen.
+Auch eine lokale Sicherung der uncommittierten Arbeiten zunächst mit genauer
+Dateiauswahl vorlegen; frühere Commit-/Pushfreigaben sind vollständig erledigt.
+
+Lokales main/HEAD und gespeichertes origin/main zuletzt beide:
+d844e3fd623c19ce3185e1e9f165536aab0b5606. origin wie oben. Im abschließenden
+Übergabeschritt kein neuer Remoteabgleich; bei Bedarf frisch lesend prüfen.
+Kein blindes Pull, Reset, Force-Push oder Überschreiben vorhandener Arbeit.
+
+17 lokale Arbeitsdateien sind geändert oder neu und uncommittiert. Die vollständige
+Liste steht im neuesten HANDOFF: Ergebnisdokumente, README, Restabnahmematrix,
+Cookieprüfanleitung, package.json mit test:acceptance, zusätzliche Testkonfiguration,
+Browser-/Operator-/Runtime-Tests und Firefox-Fixture. Alles erhalten, auch neue
+unversionierte Dateien. docs/PRD_v1.1_backup.md bleibt zusätzlich unversioniert und
+bytegleich zu PRD.md; nicht aufnehmen oder formatieren. Lockfile unverändert.
+
+Werkbuch-Design mit Betreiber-Link ist auf GitHub Pages veröffentlicht und geprüft.
+Die zehn Designpakete und 40 Testwerke sind abgenommen. Keine neue Designrunde,
+Kunst-/Generator-/Renderer-/Archivänderung oder Wiederholung der Kunstabnahme.
+Produktionsbuild bleibt bytegleich zur Veröffentlichung d844e3f.
+
+Betreiber bestätigt am 04.11.: iPhone/Safari geprüft, als Webapp gespeichert,
+keine Auffälligkeiten. Danach privater Safari-Cloudtest nach Cookieprüfanleitung:
+Anmelden und Abmelden funktionieren; Reload nach Logout zeigt das Formular nicht.
+Diese Geräte-/Login-/Logout-Prüfungen sind erledigt. Echte Modusspeicherung unter
+genau dieser Cookieeinstellung ist noch nicht bestätigt oder beauftragt.
+Die frühere echte Runde traceable/1 -> free/2 -> traceable/3 ist nachgewiesen;
+zusätzliche damalige Konfliktanzeige bleibt hinsichtlich des Auslösers ungeklärt.
+Lokale Doppelabsende-/Zweittabtests beweisen keine historische Cloudursache.
+
+Letzte Prüfnachweise: npm run check / check:publication erfolgreich, 166 Tests,
+Datenprüfung, Build und deaktivierter Worker-Dry-Run. CI=true npm run test:acceptance
+vollständig sechs bestanden in Chromium/Firefox/WebKit, 120 Seiten-/Breitenkombinationen
+und drei synthetische Login-/Formularläufe. Zwei reguläre Chromium-Formularfälle
+zusätzlich bestanden. Reguläre 68 Browserfälle mit sechs bewussten Skips und sechs
+unveränderten Kunstreferenzen sowie echter workerd/SQLite-Test sind frühere erfolgreiche
+Nachweise. Nach reinen Ergebnisdokumenten keinen neuen Voll-/Runtime-Lauf behaupten.
+Firefox funktioniert über tests/fixtures/browser.ts mit temporärer eigener MOZ_APP_DATA-
+Ablage nur auf macOS/Firefox, anschließend bereinigt. Keine normale Firefox-Installation,
+HOME-Änderung, privaten Profile oder zusätzlichen macOS-Rechte nötig.
+
+Liveworker, Secrets und SQLite-Sitzungen unverändert erhalten. Echte GitHub-App,
+Anbieterprüfung und Datenschutzfassung 2026-11-03.1 sind eingerichtet/dokumentiert;
+keine neue Vertrags-, Konto- oder Secret-Runde. Secrets niemals lesen, ausgeben oder
+erneut anfordern. Kein Worker-Upload/Cloudflare-Verwaltungstoken für den nächsten Test
+nötig. Ein später nötiger Tokenzugriff verlangt frische Gültigkeitsprüfung, keinen
+Ablauf umgehen oder neue Rechte einrichten. MCP bleibt lesend. Lokale Tests ausschließlich
+synthetisch und mit isolierten Git-Repositories; Workerausgaben außerhalb von dist/Git.
+
+Generierung false, Startdatum null, traceable/Revision 3, seriesAuthorized:false,
+offizielles Archiv leer. Serienstart und Phase 5/EP-01 bleiben aus. Vollständige
+WCAG-/Sitzungs-/Performanceabnahme und späterer offizieller Betriebsnachweis bleiben
+als Grenzen ausgewiesen. Erst nach Restabnahme eine eigenständige Serienfreigabe mit
+genauem Datum, Dateien, Revision und Actions-Schalter vorbereiten. Nichts aktivieren.
+Temporäre Belege unter /private/tmp können fehlen; Projektberichte und Git sind maßgeblich.
+```
+
+## Historischer Startprompt – Restabnahme vor dem Chatwechsel
+
+# Startprompt – Restabnahme lokal ergänzt am 04.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera/
+mit origin bummber/evolvera fortsetzen. AGENTS.md, neuesten HANDOFF-Block und
+docs/pre-series-acceptance.md lesen. Fachliche Quelle bleibt PRD.md v1.1.
+Zuerst Git und alle vorhandenen Arbeiten lesend prüfen und gemeinsam sichten.
+
+HEAD/main und gespeichertes origin/main weiterhin d844e3f, zuletzt veröffentlichtes
+Werkbuch samt Betreiber-Link. Vorhandene fünf Ergebnisdokumente erhalten; zusätzlich
+lokale Restabnahmetests, Testkonfiguration, README/Phase-4-/Betriebsdokumentation
+uncommittiert. In diesem Paket kein neuer GitHub-Head-/Verwaltungsabgleich, Commit,
+Push oder Deployment. Backup unversioniert und bytegleich erhalten, nicht aufnehmen.
+
+Abnahmematrix A-01 bis A-27 und Start-/Stopp-/Wiederanlaufplan liegen vor.
+166 Tests, workerd/SQLite mit Objekttrennung und absolutem Ablauf sowie reguläre
+68 Browserfälle erfolgreich; sechs bewusste Skips, sechs Kunstreferenzen unverändert.
+Neue opt-in Abnahme CI=true npm run test:acceptance: vollständig sechs bestanden in
+Chromium mit eingeschränkten Drittanbieter-Cookies, Firefox und WebKit (120 Seiten-/
+Breitenkombinationen, drei synthetische Login-/Formularläufe). Firefox-Profilstartfehler
+im Testaufbau behoben: tests/fixtures/browser.ts isoliert MOZ_APP_DATA temporär nur
+für macOS/Firefox und bereinigt es nach Browserende. Keine persönlichen Profile,
+HOME-Änderung, neuen Zugriffsrechte oder Abschaltung von Schutzfunktionen nötig.
+Playwright-WebKit ist keine vollständige Safari-Abnahme.
+
+Öffentliche Desktop-Safari-Stichprobe tatsächlich durchgeführt: Heute, Einstellungen,
+Werkdetails beider Modi, Herkunft, Pause und Datenschutz; eigener Prüftab geschlossen.
+Echte iPhone-/Safari-Prüfung am 04.11. vom Betreiber bestätigt: als Webapp gespeichert,
+keine Auffälligkeiten. Keine erneute Smartphone-Durchsicht pauschal verlangen.
+Umfassende Safe-Area-/Offline-Abnahme daraus nicht ableiten. Echte Cloud-Anmeldung
+und Logout inzwischen ebenfalls auf iPhone/Safari im Privatmodus nach Cookieanleitung
+bestätigt: An-/Abmelden funktionieren, Reload nach Logout zeigt das Formular nicht.
+Keine eigene Sitzungs-/Cookieeinsicht oder neue Speicherung. Modusspeicherung unter
+dieser Cookieeinstellung und weitere im Bericht ausgewiesene Nachweise bleiben offen.
+Keine neuen echten Modusspeicherungen: sie könnten Git-/
+Pages-Läufe auslösen und brauchen eigenen Auftrag. Frühere Konfliktanzeige weiterhin
+nicht abschließend erklärt; lokale alte Formulare reproduzieren nur eine Möglichkeit.
+Anleitung und bestätigtes Cloud-Ergebnis: docs/operator-cookie-check.md.
+Keine echte Modusspeicherung beauftragt und keine Serienfreigabe daraus ableiten.
+
+Produktionscode, Kunst, Generator, Renderer, Daten, Referenzen, Konfiguration und
+Lockfile unverändert. Passende Firefox-/WebKit-Testbrowser offiziell im lokalen Cache
+ergänzt, vorhandene erhalten. Zwischenfehler und endgültige Prüfungen ehrlich im
+Abnahmebericht dokumentiert. Keine echten Secrets lesen/ausgeben/erneut anfordern,
+Cloudressourcen und Sitzungen erhalten. Keine neue allgemeine Einrichtungsrunde.
+
+Generierung false, Startdatum null, traceable/Revision 3, seriesAuthorized:false,
+offizielles Archiv leer. 40 Werke und zehn Designpakete bereits abgenommen.
+Vor weiterem Arbeitspaket offene Nachweise gemeinsam sichten. Dieser Prompt erteilt
+keinen Commit/Push/Deployment, kein Startdatum, keine Aktivierung, neue Designrunde,
+Phase 5 oder EP-01. Eine spätere Serienfreigabe muss genaue Dateien, Revision,
+Startdatum, Actions-Schalter und mögliche Archiv-/Pages-Folgen ausdrücklich umfassen.
+```
+
+## Historischer Startprompt – veröffentlichter Stand vor Restabnahme
+
+# Startprompt – Werkbuch veröffentlicht am 04.11.2026
+
+Dieser Stand ersetzt die folgenden historischen Vorbereitungs-/Pausenprompts.
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+AGENTS.md, neuesten HANDOFF-Block und den Veröffentlichungsabschluss in
+docs/gallery-publication-preparation.md lesen. Fachliche Quelle PRD.md v1.1.
+Git zuerst lesend prüfen, alle vorhandenen Arbeiten erhalten und vor dem nächsten
+Arbeitspaket gemeinsam den veröffentlichten Stand sichten. Kein neuer Auftrag
+für Design, Implementierung, Commit, Push, Deployment oder Serie aus diesem Prompt.
+
+Die konkrete Commit-/Push-/Pages-Freigabe wurde vollständig ausgeführt:
+HEAD/main und origin/main d844e3fd623c19ce3185e1e9f165536aab0b5606, Elterncommit
+53b7521. Genau acht freigegebene Dateien committed, anschließend regulärer Push
+samt sechs bestehenden lokalen Commits. CI/Pages erfolgreich, Generierung übersprungen.
+Öffentliche Galerie jetzt mit abgenommenem Werkbuch und echtem Betreiber-Link.
+Keine weitere Commit-/Pushfreigabe daraus ableiten. Nachträgliche Ergebnisdokumente
+in HANDOFF/NEXT-START/Runbook/Publikations-/Vorbereitungsbericht uncommittiert erhalten.
+PRD_v1.1_backup.md bleibt unversioniert und bytegleich; nicht automatisch aufnehmen.
+
+Alle 22 öffentlichen Builddateien bytegleich zum geprüften lokalen Build.
+Pages-Browserprüfung 68 bestanden, sechs bewusste Skips; lokale 165 Tests und
+workerd/SQLite-Runtime erfolgreich. Anonyme Liveprüfung von vier Routen bei
+320/1440 px erfolgreich: korrektes Linkziel, keine Fremdabrufe/Schreibzugriffe/
+Cookies/Seitenfehler oder horizontaler Überlauf. Kein neuer Login-/Speichervorgang.
+Abschließenden Dokumentations-Gesamtcheck im Veröffentlichungsbericht lesen;
+keinen zusätzlichen Browser-/Runtime-Lauf nach reinen Dokumenten behaupten.
+
+traceable/Revision 3, Generierung false, Startdatum null, seriesAuthorized:false,
+offizielles Archiv leer. 40 Testwerke und zehn Designpakete bereits abgenommen.
+Serienfreigabe bleibt unabhängig. Safari/Firefox, echte Geräte/Safe-Area, umfassende
+WCAG-/Sitzungsabnahme offen; frühere zusätzliche Konfliktanzeige nicht abschließend erklärt.
+
+Liveworker unverändert, Health nach Galerie-Deployment configurationReady:true.
+Kein Worker-Upload oder Verwaltungstoken für das Galeriepaket erforderlich.
+Secrets und Sitzungen erhalten, keine Werte lesen/ausgeben oder erneut anfordern.
+Vor einer später nötigen Tokenverwendung Gültigkeit/Zeit frisch lesend prüfen,
+keinen Ablauf umgehen oder neue Rechte/Tokens ungefragt einrichten. MCP bleibt lesend.
+Temporäre Nachweise unter /private/tmp können fehlen; Projektberichte/Git sind dauerhaft.
+```
+
+## Historischer Startprompt – lokale Galerievorbereitung vor Veröffentlichung
+
+# Startprompt – Galerie lokal vorbereitet am 04.11.2026
 
 Dieser neue Stand ersetzt den nachfolgenden historischen Pausenprompt als aktiven
 Wiedereinstieg. Vorhandene Pausenarbeiten bleiben erhalten. Keine Publikationsfreigabe.

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from '../fixtures/browser';
 import { tsImport } from 'tsx/esm/api';
 import { execFileSync } from 'node:child_process';
 import { mkdtemp, readFile, rm } from 'node:fs/promises';
@@ -9,7 +9,7 @@ import type { Env } from '../../workers/admin';
 
 test.use({ ignoreHTTPSErrors: true }); // Ephemeral local test certificate only.
 
-test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetische Modi', async ({
+test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare bleiben sicher', async ({
   page,
 }) => {
   // Use the installed TypeScript loader for the Worker's existing JSON imports.
@@ -19,6 +19,8 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
       import.meta.url,
     )) as typeof import('../fixtures/operator-browser');
   let origin = '';
+  let providerOrigin = '';
+  let challenge = '';
   const namespace = new MemoryNamespace();
   const pair = await crypto.subtle.generateKey(
     {
@@ -58,7 +60,26 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
   // except these synthetic installation/configuration responses in this process.
   globalThis.fetch = async (input, init) => {
     const url = new URL(String(input));
+    if (url.origin === 'https://github.com') {
+      expect(url.pathname).toBe('/login/oauth/access_token');
+      const verifier = new URLSearchParams(String(init?.body)).get(
+        'code_verifier',
+      )!;
+      expect(
+        Buffer.from(
+          await crypto.subtle.digest(
+            'SHA-256',
+            new TextEncoder().encode(verifier),
+          ),
+        ).toString('base64url'),
+      ).toBe(challenge);
+      return Response.json({
+        access_token: 'synthetic-user-token',
+        token_type: 'bearer',
+      });
+    }
     expect(url.origin).toBe('https://api.github.com');
+    if (url.pathname === '/user') return Response.json({ id: 123 });
     if (url.pathname.endsWith('/installation')) return Response.json({ id: 7 });
     if (url.pathname === '/app/installations/7/access_tokens')
       return Response.json({ token: 'synthetic-installation-token' });
@@ -80,6 +101,7 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
     });
   };
   const posts: { origin?: string; site?: string; referrer?: string }[] = [];
+  const external: string[] = [];
   const temp = await mkdtemp(path.join(tmpdir(), 'evolvera-form-browser-'));
   const keyFile = path.join(temp, 'key.pem');
   const certFile = path.join(temp, 'cert.pem');
@@ -107,6 +129,19 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
   const server = createServer(
     { key: await readFile(keyFile), cert: await readFile(certFile) },
     async (request, result) => {
+      if (request.headers.host === new URL(providerOrigin).host) {
+        const providerUrl = new URL(request.url!, providerOrigin);
+        const callback = new URL('/auth/callback', origin);
+        callback.search = new URLSearchParams({
+          state: providerUrl.searchParams.get('state')!,
+          code: 'synthetic-code',
+        }).toString();
+        result.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        result.end(
+          `<a href="${callback.href}">Synthetische Anmeldung bestätigen</a>`,
+        );
+        return;
+      }
       const headers = new Headers();
       for (const [key, value] of Object.entries(request.headers))
         if (value !== undefined)
@@ -127,7 +162,25 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
         }),
         env,
       );
-      result.writeHead(response.status, Object.fromEntries(response.headers));
+      const responseHeaders = Object.fromEntries(response.headers);
+      // Rewrite the Worker's external authorization redirect before it reaches
+      // the socket. Browser routing does not intercept every redirect-chain hop.
+      if (responseHeaders.location?.startsWith('https://github.com/')) {
+        const authorize = new URL(responseHeaders.location);
+        expect(authorize.pathname).toBe('/login/oauth/authorize');
+        challenge = authorize.searchParams.get('code_challenge')!;
+        expect(authorize.searchParams.get('code_challenge_method')).toBe(
+          'S256',
+        );
+        expect(authorize.searchParams.get('redirect_uri')).toBe(
+          origin + '/auth/callback',
+        );
+        responseHeaders.location = `${providerOrigin}/authorize?${authorize.searchParams}`;
+      }
+      result.writeHead(response.status, {
+        ...responseHeaders,
+        'set-cookie': response.headers.getSetCookie(),
+      });
       result.end(await response.text());
     },
   );
@@ -136,50 +189,64 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
   if (!address || typeof address === 'string')
     throw new Error('Local test socket unavailable');
   origin = `https://127.0.0.1:${address.port}`;
+  providerOrigin = `https://localhost:${address.port}`;
   env.ADMIN_ORIGIN = origin;
   const worker = createWorker({
     ...readyPolicy,
     review: { ...readyPolicy.review, adminOrigin: origin },
   });
-  await page.route('**/*', (route) => {
+  await page.context().route('**/*', (route) => {
+    const url = new URL(route.request().url());
     // Continue through the real socket; abort any unexpected external request.
-    return new URL(route.request().url()).origin === origin
+    return [origin, providerOrigin].includes(url.origin)
       ? route.continue()
       : route.abort();
   });
-  async function syntheticSession(key: string) {
-    await recordCall(namespace, key, {
-      operation: 'issue',
-      record: {
-        kind: 'session',
-        ownerId: '123',
-        csrf: 'c'.repeat(43),
-        expires: Date.now() + 3600000,
-      },
+  page.context().on('request', (request) => {
+    if (![origin, providerOrigin].includes(new URL(request.url()).origin))
+      external.push(new URL(request.url()).origin);
+  });
+  async function syntheticLogin() {
+    await page.goto(origin + '/settings');
+    await page.getByRole('link', { name: 'Mit GitHub anmelden' }).click();
+    await expect(page).toHaveURL(new RegExp(`^${providerOrigin}/authorize`));
+    const loginCookie = (await page.context().cookies(origin)).find(
+      (cookie) => cookie.name === '__Host-evolvera-login',
+    );
+    expect(loginCookie).toMatchObject({
+      secure: true,
+      httpOnly: true,
+      sameSite: 'Lax',
     });
-    await page.context().addCookies([
-      {
-        name: '__Host-evolvera-session',
-        value: key,
-        url: origin,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'Lax',
-      },
-    ]);
+    await page
+      .getByRole('link', { name: 'Synthetische Anmeldung bestätigen' })
+      .click();
     const response = await page.goto(origin + '/settings');
     expect(response?.headers()['referrer-policy']).toBe('no-referrer');
     await expect(page.getByRole('button', { name: 'Abmelden' })).toBeVisible();
+    const cookies = await page.context().cookies(origin);
+    expect(
+      cookies.some((cookie) => cookie.name === '__Host-evolvera-login'),
+    ).toBe(false);
+    const sessionCookie = cookies.find(
+      (cookie) => cookie.name === '__Host-evolvera-session',
+    )!;
+    expect(sessionCookie).toMatchObject({
+      secure: true,
+      httpOnly: true,
+      sameSite: 'Lax',
+    });
+    return sessionCookie.value;
+  }
+  function expectSafePost(post: (typeof posts)[number]) {
+    expect([origin, 'null']).toContain(post.origin);
+    if (post.origin === 'null') expect(post.site).toBe('same-origin');
+    expect(post.referrer).toBeUndefined();
   }
   try {
-    const oldKey = 'a'.repeat(43);
-    await syntheticSession(oldKey);
+    const oldKey = await syntheticLogin();
     await page.getByRole('button', { name: 'Abmelden' }).click();
-    expect(posts[0]).toEqual({
-      origin: 'null',
-      site: 'same-origin',
-      referrer: undefined,
-    });
+    expectSafePost(posts[0]!);
     await expect(
       page.getByRole('link', { name: 'Mit GitHub anmelden' }),
     ).toBeVisible();
@@ -193,12 +260,23 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
     ).toHaveCount(0);
     expect(writes).toBe(0);
 
-    await syntheticSession('d'.repeat(43));
+    const currentKey = await syntheticLogin();
+    const stale = await page.context().newPage();
+    await stale.goto(origin + '/settings');
     await page.getByLabel('Vererbungsmodus').selectOption('free');
     await page.getByRole('button', { name: 'Modus speichern' }).click();
     await expect(page.getByRole('status')).toContainText('In Git gespeichert.');
     expect(config.inheritanceMode).toBe('free');
     expect(config.revision).toBe(2);
+    await stale.getByRole('button', { name: 'Modus speichern' }).click();
+    await expect(
+      stale.getByRole('heading', { name: 'Speicherkonflikt.' }),
+    ).toBeVisible();
+    expect(writes).toBe(1);
+    expect(config.inheritanceMode).toBe('free');
+    await stale.getByRole('link', { name: 'Einstellungen neu laden' }).click();
+    await expect(stale.locator('main')).toContainText('Revision 2');
+    await stale.close();
     await page.getByLabel('Vererbungsmodus').selectOption('traceable');
     await page.getByRole('button', { name: 'Modus speichern' }).click();
     await expect(page.getByRole('status')).toContainText('In Git gespeichert.');
@@ -207,18 +285,26 @@ test('Native Betreiberformulare widerrufen Sitzungen und speichern nur synthetis
     expect(config.generationEnabled).toBe(false);
     expect(config.seriesStartDate).toBeNull();
     expect(writes).toBe(2);
-    expect(posts).toHaveLength(3);
-    for (const post of posts)
-      expect(post).toEqual({
-        origin: 'null',
-        site: 'same-origin',
-        referrer: undefined,
-      });
+    expect(posts).toHaveLength(4);
+    for (const post of posts) expectSafePost(post);
+    const store = namespace.stores.get(currentKey)!;
+    const session = await store.get<{ expires: number }>('record');
+    await store.put('record', { ...session, expires: Date.now() - 1 });
+    await page.getByRole('button', { name: 'Modus speichern' }).click();
+    await expect(
+      page.getByRole('link', { name: 'Mit GitHub anmelden' }),
+    ).toBeVisible();
+    expect(writes).toBe(2);
+    expect(config.revision).toBe(3);
+    expect(external).toEqual([]);
   } finally {
     globalThis.fetch = originalFetch;
-    await page.unrouteAll({ behavior: 'wait' });
-    server.closeAllConnections();
-    await new Promise<void>((resolve) => server.close(() => resolve()));
-    await rm(temp, { recursive: true, force: true });
+    try {
+      await page.context().unrouteAll({ behavior: 'wait' });
+    } finally {
+      server.closeAllConnections();
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+      await rm(temp, { recursive: true, force: true });
+    }
   }
 });

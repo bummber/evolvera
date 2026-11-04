@@ -38,7 +38,7 @@ try {
       throw new Error('Lokale Worker-Laufzeit beendet: ' + output.slice(-1500));
     try {
       const response = await fetch('http://127.0.0.1:8789/', {
-        signal: AbortSignal.timeout(500),
+        signal: AbortSignal.timeout(5000),
       });
       if (response.ok) {
         result = await response.json();
@@ -54,13 +54,17 @@ try {
     atomicConsumeCount: 1,
     sessionSeen: true,
     sessionRevoked: true,
+    objectIsolation: true,
+    absoluteExpiry: true,
+    expiredSessionDenied: true,
+    expiredLoginDenied: true,
     browserFormLogout: true,
     unsafeFormRejected: true,
     legalWithoutSession: true,
     privacyGateClosed: true,
   });
   console.log(
-    'Lokaler workerd-/SQLite-Durable-Object-Test erfolgreich: sichere Deaktivierung, atomarer Callback, Sitzung und Widerruf, öffentliche Rechtstexte und Datenschutzgate.',
+    'Lokaler workerd-/SQLite-Durable-Object-Test erfolgreich: sichere Deaktivierung, atomarer Callback, isolierte Sitzungen, absoluter Ablauf von Login/Sitzung, Widerruf, öffentliche Rechtstexte und Datenschutzgate.',
   );
 } finally {
   child.kill('SIGTERM');

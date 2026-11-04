@@ -1,4 +1,56 @@
-# Galerie-Link und Werkbuch – lokal zur Veröffentlichung vorbereitet
+# Galerie-Link und Werkbuch – veröffentlicht und geprüft
+
+## Freigegeben und ausgeführt – 04.11.2026
+
+Der Betreiber hat den genau vorgelegten lokalen Commit, regulären Push einschließlich
+der sechs vorhandenen lokalen Commits und anschließende CI-/Pages-/Liveprüfung mit
+**„Die Freigabe ist erteilt“** ausdrücklich beauftragt. Dieser Umfang ist ausgeführt:
+
+- Commit **`d844e3fd623c19ce3185e1e9f165536aab0b5606`**, 04.11.2026,
+  **07:20:38 Uhr MEZ**, einziger Elterncommit `53b7521`. Genau die unten benannten
+  acht Dateien aufgenommen; PRD-Backup ausgeschlossen und bytegleich erhalten.
+- Frischer Remote-/Gateabgleich vor dem regulären Fast-forward-Push von `f793247`
+  auf `d844e3f`. Alle vorhandenen Commits erhalten, kein Force-Push. Nach erfolgreicher
+  Liveprüfung Remote-main erneut lesend als `d844e3f` bestätigt. Lokales main und
+  origin/main synchron; kein weiterer Commit oder Push aus dieser Freigabe abgeleitet.
+- [CI erfolgreich](https://github.com/bummber/evolvera/actions/runs/41784921705).
+  [Pages-Build und Deployment erfolgreich](https://github.com/bummber/evolvera/actions/runs/41784921688),
+  ausdrücklich für `d844e3f`. Archiv-/Generierungsschritt **übersprungen**.
+  Pages-Protokoll bestätigt 13 erfolgreiche Testdateien und **68 Browserfälle**,
+  sechs bewusste Doppelaufruf-Skips; lokale 165 Tests und Runtime zuvor erfolgreich.
+- [Öffentliche Galerie](https://bummber.github.io/evolvera/) jetzt mit abgenommenem
+  Werkbuch-Design; [Galerie-Einstellungen](https://bummber.github.io/evolvera/#/einstellungen)
+  verlinken den bestehenden geschützten Betreiberworker unter `/settings`.
+- **Alle 22 öffentlichen Builddateien bytegleich** zum freigegebenen lokalen Build:
+  HTML, sämtliche gebauten JS-/CSS-Dateien, lokale Schriften/Lizenzen und Archivindex.
+  Vergleich per anonymem GET, keine echten Zugangsdaten oder Sitzung benutzt.
+- Anonyme Live-Chromium-Prüfung bei **320 und 1440 px**: Heute, Einstellungen, Über
+  und Datenschutz, insgesamt acht Routen-/Breitenkombinationen, erfolgreich.
+  Linkziel exakt, Revision 3, Generierung deaktiviert, Moduskarten gesperrt, keine
+  automatischen Fremdabrufe, Schreibzugriffe, Cookies, Seitenfehler oder horizontaler
+  Dokumentüberlauf. Öffentliche 320px-Einstellungen und 1440px-Startseite sichtbar
+  gesichtet. Keine echte Anmeldung oder Modusspeicherung ausgeführt.
+- Remote-Konfiguration abschließend traceable/Revision 3, Generierung false,
+  Startdatum null; Serienfreigabe false und offizieller Index leer erhalten.
+  Worker-Health nach Galerie-Deployment `configurationReady:true`. Kein Worker-Upload,
+  Zugriff auf Secrets, Verwaltungs-Token, Sitzungsänderung oder Serienstart.
+
+GitHub nennt weiterhin nicht blockierende Hinweise zur Node-20-Zielversion
+verschachtelter Artefakt-/Pages-Actions bei erzwungenem Node 24 sowie zur Migration
+des Ubuntu-Runnerimages. Keine ungeprüfte Abhängigkeits-/Workflowänderung vorgenommen.
+Safari/Firefox, echte Geräte/Safe-Area und umfassende WCAG-/Sitzungsabnahme bleiben
+offen; die frühere zusätzliche Konfliktanzeige bleibt nicht abschließend erklärt.
+
+Temporäre HTTP-/Browsernachweise liegen unter
+`/private/tmp/evolvera-publication-d844e3f-*`; keine dauerhafte Ablagegarantie.
+Der Ergebnisstand ist hier und im HANDOFF dokumentiert. Dieser Nachtrag samt
+Status-/Startdokumenten bleibt **lokal uncommittiert**; keine zweite Commit-/Pushrunde.
+Abschließend `npm run check` für die reinen Ergebnisdokumente erfolgreich: Format,
+Lint, Typen, **165 Tests**, Datenprüfung, Build und deaktivierter Worker-Dry-Run.
+Format-/Diff-/Backupprüfung ebenfalls erfolgreich; kein zusätzlicher Browser-/
+Runtime-Lauf danach. Die abschließende Ergebniszeile anschließend gezielt formatgeprüft.
+
+## Historische Vorbereitung vor der Veröffentlichungsfreigabe
 
 Stand: 04.11.2026. Nach lesendem Wiedereinstieg und gemeinsamer Bestandssichtung
 hat der Betreiber mit „Fahre fort“ die lokale Vorbereitung beauftragt. Kein neuer

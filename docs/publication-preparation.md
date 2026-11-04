@@ -1,5 +1,15 @@
 # Öffentliche Vorschau – Betreiberangaben und Datenschutz
 
+Veröffentlicht und geprüft am 04.11.2026 nach ausdrücklicher Betreiberfreigabe:
+Commit `d844e3f` mit genau acht Dateien und regulärer Push samt sechs vorhandenen
+lokalen Commits. CI/Pages erfolgreich, Generierung übersprungen. Werkbuch-Design
+und Betreiber-Link jetzt öffentlich; 22 Builddateien bytegleich und anonyme
+Liveprüfung bei 320/1440 px erfolgreich. Gemeinsame Datenschutzfassung unverändert.
+Generierung und Serienstart weiter aus, kein Worker-Upload oder Login-/Speichervorgang.
+[Abschluss, genaue Nachweise und Grenzen](gallery-publication-preparation.md).
+Diese reine Ergebnisdokumentation bleibt nach dem Push lokal uncommittiert.
+Die nachfolgenden Vorbereitungsstände sind historisch.
+
 Aktueller Stand 04.11.2026: Galerie-Origin lokal auf den geprüften Betreiberworker
 gesetzt, bestehender `/settings`-Link und Statuskorrekturen am gebauten Werkbuch
 geprüft. Gemeinsame Datenschutzhinweise, Textversion und Durchsichtsdaten unverändert.

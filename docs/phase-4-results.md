@@ -1,5 +1,42 @@
 # Phase 4 – lokale Betreiberfunktion und Tageslauf
 
+## Aktueller Abnahmestand – 04.11.2026
+
+Werkbuch-Galerie, Betreiberworker/GitHub App, echte Anmeldung und Modusrunde bis
+traceable/Revision 5 sind inzwischen veröffentlicht beziehungsweise nachgewiesen.
+Remote zuletzt `a66d0b4`; lokal HEAD/main und gespeichertes origin/main weiterhin
+`d844e3f` mit traceable/3. Die zwei neuen Moduscommits noch nicht lokal integriert.
+Die folgenden ursprünglichen Ergebnisse vom 28.10. sind historische Nachweise.
+Die [aktuelle Abnahmematrix A-01 bis A-27](pre-series-acceptance.md) trennt lokale,
+synthetische, reale Cloud-/Browsernachweise und noch offene Kriterien.
+
+Lokale Ergänzungen: ein zweites Absenden desselben erfolgreichen Formularstands
+erzeugt einen Konflikt ohne weiteren Schreibzugriff; echtes workerd/SQLite prüft
+Objekttrennung und absoluten Ablauf von Login/Sitzung. Browser prüfen synthetischen
+Top-Level-Login mit PKCE, native Formulare, veralteten zweiten Tab, Logout und
+abgelaufene Sitzung. Chromium mit eingeschränkten Drittanbieter-Cookies, Firefox
+und WebKit bestanden: sechs zusätzliche Fälle, 120 Seiten-/Breitenkombinationen.
+Firefox verwendet temporäre getrennte Anwendungsdaten; früherer Profilstartfehler
+damit behoben, keine persönlichen Profile oder Schutzrechte geändert. Ein nativer
+Desktop-Safari-Stichprobenlauf der öffentlichen Galerie ist erfolgt.
+
+Betreiber bestätigt am 04.11.: iPhone mit Safari getestet, als Webapp gespeichert,
+keine Auffälligkeiten. Die reale Smartphone-Durchsicht ist damit dokumentiert.
+Echte Cloud-Anmeldung und Logout nach Cookieprüfanleitung sind inzwischen vom
+Betreiber auf iPhone/Safari im Privatmodus bestätigt, einschließlich Reload ohne
+erneut sichtbares Speicherformular. Danach wurde die separat freigegebene Modusrunde
+traceable/3 → free/4 → traceable/5 unter derselben Cookieeinstellung durchgeführt.
+Beide Git-Commits und CI-/Pages-Läufe erfolgreich, je 22 öffentliche Dateien bytegleich
+zum zugehörigen Laufartefakt. [Bestätigtes Cloud-Ergebnis](operator-cookie-check.md). Der
+erste geplante offizielle Archiv-/Deploylauf kann erst nach gesonderter Aktivierung
+geprüft werden. Startdatum null, Generierung false und Serienfreigabe false erhalten.
+Aus der lokalen Restabnahme wurde keine Veröffentlichung abgeleitet. Die spätere
+Speicherrunde samt zwei Remote-Moduscommits und CI-/Pages-Läufen war eigenständig
+freigegeben und ist erledigt. Kein offizielles Werk oder Phase-5-Start; kein
+Worker-Upload und kein neuer lokaler Browser-/Runtime-Lauf für diesen Ergebnisnachtrag.
+
+## Historischer Implementierungsbericht – 28.10.2026
+
 Stand: 28.10.2026. Betreiberauftrag: nächste Phase beginnen. Während der Umsetzung
 wurden die **40 Testwerke ausdrücklich abgenommen**. Der gewünschte spätere Ausbau
 mit mehr Varianz, Farbverläufen, Linien und Kurven ist ein separater Folgeauftrag.

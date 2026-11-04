@@ -17,6 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:browser": "playwright test",
+    "test:acceptance": "playwright test --config playwright.acceptance.config.ts",
     "validate:data": "tsx scripts/validate-data.ts && tsx scripts/preview-fixtures.ts && tsx scripts/evolution-fixtures.ts && tsx scripts/review-fixtures.ts",
     "check:publication": "tsx scripts/check-publication.ts",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run worker:check",

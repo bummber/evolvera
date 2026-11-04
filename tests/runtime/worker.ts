@@ -77,6 +77,52 @@ export default {
     const seen = await recordCall(env.SESSIONS, session, { operation: 'read' });
     await recordCall(env.SESSIONS, session, { operation: 'revoke' });
     const gone = await recordCall(env.SESSIONS, session, { operation: 'read' });
+    const independent = nonce();
+    await recordCall(env.SESSIONS, independent, {
+      operation: 'issue',
+      record: {
+        kind: 'session',
+        ownerId: '456',
+        csrf: 'i'.repeat(43),
+        expires: Date.now() + 3600000,
+      },
+    });
+    const other = await recordCall(env.SESSIONS, independent, {
+      operation: 'read',
+    });
+    const revokedAfterOther = await recordCall(env.SESSIONS, session, {
+      operation: 'read',
+    });
+    const expires = Date.now() + 1000;
+    const expiringSession = nonce();
+    const expiringLogin = nonce();
+    await recordCall(env.SESSIONS, expiringSession, {
+      operation: 'issue',
+      record: {
+        kind: 'session',
+        ownerId: '123',
+        csrf: 'e'.repeat(43),
+        expires,
+      },
+    });
+    await recordCall(env.SESSIONS, expiringLogin, {
+      operation: 'issue',
+      record: { kind: 'login', state, verifier: 'v'.repeat(43), expires },
+    });
+    const readBeforeExpiry = await recordCall(env.SESSIONS, expiringSession, {
+      operation: 'read',
+    });
+    // Exercise expiry in real workerd/SQLite; Node fake timers do not reach this runtime.
+    await new Promise((resolve) =>
+      setTimeout(resolve, Math.max(0, expires - Date.now() + 25)),
+    );
+    const expiredSession = await recordCall(env.SESSIONS, expiringSession, {
+      operation: 'read',
+    });
+    const expiredLogin = await recordCall(env.SESSIONS, expiringLogin, {
+      operation: 'consume',
+      state,
+    });
     const ready = createWorker(readyPolicy);
     const browserSession = 'b'.repeat(43);
     const csrf = 'c'.repeat(43);
@@ -121,6 +167,14 @@ export default {
       atomicConsumeCount: responses.filter(Boolean).length,
       sessionSeen: !!seen,
       sessionRevoked: gone === null,
+      objectIsolation:
+        z.object({ ownerId: z.literal('456') }).safeParse(other).success &&
+        revokedAfterOther === null,
+      absoluteExpiry: z
+        .object({ expires: z.literal(expires) })
+        .safeParse(readBeforeExpiry).success,
+      expiredSessionDenied: expiredSession === null,
+      expiredLoginDenied: expiredLogin === null,
       browserFormLogout:
         browserLogout.status === 303 &&
         browserGone === null &&

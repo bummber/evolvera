@@ -1,5 +1,42 @@
 # Betrieb und spätere Einrichtung
 
+Aktueller Abschluss des echten Cookie-Speichertests am 04.11.2026: Nach konkreter
+Freigabe traceable/3 → free/4 → traceable/5 durch den Betreiber gespeichert. Remote
+zuletzt `a66d0b49041149d3734a2e5bee2b56a5fc6f30b6`, beide CI-/Pages-Läufe erfolgreich;
+je 22 öffentliche Dateien bytegleich zum jeweiligen Laufartefakt. Generierung false,
+Startdatum null, Serienfreigabe false, Archiv leer. Kein Worker-Upload.
+[Nachweise, Lauf-IDs und Grenzen](operator-cookie-check.md). Lokales HEAD/main und
+gespeichertes origin/main weiter `d844e3f`, lokale Konfiguration traceable/3. Vor
+weiterer Arbeit sicher integrieren, Remote-Revision 5 nicht zurücksetzen.
+
+Die genau 17 uncommittierten Arbeitsdateien wurden vor diesem Ergebnisnachtrag
+separat freigegeben als lokales Archiv gesichert; Pfad und Prüfsumme im neuesten
+[HANDOFF](HANDOFF.md). Das Archiv enthält noch nicht die anschließenden Übergabetexte.
+Kein lokaler Commit/Push oder Merge aus dieser Übergabe beauftragt. Kein neuer
+Remoteabgleich im reinen Übergabeschritt. Die folgenden Einträge sind frühere Stände.
+
+Aktuelle lokale Restabnahme 04.11.2026: [Matrix A-01 bis A-27 und konkreter
+Start-/Fehlerablauf](pre-series-acceptance.md). Ergänzte synthetische Formular-/
+Konflikt-/Sitzungstests, echter SQLite-Ablauf, Chromium mit eingeschränkten Cookies
+und WebKit erfolgreich. Echte iPhone-/Safari-Prüfung einschließlich gespeicherter
+Webapp vom Betreiber am 04.11. ohne Auffälligkeiten bestätigt. Firefox inzwischen
+mit temporären getrennten Anwendungsdaten erfolgreich; vollständige Zusatzsuite
+sechs bestanden in drei Engines. [Echte Cloud-Anmeldung und Logout](operator-cookie-check.md)
+vom Betreiber auf iPhone/Safari im Privatmodus nach Anleitung bestätigt; Reload nach
+Logout zeigt das Formular nicht wieder. Modusspeichern unter dieser Einstellung
+bleibt separat offen. Desktop-Safari-Stichprobe durchgeführt. Kein neuer Commit,
+Push, Deployment oder Serienstart. Bestehende Ergebnisarbeiten vollständig erhalten.
+
+Aktueller Abschluss 04.11.2026: Nach ausdrücklicher Freigabe genau acht Dateien in
+`d844e3f` lokal gesichert und regulär samt den sechs vorhandenen Commits gepusht.
+CI und Pages erfolgreich, Generierung übersprungen. Werkbuch und Betreiber-Link
+öffentlich; alle 22 Builddateien bytegleich, anonyme Liveprüfung 320/1440 px erfolgreich.
+traceable/3, Generierung/Serienstart aus, Archiv leer. Kein Worker-Upload oder
+Login-/Speichervorgang. Nur nachträgliche Ergebnisdokumentation bleibt uncommittiert;
+kein zweiter Commit/Push beauftragt. [Veröffentlichungsbericht](gallery-publication-preparation.md).
+Vor dem nächsten Arbeitspaket gemeinsam den veröffentlichten Stand sichten.
+Die folgenden Zwischenstände sind historisch.
+
 Aktueller Stand 04.11.2026: Galerie-Link zum bestehenden Betreiberworker lokal gesetzt,
 Galerie-Statushinweise berichtigt, Werkbuch-Design unverändert. Publikationsprüfung,
 Gesamtcheck mit 165 Tests, lokaler Runtime-Test und 68 Browserfälle erfolgreich;
@@ -135,7 +172,18 @@ Betriebsstand interpretiert. Bei aktuellem deaktiviertem Stand: null neue Werke.
 `--apply` ist zusätzlich auf den freigegebenen GitHub-Workflow und das feste Repository
 begrenzt; lokal kein vorgesehener Schreibbefehl.
 
-## Externe Einrichtung – GitHub App installiert, Worker noch offen
+## Externe Einrichtung – bestehender Betrieb und historische Einrichtung
+
+Stand 04.11.2026: Galerie und bestehender Worker sind eingerichtet und veröffentlicht,
+GitHub App nur auf bummber/evolvera installiert, Login/Logout und Modusrunde bis
+traceable/5 nachgewiesen; lokal noch traceable/3, Integration offen. Keine Wiederholung
+der Einrichtung oder Secret-Eingabe
+aufgrund der folgenden historischen Schritte. Die versionierte Worker-Vorlage ist
+bewusst deaktiviert; der echte Worker wurde separat bereitgestellt.
+[Veröffentlichungsbericht](gallery-publication-preparation.md),
+[aktuelle Restabnahme und Startplan](pre-series-acceptance.md).
+
+### Historische Einrichtungsschritte – nicht erneut ausführen
 
 Konkrete Werte, Rechte, Grenzen und Freigabereihenfolge stehen in der
 [Einrichtungsvorlage, aktualisiert am 03.11.2026](operator-setup.md). Die Dokumentation selbst ist keine Beauftragung.
@@ -191,7 +239,10 @@ und SHA-256 der beiden Testpakete. **`seriesAuthorized` bleibt false.**
 Startdatum `null` und `generationEnabled:false` in `config/generation.json` bleiben
 unverändert, bis Betreiber Datum und Aktivierung ausdrücklich freigibt.
 
-Vorher alle externen Prüfungen durchführen. Anschließend in einem gesonderten,
+Vorher die offenen Nachweise der [Abnahmematrix](pre-series-acceptance.md) sichten
+und abschließen oder begründet gesondert entscheiden. Datum bleibt bis dahin offen.
+Der konkrete Start-/Stopp-/Nachweisablauf ist dort vorbereitet, ohne Gates zu ändern.
+Anschließend in einem gesonderten,
 prüfbaren Commit ein konkretes Startdatum setzen, `seriesAuthorized:true` und
 `generationEnabled:true` freigeben. `EVOLVERA_AUTOMATION_ENABLED=true` und Pages-
 Freigabe sind zusätzliche Workflowgates. Diese Variablen ersetzen die Dateigates nicht.
@@ -234,8 +285,9 @@ Rückkehr zur Seite neu. Hintergrundtabs werden nicht aktiv abgefragt.
 - Bei Moduskonflikt im Worker: Einstellungen neu laden und gespeicherte Revision prüfen.
   Unklare GitHub-Antwort kann bereits einen Commit bedeuten. Keine blinde Wiederholung;
   die Oberfläche behauptet bis zur Commitprüfung keinen Erfolg.
-- Noch kein konkreter erfolgreicher Cloud-Lauf vorhanden: keine Deployment-/Auth-
-  Erfolgsangaben aus lokalen Testergebnissen ableiten.
+- CI-/Pages-Deployment und echte Betreiberanmeldung sind nachgewiesen. Der erste
+  geplante offizielle Archivlauf ist noch nicht erfolgt; lokale/synthetische
+  Testergebnisse niemals als dessen Erfolg oder volle Cloud-Abnahme darstellen.
 
 Lastgrenze aktuell 10.000 Werke/Titel pro Serie; bei Erreichen sicher stoppen statt
 Teildaten zu archivieren. Historische Renderer/Generatorversionen erhalten.

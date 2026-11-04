@@ -390,6 +390,30 @@ it('verweigert veraltete Revisionen und Git-Konflikte ohne blindes Wiederholen',
   expect(putCount).toBe(1);
   expect(saved).toEqual(config);
 });
+it('speichert einen Formularstand einmal und zeigt bei erneutem Absenden einen Konflikt', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const submit = () =>
+    worker.fetch(
+      request(
+        '/settings/mode',
+        cookie,
+        new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
+      ),
+      env,
+    );
+  const first = await submit();
+  expect(first.status).toBe(200);
+  expect(await first.text()).toContain('In Git gespeichert.');
+  expect(putCount).toBe(1);
+  const repeated = await submit();
+  expect(repeated.status).toBe(409);
+  expect(await repeated.text()).toContain('Speicherkonflikt.');
+  expect(putCount).toBe(1);
+  expect(saved).toEqual({ ...config, inheritanceMode: 'free', revision: 2 });
+  const reloaded = await settings(cookie);
+  expect(reloaded.text).toContain('Revision 2');
+});
 it('meldet bei unbestätigtem Commit keinen Speichererfolg', async () => {
   const { cookie } = await login();
   const { csrf } = await settings(cookie);

@@ -1,9 +1,10 @@
 # Evolvera – aktueller Übergabestand
 
-Stand: 03.11.2026. Aktueller Betreiberauftrag hat Vorrang. Die öffentliche
-**Pages-Testversion ist veröffentlicht und geprüft**. Der Betreiberworker ist seit
+Stand: 04.11.2026. Aktueller Betreiberauftrag hat Vorrang. Die öffentliche
+**Pages-Testversion mit abgenommenem Werkbuch-Design ist veröffentlicht und geprüft**.
+Der Betreiberworker ist seit
 03.11.2026 separat veröffentlicht und aktiviert; der Betreiber hat den erfolgreichen
-GitHub-Login, Abmelden/Neuanmelden und inzwischen die Modusrunde bis traceable/3
+GitHub-Login, Abmelden/Neuanmelden und inzwischen die Modusrunde bis traceable/5
 bestätigt. Einzelne Nachweise und Grenzen stehen im neuesten Block unten.
 Cloudflare-Konto und lesende Codex-MCP-Verbindung
 sind inzwischen vorhanden und geprüft. Kein offizieller Serienstart.
@@ -15,7 +16,299 @@ Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gew
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
 inzwischen abgeschlossen. Konkrete Upload-Vorbereitung und offene Freigaben siehe unten.
 
-## Aktuelle Chat-Übergabe – 04.11.2026, Galerie lokal vorbereitet
+## Aktuelle Chat-Übergabe – 04.11.2026, echte Modusrunde und Sicherung abgeschlossen
+
+Der Betreiber hat nach konkreter Vorlage mit **„Leg los“** A (zwei Moduswechsel samt
+Git-/CI-/Pages-Folgen) und B (genau benanntes lokales Sicherungsarchiv) freigegeben.
+Beide Schritte sind vollständig erledigt. Der folgende Auftrag fragt nach Sicherung
+und neuem Startprompt; deshalb jetzt ausschließlich Ergebnis-/Übergabedokumentation.
+Kein neuer Remoteabgleich in diesem abschließenden Übergabeschritt. Frühere Freigaben
+sind erledigt und erteilen keinen weiteren Speicher-, Commit-, Push- oder Deployauftrag.
+
+- Betreiber bestätigt im privaten iPhone-Safari-Ablauf free/4 und danach traceable/5.
+  Cookieeinstellung gemäß Durchführung nach Anleitung; keine eigene Cookie-/Sitzungseinsicht.
+  [Vollständiger Ergebnisbericht](operator-cookie-check.md). Echte Geräte-/Kunst-/
+  Login-/Logoutprüfungen und diesen Speichertest nicht pauschal wiederholen.
+- Hinwechsel: `25341921a5224d8addc70965b40ad695a6780523`, Elterncommit `d844e3f`,
+  04.11.2026 14:15:41 MEZ; Rückwechsel: `a66d0b49041149d3734a2e5bee2b56a5fc6f30b6`,
+  Elterncommit `2534192`, 14:24:12 MEZ. Beide ändern nur Modus/Revision in
+  `config/generation.json`. Beide CI-/Pages-Läufe erfolgreich, Generierung jeweils
+  übersprungen; je 22 öffentliche Dateien bytegleich zum jeweiligen Laufartefakt.
+  Worker-Health danach HTTP 200, configurationReady:true; kein Worker-Upload.
+- **Remote zuletzt traceable/Revision 5**, Generierung false, Startdatum null,
+  seriesAuthorized:false, offizielles Archiv leer. Pages-Schalter true,
+  Automatisierungsschalter beim Speichertest nicht gesetzt. Kein offizielles Folgewerk.
+- **Lokal HEAD/main und gespeichertes origin/main weiterhin exakt**
+  `d844e3fd623c19ce3185e1e9f165536aab0b5606`, lokale Konfiguration traceable/3.
+  origin unverändert `https://github.com/bummber/evolvera.git`. Kein Fetch/Pull/Merge/
+  Reset oder lokaler Commit. Zwei Remote-Moduscommits noch bewusst zu integrieren;
+  Revision 5 niemals mit der lokalen Revision 3 überschreiben. Git-status-Vergleich
+  mit dem gespeicherten origin/main beweist aktuell keine Remote-Synchronität.
+- Alle 17 Arbeitsdateien bleiben uncommittiert (12 versioniert geändert, 5 neu);
+  PRD-Backup zusätzlich unversioniert/bytegleich. Bestehende Test-/Ergebnisarbeiten
+  erhalten. Übergabe aktualisiert nur sieben bereits enthaltene Dokumente: README,
+  HANDOFF, NEXT-START, Cookiebericht, Abnahmematrix, Phase-4-Bericht und Runbook.
+  Produktionscode, Konfiguration, Lockfile und Kunst unverändert.
+- **Lokales Sicherungsarchiv freigegeben, erstellt und verifiziert:**
+  `/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-stand-d844e3f.tar.gz`,
+  82.061 Bytes, SHA-256
+  `a5e4da144a884eff2ece43028a2d1f343e1c51d2807c76dd9fb4ef996810e932`.
+  Genau 17 Arbeitsdateien plus BACKUP-MANIFEST.json mit Basiscommit/Prüfsummen;
+  Inhalt byteweise geprüft, PRD-Backup ausgeschlossen. Vor dem jetzigen Dokumentations-
+  nachtrag erneut alle 17 Dateien bytegleich zum Archiv bestätigt. Dieses Archiv
+  wird nicht überschrieben und enthält noch nicht die jetzigen sieben Dokumentupdates.
+  Keine zusätzliche Archiv- oder lokale Commitfreigabe daraus ableiten.
+- Vorherige lokale Prüfungen: 166 Tests/Gesamtcheck, vollständige Zusatzsuite sechs
+  bestanden in drei Engines, zwei reguläre Formularfälle zusätzlich; reguläre
+  68er-Suite mit sechs bewussten Skips/sechs unveränderten Kunstreferenzen und
+  workerd/SQLite als frühere Nachweise. Die neuen Remote-Läufe verwenden den
+  versionierten Remote-Code; die 17 lokalen Arbeiten/opt-in-Zusatzsuite sind dort
+  nicht veröffentlicht. Keine lokalen Testzahlen auf die Remote-Läufe übertragen.
+- Restgrenzen: frühere zusätzliche Konfliktursache ungeklärt, umfassende WCAG-/
+  Sitzungs-/Performanceabnahme und offizieller Betriebsnachweis offen. Logout nach
+  der neuen Modusrunde nur empfohlen, nicht zusätzlich bestätigt; früherer echter
+  Login-/Logout-/Reloadnachweis bleibt erledigt. Keine neue Designrunde, Phase 5,
+  EP-01 oder Aktivierung. Bestehenden Worker/Secrets/SQLite-Sitzungen erhalten.
+
+Nächster abgegrenzter Schritt nach gemeinsamer Sichtung: sicheren lokalen Abgleich
+mit den zwei Remote-Moduscommits vorbereiten, sämtliche 17 Dateien erhalten und
+konkreten Sicherungs-/Integrationsumfang samt Prüfungen vorlegen. Ein zusätzlicher
+lokaler Sicherungscommit oder die Integration braucht den passenden Folgeauftrag;
+kein Push/Deployment aus diesem Startprompt. Erst danach verbleibende Abnahmegrenzen
+und eine spätere eigenständige Serienfreigabe gemeinsam sichten.
+[Aktueller kopierbarer Startprompt](NEXT-START.md).
+
+Prüfung der sieben Übergabedokumente: `npm run check` vollständig erfolgreich mit
+**166 Tests**, Format/Lint/Typen, Daten-/Vorschauprüfung, Build und deaktiviertem
+Worker-Dry-Run. Erster Sandboxlauf nach bestandenen 166 Tests am lokalen tsx-IPC-Socket
+mit EPERM blockiert; Wiederholung mit lokalen Prozessrechten erfolgreich. Kein neuer
+lokaler Browser-/Worker-Runtime-Lauf und kein Remoteabgleich für diese reinen Dokumente.
+Archivprüfsumme unverändert; genau sieben Dokumente unterscheiden sich jetzt vom
+Archiv, übrige zehn Arbeitsdateien bytegleich. Dateiauswahl/Git-Zustand unverändert,
+PRD-Backup unversioniert und bytegleich. Diese Ergebniszeile danach gezielt format-/
+diffgeprüft; kein weiterer Gesamtcheck nach dem reinen Ergebnisnachtrag behauptet.
+
+Vollständiger lokaler Arbeitsbestand außerhalb des PRD-Backups (17 Dateien):
+
+```text
+README.md
+docs/HANDOFF.md
+docs/NEXT-START.md
+docs/gallery-publication-preparation.md
+docs/operator-cookie-check.md
+docs/phase-4-results.md
+docs/pre-series-acceptance.md
+docs/publication-preparation.md
+docs/runbook.md
+package.json
+playwright.acceptance.config.ts
+scripts/test-worker-runtime.ts
+tests/acceptance/prestart.spec.ts
+tests/browser/operator-forms.spec.ts
+tests/fixtures/browser.ts
+tests/operator.test.ts
+tests/runtime/worker.ts
+```
+
+## Vorherige Chat-Übergabe – 04.11.2026, Wechsel in neuen Chat vorbereitet
+
+Betreiber fragt nach Fortsetzung und einem neuen Startprompt. Dieser Schritt umfasst
+ausschließlich Übergabedokumentation; keine neue Prüfung am Livezugang, kein
+Modusspeichern, Commit, Push, Deployment oder Serienstart daraus ableiten.
+[Aktueller kopierbarer Startprompt](NEXT-START.md). Frühere Startprompts/Freigaben
+sind historisch und erweitern den Auftrag nicht.
+
+- Lokales main/HEAD und gespeicherte origin/main-Referenz exakt
+  **`d844e3fd623c19ce3185e1e9f165536aab0b5606`**. origin unverändert
+  `https://github.com/bummber/evolvera.git`. Kein neuer Remoteabgleich in diesem
+  Übergabeschritt; bei Bedarf frisch lesend prüfen, keinen Fetch/Pull/Reset erzwingen.
+- Werkbuch samt Betreiber-Link öffentlich veröffentlicht; CI/Pages und alle 22
+  öffentlichen Builddateien für d844e3f geprüft. Aktuelle lokale Restabnahme ändert
+  weder Produktbuild noch Kunst/Generator/Renderer/Daten/Konfiguration/Lockfile.
+- **Sämtliche lokalen Restabnahme- und Ergebnisarbeiten bleiben uncommittiert.**
+  Genau 17 Arbeitsdateien zusätzlich zum bewusst unversionierten bytegleichen
+  PRD-Backup; siehe Liste unten. Frühere fünf Veröffentlichungs-Ergebnisdokumente
+  sind darin erhalten und weitergeführt. Kein Sicherungscommit aus diesem
+  Übergabeauftrag ableiten. Ein sinnvoller späterer lokaler Sicherungsschritt muss
+  zuerst mit genauem Umfang zur eigenen Freigabe vorgelegt werden.
+- Kunstabnahme der 40 Testwerke und zehn Designpakete abgeschlossen. Echte iPhone-/
+  Safari-Prüfung einschließlich gespeicherter Webapp ohne Auffälligkeiten bestätigt.
+  Anschließend echter Login/Logout nach Cookieprüfanleitung im privaten iPhone-
+  Safari bestätigt; Reload nach Logout zeigt das Formular nicht wieder. Diese
+  Prüfungen nicht pauschal erneut verlangen. Keine umfassende Offline-/WCAG- oder
+  Sitzungsabnahme daraus ableiten.
+- Firefox-Profilstartfehler behoben durch ausschließlich temporäre eigene
+  MOZ_APP_DATA-Ablage in tests/fixtures/browser.ts für macOS/Firefox; keine private
+  Profilnutzung, HOME-Änderung oder zusätzlichen Schutzrechte. Vorhandene gepinnte
+  Firefox-/WebKit-Testbrowser installiert; keine normale Firefox-Installation nötig.
+- Letzte Nachweise: Gesamtcheck/Publikationsprüfung mit **166 Tests**, Datenprüfung,
+  Build und deaktiviertem Worker-Dry-Run erfolgreich. Vollständige Zusatzsuite
+  **sechs bestanden** in Chromium/Firefox/WebKit (120 Seiten-/Breitenkombinationen,
+  drei synthetische Login-/Formularläufe). Zwei gezielte reguläre Chromium-
+  Formularfälle zusätzlich bestanden. Die reguläre 68er-Suite mit sechs bewussten
+  Skips/sechs unveränderten Kunstreferenzen und echte workerd-/SQLite-Runtime sind
+  vorherige erfolgreiche Nachweise, kein neuer Voll-/Runtime-Lauf nach den reinen
+  Ergebnisnachträgen. Erneut erforderliche Checks passend zum tatsächlichen Schritt.
+- Noch getrennt offen: **echte Modusspeicherung unter derselben Cookieeinstellung**.
+  Frühere echte Modusrunde traceable/1 → free/2 → traceable/3 ist nachgewiesen;
+  zusätzliche damalige Konfliktanzeige nicht abschließend erklärt. Lokale Stale-
+  Formularfälle reproduzieren eine Möglichkeit, beweisen aber nicht den damaligen
+  Auslöser. Kein weiterer echter Speichervorgang beauftragt; er könnte Git-Commit
+  und Pages auslösen. Erst konkreten Ablauf samt Rückwechsel, erwarteten Revisionen,
+  Remote-/CI-/Pages-Nachweisen und eigenständiger Freigabe vorbereiten.
+- Generierung false, Startdatum null, traceable/Revision 3, Serienfreigabe false,
+  offizielles Archiv leer. Spätere Serienfreigabe/Datum/Actions-Schalter unabhängig.
+  Erster offizieller geplanter Lauf und Wiederholung erst nach Aktivierung prüfbar.
+  Kein Phase-5-/EP-01-Start oder neue Designrunde aus diesem Startprompt.
+- Worker/Secrets/Sitzungen unverändert erhalten; Anmeldung und Anbieterprüfung sind
+  eingerichtet, keine neue allgemeine Einrichtungs-/Secret-Runde. Für den nächsten
+  Galerie-/Speichertest kein Worker-Upload oder Cloudflare-Verwaltungstoken nötig.
+  Befristeter Verwaltungstoken endet am 04.11.2026 um 23:59:59 MEZ; falls später
+  tatsächlich erforderlich, Gültigkeit vorher frisch lesend prüfen. Keine Rechte/
+  Tokens neu einrichten oder Ablauf umgehen; MCP bleibt lesend.
+
+Für diesen reinen Übergabeschritt `npm run check` erneut vollständig erfolgreich:
+166 Tests, Datenprüfung, Build und deaktivierter Worker-Dry-Run. Format-/Diff-/
+Backupprüfung erfolgreich, alle 17 Arbeitsdateien erhalten. Kein neuer Browser-/
+Runtime-/Remote-Nachweis; abschließende Ergebniszeile gezielt formatgeprüft.
+
+Vollständiger lokaler Bestand außerhalb des PRD-Backups (17 Dateien):
+
+```text
+README.md
+docs/HANDOFF.md
+docs/NEXT-START.md
+docs/gallery-publication-preparation.md
+docs/operator-cookie-check.md
+docs/phase-4-results.md
+docs/pre-series-acceptance.md
+docs/publication-preparation.md
+docs/runbook.md
+package.json
+playwright.acceptance.config.ts
+scripts/test-worker-runtime.ts
+tests/acceptance/prestart.spec.ts
+tests/browser/operator-forms.spec.ts
+tests/fixtures/browser.ts
+tests/operator.test.ts
+tests/runtime/worker.ts
+```
+
+## Vorherige Chat-Übergabe – 04.11.2026, Restabnahme lokal ergänzt
+
+Neuester Betreiberbefund am 04.11.: Echten Cloudtest auf iPhone/Safari im Privatmodus
+nach der Cookieprüfanleitung durchgeführt. Anmelden und Abmelden funktionieren;
+auch Reload nach Logout zeigt das Formular nicht wieder. Dieser begrenzte Cloudtest
+ist damit bestätigt. Keine eigene Sitzungs-/Cookieeinsicht oder Speicherung durch
+den Agenten; Modusspeichern unter dieser Cookieeinstellung nicht bestätigt oder
+beauftragt. [Ergebnis](operator-cookie-check.md). Generierung/Serienstart unverändert aus.
+Reiner Ergebnisnachtrag: `npm run check` danach mit 166 Tests, Datenprüfung, Build
+und deaktiviertem Worker-Dry-Run erfolgreich; kein neuer Browser-/Runtime-Lauf.
+
+Neuester Nachtrag: Firefox-Startproblem gezielt eingegrenzt und im Testaufbau mit
+eigenen temporären Anwendungsdaten (`MOZ_APP_DATA`, nur macOS/Firefox) behoben.
+`tests/fixtures/browser.ts` bereinigt die Daten nach Browserende; keine persönlichen
+Profile oder macOS-Schutzrechte geändert, keine zusätzliche Installation nötig.
+Vollständiges `CI=true npm run test:acceptance` nun **sechs bestanden** in Chromium,
+Firefox und WebKit: 120 Seiten-/Breitenkombinationen und drei synthetische Login-/
+Formularläufe. Historische Vier-Fälle-/Firefox-Fehlerhinweise weiter unten sind überholt.
+[Eingegrenzte Ursache und Nachweise](pre-series-acceptance.md#firefox-startproblem--isoliert-behoben).
+[Anleitung und inzwischen bestätigtes Cloud-Ergebnis](operator-cookie-check.md)
+liegen vor; Anmeldung/Callback/Logout ohne echte Modusspeicherung.
+Publikationsprüfung und Gesamtcheck mit 166 Tests, Build und deaktiviertem
+Worker-Dry-Run erneut erfolgreich. Die gemeinsame Fixture zusätzlich mit den
+zwei regulären Chromium-Formularfällen geprüft. Kein erneuter 68er-Voll- oder
+Worker-Runtime-Lauf; deren bestehende Nachweise bleiben erhalten. Firefox-Testdaten
+vollständig bereinigt, Produktbuild weiterhin bytegleich; nur lokale Tests/Docs geändert.
+
+Nachtrag am 04.11.: Betreiber bestätigt **„Auf iphone mit Safari getestet und als
+Webapp gespeichert. Keine Auffälligkeiten“**. Echte iPhone-/Safari-Durchsicht damit
+als Betreiberbefund dokumentiert; kein offener Smartphonecheck mehr. Keine umfassende
+Safe-Area-/Offline-Abnahme daraus ableiten. Firefox und Cloud-Anmeldung/Logout
+sind inzwischen durch die neueren Nachträge belegt, Seriengates unverändert.
+Nur Dokumentation angepasst.
+Danach `npm run check` mit 166 Tests, Datenprüfung, Build und deaktiviertem
+Worker-Dry-Run erneut erfolgreich; keine neue Browser-/Runtime-Suite.
+
+Nach gemeinsamer Sichtung auf „Bitte mach weiter“ ausschließlich lokale Restabnahme
+ergänzt. HEAD/main und gespeichertes origin/main weiter `d844e3f`; fünf vorherige
+Ergebnisdokumente erhalten. Keine Produktions-/Design-/Kunst-/Generatoränderung,
+kein neuer Commit/Push/Deployment, kein Zugriff auf reale Secrets oder Sitzungen.
+Generierung false, Startdatum null, traceable/Revision 3, Serienfreigabe false,
+offizielles Archiv leer. In diesem Paket kein neuer GitHub-Head-/Verwaltungsabgleich.
+
+[Neue Abnahmematrix A-01 bis A-27, Ergebnisse, offene Punkte und Start-/Fehlerplan](pre-series-acceptance.md).
+README und Phase-4-Bericht auf den veröffentlichten Stand gebracht; historische
+Einrichtungsanweisungen im Runbook ausdrücklich markiert. Serienstart nur als
+gesondert freizugebenden späteren Ablauf konkretisiert, ohne Datum oder Gateänderung.
+
+Gezielt ergänzt: Doppelabsenden nach erfolgreichem Commit ergibt Konflikt ohne
+zweiten PUT; echter workerd/SQLite prüft Objekttrennung und absoluten Login-/
+Sitzungsablauf. Synthetischer Top-Level-Login über zwei lokale Origins mit PKCE,
+nativen Formularen, veraltetem Zweittab, Logout und abgelaufener Sitzung.
+Neue opt-in Abnahme `npm run test:acceptance`, bestehende Referenzsuite unverändert.
+Chromium mit eingeschränkten Drittanbieter-Cookies und WebKit: vier Fälle bestanden,
+80 zusätzliche Seiten-/Breitenkombinationen. 166 Unit-/Integrationstests, Runtime
+und reguläre 68 Browserfälle erfolgreich; sechs bewusste Skips und unveränderte
+sechs Kunstreferenzen. Details und Zwischenfehler des Testaufbaus im neuen Bericht.
+
+Native öffentliche Desktop-Safari-Stichprobe erfolgreich: Heute, Einstellungen,
+Werkdetails beider Modi, Herkunftsnavigation, Animationspause und Datenschutz;
+eigener Prüftab geschlossen. Kein Cloudlogin/Modusspeichern. Der frühere Firefox-
+Profilstartfehler trotz leerem Profil ist durch obigen Nachtrag im isolierten
+Testaufbau behoben; keine Schutzfunktionen deaktiviert. Der zunächst noch
+ungeprüfte Smartphonecheck ist durch obigen iPhone-/Safari-Nachtrag inzwischen bestätigt.
+Echte Modusspeicherung unter der Cookieprüfeinstellung, umfassende Geräte-/WCAG-/Sitzungs-/Performanceabnahme
+und Nachweise des offiziellen Betriebs bleiben offen. Die frühere zusätzliche
+Konfliktanzeige ist trotz lokal reproduzierbarer Möglichkeit nicht abschließend erklärt.
+
+Alle Arbeiten einschließlich Tests/Statusdokumenten bleiben uncommittiert; Backup
+weiter unversioniert und bytegleich. Bestehende gepinnte Playwright-Version und Lockfile
+erhalten; nur passende Testbrowser im lokalen Cache ergänzt. Nach Ergebnisdokumenten
+Gesamtcheck erneut erfolgreich mit 166 Tests, Build und deaktiviertem Worker-Dry-Run;
+endgültige Zusatzabnahme vier bestanden. Abschließende Ergebniszeile gezielt auf
+Format/Diff geprüft, Backup bytegleich; kein neues Arbeitspaket oder
+Phase-5-/EP-01-/Serienstart daraus ableiten.
+
+## Vorherige Chat-Übergabe – 04.11.2026, Werkbuch veröffentlicht
+
+Betreiber hat den konkret vorgelegten Commit-/Push-/Pages-Umfang mit
+**„Die Freigabe ist erteilt“** beauftragt. Genau acht benannte Dateien lokal in
+**`d844e3fd623c19ce3185e1e9f165536aab0b5606`** gesichert, Elterncommit `53b7521`;
+anschließend regulärer Fast-forward-Push samt allen sechs vorhandenen lokalen
+Commits von `f793247` auf `d844e3f`. Kein Force-Push, kein weiterer Commit.
+Lokales main und origin/main synchron, Remote nach Liveprüfung frisch bestätigt.
+
+[CI](https://github.com/bummber/evolvera/actions/runs/41784921705) und
+[Pages](https://github.com/bummber/evolvera/actions/runs/41784921688) für genau diesen
+Commit erfolgreich. Build/Deploy abgeschlossen, Generierung ausdrücklich übersprungen.
+Die [öffentliche Galerie](https://bummber.github.io/evolvera/) zeigt jetzt das
+abgenommene Werkbuch-Design; Einstellungen führen zum bestehenden Betreiberworker.
+Alle **22 öffentlichen Builddateien bytegleich** zum freigegebenen lokalen Build.
+Anonyme Live-Chromium-Prüfung von Heute/Einstellungen/Über/Datenschutz bei 320/1440 px
+erfolgreich, korrektes Linkziel, keine automatischen Fremdabrufe, Schreibzugriffe,
+Cookies, Seitenfehler oder horizontaler Überlauf. Zwei Liveaufnahmen sichtbar gesichtet.
+Pages-Browsersuite: **68 bestanden**, sechs bewusste Skips. Bisheriger lokaler
+Gesamtcheck mit 165 Tests und echter Runtime erfolgreich; Details im Bericht.
+
+traceable/Revision 3, Generierung false, Serienstart null, Serienfreigabe false,
+offizielles Archiv leer. Worker-Health nach Veröffentlichung configurationReady:true;
+kein Worker-Upload, Zugriff auf Secrets/Verwaltungstoken, Login oder Modusspeichern.
+Safari/Firefox, reale Geräte/Safe-Area, umfassende WCAG-/Sitzungsabnahme bleiben offen;
+frühere zusätzliche Konfliktanzeige nicht abschließend erklärt. GitHub-Hinweise zu
+Actions-Nodeversion/Ubuntu-Migration sind nicht blockierend; keine ungeprüften Updates.
+
+[Vollständiger Veröffentlichungsbericht und Grenzen](gallery-publication-preparation.md).
+Nur diese Ergebnisdokumentation samt NEXT-START/Runbook/Publikationsbericht bleibt
+nach dem freigegebenen Push zusätzlich uncommittiert; PRD-Backup weiterhin
+unversioniert und bytegleich. Kein zweiter Commit/Push aus der erledigten Freigabe.
+Nach der Ergebnisdokumentation `npm run check` mit **165 Tests**, Datenprüfung,
+Build und deaktiviertem Worker-Dry-Run erneut erfolgreich; Format-/Diff-/Backupprüfung
+erfolgreich. Keine zusätzliche Browser-/Runtime-Suite für die reinen Dokumente.
+Abschließende Ergebniszeile anschließend gezielt formatgeprüft.
+Vor dem nächsten Arbeitspaket gemeinsam den veröffentlichten Stand sichten.
+
+## Vorherige Chat-Übergabe – 04.11.2026, Galerie lokal vorbereitet
 
 Nach lesendem Wiedereinstieg und gemeinsamer Sichtung mit „Fahre fort“ ausschließlich
 lokale Vorbereitung umgesetzt: `config/operator.json` verweist auf den bestehenden
