@@ -1,1 +1,4 @@
-{ "schemaVersion": 1, "adminOrigin": null }
+{
+  "schemaVersion": 1,
+  "adminOrigin": "https://evolvera-admin.alexander-brocker.workers.dev"
+}

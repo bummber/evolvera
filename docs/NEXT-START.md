@@ -1,69 +1,139 @@
-# Startprompt – lokal gesichert und zusammengeführt, vor Veröffentlichung
+# Aktueller Startprompt – Galerie lokal vorbereitet am 04.11.2026
 
-Stand 03.11.2026. Zwei lokale Commits ausdrücklich freigegeben; kein Push oder
-Deployment. Der aktive Prompt unten ersetzt die früheren Zwischenanweisungen.
-Die vorherige vollständige Promptfassung ist im Sicherungscommit `238cbda` erhalten;
-der ursprüngliche historische Startprompt bleibt zusätzlich unten stehen.
+Dieser neue Stand ersetzt den nachfolgenden historischen Pausenprompt als aktiven
+Wiedereinstieg. Vorhandene Pausenarbeiten bleiben erhalten. Keine Publikationsfreigabe.
 
 ```text
 Bitte Evolvera im bestehenden Projekt fortsetzen:
 /Users/abrocker/ai_o_projects/evolvera/
 origin: https://github.com/bummber/evolvera.git
 
-Lies AGENTS.md, docs/HANDOFF.md (neuester Block), docs/integration-preparation.md
-und docs/operator-mode-test.md. Fachliche Quelle ist docs/PRD.md v1.1.
-Git zuerst prüfen und alle Arbeiten erhalten. Keine neue Designrunde: zehn Pakete
-und Werkbuch-Design sind bereits positiv gesichtet.
+AGENTS.md, neuesten HANDOFF-Block und docs/gallery-publication-preparation.md lesen.
+Git zuerst lesend prüfen und alle Arbeiten erhalten. PRD.md v1.1 bleibt fachliche
+Quelle; zehn Werkbuch-Pakete und 40 Testwerke sind bereits abgenommen.
+Keine neue Designrunde, Kunst-/Generator-/Archivänderung oder Serienfreigabe.
 
-Der Betreiber hat genau zwei lokale Commits ohne Push mit „Freigabe erteilt“
-beauftragt: Sicherungscommit 238cbdaee1eab859b7e12cbd097abcbc35126e74 mit exakt
-22 benannten Dateien erstellt; danach origin/main auf f7932479a839a6176160eabe4edc675133aacafb
-gefetcht und konfliktfrei zusammengeführt. Lokales main/HEAD ist der abschließende
-Mergecommit mit Eltern 238cbda und f793247; aktuellen Hash mit git log -1 lesen.
-Sechs lokale Commits vor origin/main. Alle früheren vier lokalen Commits erhalten.
-Kein Pull/Reset oder Force-Push. PRD_v1.1_backup.md unversioniert und bytegleich
-belassen; nicht aufnehmen oder formatieren. Ein sauberer Arbeitsbaum darf dieses
-bewusst unversionierte Backup weiterhin anzeigen.
+HEAD weiterhin 53b7521cf027964c34091646432ba721514bd3c1, main sechs Commits vor
+dem am 04.11. lesend bestätigten Remote f7932479a839a6176160eabe4edc675133aacafb.
+Kein neuer Commit, Push oder Deployment. Die acht Dateien der lokalen Vorbereitung
+und die vollständige Kandidatenliste stehen in gallery-publication-preparation.md.
+Pausenänderungen in HANDOFF/NEXT-START wurden erhalten und weitergeführt.
+PRD_v1.1_backup.md bleibt unversioniert und bytegleich; niemals automatisch aufnehmen.
+
+config/operator.json zeigt lokal jetzt auf den bestehenden geprüften Betreiberworker.
+Der vorhandene Link führt zu /settings; Galerie-Statushinweise sind berichtigt und
+die Einstellungsanzeige als Stand dieser Galerieversion erklärt. Gemeinsamer
+Datenschutztext, Version 2026-11-03.1 und Durchsichtsdaten unverändert. Versionierter
+Workerstandard bleibt deaktiviert; kein weiterer Upload oder Verwaltungstoken nötig.
+Liveworker, Sitzungen und Secrets erhalten; keine Secrets lesen, ausgeben oder anfordern.
+Eine spätere nötige Tokenverwendung verlangt frische Zeit-/Gültigkeitsprüfung;
+keinen Ablauf umgehen und keine neuen Rechte oder Tokens ungefragt einrichten.
+
+Prüfstand 04.11.: check:publication und npm run check mit 165 Tests, Datenprüfung,
+Build und deaktiviertem Worker-Dry-Run erfolgreich; worker:test-runtime erfolgreich;
+CI=true npm run test:browser am neuen Build: 68 bestanden, sechs bewusste Skips,
+sechs Kunstreferenzen unverändert. Einstellungsaufnahmen aller fünf Breiten gesichtet.
+Safari/Firefox, echte Geräte/Safe-Area, umfassende WCAG-/Sitzungsabnahme bleiben offen.
+Zusätzliche Konfliktanzeige der früheren Modusrunde nicht abschließend erklärt.
+Nach reinen Ergebnisdokumenten nur gezielte Format-/Diffprüfung; keinen weiteren
+Browser-/Runtime-Lauf behaupten. Tatsächliche Nachweise im Vorbereitungsbericht lesen.
+
+Generierung false, Startdatum null, seriesAuthorized:false, traceable/Revision 3,
+offizielles Archiv leer. Pages-Schalter beim Lesecheck true, Tagesautomatisierung
+nicht gesetzt. Galerie/öffentliche Worker-Routen mit Browser-User-Agent HTTP 200,
+Health configurationReady:true; kein neuer Login-/Speichervorgang. Öffentliche Pages
+weiterhin auf f793247 mit bisherigem Design; neues Werkbuch nur lokal vorbereitet.
+
+Zuerst gemeinsam den aktuellen Kandidaten sichten. Noch keine neuen Commits, Pushes
+oder Deployments ohne konkreten Folgeauftrag. Ein späterer Push würde auch sämtliche
+sechs bestehenden lokalen Commits samt Workerquellen/Datenschutz/Tests/Dokumentation
+veröffentlichen und Pages auslösen; Worker-Upload und Serienstart gehören nicht dazu.
+Vor einer Veröffentlichung frischen Remote-/Gateabgleich durchführen, tatsächlichen
+geprüften Umfang ausdrücklich vorlegen und passende Betreiberfreigabe abwarten.
+```
+
+## Historischer Startprompt – Pausenstand vor der Galerievorbereitung
+
+# Startprompt – neuer Chat am 04.11.2026 nach der Pause
+
+Stand 03.11.2026. Projekt und Integration sind lokal gesichert; nur dieser
+Pausennachtrag und HANDOFF liegen danach zusätzlich uncommittiert vor.
+Für den Wiedereinstieg den folgenden aktuellen Prompt verwenden. Frühere Prompt-
+und Übergabefassungen sind historisch und erteilen keine weiteren Freigaben.
+
+```text
+Bitte Evolvera im bestehenden Projekt fortsetzen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+Kein neues Projekt/Repository anlegen.
+
+Lies AGENTS.md, docs/HANDOFF.md (neuester Pausen-/Übergabeblock), docs/NEXT-START.md,
+docs/integration-preparation.md und docs/operator-mode-test.md. Fachliche Quelle
+bleibt docs/PRD.md v1.1. Designgrundlage docs/design-system.md; die zehn Designpakete
+sind bereits positiv gesichtet. Keine neue Designrunde, Kunst-/Generator-/Archivänderung.
+
+Mein Auftrag für den Wiedereinstieg: Bestand und Git zuerst lesend prüfen, alle
+vorhandenen Arbeiten erhalten und den aktuellen Stand kurz zur gemeinsamen Sichtung
+nennen. Danach als nächstes abgegrenztes Arbeitspaket die Vorbereitung des Galerie-
+Links zum geprüften Betreiberworker und der Veröffentlichung des abgenommenen
+Werkbuch-Designs konkretisieren. Keine weitere Umsetzung, Commits, Pushes oder
+Deployments allein aus diesem Startprompt ableiten. Vor einer späteren Veröffentlichung
+alle notwendigen Vorbereitungen und Prüfungen abschließen und den genauen resultierenden
+Umfang ausdrücklich zur Freigabe vorlegen. Generierung und Serienstart bleiben aus.
+
+Lokales main/HEAD beim Pausenbeginn:
+53b7521cf027964c34091646432ba721514bd3c1 (Mergecommit), sechs Commits vor origin/main
+f7932479a839a6176160eabe4edc675133aacafb. Eltern des Mergecommits sind Sicherungscommit
+238cbdaee1eab859b7e12cbd097abcbc35126e74 mit exakt 22 benannten Dateien und f793247.
+Die ausdrücklich freigegebenen zwei lokalen Commits sind vollständig ausgeführt;
+kein weiterer Commit daraus ableitbar. Alle früheren vier lokalen Commits erhalten.
+Kein Push. Nach Merge nur PRD_v1.1_backup.md unversioniert; jetzt zusätzlich die
+uncommittierten Pausenänderungen in HANDOFF und NEXT-START erhalten. Backup bleibt
+bytegleich zu PRD.md, nicht aufnehmen oder formatieren. Kein Force-Push oder Reset.
 
 Remote und reale lokale config/generation.json jetzt beide traceable/Revision 3.
 Generierung false, Serienstart null, seriesAuthorized:false, offizielles Archiv leer;
-40 Testwerke separat abgenommen. Revision beim nächsten Schritt erhalten.
-Snapshot-Testfix war bereits identisch vorhanden. Keine Kunst-/Generatoränderung.
+40 Testwerke separat abgenommen. Revision erhalten. Tatsächlicher Remote-Stand wurde
+am 03.11. zuletzt lesend als f793247 bestätigt; morgen bei Bedarf frisch lesen,
+keinen neuen Remoteabgleich aus dem Pausennachtrag behaupten.
 
-Tatsächlicher zusammengeführter Stand vor Mergecommit neu geprüft:
-check:publication erfolgreich, npm run check mit 165 Tests, Datenprüfung, Build und
-Worker-Dry-Run erfolgreich; worker:test-runtime erfolgreich; test:browser am gebauten
-Stand mit CI=true: 68 bestanden, sechs bewusste Doppelaufruf-Skips, sechs bestehende
-Kunstreferenzen unverändert. Node 24.21.0 gemäß .nvmrc. Ergebnisdokumentation danach
-nur format-/diffgeprüft. Safari/Firefox, echte Geräte/Safe-Area, umfassende WCAG-
-und Sitzungs-/Negativfallabnahme bleiben offen.
-
-Pages öffentlich weiterhin auf f793247 mit bisherigem Design und traceable/3;
-CI-/Pages-Läufe des Rückwechsels erfolgreich, Generierung übersprungen und
-öffentliches HTML/Startassets gegen isolierten Remote-Build geprüft.
-Das neue lokale Werkbuch-Design ist noch nicht veröffentlicht.
-Galerie-Origin weiterhin null; versionierter Workerstandard bewusst deaktiviert.
+Das abgenommene Werkbuch-Design ist lokal integriert, aber noch nicht veröffentlicht.
+Pages öffentlich zuletzt auf f793247 mit bisherigem Design; CI und Pages des
+Rückwechsels erfolgreich, Generierung übersprungen, öffentliches HTML und vier
+Startassets bytegleich zum isolierten Remote-Build geprüft. Galerie-Origin weiterhin
+null; versionierter Workerstandard bewusst deaktiviert. Galerie-Link zum echten
+Betreiberbereich ist die nächste lokale Vorbereitung, noch nicht aktiviert.
 
 Liveworker https://evolvera-admin.alexander-brocker.workers.dev zuletzt Version
-08317969-9743-4a86-84c2-a57afd3b7e75, Betreiberanmeldung nur bummber/46008719.
+08317969-9743-4a86-84c2-a57afd3b7e75; Anmeldung nur bummber/46008719.
 Login, Logout/Neuanmeldung und Modusrunde traceable/1 -> free/2 -> traceable/3 durch
-Betreiber und GitHub-Nachweise bestätigt. Auslöser der zusätzlichen Konfliktanzeige
-beim ersten Wechsel nicht abschließend bewiesen; nicht als behoben verallgemeinern.
-Kein neues Worker-Deployment nötig. Vorhandene SQLite-Sitzungen und Secrets erhalten;
-Observability/Logpush/Preview URLs aus. Keine Secrets in Chat/Git/Frontend/Logs.
-Private Originaldateien bleiben unter ~/.evolvera-operator-setup/ geschützt;
-nichts erneut anfordern oder automatisch löschen. Temporärer Cloudflare-Token läuft
-04.11.2026 um 23:59:59 MEZ ab; vor späterer Verwendung Zeit/Gültigkeit lesend prüfen,
-keinen Ablauf umgehen und keine Rechte ungefragt erweitern. MCP bleibt lesend.
+Betreiber und GitHub-Nachweise bestätigt. Zusätzliche Konfliktanzeige beim Hinwechsel
+nicht abschließend erklärt; nicht als umfassend behoben verallgemeinern.
+CI-Snapshot-Testabhängigkeit gezielt behoben. Details in operator-form-fix.md und
+operator-mode-test.md. Kein neuer Worker-Upload für die Galerievorbereitung nötig.
+Bestehende SQLite-Sitzungen und Secrets erhalten; Observability/Logpush/Previews aus.
+
+Anbieterprüfung abgeschlossen, providerReviewedOn:2026-11-03, Datenschutzfassung
+2026-11-03.1. Keine neue allgemeine Vertrags- oder Secret-Eingaberunde beginnen.
+Private Originaldateien ~/.evolvera-operator-setup/worker-secrets.json und
+~/.evolvera-operator-setup/cloudflare-auth.json geschützt erhalten. Keine Inhalte in
+Chat, Git, Frontend, Logs oder Befehlsargumente übernehmen; nicht erneut anfordern.
+Temporärer Cloudflare-Verwaltungstoken läuft am 04.11.2026 um 23:59:59 MEZ ab.
+Vor nötiger Verwendung Zeit/Gültigkeit und Zielzustand ausschließlich lesend prüfen.
+Keinen Ablauf umgehen, keine neuen Tokens/Rechte oder Löschung ohne Auftrag.
+MCP bleibt lesend. Keine künstliche neue Worker-Einrichtung wegen des Tageswechsels.
 Lokale Tests ausschließlich synthetisch und in isolierten Git-Repositories.
 
-Nächster Schritt: zuerst gemeinsam den gesicherten Stand sichten. Danach die
-separate Veröffentlichungsvorbereitung des bereits abgenommenen Werkbuch-Designs
-samt Galerie-Link zum geprüften Betreiberworker abgrenzen. Die bisherigen Freigaben
-sind für die lokalen Commits und früheren einzelnen Remoteaktionen erteilt worden;
-keinen weiteren Push, Pages-/Worker-Upload, Moduswechsel oder Serienstart ableiten.
-Vor konkreter Veröffentlichung alle notwendigen Vorbereitungen und Prüfungen
-abschließen und genau den resultierenden Umfang zur Freigabe vorlegen.
+Letzter vollständiger Prüfstand im tatsächlichen integrierten Arbeitsbaum vor dem
+Mergecommit: check:publication erfolgreich; npm run check mit 165 Tests, Datenprüfung,
+Build und Worker-Dry-Run erfolgreich; worker:test-runtime erfolgreich; test:browser
+am gebauten Stand mit CI=true: 68 bestanden, sechs bewusste Doppelaufruf-Skips,
+sechs Kunstreferenzen unverändert. Node 24.21.0 gemäß .nvmrc, Lockfile erhalten.
+Die abschließende Pausendokumentation ist ein eigener reiner Dokumentationsschritt;
+seinen Prüfstand im neuesten HANDOFF lesen. Keine neue Browser-/Runtime-Suite behaupten.
+Safari/Firefox, echte Geräte/Safe-Area, umfassende WCAG-/Sitzungs-/Negativfallabnahme
+bleiben offen. Temporäre Prüfkopien unter /private/tmp können morgen fehlen;
+Projektberichte und Git-Historie sind der dauerhafte Ausgangspunkt.
 ```
 
 ## Historischer Startprompt – vor der Worker-Uploadfreigabe, nicht erneut ausführen

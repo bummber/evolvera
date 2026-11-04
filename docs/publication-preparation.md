@@ -1,5 +1,14 @@
 # Öffentliche Vorschau – Betreiberangaben und Datenschutz
 
+Aktueller Stand 04.11.2026: Galerie-Origin lokal auf den geprüften Betreiberworker
+gesetzt, bestehender `/settings`-Link und Statuskorrekturen am gebauten Werkbuch
+geprüft. Gemeinsame Datenschutzhinweise, Textversion und Durchsichtsdaten unverändert.
+Keine neue Verarbeitung oder Designrunde. Noch kein Commit, Push oder Deployment.
+[Genauer Kandidat, neue Prüfungen und späterer Freigabeumfang](gallery-publication-preparation.md).
+Ein späterer Push würde auch die sechs vorhandenen lokalen Commits veröffentlichen
+und Pages starten. Generierung und Serienstart bleiben aus. Die folgenden Abschnitte
+sind historische Vorbereitungsstände und erweitern keine Freigabe.
+
 Aktueller Stand 03.11.2026: Der Betreiberworker ist nach gesonderter Freigabe
 veröffentlicht und aktiviert; seine öffentlichen Rechtstexte sind geprüft.
 Der Betreiber bestätigt den erfolgreichen GitHub-Login und sichtbare Einstellungen,

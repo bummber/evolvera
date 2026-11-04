@@ -1,5 +1,15 @@
 # Betrieb und spätere Einrichtung
 
+Aktueller Stand 04.11.2026: Galerie-Link zum bestehenden Betreiberworker lokal gesetzt,
+Galerie-Statushinweise berichtigt, Werkbuch-Design unverändert. Publikationsprüfung,
+Gesamtcheck mit 165 Tests, lokaler Runtime-Test und 68 Browserfälle erfolgreich;
+sechs bewusste Doppelaufruf-Skips, Kunstreferenzen unverändert. Kein Commit/Push oder
+Deployment. Acht lokale Dateien und kompletter späterer Veröffentlichungsumfang im
+[aktuellen Vorbereitungsbericht](gallery-publication-preparation.md).
+Generierung/Serienstart aus, traceable/Revision 3 erhalten. Kein Worker-Upload oder
+Cloudflare-Verwaltungstoken für dieses Galeriepaket erforderlich. Die folgenden
+„neuesten“ Zwischenstände sind historisch; aktueller HANDOFF hat Vorrang.
+
 Neuester Abschluss 03.11.2026: Zwei lokale Commits separat freigegeben.
 Sicherungscommit `238cbda` mit 22 benannten Dateien erstellt; anschließend
 `origin/main` auf `f793247` gefetcht und konfliktfrei zusammengeführt. Abschließender

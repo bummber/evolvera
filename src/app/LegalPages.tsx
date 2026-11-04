@@ -173,9 +173,10 @@ export default function LegalPages({ view }: { view: 'imprint' | 'privacy' }) {
                 Folgst du einem Link, gelten dort die Datenschutzinformationen
                 des jeweiligen Angebots. Die GitHub-/Cloudflare-Anmeldung ist
                 ausschließlich für den Betreiber vorgesehen. Die GitHub App ist
-                registriert und auf das Projekt beschränkt installiert. Der
-                Betreiberzugang ist noch deaktiviert; eine App-Installation
-                allein ermöglicht keinen Login.
+                registriert und auf das Projekt beschränkt installiert.{' '}
+                {operatorSettings.adminOrigin
+                  ? 'Der geschützte Betreiberzugang ist auf einer eigenen Betreiberseite eingerichtet.'
+                  : 'Der Betreiberzugang ist noch deaktiviert; eine App-Installation allein ermöglicht keinen Login.'}
               </p>
             </section>
             {legalDetails.privacyScope === 'pages-and-operator' &&
@@ -202,7 +203,7 @@ export default function LegalPages({ view }: { view: 'imprint' | 'privacy' }) {
               <h2>Stand</h2>
               <p>
                 {legalDetails.privacyScope === 'pages-and-operator'
-                  ? '3. November 2026 · Galerie und Vorbereitung der Betreiberanmeldung; Zugang noch deaktiviert.'
+                  ? '3. November 2026 · Datenschutzhinweise für Galerie und Betreiberanmeldung.'
                   : '2. November 2026 · öffentliche Galerie ohne Betreiberanmeldung.'}
               </p>
             </section>

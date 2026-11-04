@@ -188,9 +188,10 @@ function About() {
                   HTML-/CSS-Renderer bereit. Die getrennte Testsammlung zeigt 40
                   Werke in beiden Modi mit Galerie, Herkunftsvergleich und
                   poetischen Titeln. Die 40 Testwerke sind abgenommen.
-                  Betreiberfunktion und Tageslauf sind lokal vorbereitet; die
-                  Betreiberanmeldung ist noch nicht eingerichtet. Die offizielle
-                  Kunstserie ist noch nicht gestartet.
+                  {operatorSettings.adminOrigin
+                    ? ' Die Betreiberanmeldung ist auf einer eigenen geschützten Betreiberseite eingerichtet.'
+                    : ' Die Betreiberfunktion ist lokal vorbereitet; die Betreiberanmeldung ist noch nicht eingerichtet.'}{' '}
+                  Die offizielle Kunstserie ist noch nicht gestartet.
                 </p>
                 <div className="about-actions">
                   <Link className="primary-link" to="/kunstpruefung">
@@ -215,7 +216,7 @@ function Settings() {
       <Page eyebrow="Nur für den Betreiber" title="Einstellungen">
         <p className="intro">
           Die Galerie bleibt frei zugänglich. Den Modus kommender Werke darf
-          später ausschließlich der Betreiber nach GitHub-Anmeldung ändern.
+          ausschließlich der Betreiber nach GitHub-Anmeldung ändern.
         </p>
         <div className="settings-layout">
           <div className="settings-overview">
@@ -242,10 +243,11 @@ function Settings() {
               </div>
             </dl>
             <p>
-              Verfügbar sein werden „Nachvollziehbare Vererbung“ und „Maximale
+              Zur Wahl stehen „Nachvollziehbare Vererbung“ und „Maximale
               Freiheit“. Ein erfolgreich gespeicherter Wechsel gilt ab dem
               nächsten noch nicht begonnenen Generierungslauf. Bestehende Werke
-              bleiben erhalten.
+              bleiben erhalten. Diese Anzeige entspricht dem Stand dieser
+              Galerieversion; den aktuellen Stand zeigt die Betreiberseite.
             </p>
           </div>
           <div className="settings-controls">
@@ -314,8 +316,8 @@ function Settings() {
               ))}
             </fieldset>
             <p id="mode-access-hint" className="mode-access-hint">
-              Die Moduswahl gehört zur geschützten Betreiberseite. Diese
-              Vorschau ist gesperrt.
+              Die Moduskarten dienen hier nur zur Anzeige. Änderungen erfolgen
+              ausschließlich auf der geschützten Betreiberseite.
             </p>
           </div>
         </div>

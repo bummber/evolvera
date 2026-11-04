@@ -15,7 +15,101 @@ Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gew
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
 inzwischen abgeschlossen. Konkrete Upload-Vorbereitung und offene Freigaben siehe unten.
 
-## Aktuelle Chat-Übergabe – 03.11.2026, lokaler Stand zusammengeführt
+## Aktuelle Chat-Übergabe – 04.11.2026, Galerie lokal vorbereitet
+
+Nach lesendem Wiedereinstieg und gemeinsamer Sichtung mit „Fahre fort“ ausschließlich
+lokale Vorbereitung umgesetzt: `config/operator.json` verweist auf den bestehenden
+geprüften Betreiberworker; vorhandener Link öffnet dessen `/settings`. Veraltete
+Galerie-Statushinweise in App/Datenschutz korrigiert, Einstellungsanzeige als Stand
+dieser Galerieversion erklärt. Keine neue Designrunde; gemeinsamer Datenschutztext,
+Version und Durchsichtsdaten unverändert. Kein neuer Worker-Upload erforderlich.
+
+HEAD bleibt `53b7521`, main sechs Commits vor dem heute lesend bestätigten Remote
+`f793247`; CI/Pages dort erfolgreich. Pages-Schalter true, Automatisierungsschalter
+nicht gesetzt. Öffentliche Galerie und Worker-Routen mit Browser-User-Agent HTTP 200,
+Health `configurationReady:true`; keine neue Anmeldung oder Speicherung.
+Erste Python-Abrufe ergaben 403, erfolgreiche curl-Kontrollabrufe davon getrennt.
+Keine aktuelle Worker-Versionskennung oder vollständige Sitzungsabnahme behauptet.
+
+Neu geprüft: `check:publication` erfolgreich, `npm run check` mit **165 Tests**,
+Datenprüfung, Build und deaktiviertem Worker-Dry-Run erfolgreich. Erster Sandboxversuch
+am tsx-Socket blockiert, Wiederholung mit lokalen Prozessrechten erfolgreich.
+Lokaler `worker:test-runtime` erfolgreich; `CI=true npm run test:browser` am neuen
+Build **68 bestanden**, sechs bewusste Doppelaufruf-Skips, sechs Kunstreferenzen
+unverändert. Einstellungsaufnahmen aller fünf Breiten sowie vollständige Desktop-/
+320px-Ansicht gesichtet. Übliche Geräte-/WCAG-/Sitzungsgrenzen bleiben offen.
+
+[Vollständiger Kandidat, acht lokale Dateien und späterer Freigabeumfang](gallery-publication-preparation.md).
+Die vorhandenen Pausenänderungen erhalten und weitergeführt; Backup unversioniert
+und bytegleich. Kein Commit, Push, Deployment, Zugriff auf Secrets oder Moduswechsel.
+`traceable`/3, Generierung false, Startdatum null, Serienfreigabe false, Archiv leer.
+Ein späterer main-Push würde auch alle sechs bisherigen lokalen Commits veröffentlichen
+und Pages auslösen; dafür liegt weiterhin keine Freigabe vor.
+
+## Vorherige Chat-Übergabe – Pause am 03.11.2026, Wiedereinstieg am 04.11.
+
+Betreiber möchte pausieren und morgen in einem neuen Chat fortsetzen. Dieser
+Auftrag umfasst ausschließlich Standdokumentation und einen neuen Startprompt;
+**keine weiteren Commits, Pushes, Deployments oder Produktänderungen**.
+[Aktueller kopierbarer Startprompt](NEXT-START.md). Historische Blöcke erweitern
+den Auftrag nicht; zuerst diesen neuesten Stand verwenden.
+
+- Bestehendes Projekt `/Users/abrocker/ai_o_projects/evolvera`, `origin`
+  `https://github.com/bummber/evolvera.git`. Lokales `main` jetzt exakt auf
+  **`53b7521cf027964c34091646432ba721514bd3c1`** (Mergecommit), sechs Commits
+  vor `origin/main` **`f7932479a839a6176160eabe4edc675133aacafb`**. Eltern
+  `238cbdaee1eab859b7e12cbd097abcbc35126e74` (Sicherungscommit mit exakt 22 Dateien)
+  und `f793247`. Alle vier früheren lokalen Commits und Arbeiten erhalten.
+- Vor diesem Pausenauftrag war der versionierte Arbeitsbaum sauber; einzig
+  `docs/PRD_v1.1_backup.md` bewusst unversioniert und bytegleich. Dieser Nachtrag
+  und NEXT-START bleiben **zusätzlich uncommittiert**. Kein dritter lokaler Commit
+  aus den bereits vollständig ausgeführten zwei Commitfreigaben ableiten.
+- **Lokale und Remote-Modusdatei traceable/Revision 3**, Generierung false,
+  Serienstart null, Serienfreigabe false, offizielles Archiv leer. 40 Testwerke
+  separat abgenommen. Keine Kunst-/Generator-/Archivänderung und keine neue Designrunde.
+- Zehn Werkbuch-Designpakete bereits positiv gesichtet, lokal gesichert und
+  integriert, aber **noch nicht veröffentlicht**. Öffentliche Pages-Galerie zuletzt
+  auf `f793247` mit bisherigem Design. CI/Pages erfolgreich, Generierung übersprungen;
+  öffentliches HTML und vier Startassets gegen isolierten Remote-Build geprüft.
+  Keine neue Remote-/Liveprüfung in diesem reinen Pausenauftrag behaupten.
+- Liveworker `https://evolvera-admin.alexander-brocker.workers.dev` zuletzt Version
+  `08317969-9743-4a86-84c2-a57afd3b7e75`. Login, Abmelden/Neuanmeldung und echte
+  Modusrunde traceable/1 → free/2 → traceable/3 bestätigt. Zusätzliche Konfliktanzeige
+  beim Hinwechsel nicht abschließend erklärt; gültiger Moduscommit nachgewiesen.
+  Snapshot-Testfehler gezielt auf GitHub behoben. Details in `operator-form-fix.md`
+  und `operator-mode-test.md`. Kein weiterer Worker-Upload erforderlich.
+- Galerie-`adminOrigin:null` und versionierter Workerstandard bewusst deaktiviert;
+  Liveworker separat über ignorierte Vorlage bereitgestellt. Anmeldung nicht als Demo
+  darstellen. Nächstes Arbeitspaket: nach gemeinsamer Bestandssichtung den Galerie-Link
+  zum geprüften Betreiberworker und die separate Veröffentlichung des abgenommenen
+  Werkbuch-Designs vorbereiten. Noch keine Publikationsfreigabe; zuerst den vollständigen
+  konkreten Umfang prüfen und vorlegen. Kein Serienstart daraus ableiten.
+- Anbieterprüfung und Datenschutzfassung `2026-11-03.1` abgeschlossen/dokumentiert;
+  `providerReviewedOn:2026-11-03`. Keine neue allgemeine Vertrags- oder Secret-Runde.
+  Private Originaldateien außerhalb des Repositories unter
+  `~/.evolvera-operator-setup/` erhalten, keine Werte ausgeben oder erneut anfordern.
+  Befristeter Cloudflare-Verwaltungstoken läuft **04.11.2026, 23:59:59 MEZ** ab.
+  Morgen vor einer nötigen Verwendung Zeit/Gültigkeit und Zielzustand lesend prüfen;
+  keinen Ablauf umgehen, keine Rechte oder neuen Tokens ungefragt einrichten.
+  Für die nächste Galerie-/Pages-Vorbereitung keinen Worker-Upload erzwingen.
+- Letzter vollständiger Nachweis im tatsächlichen zusammengeführten Stand vor dem
+  Mergecommit: `check:publication` Exit 0, `npm run check` mit **165 Tests**, Datenprüfung,
+  Build/Worker-Dry-Run erfolgreich; echter lokaler `worker:test-runtime` erfolgreich;
+  `test:browser` am gebauten Stand mit `CI=true`: **68 bestanden**, sechs bewusste
+  Doppelaufruf-Skips, sechs Kunstreferenzen unverändert. Ergebnisdokumentation danach
+  gezielt format-/diffgeprüft. Node 24.21.0 gemäß `.nvmrc`, Lockfile unverändert.
+  Safari/Firefox, reale Geräte/Safe-Area, umfassende WCAG-/Sitzungs-/Negativfallabnahme
+  bleiben offen. Temporäre Kopien/Protokolle unter `/private/tmp` sind nicht dauerhaft
+  garantiert; erforderliche Nachweise stehen in den Projektberichten.
+
+In diesem Pausenschritt ausschließlich HANDOFF und NEXT-START aktualisiert.
+`npm run check` erneut vollständig erfolgreich mit **165 Tests**, Datenprüfung,
+Build und deaktiviertem Worker-Dry-Run; Format-/Diff-/Backupprüfung erfolgreich.
+Keine neue Browser-/Runtime-Suite für die reine Dokumentation; deren letzter
+Nachweis stammt aus dem tatsächlichen Integrationsschritt vor `53b7521`.
+Keine neue GitHub-/Cloud-Zustandsprüfung, keine weiteren Commits oder Veröffentlichungen.
+
+## Vorheriger Stand – 03.11.2026, lokaler Stand zusammengeführt
 
 Betreiber hat genau die zwei vorgelegten lokalen Commits mit **„Freigabe erteilt“**
 beauftragt; Push/Deployment bleiben ausgenommen. Zuerst Sicherungscommit
