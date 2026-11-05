@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 2,
+  "generatorVersion": "0.2.0",
+  "rendererVersion": "1",
+  "lexiconVersion": "0.1.0",
+  "id": "2026-11-05",
+  "generation": 2,
+  "title": "Chromaströmung im Nirgendwo",
+  "description": "Chromaströmung im Nirgendwo; Familie color-field, Hintergrund #bed6e8, 8 Formen. Statisch.",
+  "timezone": "Europe/Berlin",
+  "scheduledFor": "2026-11-05T04:00:00+01:00",
+  "generatedAt": "2026-11-05T09:59:59.959Z",
+  "runStartedAt": "2026-11-05T09:59:59.910Z",
+  "isCatchUp": false,
+  "seed": "evolvera:0.2.0:2026-11-05",
+  "inheritanceMode": "traceable",
+  "settingsRevision": 6,
+  "parentIds": [],
+  "dna": {
+    "family": "color-field",
+    "background": "#bed6e8",
+    "elements": [
+      {
+        "kind": "rectangle",
+        "x": 0.171777,
+        "y": 0.08,
+        "width": 0.578798,
+        "height": 0.211031,
+        "rotation": 0,
+        "color": "#691e44",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 55,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.101668,
+        "y": 0.24,
+        "width": 0.56287,
+        "height": 0.140836,
+        "rotation": 0,
+        "color": "#f4241e",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 38,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.072685,
+        "y": 0.4,
+        "width": 0.510596,
+        "height": 0.154554,
+        "rotation": 0,
+        "color": "#1333a1",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 59,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.246873,
+        "y": 0.56,
+        "width": 0.679997,
+        "height": 0.171863,
+        "rotation": 0,
+        "color": "#913115",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 39,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.18645,
+        "y": 0.72,
+        "width": 0.530182,
+        "height": 0.222926,
+        "rotation": 0,
+        "color": "#691e44",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 21,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.668422,
+        "y": 0.575168,
+        "width": 0.22,
+        "height": 0.22,
+        "rotation": 0,
+        "color": "#691e44",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 27,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.073084,
+        "y": 0.14002,
+        "width": 0.160607,
+        "height": 0.207696,
+        "rotation": 0,
+        "color": "#bed6e8",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 24,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "x": 0.083084,
+        "y": 0.15002,
+        "width": 0.140607,
+        "height": 0.187696,
+        "rotation": 0,
+        "color": "#3c47b4",
+        "opacity": 1,
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 24,
+          "amplitude": 0
+        }
+      }
+    ]
+  },
+  "titleDna": {
+    "tokens": [
+      "Chroma",
+      "strömung",
+      "im",
+      "Nirgendwo"
+    ],
+    "pattern": "phrase",
+    "parentFragments": []
+  },
+  "evolution": {
+    "type": "origin",
+    "evaluatedParentIds": [],
+    "decisions": [],
+    "recipe": {
+      "base": {
+        "source": "new",
+        "seed": "evolution:1958157111:2"
+      },
+      "mutations": [
+        {
+          "path": "background",
+          "before": "#e7eafb",
+          "after": "#bed6e8",
+          "operator": "replace"
+        },
+        {
+          "path": "elements.0.color",
+          "before": "#923257",
+          "after": "#691e44",
+          "operator": "replace"
+        },
+        {
+          "path": "elements.1.color",
+          "before": "#1d3831",
+          "after": "#f4241e",
+          "operator": "replace"
+        },
+        {
+          "path": "elements.2.color",
+          "before": "#3c47b4",
+          "after": "#1333a1",
+          "operator": "replace"
+        },
+        {
+          "path": "elements.3.color",
+          "before": "#ba4528",
+          "after": "#913115",
+          "operator": "replace"
+        },
+        {
+          "path": "elements.4.color",
+          "before": "#923257",
+          "after": "#691e44",
+          "operator": "replace"
+        },
+        {
+          "path": "elements.5.color",
+          "before": "#923257",
+          "after": "#691e44",
+          "operator": "replace"
+        }
+      ],
+      "additions": [
+        {
+          "kind": "rectangle",
+          "x": 0.073084,
+          "y": 0.14002,
+          "width": 0.160607,
+          "height": 0.207696,
+          "rotation": 0,
+          "color": "#bed6e8",
+          "opacity": 1,
+          "motion": {
+            "kind": "static",
+            "durationSeconds": 24,
+            "amplitude": 0
+          }
+        },
+        {
+          "kind": "rectangle",
+          "x": 0.083084,
+          "y": 0.15002,
+          "width": 0.140607,
+          "height": 0.187696,
+          "rotation": 0,
+          "color": "#3c47b4",
+          "opacity": 1,
+          "motion": {
+            "kind": "static",
+            "durationSeconds": 24,
+            "amplitude": 0
+          }
+        }
+      ]
+    }
+  }
+}
