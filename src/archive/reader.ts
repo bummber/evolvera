@@ -1,3 +1,4 @@
+import { cycleDate } from '../series/calendar';
 import { artworkSchema, validateArtwork } from '../art/schema/artwork';
 import type { Artwork } from '../art/schema/artwork';
 import { validateEvolution } from '../art/generator/provenance';
@@ -162,21 +163,7 @@ export function pageOf(
 }
 /** Display clock only. No scheduling, generation or archive mutation. */
 export function berlinCycleDate(now: Date): string {
-  const parts = new Intl.DateTimeFormat('sv-SE', {
-    timeZone: 'Europe/Berlin',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    hourCycle: 'h23',
-  }).formatToParts(now);
-  const value = (type: Intl.DateTimeFormatPartTypes) =>
-    parts.find((part) => part.type === type)!.value;
-  const date = new Date(
-    `${value('year')}-${value('month')}-${value('day')}T12:00:00Z`,
-  );
-  if (Number(value('hour')) < 4) date.setUTCDate(date.getUTCDate() - 1);
-  return date.toISOString().slice(0, 10);
+  return cycleDate(now.toISOString());
 }
 
 export function visibleIndex(input: unknown, now: Date): ArchiveIndex {

@@ -190,14 +190,14 @@ describe('Lesendes Archiv und getrennte Testsammlungen', () => {
     );
   });
 });
-describe('Tagesanzeige nach Berliner 04:00-Grenze', () => {
+describe('Tagesanzeige nach der datierten Berliner Zeitregel', () => {
   it.each([
     ['2026-03-29T01:59:59Z', '2026-03-28'],
     ['2026-03-29T02:00:00Z', '2026-03-29'],
     ['2026-10-25T02:59:59Z', '2026-10-24'],
     ['2026-10-25T03:00:00Z', '2026-10-25'],
-    ['2027-01-01T02:59:59Z', '2026-12-31'],
-    ['2027-01-01T03:00:00Z', '2027-01-01'],
+    ['2027-01-01T00:16:59Z', '2026-12-31'],
+    ['2027-01-01T00:17:00Z', '2027-01-01'],
   ])('bestimmt den aktuellen Zyklus bei %s als %s', (now, expected) => {
     expect(berlinCycleDate(new Date(now))).toBe(expected);
   });

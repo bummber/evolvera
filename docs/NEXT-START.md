@@ -1,3 +1,153 @@
+# Aktueller Einstieg – Zeitumstellung 05.11.2026
+
+## Aktuell – 05.11.2026, Zeitumstellung lokal vorbereitet
+
+Auf Betreiberauftrag Tageswechsel ab Werkdatum **06.11.2026 auf 01:17 Berlin**
+umgestellt; Nachholtermine 01:47/02:23. [Maßgeblicher Bericht](schedule-change.md).
+Isoliert geprüft: Gesamtcheck **187 Tests**, Build und Worker-Dry-run erfolgreich;
+Browser **72 bestanden/sechs bestehende Skips**, Kunstreferenzen unverändert.
+Originalwerke bytegleich; keine neue reale Generation durch lokale Prüfungen.
+Noch nicht veröffentlicht: kein neuer Commit, Fetch/Merge/Pull, Push oder
+Deployment der Zeitumstellung. Lokaler HEAD und gespeichertes origin/main 7e19cdf;
+tatsächliches Remote zuletzt d50f685 mit zwei echten Ursprungswerken.
+Manuelle Nachholung 42006857612 und später Schedule 42007979961 erfolgreich;
+Schedule erst um 11:06 Berlin angelegt. Keine pünktliche Automatik behaupten.
+Beide Originalwerke, Startdatum, traceable/6 und aktive Gates erhalten.
+
+Zuerst Bericht/Prüfstand lesen und Bestand frisch lesend sichten. Ein nächster
+Veröffentlichungsschritt muss den neueren Remote-Archivstand erhalten und ist
+konkret freizugeben. Keine alte lokale Archivversion pushen. Die nachfolgenden
+Übergaben/Prüfprompts bleiben historische Nachweise, keine neuen Aufträge.
+PRD-Backup unverändert als ursprünglichen PRD-Stand erhalten; das aktuelle PRD
+enthält nun die gezielte Zeitergänzung. Keine weitere Sicherung, Modusrunde,
+Designrunde, Worker-/Secret-/Sitzungsänderung, Phase 5 oder EP-01.
+
+## Historische Startprompts
+
+# Startprompt für den 05.11.2026 – lesende Prüfung des ersten geplanten Tageslaufs
+
+```text
+Bitte Evolvera im bestehenden Projekt prüfen:
+/Users/abrocker/ai_o_projects/evolvera/
+origin: https://github.com/bummber/evolvera.git
+
+Lies AGENTS.md, den neuesten Block in docs/HANDOFF.md, docs/NEXT-START.md,
+docs/series-start-preparation.md, docs/pre-series-acceptance.md und
+docs/operator-cookie-check.md. Fachliche Quelle: docs/PRD.md v1.1.
+
+Auftrag für den 05.11.2026: zuerst ausschließlich lesende Statusprüfung und
+anschließend gemeinsam sichten. Berliner Datum/Uhrzeit feststellen. Lokalen
+Git-Stand und tatsächlichen Remote getrennt prüfen (ls-remote/GitHub-API ohne
+Fetch); ein neuer täglicher Archivcommit auf dem Remote ist erwartbar.
+
+Stand beim Chatabschluss am 04.11.: HEAD/main und gespeichertes origin/main
+7e19cdf17eeac668ab884743e81400096c310358, Aktivierungscommit 4406b4f.
+Die ausdrücklich freigegebene Serie läuft seit 04.11.: traceable/6,
+seriesStartDate:2026-11-04, generationEnabled:true, seriesAuthorized:true.
+PAGES_DEPLOYMENT_ENABLED=true, EVOLVERA_AUTOMATION_ENABLED=true, zuletzt remote
+am 04.11. um 17:53:45 MEZ bestätigt. Historische Vorstartregeln sind überholt;
+Generierung nicht ungefragt deaktivieren, umdatieren oder auf alte Revisionen
+zurücksetzen. Niemals ein neueres Remote-Archiv mit dem lokalen Stand überschreiben.
+
+Lokal archiviert: genau ein echtes Werk, 2026-11-04, Generation 1, „Irifalter“,
+traceable/6, parentIds:[], generatedAt:2026-11-04T16:41:11.767Z.
+Originaldatei public/artworks/2026/2026-11-04.json SHA-256:
+d87e21262e4b1e9ebabc2647418629118cca1f13d632eebfe3d2c1a0acd25b77.
+
+Erledigt: CI 41869682779, Pages 41869682632 und genau eine Wiederholung
+41870657793 mit deploy:false erfolgreich. Je 167 Tests, 70 Browserfälle und
+sechs bestehende bewusste Skips, workerd/SQLite erfolgreich. Wiederholung ohne
+neues Werk oder Archivcommit, Originalbytes unverändert, Deployment übersprungen.
+Alle 23 öffentlichen Dateien bytegleich zum ersten Artefakt, Wiederholungsbuild
+und abschließendem lokalen Build. Zwölf anonyme Livefälle bei 320/1440 bestanden.
+Keine erledigten Kunst-/Geräte-/Login-/Cookie-/Modusprüfungen pauschal wiederholen.
+
+Jetzt prüfen: Ist der erste tatsächlich zeitgesteuerte Lauf (event:schedule) des
+Pages-Workflows erfolgt? Run-ID, Laufstatus, Archivcommit und tatsächlich gebauten/
+veröffentlichten Stand zuordnen. Für 05.11. ab 04:00 Berlin wird Generation 2
+erwartet, unabhängig mit parentIds:[], Werkdatum/ID 2026-11-05. Snapshot entspricht
+dem dann gültigen Laufstartstand (weiter traceable/6, falls unverändert).
+Erstes Werk muss bytegleich erhalten bleiben; Index, öffentliches Heute, Galerie,
+Herkunft und Pages-/Artefaktstand müssen zum tatsächlichen Archiv passen.
+Ein Bot-Archivcommit löst nicht zwingend eine zusätzliche CI aus; der Pages-Lauf
+führt die Qualitätsprüfungen selbst aus. Fehler nicht aus einer fehlenden Extra-CI
+allein ableiten und den Lauf nicht als erfolgreich melden, bevor er belegt ist.
+
+Vor 04:00 ist Generation 2 noch nicht fällig. Actions best effort; vorhandene
+Nachholtermine 04:17/05:13 einordnen, nicht eigenmächtig manuell generieren.
+Falls der neue Chat später als am 05.11. beginnt, fällige Tage anhand des echten
+Berliner Datums und PRD bestimmen, nicht starr genau zwei Werke erzwingen.
+Generation 3 mit den beiden unmittelbaren Eltern ist erst für 06.11. vorgesehen;
+noch kein echter Vererbungsnachweis. Ein späterer freigegebener Moduswechsel auf
+ein Folgewerk ist ebenfalls noch nicht belegt; jetzt keinen Moduswechsel vornehmen.
+
+Alle fünf uncommittierten Ergebnisdateien erhalten: docs/HANDOFF.md,
+docs/NEXT-START.md, docs/pre-series-acceptance.md, docs/runbook.md,
+docs/series-start-preparation.md. PRD_v1.1_backup.md zusätzlich unversioniert und
+bytegleich zur PRD erhalten, nicht aufnehmen/formatieren. Vier Sicherungsarchive
+unter /Users/abrocker/ai_o_projects/evolvera-local-backups/ erhalten.
+Die fünf jetzigen Ergebnis-/Übergabedokumente sind noch nicht im Vorstartarchiv.
+
+Noch kein Commit, Fetch/Merge/Pull, Push, Workflowstart, Deployment, Variablenwechsel
+oder neue Sicherung aus diesem Prüfauftrag. Erst Befunde und einen nötigen nächsten
+Schritt konkret vorlegen. Bei Fehlern keine blinden Diagnose-/Wiederholungsläufe.
+Keine neue Designrunde, Serienaktivierung, Phase 5 oder EP-01. Bestehenden Worker,
+Secrets und SQLite-Sitzungen erhalten; keine Token-/Cookie-/Liveworker-Logeinsicht.
+Bekannte Restgrenzen im Bericht beachten; keine Vollzertifizierung behaupten.
+```
+
+## Historische Startprompts – Stand vor dieser Morgenübergabe
+
+# Aktueller Startprompt – offizielle Serie seit 04.11.2026 aktiviert
+
+```text
+Bitte Evolvera in /Users/abrocker/ai_o_projects/evolvera mit origin
+https://github.com/bummber/evolvera.git fortsetzen. AGENTS.md, neuesten HANDOFF,
+NEXT-START, series-start-preparation, pre-series-acceptance und operator-cookie-check
+lesen, fachliche Quelle PRD v1.1. Zuerst Bestand/Git und aktuellen Serienstand lesend
+prüfen und gemeinsam sichten. Dieser Startprompt erteilt keinen neuen Schreibauftrag.
+
+Der ausdrücklich freigegebene Serienstart ist abgeschlossen. HEAD/main und origin/main
+7e19cdf17eeac668ab884743e81400096c310358, direkter Elterncommit 4406b4f0b15d4932ab778f3968c7530cfa8d27e9.
+Aktivierungscommit enthält exakt 15 Dateien; der Workflow hat separat genau zwei
+Archivdateien committed. Exakten Archivcommit lokal ausschließlich per Fast-forward
+übernommen. Kein Force-Push oder weiterer Moduswechsel.
+
+Echt traceable/6, generationEnabled:true, seriesStartDate:2026-11-04,
+seriesAuthorized:true. PAGES_DEPLOYMENT_ENABLED=true und
+EVOLVERA_AUTOMATION_ENABLED=true. Offizielles Archiv enthält genau ein echtes Werk:
+2026-11-04, Generation 1, „Irifalter“, unabhängig/keine Eltern, traceable/6,
+erzeugt 17:41:11.767 MEZ. Niemals mit alten Revisionen, leerem Index oder synthetischen
+Prüfdaten überschreiben. Laufende Generierung nicht aus historischen Vorstartregeln
+ungefragt abschalten oder umdatieren; aktuellen Betreiberauftrag beachten.
+
+CI 41869682779 und Pages 41869682632 erfolgreich; Wiederholung 41870657793 mit
+deploy:false erfolgreich, null neue Werke/Commits und unveränderte Originalbytes.
+Je 167 Tests, 70 Browserfälle/sechs bestehende bewusste Skips und workerd/SQLite.
+Erstes Artefakt 13343412899: alle 23 öffentlichen Dateien bytegleich;
+Wiederholungsbuild in allen 23 Dateien identisch, keine zweite Veröffentlichung.
+Zwölf anonyme Livefälle bei 320/1440 erfolgreich, kein Login/Worker-Schreibzugriff.
+Abschließenden lokalen Dokument-/Datenprüfstand im neuesten HANDOFF lesen.
+
+Neue Sicherung 2026-11-04-pre-series-52e4342.tar.gz, 15 Originaldateien plus Manifest,
+117215 Bytes, SHA-256 09b95288605248132579b58b2c32fe871ec90fc5ba7e06967a9f1212c7c66a73.
+Drei ältere Archive und zusätzliches unversioniertes bytegleiches PRD-Backup erhalten.
+Fünf Ergebnisdokumente noch uncommittiert: HANDOFF, NEXT-START, series-start-preparation,
+pre-series-acceptance, runbook. Sie sind im Vorstartarchiv noch nicht enthalten.
+Keinen zusätzlichen Ergebniscommit, Push oder Sicherungsauftrag daraus ableiten.
+
+Nächster vorgesehener Lauf: 05.11.2026 ab 04:00 Europe/Berlin, zweiter unabhängiger
+Ursprung. Bei Fortsetzung frisch lesend prüfen, nicht automatisch vorziehen oder
+manuell doppelt auslösen. GitHub Actions best effort; künftiger geplanter Lauf noch
+kein Erfolgsnachweis. Phase 5/EP-01/neue Design- oder Kunstabnahme nicht beauftragt.
+Worker/Secrets/SQLite-Sitzungen erhalten; keine Cookie-/Token-/Liveworker-Logeinsicht,
+Neueinrichtung oder Modusrunde. Vorige Kunst-/Geräte-/Login-/Cookieabnahmen erledigt.
+Alle bekannten Abnahmegrenzen im Bericht beachten. Lokale Tests isoliert/synthetisch,
+Workerausgaben außerhalb dist und Git.
+```
+
+## Vorheriger Startprompt – Serienstart vorbereitet
+
 # Aktueller Startprompt – Serienstartvorlage heute, noch nicht aktiviert
 
 ```text

@@ -1,5 +1,42 @@
 # Betrieb und spätere Einrichtung
 
+## Aktuell – Zeitumstellung am 05.11.2026 lokal vorbereitet
+
+Ab Werkdatum **06.11.2026** ist lokal **01:17 Europe/Berlin** vorgesehen,
+mit Nachholversuchen **01:47/02:23**. Veröffentlichung noch ausstehend;
+[Umstellungsbericht und Prüfstand](schedule-change.md) sind maßgeblich.
+Die beiden echten Ursprungswerke behalten ihre ursprünglichen 04:00-Termine.
+Die früheren Abschluss-/Vorbereitungsblöcke unten bleiben historische Nachweise.
+
+## Aktuell – Serie seit 04.11.2026 aktiviert und erstes Werk veröffentlicht
+
+**traceable/6, Startdatum 2026-11-04, Generierung true, Serienfreigabe true.**
+Pages und Tagesautomatisierungsvariable true. Aktuelles HEAD/main und origin/main
+`7e19cdf17eeac668ab884743e81400096c310358`. Aktivierung `4406b4f0b15d4932ab778f3968c7530cfa8d27e9` mit genau 15 Dateien regulär gepusht;
+der echte Tageslauf hat separat das erste Werk „Irifalter“ und den Index committed.
+Nur diesen geprüften Archivcommit lokal per Fast-forward integriert.
+[Dauerhafter Startbericht](series-start-preparation.md).
+
+Neue byteweise geprüfte Vorstartsicherung `2026-11-04-pre-series-52e4342.tar.gz`,
+117215 Bytes, 15 Dateien plus Manifest, SHA-256
+`09b95288605248132579b58b2c32fe871ec90fc5ba7e06967a9f1212c7c66a73`. Drei ältere Archive und PRD-Backup erhalten.
+Genau fünf anschließende Ergebnisdokumente bleiben uncommittiert und sind im neuen
+Archiv noch nicht enthalten; kein zusätzlicher Ergebniscommit/Push beauftragt.
+
+CI 41869682779, Pages 41869682632 und genau eine deploy:false-Wiederholung 41870657793
+erfolgreich: je 167 Tests, 70 Browserfälle/sechs bestehende Skips, workerd/SQLite.
+Erstes Werk Generation 1 ohne Eltern; Wiederholung ohne neue Werke/Commits oder
+veränderte Originalbytes. Alle 23 öffentlichen Dateien bytegleich zum ersten und
+wiederholten Build; zwölf anonyme Livefälle bei 320/1440 bestanden.
+
+Nächster vorgesehener Lauf **05.11.2026 ab 04:00 Berlin**, zweiter unabhängiger
+Ursprung. Nicht vorziehen oder als schon bestanden dokumentieren. Actions best
+effort, keine exakte Veröffentlichungsgarantie. Nicht auf alte Revisionen/leeres
+Archiv zurücksetzen oder historische Vorstartgates ungefragt wiederherstellen.
+Kein weiterer Modus-/Cookie-/Worker-/Secret-/Sitzungsauftrag, Design, Phase 5 oder EP-01.
+Die nachfolgenden Vorbereitungsstände sind historisch; aktuell gelten dieser
+Abschnitt, der neueste HANDOFF und der Startbericht samt Restgrenzen.
+
 ## Aktuell – Serienstartvorlage 04.11.2026, noch gesperrt
 
 Auf „Mach weiter“ und die Datumsauswahl „heute“ ist die eigenständige
@@ -436,7 +473,8 @@ Der Workflow verwendet eine gemeinsame `evolvera-publish`-Sperre mit
 `cancel-in-progress:false`, vollständige Historie und einen frischen `main`-Checkout.
 Vor dem schreibenden Lauf laufen Codeprüfungen/Tests. Ist der Checkout inzwischen
 veraltet, stoppt er; niemals einen alten Stand publizieren. Der Lauf friert Modus und
-Revision einmal ein. Erzeugung ab 04:00 Berlin, zwei unabhängige Starttage, danach
+Revision einmal ein. Erzeugung gemäß datierter Tagesgrenze (ab Werkdatum
+06.11.2026 01:17 Berlin, vorher 04:00), zwei unabhängige Starttage, danach
 unmittelbare Eltern. Nachholtage werden kalenderweise chronologisch erzeugt.
 
 Erst der vollständig validierte Plan wird als ein Git-Commit vorbereitet und ohne
@@ -446,7 +484,7 @@ Build und Pages-Deployment erfolgen im selben Workflow. Vor Upload und unmittelb
 vor Deployment wird der Remote-Commit erneut geprüft. Eine Änderung danach ist nicht
 atomar mit GitHub Pages sperrbar; spätere Worker-Commits lösen den nächsten Lauf aus.
 
-Geplante Starts: 04:00, 04:17 und 05:13 `Europe/Berlin`; best effort, keine sekundengenaue
+Lokal vorbereitete Starts: 01:17, 01:47 und 02:23 `Europe/Berlin`; best effort, keine sekundengenaue
 Garantie. Ein offener sichtbarer Heute-Tab liest alle 60 Sekunden sowie bei Fokus/
 Rückkehr zur Seite neu. Hintergrundtabs werden nicht aktiv abgefragt.
 
@@ -470,7 +508,8 @@ Rückkehr zur Seite neu. Hintergrundtabs werden nicht aktiv abgefragt.
   Unklare GitHub-Antwort kann bereits einen Commit bedeuten. Keine blinde Wiederholung;
   die Oberfläche behauptet bis zur Commitprüfung keinen Erfolg.
 - CI-/Pages-Deployment und echte Betreiberanmeldung sind nachgewiesen. Der erste
-  geplante offizielle Archivlauf ist noch nicht erfolgt; lokale/synthetische
+  geplante offizielle Archivlauf wurde am 05.11. verspätet um 11:06 Berlin
+  erfolgreich ausgeführt (42007979961); lokale/synthetische
   Testergebnisse niemals als dessen Erfolg oder volle Cloud-Abnahme darstellen.
 
 Lastgrenze aktuell 10.000 Werke/Titel pro Serie; bei Erreichen sicher stoppen statt

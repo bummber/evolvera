@@ -1,4 +1,93 @@
-# Serienstart-Vorlage – 4. November 2026
+# Serienstart ausgeführt – 4. November 2026
+
+**Die offizielle Serie ist aktiviert und das erste Werk veröffentlicht.** Der
+Betreiber hat die vorgelegte vollständige 15-Dateien-Sicherung, Revision 6,
+Commit/Push, Pages, tägliche Generierung und deploy:false-Wiederholung mit
+**„Freigabe erteilt“** ausdrücklich freigegeben. Die unten erhaltene Vorlage war
+der konkret freigegebene Umfang und ist jetzt ein historischer Vorbereitungsstand.
+
+- Aktivierungscommit **`4406b4f0b15d4932ab778f3968c7530cfa8d27e9`**, Elterncommit `52e4342`, exakt 15 ausgewählte
+  Dateien. PRD-Backup und Archivdateien nicht aufgenommen. Regulärer Fast-forward-
+  Push, keine Historienumschreibung, kein Force-Push oder weiterer Moduswechsel.
+- Neue Sicherung [2026-11-04-pre-series-52e4342.tar.gz](/Users/abrocker/ai_o_projects/evolvera-local-backups/2026-11-04-pre-series-52e4342.tar.gz),
+  **117.215 Bytes**, 15 Dateien plus Manifest byteweise geprüft.
+  SHA-256 `09b95288605248132579b58b2c32fe871ec90fc5ba7e06967a9f1212c7c66a73`.
+  Beide Konfigurationen sind darin noch im gesperrten Ausgangsstand 5 enthalten.
+  Alle drei älteren Archive sowie das zusätzliche unversionierte bytegleiche
+  PRD-Backup erhalten. Die fünf jetzigen Ergebnisnachträge sind nicht darin enthalten.
+- `EVOLVERA_AUTOMATION_ENABLED=true` gesetzt, solange die Remote-Dateigates noch
+  geschlossen waren; anschließend den Aktivierungscommit gepusht. Pages bleibt
+  true. Laufender Stand: **traceable/6**, Startdatum **2026-11-04**, Generierung
+  **true**, `seriesAuthorized:true`. Keine andere externe Einstellung verändert.
+- Erster echter Archivcommit **`7e19cdf17eeac668ab884743e81400096c310358`**, direkter Nachfolger des
+  Aktivierungscommits. Genau zwei Dateien: `public/artworks/2026/2026-11-04.json`
+  und `public/artworks/index.json`. Werk **„Irifalter“**, Generation **1**,
+  Eltern **[]**, Modus **traceable**, Einstellungsrevision **6**,
+  `scheduledFor:2026-11-04T04:00:00+01:00`,
+  `generatedAt:2026-11-04T16:41:11.767Z`, `isCatchUp:false`.
+  Werkdatei SHA-256 `d87e21262e4b1e9ebabc2647418629118cca1f13d632eebfe3d2c1a0acd25b77`.
+  Kein synthetisches Werk übernommen und keine vorhandenen Werkbytes neu erzeugt.
+- [CI 41869682779 erfolgreich](https://github.com/bummber/evolvera/actions/runs/41869682779)
+  für den Aktivierungscommit;
+  [Pages 41869682632 erfolgreich](https://github.com/bummber/evolvera/actions/runs/41869682632),
+  Archivierung ausgeführt und der tatsächliche Archivcommit ausgecheckt/gebaut.
+  Tatsächliche Protokolle: jeweils **167 Tests**, **70 Browserfälle**, **sechs
+  bestehende bewusste Skips**, workerd-/SQLite-Test erfolgreich. Pages prüfte
+  zusätzlich vor und nach der Archivierung. Keine neue lokale Runtime-Abnahme.
+- Pages-Artefakt **13343412899**, ZIP-SHA-256
+  `02c02fb6443bcb1c0661ae0230e4081d99c3e725131ef18f6b61fa4114c8d12c`. Alle **23 öffentlichen Dateien** bytegleich zum
+  Artefakt, beide Archivdateien zugleich bytegleich zum echten Git-Stand.
+  Anonyme Liveprüfung **zwölf Kombinationen bei 320/1440 Pixeln**: Heute, Galerie,
+  Werkdetail, Evolution, Einstellungen und Über-Status korrekt; kein Überlauf,
+  keine Bild-/SVG-/Canvas-Kunst, Fremdabrufe, Schreibrequests, Cookies oder
+  Seitenfehler. Öffentliche Desktop-Erstwerkansicht visuell gesichtet.
+- Genau ein [manueller Wiederholungslauf 41870657793](https://github.com/bummber/evolvera/actions/runs/41870657793) mit
+  **deploy:false** erfolgreich: Generierungsschritt ausgeführt, **null neue Werke,
+  null Archivcommits**, Head und Originalbytes unverändert; Deployment bewusst
+  übersprungen. Wiederum 167 Tests, 70 Browserfälle/sechs bestehende Skips und
+  workerd-/SQLite erfolgreich. Wiederholungsartefakt **13343838314**
+  in sämtlichen **23 Builddateien bytegleich** zum ersten Artefakt; alle 23
+  öffentlichen Dateien anschließend weiterhin bytegleich. Keine zweite Veröffentlichung.
+- Den exakt geprüften Zwei-Dateien-Archivcommit anschließend nach frischem
+  Head-/Byteabgleich lokal gefetcht und ausschließlich **per Fast-forward**
+  übernommen; kein zusätzlicher lokaler Commit. **HEAD/main und origin/main
+  `7e19cdf17eeac668ab884743e81400096c310358`**. Alle übrigen vorhandenen Datei-/Fixturebytes erhalten.
+
+Die nächste fällige Generation ist das zweite, unabhängige Ursprungswerk für
+**05.11.2026 ab 04:00 Uhr Europe/Berlin**. Dieser künftige geplante Lauf wurde
+noch nicht ausgeführt oder als erfolgreich behauptet. Erst ab Generation 3 werden
+Eltern verwendet. GitHub Actions bleibt best effort, ohne exakte Zeitgarantie.
+Kein automatischer zusätzlicher Chat-/Überwachungsauftrag.
+
+Worker, Secrets, SQLite-Sitzungen und bestehende Betreiberanmeldung administrativ
+unverändert; keine Cookie-/Token-/Logeinsicht am Liveworker, keine neue Modusrunde,
+Kunstabnahme oder Designrunde. Bekannte Restgrenzen (kleine Schriftverschiebungen,
+keine vollständige WCAG-/GPU-/Feld-/Sitzungsabnahme, frühere ungeklärte
+Konfliktursache) bleiben dokumentiert und sind durch die konkrete Serienfreigabe
+nicht zu umfassenden Zertifizierungen geworden. Kein Start von Phase 5 oder EP-01.
+
+Genau fünf Ergebnis-/Startdokumente bleiben anschließend uncommittiert: dieser
+Bericht, HANDOFF, NEXT-START, pre-series-acceptance und Runbook. Kein zusätzlicher
+Ergebniscommit oder Push aus dem bereits erledigten Umfang. PRD-Backup weiterhin
+zusätzlich unversioniert/bytegleich. Abschließender Gesamtcheck der fünf Ergebnis-
+und Startdokumente im isolierten Klon des echten Archivcommits erfolgreich:
+`npm run check`, **167 Tests**, Format/Lint/Typen, Daten-/Fixtureprüfung, Build und
+deaktivierter Worker-Dry-Run. Sämtliche **23 Builddateien bytegleich zum
+veröffentlichten Artefakt** und Wiederholungsbuild. Keine zusätzliche lokale
+Browser-/Runtime-Suite für reine Ergebnisdokumente. Endabgleich um **17:53:45 MEZ**
+rein lesend: beide lokalen und tatsächlicher Remote-Head 7e19cdf, aktive Gates,
+traceable/6 und genau ein Werk unverändert. Alle vier Sicherungsarchive per
+SHA-256 und das PRD-Backup auf Bytegleichheit bestätigt. Diesen abschließenden
+Ergebnisnachtrag anschließend gezielt format-/diffgeprüft; kein weiterer
+Gesamt-/Browser-/Runtime-Lauf nach dem Nachtrag behauptet.
+
+Temporäre technische Belege unter
+`/private/tmp/evolvera-series-start-20261104-6o5ge959` sind keine dauerhafte Ablage;
+dieser Bericht, die benannten Git-Commits, Sicherungen und Actions-Läufe tragen
+den maßgeblichen Nachweis. Frühere Vorbereitung und isolierte Tests bleiben unten
+als historische Nachweise erhalten.
+
+## Historische Serienstart-Vorlage – 4. November 2026
 
 Stand: 04.11.2026. **Vorbereitet, nicht aktiviert oder veröffentlicht.** Auf die
 Rückfrage nach dem Datum für den isolierten Prüfkandidaten antwortete der Betreiber

@@ -1,5 +1,25 @@
 # Abnahme vor Serienstart
 
+## Aktueller Abschluss – Serienfreigabe ausgeführt am 04.11.2026
+
+Der Betreiber hat den vollständigen vorgelegten Startumfang mit **„Freigabe erteilt“**
+autorisiert. [Startbericht](series-start-preparation.md). Echt traceable/6,
+Startdatum 04.11.2026, Generierung/Serienfreigabe und Automatisierung true.
+Erstes echtes Ursprungswerk „Irifalter“, Generation 1 ohne Eltern, archiviert und
+veröffentlicht. CI/Pages sowie genau eine deploy:false-Wiederholung erfolgreich:
+je 167 Tests, 70 Browserfälle/sechs bestehende Skips, workerd/SQLite. Wiederholung
+ohne neue Werke/Commits; Originalbytes unverändert. Alle 23 öffentlichen Dateien
+bytegleich zum Artefakt und zum wiederholten Build. Zwölf anonyme Livefälle bestanden.
+
+HEAD/main und origin/main `7e19cdf17eeac668ab884743e81400096c310358`; nur der geprüfte Archivcommit per
+Fast-forward lokal übernommen. Erster offizieller Archiv-/Pages-Lauf und seine
+Idempotenz sind damit jetzt belegt. Das zweite unabhängige Ursprungswerk ist erst
+für 05.11. ab 04:00 Berlin fällig; dessen zukünftigen Lauf nicht als erfolgt werten.
+Actions best effort. Keine vollständige WCAG-/GPU-/Feld-/Sitzungszertifizierung;
+alle ausgewiesenen Restgrenzen bleiben bestehen. Keine Phase 5/EP-01-Freigabe.
+Die folgenden Vorstartentscheidungen und Matrixangaben sind historische Nachweise
+ihres damaligen Prüfumfangs. Maßgeblich sind dieser Abschluss und der Startbericht.
+
 ## Ergänzung – Serienstartvorlage vom 04.11.2026
 
 Betreiberantwort zur isolierten Datumsvorlage: **„heute“ = 04.11.2026 Berlin**.
@@ -74,7 +94,7 @@ separat freigegebenen echten Speichertest zu unterscheiden. Remote zuletzt `a66d
 traceable/5; lokal HEAD/main und gespeichertes origin/main weiter `d844e3f`, traceable/3.
 Im reinen Übergabeschritt kein neuer Remoteabgleich und keine Integration.
 
-## Entscheidung vor Serienstart
+## Historische Entscheidung vor Serienstart
 
 **Noch keine vollständige externe Phase-4-Abnahme und keine Serienfreigabe.**
 Die lokalen Prüfungen wurden gezielt ergänzt. Die echte iPhone-/Safari-Prüfung
@@ -96,7 +116,7 @@ lokal behoben**; kleinere Restverschiebungen und der Variantenvergleich stehen i
 nachfolgenden Korrekturbericht. Die Ergebnisse sind gemeinsam zu sichten.
 Keine vollständige Phase-4-, Risiko- oder Serienabnahme durch dieses Ergebnis.
 
-## PRD-Abnahmematrix A-01 bis A-27
+## Historische PRD-Abnahmematrix A-01 bis A-27
 
 „Lokal“ umfasst isolierte Git-Repositories, synthetische Zugänge beziehungsweise
 Testdaten und Browserläufe gegen den gebauten Stand. Es ist kein Beleg für einen

@@ -53,8 +53,9 @@ synthetische Schema-Prüfdaten und wird weder publiziert noch in den Index aufge
 `schemaVersion`, `generatorVersion`, `rendererVersion` und `lexiconVersion` sind
 explizit. Werkdatum (`id`), geplanter Termin (`scheduledFor`), Laufstart
 (`runStartedAt`) und tatsächliche Erstellung (`generatedAt`) sind getrennt. Alle
-Termine haben einen Offset; `scheduledFor` muss um 04:00 am Werkdatum in
-`Europe/Berlin` liegen. `isCatchUp` richtet sich nach dem Laufstart im nächsten
+Termine haben einen Offset; `scheduledFor` folgt der datierten Regel in
+`src/series/calendar.ts`: vor 06.11.2026 um 04:00, danach um 01:17 am Werkdatum
+in `Europe/Berlin`. Historische Werkbytes bleiben unverändert. `isCatchUp` richtet sich nach dem Laufstart im nächsten
 Berliner Tageszyklus, einschließlich Sommer-/Winterzeit. Spätes Fertigstellen
 allein macht ein Werk nicht zu einer Nachholung. Das ist Metadatenprüfung, noch
 keine Berechnung fälliger Werke oder Automatisierung.
@@ -170,7 +171,10 @@ Workflow archiviert **und** baut/deployt den validierten Commit, weil ein
 Deployment wird mit denselben archivierten Werken wiederholt. Die letzte funktionierende
 Veröffentlichung bleibt erhalten.
 
-Geplanter Tageszeitpunkt ist 04:00 `Europe/Berlin`, ohne harte Verfügbarkeitsgarantie.
+Geplanter Tageszeitpunkt ist ab Werkdatum 06.11.2026 01:17 `Europe/Berlin`,
+mit Nachholversuchen 01:47/02:23 und ohne harte Verfügbarkeitsgarantie.
+Die reine Kalenderregel wird von Schema, Generator, Automatisierung und Anzeige geteilt;
+01:17 liegt vor der Sommer-/Winterzeitumstellung des jeweiligen Tages.
 Phase 0 enthält absichtlich **keinen** Schedule, Generatorstart oder Repo-Schreiber.
 
 ## Vorbereitete CI und Pages
@@ -280,7 +284,8 @@ Sammlung/Seite/Suche sind verlinkbar. Diese Auswahl ist weder globale Moduskonfi
 noch gespeicherte Betreiberaktion. Unbekannte Quellen führen zu einem Fehler. Historische
 Werkansichten lesen ihren Modus/Revision aus der Werkdatei. Kein Browser-Schreibzugriff.
 
-Vor 04:00 filtert der offizielle Leseweg zukünftige Datumsschlüssel aus dem Index.
+Vor der datierten Tagesgrenze (bis 05.11.2026 04:00, danach 01:17) filtert der
+offizielle Leseweg zukünftige Datumsschlüssel aus dem Index.
 Die Anzeigeuhr bestimmt nur Lesbarkeit und Beschriftung; sie erzeugt keine Werke.
 Ein neuer Aufruf/Reload liest frische Daten. Automatisches Nachladen in dauerhaft
 geöffneten Tabs ist vor Tagesbetrieb noch zu ergänzen. Fehler und Leere bleiben

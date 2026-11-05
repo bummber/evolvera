@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import type { Artwork } from '../../src/art/schema/artwork';
@@ -302,4 +303,59 @@ test('Eine fehlende Werkdatei erzeugt eine Fehlerkachel und keine erfundene Kuns
     'Werk gerade nicht verfügbar',
   );
   await expect(page.locator('.work-layout [data-renderer]')).toHaveCount(0);
+});
+
+test('Ab 06.11.2026 wechselt Heute um 01:17 und erhält historische Werktermine', async ({
+  page,
+}) => {
+  const chain = JSON.parse(
+    execFileSync(
+      process.execPath,
+      [
+        '--import',
+        'tsx',
+        '--input-type=module',
+        '-e',
+        "import { createPreviewChain } from './src/art/generator/preview-chain.ts'; console.log(JSON.stringify(createPreviewChain('traceable', 3, '2026-11-04', 'synthetic:browser-schedule').works));",
+      ],
+      { encoding: 'utf8' },
+    ),
+  ) as Artwork[];
+  const requests: string[] = [];
+  await page.clock.setFixedTime(new Date('2026-11-06T01:16:59+01:00'));
+  await page.route('**/evolvera/artworks/index.json', (route) =>
+    route.fulfill({
+      json: {
+        schemaVersion: 1,
+        works: chain
+          .toReversed()
+          .map(({ id, generation, title }) => ({ id, generation, title })),
+      },
+    }),
+  );
+  await page.route(/\/evolvera\/artworks\/2026\/.*\.json$/, (route) => {
+    const id = route.request().url().split('/').at(-1)!.replace('.json', '');
+    requests.push(id);
+    return route.fulfill({ json: chain.find((work) => work.id === id) });
+  });
+  await page.goto('./#/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    chain[1]!.title,
+  );
+  expect(requests).not.toContain('2026-11-06');
+  await expect(page.locator('.home-kicker')).toContainText('04:00 Berlin');
+  await page.clock.setFixedTime(new Date('2026-11-06T01:17:00+01:00'));
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    chain[2]!.title,
+  );
+  await expect(page.locator('.home-kicker')).toContainText('01:17 Berlin');
+  await expect(page.locator('.work-dateline')).toContainText(
+    '6. November 2026',
+  );
+  await page.goto('./#/werk/2026-11-04');
+  await expect(page.locator('.work-metadata')).toContainText(
+    '04.11.2026, 04:00:00',
+  );
+  await noOverflow(page);
 });

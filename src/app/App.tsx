@@ -1,3 +1,4 @@
+import { dailyTime } from '../series/calendar';
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
@@ -542,8 +543,8 @@ export function App() {
                   <dt>Rhythmus</dt>
                   <dd>
                     {initialSettings.generationEnabled
-                      ? 'Täglich ab 04:00'
-                      : 'Geplant ab 04:00'}
+                      ? `Täglich ab ${dailyTime}`
+                      : `Geplant ab ${dailyTime}`}
                     <span>{initialSettings.timezone}</span>
                   </dd>
                 </div>

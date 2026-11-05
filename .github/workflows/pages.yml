@@ -3,11 +3,11 @@ on:
   push:
     branches: [main]
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '17 1 * * *'
       timezone: Europe/Berlin
-    - cron: '17 4 * * *'
+    - cron: '47 1 * * *'
       timezone: Europe/Berlin
-    - cron: '13 5 * * *'
+    - cron: '23 2 * * *'
       timezone: Europe/Berlin
   workflow_dispatch:
     inputs:

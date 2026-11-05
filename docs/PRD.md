@@ -21,6 +21,10 @@ language: "de-DE"
 
 ---
 
+## Ergänzung vom 05.11.2026 – Tageswechsel ab 06.11.2026
+
+Auf Betreiberauftrag wird der Tageswechsel versuchsweise ab Werkdatum **06.11.2026 auf 01:17 Uhr Europe/Berlin** vorgezogen. Nachholversuche: **01:47 und 02:23 Uhr**. Für frühere Werkdaten bleibt der ursprüngliche Termin **04:00 Uhr** gültig; archivierte Werke und deren Metadaten werden nicht geändert. Zeitplan, Generierung, Schema und öffentliche Anzeige verwenden dieselbe datierte Regel. Sommer-/Winterzeit richtet sich nach dem Offset am vorgesehenen lokalen Termin. GitHub Actions bleibt best effort; eine höhere Zuverlässigkeit dieses Zeitfensters ist noch nicht nachgewiesen. Umsetzung und Veröffentlichung sind im [Umstellungsbericht](schedule-change.md) getrennt ausgewiesen.
+
 ## Beschlussstand nach dem gemeinsamen Review
 
 Diese Version ersetzt die fachliche Ausgangsversion 1.0. Die folgenden Produktentscheidungen wurden gemeinsam mit dem Betreiber bestätigt. Die beschriebenen Funktionen sind Anforderungen, keine bereits implementierten oder getesteten Eigenschaften.
@@ -54,7 +58,7 @@ Es geht **nicht** um technisch perfekte Bilder, Fotorealismus, KI-Bildgeneratore
 
 ### 1.1 Produktversprechen
 
-- Jeden Tag ein neues, eindeutiges Kunstwerk, geplant ab **04:00 Uhr in der Zeitzone `Europe/Berlin`**.
+- Jeden Tag ein neues, eindeutiges Kunstwerk, geplant ab **01:17 Uhr in der Zeitzone `Europe/Berlin`**.
 - Jedes Werk wird mit seinem Titel, Erstellungsdatum, gestalterischen Eigenschaften und seiner Abstammung dauerhaft gespeichert.
 - Eine kleine, ästhetische und schnelle Website, die auf Smartphones hervorragend funktioniert.
 - Keine laufenden Kosten für Bildgenerierungsdienste und für die erste Version **möglichst 0 € Hostingkosten**.
@@ -100,7 +104,7 @@ Es geht **nicht** um technisch perfekte Bilder, Fotorealismus, KI-Bildgeneratore
 | ID | Funktion | Anforderung |
 |---|---|---|
 | F-01 | Tageswerk | Das zuletzt veröffentlichte Tageskunstwerk ist auf der Startseite prominent sichtbar. |
-| F-02 | Tägliche Generierung | Automatischer geplanter Auslöser um 04:00 Uhr `Europe/Berlin`; unabhängig vom Seitenaufruf. |
+| F-02 | Tägliche Generierung | Automatischer geplanter Auslöser um 01:17 Uhr `Europe/Berlin`; unabhängig vom Seitenaufruf. |
 | F-03 | Zwei Startgenerationen | Am ersten und zweiten Serientag entsteht jeweils ein unabhängiges Ursprungswerk; kein doppelter Serienstart am selben Datum. |
 | F-04 | Evolution | Ab Generation 3 dienen die beiden unmittelbar vorhergehenden Werke als Eltern. |
 | F-05 | Zwei Vererbungsmodi | Zufällige Mischung und Mutation ohne feste Prozentquote. Im nachvollziehbaren Modus muss jeder Elternteil gestalterisch beitragen; im freien Modus ist ein vollständiger Bruch erlaubt. |
@@ -527,7 +531,7 @@ Technischer Vorschlag für `config/generation.json`:
            |  React/Vite-Frontend                 |
            +----------------+---------------------+
                             |
-          GitHub Actions: 04:00 Europe/Berlin
+          GitHub Actions: 01:17 Europe/Berlin
                             |
                 +-----------v-----------+
                 | Letzte 2 Werke laden  |
@@ -587,11 +591,11 @@ GitHub Pages bleibt die statische öffentliche Galerie. Cloudflare Workers über
 
 ### 10.1 Zeitliche Definition
 
-- **Gewünschter Zeitpunkt:** Täglich um **04:00 Uhr Europe/Berlin** (CET/CEST automatisch berücksichtigt).
-- Ein neuer Tageszyklus beginnt um 04:00 Uhr und endet unmittelbar vor 04:00 Uhr des Folgetags. Kalenderarithmetik erfolgt in `Europe/Berlin`, nicht durch pauschales Addieren oder Subtrahieren von 24 Stunden.
+- **Gewünschter Zeitpunkt:** Täglich um **01:17 Uhr Europe/Berlin** (CET/CEST automatisch berücksichtigt).
+- Ein neuer Tageszyklus beginnt um 01:17 Uhr und endet unmittelbar vor 01:17 Uhr des Folgetags. Kalenderarithmetik erfolgt in `Europe/Berlin`, nicht durch pauschales Addieren oder Subtrahieren von 24 Stunden.
 - `seriesStartDate` wird zum Livegang festgelegt. Vor Kunstabnahme und Aktivierung werden keine offiziellen Tageswerke erzeugt. Ab Startdatum gibt es genau einen fälligen Datumsschlüssel pro Serientag; Generation 2 folgt am nächsten Berliner Kalendertag, nicht im selben Startlauf für ein zukünftiges Datum.
 - Der Datumsschlüssel eines Kunstwerks ist das **Berliner Kalenderdatum des vorgesehenen Tages**, nicht das UTC-Datum des Runners.
-- Vor 04:00 Uhr bleibt das zuletzt veröffentlichte Werk aktuell; das neue Werk darf **nicht vorzeitig** erscheinen.
+- Vor 01:17 Uhr bleibt das zuletzt veröffentlichte Werk aktuell; das neue Werk darf **nicht vorzeitig** erscheinen.
 - Ein neuer Titel, neue DNA und Elternzuordnung werden **einmalig** für den Tag festgelegt.
 - Bei verspätetem Erscheinen nennt die Startseite das tatsächliche aktuelle Werkdatum und „Zuletzt veröffentlicht“, statt ein älteres Werk fälschlich als heute erzeugt zu bezeichnen. Vor Serienstart erscheint ein verständlicher Hinweis; nachgeholte Werke sind in den Details als solche gekennzeichnet.
 
@@ -602,22 +606,22 @@ Die aktuelle GitHub-Actions-Syntax unterstützt IANA-Zeitzonen. Konzeptionelles 
 ```yaml
 on:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '17 1 * * *'
       timezone: 'Europe/Berlin'
-    - cron: '17 4 * * *'   # kontrollierter Nachholversuch
+    - cron: '47 1 * * *'   # kontrollierter Nachholversuch
       timezone: 'Europe/Berlin'
-    - cron: '13 5 * * *'   # weiterer Nachholversuch
+    - cron: '23 2 * * *'   # weiterer Nachholversuch
       timezone: 'Europe/Berlin'
   workflow_dispatch:
 ```
 
-**Verfügbarkeitsvorbehalt:** GitHub Actions arbeitet mit **best effort**. Geplante Runs können verspätet starten oder in Ausnahmesituationen entfallen. Der Trigger ist auf 04:00 Uhr gestellt, doch sekundengenaue Veröffentlichung um 04:00 Uhr kann mit GitHub Pages/Actions nicht garantiert werden. Eine spätere Hosting-/Scheduler-Alternative wäre nötig, falls eine harte Uhrzeitgarantie zum Produktziel wird.
+**Verfügbarkeitsvorbehalt:** GitHub Actions arbeitet mit **best effort**. Geplante Runs können verspätet starten oder in Ausnahmesituationen entfallen. Der Trigger ist auf 01:17 Uhr gestellt, doch sekundengenaue Veröffentlichung um 01:17 Uhr kann mit GitHub Pages/Actions nicht garantiert werden. Eine spätere Hosting-/Scheduler-Alternative wäre nötig, falls eine harte Uhrzeitgarantie zum Produktziel wird.
 
 ### 10.3 Verarbeitungsablauf
 
 1. Workflow startet automatisch oder manuell und erhält den gemeinsamen exklusiven Generator-/Publish-Bereich.
 2. Einen frischen Repositorystand laden, Einstellungen validieren und Modus/Revision für diesen Lauf einfrieren. Bei deaktivierter offizieller Generierung keine neuen Werke erzeugen; ein Testdeployment der leeren Galerie bleibt möglich.
-3. Zeitzone `Europe/Berlin` auswerten. Nur bereits fällige Werkdaten ab Serienstart berücksichtigen; das heutige Werk vor 04:00 Uhr nicht vorziehen. Bereits fällige ältere Tage können auch vor 04:00 Uhr nachgeholt werden.
+3. Zeitzone `Europe/Berlin` auswerten. Nur bereits fällige Werkdaten ab Serienstart berücksichtigen; das heutige Werk vor 01:17 Uhr nicht vorziehen. Bereits fällige ältere Tage können auch vor 01:17 Uhr nachgeholt werden.
 4. Archiv vollständig validieren und für fehlende Dateien prüfen, ob sie bereits in Git archiviert waren. Bei historischen Lücken, beschädigten Daten oder unerwarteten Elternbeziehungen zunächst Wiederherstellung aus Git versuchen; gelingt das nicht sicher, Lauf beenden. Nur noch nie archivierte fällige Tage sind Nachholbedarf; gelöschte historische Dateien am Serienende sind Archivschäden.
 5. Fällige fehlende Tage chronologisch erzeugen: Generationen 1 und 2 unabhängig; danach bei jedem Werk die zwei unmittelbar vorhergehenden Generationen als Eltern verwenden. Den eingefrorenen Modus beachten.
 6. Bereits vorhandene kanonische Werkdateien unverändert lassen (Idempotenz). Historische Daten nicht aus heutigen Regeln neu erzeugen.
@@ -760,7 +764,7 @@ GitHub dokumentiert, dass geplante Workflows in öffentlichen Repositories nach 
 
 **Ziel:** Geschützte globale Moduswahl und autonome tägliche Generierung.
 
-**Ergebnisse:** Cloudflare-Worker-Funktion, GitHub-Anmeldung nur für den Betreiber, dauerhaft gespeicherter Modus, geschützte Sitzung und konfliktfeste Konfigurationsänderung; geplante GitHub-Actions-Läufe um 04:00 Europe/Berlin mit Nachholversuchen; Archivierung, Build, Deploy und Runbook.
+**Ergebnisse:** Cloudflare-Worker-Funktion, GitHub-Anmeldung nur für den Betreiber, dauerhaft gespeicherter Modus, geschützte Sitzung und konfliktfeste Konfigurationsänderung; geplante GitHub-Actions-Läufe um 01:17 Europe/Berlin mit Nachholversuchen; Archivierung, Build, Deploy und Runbook.
 
 **Abnahme vor Serienstart:** Autorisierung, Moduswechsel und Generierungs-Snapshot mit Testdaten geprüft; Cookies/Callback ohne Drittanbieter-Cookie-Abhängigkeit getestet. Erst nach Kunstabnahme konkretes Startdatum bestimmen und offizielle Generierung aktivieren.
 
@@ -780,7 +784,7 @@ GitHub dokumentiert, dass geplante Workflows in öffentlichen Repositories nach 
 
 | Risiko | Auswirkung | Gegenmaßnahme |
 |---|---|---|
-| GitHub Actions läuft verspätet oder fällt aus | Tageswerk erscheint nicht genau 04:00 | Nachholtrigger, Idempotenz, Monitoring, klare Best-effort-Definition |
+| GitHub Actions läuft verspätet oder fällt aus | Tageswerk erscheint nicht genau 01:17 | Nachholtrigger, Idempotenz, Monitoring, klare Best-effort-Definition |
 | GitHub-Actions-Commit triggert kein weiteres Publish | Archiv aktualisiert, Website veraltet | Generieren, Commit, Build und Pages-Deploy im selben Workflow |
 | Zufällige Werke werden zu ähnlich oder unbrauchbar | Galerie verliert Reiz | Qualitätsleitplanken, diversifizierte Operatoren, visuelle Tests, kein fixiertes Mischverhältnis |
 | Alte Werke verändern sich nach Renderer-Update | Geschichtliche Integrität leidet | Versioniertes Schema/Rendering, Migrationsstrategie, Snapshot-Tests |
@@ -850,7 +854,7 @@ Die folgenden technischen und gestalterischen Details darf Codex im Rahmen diese
 
 Diese Schritte blockieren den lokalen Start von Phase 0 nicht. Es sind keine bereits vorhandenen Zugangsdaten oder eingerichteten Integrationen zu unterstellen.
 
-**Bereits entschieden:** Evolvera als Arbeitstitel, mobile first, kostenloser Betrieb als Ziel, HTML-/CSS-Kunst, zwei Ursprungswerke an zwei Tagen, anschließend zwei unmittelbare Eltern, beide Vererbungsmodi mit nachvollziehbarem Standard, geschützte GitHub-Betreiberanmeldung unter Einstellungen, Cloudflare Workers als Ergänzung, täglicher Termin 04:00 Europe/Berlin, ehrliche Nachholung, dauerhaftes Archiv, stabile historische Gestaltung, statische Galerie, Evolution, Über-Seite, Animationen, Fantasietitel und Kunstabnahme mit 30–50 Testwerken vor Serienstart.
+**Bereits entschieden:** Evolvera als Arbeitstitel, mobile first, kostenloser Betrieb als Ziel, HTML-/CSS-Kunst, zwei Ursprungswerke an zwei Tagen, anschließend zwei unmittelbare Eltern, beide Vererbungsmodi mit nachvollziehbarem Standard, geschützte GitHub-Betreiberanmeldung unter Einstellungen, Cloudflare Workers als Ergänzung, täglicher Termin 01:17 Europe/Berlin, ehrliche Nachholung, dauerhaftes Archiv, stabile historische Gestaltung, statische Galerie, Evolution, Über-Seite, Animationen, Fantasietitel und Kunstabnahme mit 30–50 Testwerken vor Serienstart.
 
 ---
 
@@ -906,7 +910,7 @@ Evolvera wird als öffentliche, mobile-first und möglichst kostenlos betriebene
 
 Der Betreiber kann unter „Einstellungen“ nach GitHub-Anmeldung zwischen nachvollziehbarer Vererbung und maximaler Freiheit wechseln. Standard ist nachvollziehbare Vererbung. Der Modus bleibt gespeichert und gilt ab dem nächsten noch nicht begonnenen Generierungslauf. Jedes Werk archiviert seinen konkreten Modus und dessen Herkunftsentscheidungen. Vergangene Werke werden nicht verändert.
 
-React/Vite und GitHub Pages liefern Heute, Galerie, Evolution, Werkdetails und Über Evolvera. Statische echte HTML-/CSS-Kacheln schonen mobile Geräte. Cloudflare Workers ergänzt die geschützte Betreiberfunktion. GitHub Actions übernimmt die um 04:00 Europe/Berlin geplante Generierung, Git-Archivierung und Veröffentlichung. Fehlende neue Tage werden transparent nachgeholt; historische Schäden werden aus Git wiederhergestellt.
+React/Vite und GitHub Pages liefern Heute, Galerie, Evolution, Werkdetails und Über Evolvera. Statische echte HTML-/CSS-Kacheln schonen mobile Geräte. Cloudflare Workers ergänzt die geschützte Betreiberfunktion. GitHub Actions übernimmt die um 01:17 Europe/Berlin geplante Generierung, Git-Archivierung und Veröffentlichung. Fehlende neue Tage werden transparent nachgeholt; historische Schäden werden aus Git wiederhergestellt.
 
 Vor dem offiziellen Serienstart werden 30–50 getrennte Testwerke beider Modi gemeinsam geprüft. Erst nach ausdrücklicher Kunstabnahme werden Startdatum und offizielle Generierung aktiviert. Ein frühes öffentliches Testdeployment der Shell startet noch keine Kunstserie.
 

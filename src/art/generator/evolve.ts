@@ -1,3 +1,4 @@
+import { isCatchUp } from '../../series/calendar';
 import { z } from 'zod';
 import { artworkSchema, artworkV2Schema, dnaSchema } from '../schema/artwork';
 import type {
@@ -77,26 +78,6 @@ function expose(background: string, element: Element): Element[] {
     ),
     element,
   ];
-}
-function dateTimeInBerlin(value: string) {
-  return new Intl.DateTimeFormat('sv-SE', {
-    timeZone: 'Europe/Berlin',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hourCycle: 'h23',
-  }).format(new Date(value));
-}
-function catchUp(workDate: string, runStartedAt: string) {
-  const next = new Date(`${workDate}T00:00:00Z`);
-  next.setUTCDate(next.getUTCDate() + 1);
-  return (
-    dateTimeInBerlin(runStartedAt) >=
-    `${next.toISOString().slice(0, 10)} 04:00:00`
-  );
 }
 function mutation(
   recipe: Recipe,
@@ -373,7 +354,7 @@ export function generateArtwork(
       scheduledFor: request.scheduledFor,
       generatedAt,
       runStartedAt: request.runStartedAt,
-      isCatchUp: catchUp(request.workDate, request.runStartedAt),
+      isCatchUp: isCatchUp(request.workDate, request.runStartedAt),
       seed: request.seed,
       inheritanceMode: request.settings.inheritanceMode,
       settingsRevision: request.settings.revision,

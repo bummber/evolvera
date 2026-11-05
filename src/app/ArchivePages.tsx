@@ -1,3 +1,4 @@
+import { dailyTime } from '../series/calendar';
 import { useCallback, useEffect, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
@@ -298,8 +299,8 @@ function Today({ reader }: { reader: ArchiveReader }) {
               <div className="empty-state stage">
                 <h2>Noch kein fälliges Werk.</h2>
                 <p>
-                  Ein neues Tageswerk erscheint frühestens ab 04:00 Uhr Berliner
-                  Zeit.
+                  Ein neues Tageswerk erscheint frühestens ab {dailyTime} Uhr
+                  Berliner Zeit.
                 </p>
               </div>
             ) : (
@@ -341,7 +342,7 @@ function SeriesInfo() {
       <dl>
         <div>
           <dt>Geplanter Rhythmus</dt>
-          <dd>Täglich ab 04:00 · Berlin</dd>
+          <dd>Täglich ab {dailyTime} · Berlin</dd>
         </div>
         <div>
           <dt>Voreingestellter Modus</dt>
@@ -918,7 +919,7 @@ function WorkPresentation({
             </time>
             <span>
               {reader.key === 'official'
-                ? '04:00 Berlin'
+                ? `${new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(work.scheduledFor))} Berlin`
                 : 'Simuliertes Testdatum'}
             </span>
           </div>

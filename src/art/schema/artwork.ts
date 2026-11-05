@@ -1,3 +1,8 @@
+import {
+  berlinDateTime,
+  scheduledTime,
+  isCatchUp,
+} from '../../series/calendar';
 import { z } from 'zod';
 import { instantSchema, modeSchema, workDateSchema } from './config';
 
@@ -143,8 +148,7 @@ function refineArtwork(
       'Nachvollziehbare Vererbung benötigt gestalterische Belege beider Eltern.',
     );
   }
-  // Exact scheduling/catch-up semantics live in the later scheduler. These guards
-  // already reject impossible orderings and non-Berlin 04:00 timestamps.
+  // The dated schedule policy preserves historical timestamps and rejects early starts.
   if (
     Date.parse(work.generatedAt) < Date.parse(work.runStartedAt) ||
     Date.parse(work.runStartedAt) < Date.parse(work.scheduledFor)
@@ -156,26 +160,15 @@ function refineArtwork(
     )
   )
     return;
-  const berlin = new Intl.DateTimeFormat('sv-SE', {
-    timeZone: 'Europe/Berlin',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hourCycle: 'h23',
-  });
-  const parts = berlin.format(new Date(work.scheduledFor));
-  if (parts !== `${work.id} 04:00:00`)
-    fail('Geplanter Termin muss am Werkdatum um 04:00 Europe/Berlin liegen.');
   if (workDateSchema.safeParse(work.id).success) {
-    // Increment the calendar date, never add 24h to a Berlin instant across DST.
-    const next = new Date(`${work.id}T00:00:00Z`);
-    next.setUTCDate(next.getUTCDate() + 1);
-    const nextCycle = `${next.toISOString().slice(0, 10)} 04:00:00`;
-    const catchUp = berlin.format(new Date(work.runStartedAt)) >= nextCycle;
-    if (work.isCatchUp !== catchUp)
+    if (
+      berlinDateTime(work.scheduledFor) !==
+      `${work.id} ${scheduledTime(work.id)}:00`
+    )
+      fail(
+        'Geplanter Termin passt nicht zur Zeitregel des Werkdatums in Europe/Berlin.',
+      );
+    if (work.isCatchUp !== isCatchUp(work.id, work.runStartedAt))
       fail(
         'Nachholkennzeichnung entspricht nicht dem Laufstart im Berliner Tageszyklus.',
       );

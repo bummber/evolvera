@@ -1,3 +1,4 @@
+import { scheduledFor as scheduleForDate } from '../../series/calendar';
 import { z } from 'zod';
 import { generateArtwork } from './evolve';
 import { validateEvolution } from './provenance';
@@ -38,15 +39,7 @@ export function createPreviewChain(
   const day = new Date(`${start}T12:00:00Z`);
   for (let index = 0; index < length; index++) {
     const workDate = day.toISOString().slice(0, 10);
-    // At 04:00 Berlin DST transitions are complete. No 24h addition to a Berlin instant.
-    const offset = new Intl.DateTimeFormat('en', {
-      timeZone: 'Europe/Berlin',
-      timeZoneName: 'shortOffset',
-    })
-      .formatToParts(new Date(`${workDate}T04:00:00Z`))
-      .find((part) => part.type === 'timeZoneName')!.value;
-    const hours = Number(offset.replace('GMT', ''));
-    const scheduledFor = `${workDate}T04:00:00+${String(hours).padStart(2, '0')}:00`;
+    const scheduledFor = scheduleForDate(workDate);
     const runStartedAt = new Date(
       Date.parse(scheduledFor) + 1000,
     ).toISOString();

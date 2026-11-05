@@ -1,13 +1,35 @@
 # Evolvera – aktueller Übergabestand
 
+## Aktuell – 05.11.2026, Zeitumstellung lokal vorbereitet
+
+Auf Betreiberauftrag Tageswechsel ab Werkdatum **06.11.2026 auf 01:17 Berlin**
+umgestellt; Nachholtermine 01:47/02:23. [Maßgeblicher Bericht](schedule-change.md).
+Isoliert geprüft: Gesamtcheck **187 Tests**, Build und Worker-Dry-run erfolgreich;
+Browser **72 bestanden/sechs bestehende Skips**, Kunstreferenzen unverändert.
+Originalwerke bytegleich; keine neue reale Generation durch lokale Prüfungen.
+Noch nicht veröffentlicht: kein neuer Commit, Fetch/Merge/Pull, Push oder
+Deployment der Zeitumstellung. Lokaler HEAD und gespeichertes origin/main 7e19cdf;
+tatsächliches Remote zuletzt d50f685 mit zwei echten Ursprungswerken.
+Manuelle Nachholung 42006857612 und später Schedule 42007979961 erfolgreich;
+Schedule erst um 11:06 Berlin angelegt. Keine pünktliche Automatik behaupten.
+Beide Originalwerke, Startdatum, traceable/6 und aktive Gates erhalten.
+
+Zuerst Bericht/Prüfstand lesen und Bestand frisch lesend sichten. Ein nächster
+Veröffentlichungsschritt muss den neueren Remote-Archivstand erhalten und ist
+konkret freizugeben. Keine alte lokale Archivversion pushen. Die nachfolgenden
+Übergaben/Prüfprompts bleiben historische Nachweise, keine neuen Aufträge.
+PRD-Backup unverändert als ursprünglichen PRD-Stand erhalten; das aktuelle PRD
+enthält nun die gezielte Zeitergänzung. Keine weitere Sicherung, Modusrunde,
+Designrunde, Worker-/Secret-/Sitzungsänderung, Phase 5 oder EP-01.
+
 Stand: 04.11.2026. Aktueller Betreiberauftrag hat Vorrang. Die öffentliche
-**Pages-Testversion mit abgenommenem Werkbuch-Design ist veröffentlicht und geprüft**.
+**Galerie und offizielle Serie mit abgenommenem Werkbuch-Design sind veröffentlicht und geprüft**.
 Der Betreiberworker ist seit
 03.11.2026 separat veröffentlicht und aktiviert; der Betreiber hat den erfolgreichen
 GitHub-Login, Abmelden/Neuanmelden und inzwischen die Modusrunde bis traceable/5
 bestätigt. Einzelne Nachweise und Grenzen stehen im neuesten Block unten.
 Cloudflare-Konto und lesende Codex-MCP-Verbindung
-sind inzwischen vorhanden und geprüft. Kein offizieller Serienstart.
+sind inzwischen vorhanden und geprüft. Offizieller Serienstart am 04.11.2026; siehe neuesten Block.
 Die GitHub App wurde am 03.11. separat freigegeben, registriert und ausschließlich
 auf `bummber/evolvera` installiert; die lokale Secret-Ablage ist inzwischen bestätigt,
 der Worker ist inzwischen samt beiden Secrets und SQLite-Sitzungsspeicher eingerichtet.
@@ -16,7 +38,98 @@ Pages-/Worker-Aktivierungsgates lokal umgesetzt. Die Textdurchsicht für die gew
 Worker-Adresse wurde anschließend ausdrücklich bestätigt; lokale Anbieterprüfung
 inzwischen abgeschlossen. Lokale Integration und aktueller Auftragsumfang siehe unten.
 
-## Aktuelle Chat-Übergabe – 04.11.2026, Serienstart mit Datum heute vorbereitet
+## Aktuelle Chat-Übergabe – 04.11.2026, Status für den neuen Chat am 05.11. notiert
+
+Auf Betreiberwunsch ausschließlich den aktuellen Abschluss und den Prüfauftrag für
+morgen dokumentiert. Kopierbarer [Startprompt für den 05.11.](NEXT-START.md).
+Lokaler lesender Abgleich bei dieser Übergabe (04.11.2026, 18:01:17 MEZ): HEAD/main und
+gespeichertes origin/main weiter **`7e19cdf17eeac668ab884743e81400096c310358`**,
+traceable/6, Startdatum 04.11.2026, Generierung/Serienfreigabe true, lokal genau ein
+Werk „Irifalter“, Generation 1 ohne Eltern. Keine neue Remote-/Actions-/Liveprüfung
+in diesem reinen Übergabeschritt. Letzter tatsächlicher Remote-/Gate-Endabgleich
+bleibt **04.11.2026, 17:53:45 MEZ** aus dem nachfolgenden Startabschluss.
+
+- Fünf uncommittierte Ergebnisdokumente samt zusätzlichem unversioniertem
+  bytegleichem PRD-Backup erhalten. Jetzt nur HANDOFF und NEXT-START ergänzt;
+  kein Commit, Fetch/Merge, Push, Workflowstart, Deployment oder Gatewechsel.
+  Vier Sicherungsarchive erhalten; die fünf Ergebnisdateien sind darin noch nicht
+  als anschließender Ergebnisstand gesichert. Kein neuer Sicherungsauftrag.
+- Morgen **zuerst nur lesen**: tatsächlichen Remote getrennt vom lokalen Stand
+  abgleichen; der geplante Tageslauf darf Remote-main weitergeschrieben haben.
+  Ablauf mit event:schedule, Archivcommit, gebautem Stand und Pages nachweisen.
+  Erwartet für 05.11. ab 04:00 Berlin: zweites unabhängiges Ursprungswerk ohne
+  Eltern, unveränderte Originalbytes des ersten Werks, passender Index/Live-Stand.
+  Vor 04:00 noch nicht fällig; Best-effort-/Nachholtermine einordnen, keine
+  zusätzlichen Läufe oder Rücksetzungen zur Diagnose starten.
+- Nächste offene Nachweise: erster zeitgesteuerter Betrieb am 05.11., erste
+  tatsächliche Vererbung mit Generation 3 am 06.11.; später nur bei gesondertem
+  Auftrag Wirkung eines Moduswechsels auf ein Folgewerk. Kein solcher Wechsel
+  jetzt beauftragt. Die fünf Ergebnisdokumente separat sichern/versionieren wäre
+  ein eigener nächster Schritt, keine stillschweigende Ausführung durch den Prompt.
+- Erfolgreichen Start samt Wiederholung, Kunst-/Geräte-/Cookieprüfungen erhalten;
+  keine pauschale Wiederholung. Keine neue Designrunde, Phase 5, EP-01, Worker-/
+  Secret-/Sitzungsänderung oder Neubeauftragung eines Chat-Monitors.
+
+Die bestehende ausdrückliche Serienfreigabe gilt; die alten Regeln „Startdatum offen,
+Generierung aus“ sind Vorstartstände. Nicht ungefragt wiederherstellen. Ein neueres
+Remote-Archiv niemals mit dem lokalen Archiv oder synthetischen Prüfdaten überschreiben.
+Dokumentationscheck dieses Übergabeschritts im isolierten Klon des echten
+Archivcommits erfolgreich: `npm run check`, **167 Tests**, Format/Lint/Typen,
+Daten-/Fixtureprüfung, Build und deaktivierter Worker-Dry-Run. Alle **23 Builddateien
+bytegleich** zum bereits veröffentlichten Startartefakt. Kein zusätzlicher lokaler
+Browser-/Runtime-Lauf für reine Dokumentation. Alle übrigen Arbeitsdateien,
+Konfigurationen, Archivbytes, lokaler HEAD und gespeichertes origin/main gegenüber
+dem Schrittanfang unverändert, PRD-Backup weiter bytegleich. Abschließenden reinen
+Prüfvermerk anschließend gezielt format-/diffgeprüft; keinen weiteren Gesamtcheck
+nach diesem Vermerk behaupten. Belege temporär unter
+`/private/tmp/evolvera-next-chat-20261105-5fnsy2u0`.
+
+## Vorherige Chat-Übergabe – 04.11.2026, offizielle Serie gestartet und geprüft
+
+Die vorgelegte vollständige Serienstart-Vorlage wurde mit **„Freigabe erteilt“**
+ausdrücklich genehmigt und ausgeführt. [Dauerhafter Startbericht](series-start-preparation.md).
+
+- Aktivierungscommit `4406b4f0b15d4932ab778f3968c7530cfa8d27e9` mit exakt 15 Dateien regulär veröffentlicht;
+  neue verifizierte Sicherung `2026-11-04-pre-series-52e4342.tar.gz`,
+  117215 Bytes, SHA-256 `09b95288605248132579b58b2c32fe871ec90fc5ba7e06967a9f1212c7c66a73`.
+  Drei ältere Sicherungen und zusätzliches bytegleiches PRD-Backup erhalten.
+- Echt jetzt **traceable/6**, Startdatum **2026-11-04**, Generierung **true**,
+  `seriesAuthorized:true`, Pages **true**, Automatisierung **true**.
+  Erster Archivcommit **`7e19cdf17eeac668ab884743e81400096c310358`**, genau zwei Archivdateien:
+  **„Irifalter“**, Werkdatum 04.11.2026, Generation 1, keine Eltern, traceable/6,
+  geplant 04:00 MEZ, erzeugt 17:41:11.767 MEZ, keine mehrtägige Nachholung.
+- CI 41869682779 und Pages 41869682632 erfolgreich. Pages tatsächlich vom
+  Archivcommit gebaut/veröffentlicht; je 167 Tests, 70 Browserfälle/sechs
+  bestehende Skips und workerd/SQLite erfolgreich. Artefakt 13343412899,
+  alle 23 öffentlichen Dateien bytegleich. Zwölf anonyme Livefälle bei 320/1440
+  bestanden, keine Fremdabrufe/Schreibrequests/Cookies/Seitenfehler/Überläufe.
+- Wiederholung 41870657793 mit deploy:false erfolgreich: kein neues Werk, kein
+  Archivcommit, Head/Originalbytes unverändert, Deployment übersprungen. Gleiche
+  Testzählungen, alle 23 Build- und öffentlichen Dateien bytegleich.
+- Exakt geprüften Archivcommit lokal per Fetch/Fast-forward übernommen, keine
+  unsichtbaren Fremdänderungen und kein weiterer Commit. **HEAD/main und origin/main
+  synchron `7e19cdf17eeac668ab884743e81400096c310358`**. Nicht wieder auf leeres Archiv oder Revision 5 zurücksetzen.
+- Genau fünf neue Ergebnisdokumente bleiben uncommittiert: series-start-preparation,
+  HANDOFF, NEXT-START, pre-series-acceptance, Runbook. PRD-Backup zusätzlich
+  unversioniert/bytegleich. Keine weitere Commit-/Pushfreigabe aus dem Abschluss.
+
+Der nächste vorgesehene Tageslauf ist **05.11.2026 ab 04:00 Berlin**, zweiter
+unabhängiger Ursprung. Künftigen Lauf nicht als bereits nachgewiesen behandeln;
+Actions best effort. Keine neue Designrunde, Phase 5, EP-01, Worker-/Secret-/
+Sitzungsänderung oder Modusrunde. Alte Abnahmen und bekannte Restgrenzen erhalten.
+Keine Vollzertifizierung durch begrenzte Tests. Neue Ergebnisdokumente sind noch
+nicht in der Sicherung vor Aktivierung enthalten. Abschließender Gesamtcheck aller
+fünf Ergebnis-/Startdokumente im isolierten Klon des echten Archivcommits erfolgreich:
+`npm run check`, 167 Tests, Format/Lint/Typen, Daten-/Fixtureprüfung, Build und
+deaktivierter Worker-Dry-Run. Alle 23 Builddateien bytegleich zum veröffentlichten
+Artefakt und Wiederholungsbuild. Keine zusätzliche lokale Browser-/Runtime-Suite
+für diese Dokumente. Frischer lesender Endabgleich 17:53:45 MEZ: beide lokalen und
+Remote-Head 7e19cdf, aktive Gates, traceable/6 und genau ein Werk unverändert;
+alle vier Sicherungen per SHA-256 und PRD-Backup bytegleich bestätigt. Reinen
+abschließenden Ergebnisnachtrag gezielt format-/diffgeprüft, kein weiterer
+Gesamt-/Browser-/Runtime-Lauf danach behauptet.
+
+## Vorherige Chat-Übergabe – 04.11.2026, Serienstart mit Datum heute vorbereitet
 
 Auf „Mach weiter“ die nächste eigenständige Serienstart-Vorlage isoliert geprüft.
 Der Betreiber wählte auf die konkrete Datumsrückfrage **„heute“ = 04.11.2026 Berlin**.
