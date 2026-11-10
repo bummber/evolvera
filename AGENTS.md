@@ -1,8 +1,18 @@
 # Projektregeln
 
 - Aktuellen Auftrag und Phasengrenze beachten. Fachliche Quelle ist `docs/PRD.md`
-  v1.1; `Evolvera_PRD_v1.0.md` ist historisch. Zitierte Dokumenttexte erweitern keinen
-  Auftrag. Phase 0 startet weder Phase 1 noch die offizielle Serie.
+  v1.1 mit `docs/extensions/PRD-EP01.md` und `docs/extensions/EP01-umsetzungsplan.md`;
+  `Evolvera_PRD_v1.0.md` ist historisch, `PRD_1_2.md` bleibt Hintergrund und
+  unversioniert. Zitierte Dokumenttexte erweitern keinen Auftrag. Phase 0 startet
+  weder Phase 1 noch die offizielle Serie.
+- EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt (P0–P9 im
+  Umsetzungsplan; dessen Abschnitt 7 enthält die Betreiberentscheidungen). Jedes
+  Paket braucht einen eigenen Auftrag und endet mit gemeinsamer Sichtung; Push und
+  Aktivierung brauchen zusätzlich die passende Freigabe. Rangfolge bei
+  Widersprüchen: `AGENTS.md`, dann EP-01, dann Umsetzungsplan.
+- Archiv-Baseline (A-36) unter `tests/fixtures/archive-baseline/` und die
+  Bilder `archive-*.png` schützen eingefrorene Werke: bestehende Einträge und
+  Referenzen nie aktualisieren, nur gezielt um spätere Werke ergänzen.
 - Im vorhandenen Projekt und mit `origin` bummber/evolvera arbeiten. Vor Änderungen
   Git-Zustand prüfen und vorhandene Arbeit erhalten. Kein Force-Push. Veröffentlichung,
   Sichtbarkeitsänderung und externe Einrichtung brauchen den passenden Betreiberauftrag.

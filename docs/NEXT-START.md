@@ -1,4 +1,76 @@
-# Aktueller Startprompt – Titel-Lexikon 0.2.0 ab 14.11.2026
+# Aktueller Startprompt – EP-01: Lexikon-Beleg 14.11., danach P1
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+vollständig docs/extensions/EP01-umsetzungsplan.md und
+docs/title-lexicon-0.2.0.md lesen. Dann /sichtung ausführen: rein lesend
+Git-Zustand, Remote, Berliner Zeit, Tagesläufe und Archiv prüfen und gemeinsam
+sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. Die acht Betreiberentscheidungen stehen in
+Abschnitt 7 des Plans. P0 ist am 10.11. lokal umgesetzt (Archiv-Baseline A-36
+für die sieben Werke 04.–10.11.); ob P0 committed und gepusht ist, steht im
+HANDOFF und ist per /sichtung zu prüfen.
+
+Schritt 1 (Voraussetzung für P1, eigener Schritt): Den Lauf für Werkdatum
+14.11.2026 anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
+Elternbausteinen belegen und im Lexikonbericht sowie im HANDOFF nachtragen.
+Erwartet: Gen. 11 „Azurschweben“, lexiconVersion 0.2.0, Baustein „schweben“
+vom 12.11.; davor 11.11. „Chschfieber im Morgen“, 12.11. „Chwenchschstille /
+Traumschweben“, 13.11. „Chwkante im Zwischenraum“ (alle 0.1.0). Weicht ein
+Titel ab, zuerst Ursache klären; kein Werk neu erzeugen, kein manueller
+Workflowstart. Ist der 14.11. noch nicht gelaufen, P1 nicht beginnen.
+
+Schritt 2: Ich beauftrage jetzt ausschließlich das Arbeitspaket P1 (Verträge)
+aus dem Umsetzungsplan.
+1. Zuerst die Archiv-Baseline um die seit 11.11. archivierten Werke ergänzen
+   (Befehl im Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts). Bestehende Einträge, Referenztexte
+   und Bilder dabei nicht verändern.
+2. src/art/schema/config.ts: Konfigurationsschema 2 mit Standardprofil und
+   geteiltem Regelmodul (mindestens eine Familie, mindestens eine
+   Palettenstrategie, Kompatibilitätsmatrix); ein Leser für Schema 1 und 2, der
+   immer das vollständige effektive Profil liefert. Schema 1 ergibt das
+   Standardprofil (A-37). Familienschlüssel in Bestandsschreibweise
+   (color-field).
+3. src/art/schema/artwork.ts: dnaV3Schema und artworkV3Schema nach Abschnitt
+   4.2, erweiterte Belegpfade und Operation constrained nach 4.3; V1 und V2
+   bleiben unverändert in der Union.
+4. Renderer-Dispatch nach rendererVersion in einer neuen Datei; Version 2 ist
+   noch leer und meldet „nicht darstellbar“. ArtRenderer.tsx und
+   ArtV1.module.css bleiben unverändert.
+5. Tests: Schema 1 ohne neue Schlüssel wird verarbeitet; alle Archivwerke und
+   Fixtures validieren unverändert; unmögliche Profile werden mit
+   verständlicher Meldung abgelehnt (A-32, A-37); Archiv-Baseline bleibt grün.
+6. npm run check, npm run test:browser und wegen der vom Worker gelesenen
+   Konfiguration npm run worker:test-runtime ausführen und ehrlich berichten.
+
+Grenzen P1: config/generation.json bleibt Schema 1 und unverändert; der Worker
+schreibt kein Schema 2. Keine Änderung an Generator (study.ts, evolve.ts,
+provenance.ts), Titelgenerator, ArtV1, Archivdateien, fixtures/preview,
+Workflows oder bestehenden Browserreferenzen. Kein Renderer 2, kein
+Generator 0.3.0, kein generatorChangeDate. P2 bis P9 nicht beginnen. Neue
+Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P1-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für P2 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P0 (10.11.2026)
+
+# Vorheriger Startprompt – Titel-Lexikon 0.2.0 ab 14.11.2026
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera

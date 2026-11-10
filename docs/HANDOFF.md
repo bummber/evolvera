@@ -1,6 +1,61 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, sieben Werke und Titel-Lexikon 0.2.0 veröffentlicht
+## Aktueller Abschluss – 10.11.2026, EP-01 beauftragt und P0 lokal umgesetzt
+
+Lesende Sichtung am 10.11.2026 um 18:35 Berlin: HEAD/main und Remote-main
+(GitHub-API, ohne Fetch) beide `a258422`, sieben Werke 04.–10.11., `traceable`/6,
+nichts fällig, letzte acht Läufe (Push, CI und Pages) erfolgreich. Der Betreiber
+hat EP-01 und daraus ausschließlich das Arbeitspaket P0 beauftragt.
+[Umsetzungsplan](extensions/EP01-umsetzungsplan.md), Betreiberentscheidungen in
+Abschnitt 7.
+
+- **Regeln angepasst:** `AGENTS.md` führt EP-01 als beauftragt, nennt die
+  Fachquelle (PRD v1.1 mit EP-01 und Umsetzungsplan; `PRD_1_2.md` Hintergrund,
+  unversioniert), die paketweise Arbeit mit Sichtung und die Archiv-Baseline.
+  Im Plan steht jetzt, dass der Lexikon-Beleg zum 14.11. Voraussetzung für P1
+  ist, nicht für P0.
+- **Archiv-Baseline (A-36), eingefroren bis 10.11.2026:**
+  `tests/fixtures/archive-baseline/manifest.json` hält SHA-256, Generation und
+  Titel der sieben Werkdateien; `markup/<Datum>.txt` die serialisierte Ausgabe
+  von Renderer 1 je Werk. `tests/archive-baseline.test.tsx` prüft Bytes,
+  Renderer-Ausgabe, den Index und unerwartete Dateien (17 Tests).
+  `tests/browser/archive-baseline.spec.ts` vergleicht je Werk ein Bild bei
+  320 px und Desktop: 14 neue Bilder `archive-<Datum>.png`; die sechs
+  bestehenden Referenzen `renderer-v1-*` sind unverändert.
+- **Verträglichkeit mit dem Tageslauf:** Zusätzliche Werkdateien mit späterem
+  Datum werden geduldet. `index.json` wird nicht per Hash geprüft, weil sie sich
+  täglich ändert, sondern darauf, dass die eingefrorenen Einträge unverändert
+  enthalten sind. Die CSS-Modul-Suffixe des Testlaufs hängen vom Pfad des
+  Checkouts ab und werden deshalb aus dem Vergleich herausgenommen. In einer
+  isolierten Kopie geprüft: ein zusätzliches Werk 11.11. samt Indexzeile
+  besteht; ein geändertes Byte, eine fremde ältere Datei und ein geänderter
+  Indextitel schlagen jeweils gezielt fehl.
+- **Grenze der Baseline:** Werke ab dem 11.11. sind erst geschützt, wenn die
+  Baseline bewusst ergänzt wird (Befehl im Kopf der Testdatei). Das ist als
+  erster Schritt von P1 vorgesehen.
+- **Prüfungen lokal am 10.11.2026:** `npm run check` erfolgreich mit
+  **207 Tests** (190 + 17), Datenprüfung mit sieben Werken, Build und
+  Worker-Dry-run. `CI=true npm run test:browser` gegen den frischen Build:
+  **86 bestanden** (72 + 14), sechs bestehende Skips. Nach den abschließenden
+  Nachträgen in HANDOFF und NEXT-START wurde `npm run check` wiederholt, die
+  Browsersuite nicht.
+- **Nicht geprüft:** Die neuen Bilder wurden auf macOS erzeugt; ob sie mit den
+  Toleranzen auch auf dem Linux-Runner bestehen, zeigt erst die CI nach einem
+  Push. Die bestehenden Referenzen arbeiten mit denselben Toleranzen. Ein Push
+  sollte deshalb mit Abstand zum Lauf um 01:17 erfolgen und CI/Pages danach
+  kontrolliert werden. `npm run worker:test-runtime` nicht ausgeführt (keine
+  Workeränderung). Live-Website nicht aufgerufen.
+- **Unverändert:** Generator, Titelgenerator, Renderer, Schemata,
+  Konfiguration, Worker, Workflows, Archivdateien, `fixtures/preview`,
+  Lockfile. Kein Fetch, Pull, Workflowstart oder Deployment.
+- `docs/future-series.md` enthält den vorgemerkten Wunsch Favoriten,
+  Löschschalter und Serienneustart vom 10.11.; er ist kein Teil von EP-01.
+
+Als Nächstes: den Lauf für **Werkdatum 14.11.2026** belegen (eigener Schritt,
+Voraussetzung für P1), danach P1 „Verträge“ nur auf ausdrücklichen Auftrag.
+[Aktueller Startprompt](NEXT-START.md). P1 bis P9 sind nicht begonnen.
+
+## Vorheriger Abschluss – 10.11.2026, sieben Werke und Titel-Lexikon 0.2.0 veröffentlicht
 
 Lesende Sichtung am 10.11.2026 um 17:11 Berlin, danach auf Betreiberauftrag
 Fetch, Rebase zweier lokaler Commits auf den Remote-Archivstand, Umsetzung der
