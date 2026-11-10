@@ -43,8 +43,8 @@ kein Gate-/Moduswechsel, kein Worker-Upload.
   (Build und Deploy) erfolgreich. Beim Push kein neues Werk und kein
   Archivcommit. Die Live-Website wurde nicht aufgerufen;
   `npm run test:acceptance` nicht ausgeführt.
-- Dieser Abschnitt und die Nachträge vom 05.11. sind lokal committed, aber
-  noch nicht gepusht; der Push soll zusammen mit dem Beleg vom 14.11. erfolgen.
+- Dieser Abschnitt und die Nachträge vom 05.11. wurden am 10.11.2026 auf
+  Betreiberauftrag als reiner Docs-Push nachgereicht.
   `PRD_1_2.md` und `docs/PRD_v1.1_backup.md` bleiben unversioniert und
   unverändert; die Rolle von `PRD_1_2.md` ist nicht geklärt.
 

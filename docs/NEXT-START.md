@@ -10,7 +10,7 @@ gemeinsam sichten.
 
 Veröffentlicht am 10.11.2026: 4eae70074d6d42e461f8b578fbc31658f3c52bb9,
 Fast-forward auf Archivcommit fbc5fd4. CI 42854900251 und Pages 42854899353
-erfolgreich. Lokal danach weitere Docs-Commits, noch nicht gepusht. Der Remote
+erfolgreich. Danach am selben Tag ein reiner Docs-Push. Der Remote
 bekommt täglich neue Archivcommits; diese nur per Fast-forward bzw. Rebase der
 lokalen Commits übernehmen, niemals überschreiben.
 
@@ -29,8 +29,8 @@ src/series/calendar.ts), vom Betreiber am 10.11. abgenommen. Vorhersage:
 Jetzt den Lauf für den 14.11. anhand Run-ID, Zeit, Status, Archivcommit,
 lexiconVersion, Titel und Elternbausteinen belegen und im Lexikonbericht sowie
 im HANDOFF nachtragen. Weicht ein Titel ab, zuerst Ursache klären; kein Werk
-neu erzeugen, kein manueller Workflowstart. Danach die lokalen Docs-Commits
-zusammen mit dem Beleg nach Rückfrage pushen.
+neu erzeugen, kein manueller Workflowstart. Den Beleg erst nach Rückfrage
+pushen.
 
 Offen und nur auf Auftrag: README und docs/architecture.md aktualisieren; Rolle
 der unversionierten PRD_1_2.md klären; Verspätung der Schedule-Läufe.
