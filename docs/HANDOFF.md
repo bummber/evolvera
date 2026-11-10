@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, EP-01 beauftragt und P0 lokal umgesetzt
+## Aktueller Abschluss – 10.11.2026, EP-01 beauftragt, P0 umgesetzt und veröffentlicht
 
 Lesende Sichtung am 10.11.2026 um 18:35 Berlin: HEAD/main und Remote-main
 (GitHub-API, ohne Fetch) beide `a258422`, sieben Werke 04.–10.11., `traceable`/6,
@@ -39,12 +39,21 @@ Abschnitt 7.
   **86 bestanden** (72 + 14), sechs bestehende Skips. Nach den abschließenden
   Nachträgen in HANDOFF und NEXT-START wurde `npm run check` wiederholt, die
   Browsersuite nicht.
-- **Nicht geprüft:** Die neuen Bilder wurden auf macOS erzeugt; ob sie mit den
-  Toleranzen auch auf dem Linux-Runner bestehen, zeigt erst die CI nach einem
-  Push. Die bestehenden Referenzen arbeiten mit denselben Toleranzen. Ein Push
-  sollte deshalb mit Abstand zum Lauf um 01:17 erfolgen und CI/Pages danach
-  kontrolliert werden. `npm run worker:test-runtime` nicht ausgeführt (keine
-  Workeränderung). Live-Website nicht aufgerufen.
+- **Veröffentlicht am 10.11.2026, 20:56 Berlin: 834845273023efea10099600ef69cc6f4c6161f8**,
+  regulärer Fast-forward-Push von `a258422` (Remote vorher per API unverändert
+  bestätigt, kein Fetch nötig). Vier Commits: `5949b0e` (future-series),
+  `bb66924` (Umsetzungsplan), `b8095bd` (Archiv-Baseline), `8348452` (Regeln,
+  HANDOFF, NEXT-START).
+  [CI 42890298475](https://github.com/bummber/evolvera/actions/runs/42890298475)
+  und [Pages 42890298848](https://github.com/bummber/evolvera/actions/runs/42890298848)
+  (Build und Deploy) erfolgreich: je **207 Tests** und **86 Browserfälle
+  bestanden/sechs bestehende Skips**, darunter alle 14 neuen Bildvergleiche auf
+  dem Linux-Runner ohne Wiederholungsversuch. Beim Push kein neues Werk und
+  kein Archivcommit; Remote-main danach `8348452`.
+- **Nicht geprüft:** Der erste Schedule-Lauf mit der Baseline (Werkdatum
+  11.11.) steht noch aus; die Verträglichkeit mit einem neuen Tageswerk ist
+  bisher nur lokal simuliert. `npm run worker:test-runtime` lokal nicht
+  ausgeführt (keine Workeränderung). Live-Website nicht aufgerufen.
 - **Unverändert:** Generator, Titelgenerator, Renderer, Schemata,
   Konfiguration, Worker, Workflows, Archivdateien, `fixtures/preview`,
   Lockfile. Kein Fetch, Pull, Workflowstart oder Deployment.

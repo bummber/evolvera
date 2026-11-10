@@ -12,9 +12,10 @@ sichten.
 EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
 Hintergrund und unversioniert. Die acht Betreiberentscheidungen stehen in
-Abschnitt 7 des Plans. P0 ist am 10.11. lokal umgesetzt (Archiv-Baseline A-36
-für die sieben Werke 04.–10.11.); ob P0 committed und gepusht ist, steht im
-HANDOFF und ist per /sichtung zu prüfen.
+Abschnitt 7 des Plans. P0 ist am 10.11. umgesetzt und veröffentlicht
+(8348452, Archiv-Baseline A-36 für die sieben Werke 04.–10.11.; CI 42890298475
+und Pages 42890298848 erfolgreich). Der erste Schedule-Lauf mit der Baseline
+(Werkdatum 11.11.) war bei Abschluss noch nicht geprüft.
 
 Schritt 1 (Voraussetzung für P1, eigener Schritt): Den Lauf für Werkdatum
 14.11.2026 anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
