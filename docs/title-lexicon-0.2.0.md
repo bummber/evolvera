@@ -1,7 +1,8 @@
 # Titel-Lexikon 0.2.0 – Bausteinvererbung
 
-Stand: 10.11.2026. **Lokal umgesetzt und geprüft, nicht veröffentlicht. Die
-Titelabnahme durch den Betreiber ist offen.** Fachliche Quelle bleibt
+Stand: 10.11.2026. **Lokal umgesetzt und geprüft. Der Betreiber hat die
+Titelvorschau am 10.11.2026 mit „Titel passen“ abgenommen und die
+Veröffentlichung beauftragt.** Fachliche Quelle bleibt
 [PRD v1.1](PRD.md), Abschnitt 7; dieses Dokument ergänzt das Verfahren aus 7.2.
 
 ## Anlass
@@ -131,7 +132,6 @@ Wechseldatum bleibt.
 
 ## Offen
 
-- Ausdrückliche Titelabnahme durch den Betreiber.
 - Veröffentlichung (Push) und damit Aktivierung; bis dahin läuft die Serie
   unverändert mit Lexikon 0.1.0.
 - Ob die Freigabedatei die Titelabnahme für 0.2.0 zusätzlich ausweisen soll.
