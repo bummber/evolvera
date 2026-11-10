@@ -8,6 +8,12 @@ export function scheduledTime(id: string) {
   workDateSchema.parse(id);
   return id < scheduleChangeDate ? '04:00' : dailyTime;
 }
+// Same policy for titles: works dated before the change keep lexicon 0.1.0.
+export const lexiconChangeDate = '2026-11-14';
+export function lexiconVersionFor(id: string) {
+  workDateSchema.parse(id);
+  return id < lexiconChangeDate ? ('0.1.0' as const) : ('0.2.0' as const);
+}
 export function addDay(id: string) {
   workDateSchema.parse(id);
   const date = new Date(`${id}T12:00:00Z`);

@@ -204,7 +204,7 @@ export const artworkV2Schema = z
     ...artworkCore.shape,
     schemaVersion: z.literal(2),
     generatorVersion: z.literal('0.2.0'),
-    lexiconVersion: z.literal('0.1.0'),
+    lexiconVersion: z.enum(['0.1.0', '0.2.0']),
     titleDna: z.strictObject({
       tokens: z.array(z.string().min(1).max(80)).min(1).max(20),
       pattern: z.enum(['compound', 'pair', 'phrase']),

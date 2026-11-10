@@ -1,7 +1,7 @@
 import { configSchema, instantSchema } from '../art/schema/config';
 import { snapshotSettings } from '../operator/settings';
 import { generateArtwork } from '../art/generator/evolve';
-import { addDay, cycleDate, scheduledFor } from './calendar';
+import { addDay, cycleDate, lexiconVersionFor, scheduledFor } from './calendar';
 import { assertSeriesGate } from './release';
 import { indexPath, indexText, readWorks, workPath } from './archive';
 
@@ -48,6 +48,7 @@ export function prepareRun(
           settings,
           parents: works.length < 2 ? [] : works.slice(-2),
           usedTitles: works.map((work) => work.title),
+          lexiconVersion: lexiconVersionFor(next),
         },
         clock,
       );

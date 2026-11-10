@@ -325,4 +325,74 @@ describe('Poetische Titel und Elternfragmente', () => {
       generateTitle({ seed: 'x', lexiconVersion: '999', parents: [] }),
     ).toThrow();
   });
+  it('vererbt mit Lexikon 0.2.0 ganze Bausteine statt Buchstabenreste', () => {
+    // Real archive titles of 2026-11-04 to 2026-11-10 as chronological history.
+    const works = [
+      'Irifalter',
+      'Chromaströmung im Nirgendwo',
+      'Chrauschen',
+      'Chrchschweben im Stillstand',
+      'Chrfieber',
+      'Chschweif / Eisweben',
+      'Chwende im Ungefähren',
+    ].map((title, index) => ({
+      id: `2026-11-${String(index + 4).padStart(2, '0')}`,
+      title,
+    }));
+    const day = (offset: number) =>
+      new Date(Date.UTC(2026, 10, 4 + offset)).toISOString().slice(0, 10);
+    const inherited = new Set<string>();
+    let fromBoth = 0;
+    for (let index = works.length; index < 372; index++) {
+      const parents = works.slice(-2);
+      const request = {
+        seed: `kette:${index}`,
+        lexiconVersion: '0.2.0',
+        parents,
+        usedTitles: works.map((work) => work.title),
+      };
+      const result = generateTitle(request);
+      expect(generateTitle(request)).toEqual(result);
+      // Every title starts with a readable lexicon word; the "Ch" line ends.
+      expect(result.title).not.toMatch(/^Ch(?!roma)/);
+      expect(result.tokens.slice(0, 2).join('')).toBe(
+        result.title.match(/[\p{L}]+/u)![0],
+      );
+      for (const fragment of result.parentFragments) {
+        const parent = parents.find((item) => item.id === fragment.parentId)!;
+        // Same rule as validateEvolution, plus: a whole token, never a slice.
+        expect(parent.title).toContain(fragment.fragment);
+        expect(result.tokens.slice(0, 2)).toContain(fragment.fragment);
+        inherited.add(fragment.fragment);
+      }
+      if (result.parentFragments.length === 2) fromBoth++;
+      works.push({ id: day(index), title: result.title });
+    }
+    const mainWords = works
+      .slice(7)
+      .map((work) => work.title.match(/[\p{L}]+/u)![0]);
+    expect(new Set(mainWords).size).toBe(mainWords.length);
+    expect(inherited.size).toBeGreaterThan(30);
+    expect(fromBoth).toBeGreaterThan(20);
+  });
+  it('lässt Lexikon 0.1.0 unverändert und trennt beide Versionen', () => {
+    const request = {
+      seed: 'evolvera:0.2.0:2026-11-06:3',
+      parents: [
+        { id: '2026-11-04', title: 'Irifalter' },
+        { id: '2026-11-05', title: 'Chromaströmung im Nirgendwo' },
+      ],
+      usedTitles: ['Irifalter', 'Chromaströmung im Nirgendwo'],
+    };
+    // Archived title of 2026-11-06 must stay reproducible.
+    expect(generateTitle({ ...request, lexiconVersion: '0.1.0' })).toEqual({
+      title: 'Chrauschen',
+      tokens: ['Ch', 'rauschen'],
+      pattern: 'compound',
+      parentFragments: [{ parentId: '2026-11-05', fragment: 'Ch' }],
+    });
+    expect(
+      generateTitle({ ...request, lexiconVersion: '0.2.0' }).title,
+    ).not.toMatch(/^Ch(?!roma)/);
+  });
 });

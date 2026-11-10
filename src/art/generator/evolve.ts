@@ -30,6 +30,8 @@ export const generationInputSchema = z.strictObject({
   scheduledFor: instantSchema,
   runStartedAt: instantSchema,
   usedTitles: z.array(z.string().max(160)).max(10000).default([]),
+  // Preview chains and accepted fixtures stay on 0.1.0 unless the caller opts in.
+  lexiconVersion: z.enum(['0.1.0', '0.2.0']).default('0.1.0'),
 });
 export type GenerationInput = z.input<typeof generationInputSchema>;
 type Element = Dna['elements'][number];
@@ -337,7 +339,7 @@ export function generateArtwork(
       continue;
     const title = generateTitle({
       seed: `${request.seed}:${request.generation}`,
-      lexiconVersion: '0.1.0',
+      lexiconVersion: request.lexiconVersion,
       parents: request.parents.map(({ id, title }) => ({ id, title })),
       usedTitles: request.usedTitles,
     });
@@ -345,7 +347,7 @@ export function generateArtwork(
       schemaVersion: 2,
       generatorVersion: EVOLUTION_VERSION,
       rendererVersion: '1',
-      lexiconVersion: '0.1.0',
+      lexiconVersion: request.lexiconVersion,
       id: request.workDate,
       generation: request.generation,
       title: title.title,

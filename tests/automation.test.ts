@@ -213,6 +213,23 @@ describe('Tageslauf ohne Datei-/Netzwerkzugriff', () => {
   ])('beachtet Berlin bei %s', (now, date) =>
     expect(cycleDate(now)).toBe(date),
   );
+  it('nutzt Lexikon 0.2.0 erst ab dem datierten Wechsel und lässt frühere Werkdaten bei 0.1.0', () => {
+    const plan = prepareRun(
+      {
+        ...start,
+        settings: { ...settings, seriesStartDate: '2026-11-12' },
+        runStartedAt: '2026-11-15T01:17:00+01:00',
+      },
+      () => '2026-11-15T00:17:02Z',
+    );
+    const works = readWorks(plan.files, '2026-11-12');
+    expect(works.map((work) => [work.id, work.lexiconVersion])).toEqual([
+      ['2026-11-12', '0.1.0'],
+      ['2026-11-13', '0.1.0'],
+      ['2026-11-14', '0.2.0'],
+      ['2026-11-15', '0.2.0'],
+    ]);
+  });
   it('plant 04:00 mit passendem Sommer-/Winteroffset', () => {
     expect(scheduledFor('2026-03-29')).toBe('2026-03-29T04:00:00+02:00');
     expect(scheduledFor('2026-10-25')).toBe('2026-10-25T04:00:00+01:00');
