@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, EP-01 P3 „Generator 0.3.0, Teil A“ lokal umgesetzt, nicht veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P3 „Generator 0.3.0, Teil A“ umgesetzt und veröffentlicht
 
 Der Betreiber hat P3 am 10.11.2026 beauftragt. Sichtung vor Beginn (23:25
 Berlin) und bei Abschluss (23:56 Berlin, API): HEAD/main und Remote-main
@@ -41,14 +41,33 @@ Kunstabnahme für Generator 0.3.0 (P7) und keine Geräteabnahme.
   Standardprofil: kein Fehlschlag, 92,9 % im ersten Versuch, höchstens der
   siebte Versuch nötig. Nach den Nachträgen in Plan, HANDOFF und NEXT-START
   wurde nur `npm run check` wiederholt.
-- **Lokal committet, nicht gepusht:** `28092ab` (Paletten und Füllungen),
-  `2d98046` (Generator), `a45da38` (Probewerke im Atelier, Tests, zwölf
-  Bilder), danach ein Doku-Commit. main liegt damit vier Commits vor
-  Remote-main `388afd6`. Kein Fetch, Pull, Push, Workflowstart oder
-  Deployment.
+- **Veröffentlicht am 11.11.2026, 00:10 Berlin: f4e292b77c00c9e21c4635ac42b9406abc4e3d94**,
+  in drei regulären Fast-forward-Pushes auf Betreiberfreigabe (Remote jeweils
+  vorher per API unverändert bestätigt, kein Fetch nötig). Sechs Commits:
+  `28092ab` (Paletten und Füllungen), `2d98046` (Generator), `a45da38`
+  (Probewerke im Atelier, Tests, zwölf Bilder), `6ab3f45` (Berichte),
+  `fbac451` und `f4e292b` (Korrekturen, siehe unten).
+  [CI 42921134780](https://github.com/bummber/evolvera/actions/runs/42921134780)
+  und [Pages 42921134852](https://github.com/bummber/evolvera/actions/runs/42921134852)
+  (Build und Deploy) erfolgreich: je **118 Browserfälle bestanden/sechs
+  bestehende Skips**, 40 Probewerke reproduziert. Damit bestehen die auf macOS
+  erzeugten zwölf Bilder auch auf dem Linux-Runner. Beim Push kein neues Werk
+  und kein Archivcommit; Remote-main danach `f4e292b`.
+- **Zwei Fehlversuche davor, main war von 23:59 bis 00:17 Berlin rot:**
+  Push 1 (`6ab3f45`, 23:59): CI 42919429281 und Pages 42919429410 im Build
+  gescheitert, Deploy übersprungen. Ein Massentest des Generators (1500 Seeds)
+  brauchte auf dem Runner 7 s und überschritt das Standardlimit von 5 s;
+  behoben in `fbac451` (Zeitlimit 120 s für diese Testgruppe). Push 2
+  (`fbac451`, 00:05): CI 42920330470 und Pages 42920330440 erneut im Build
+  gescheitert. `tests/routing.test.tsx` fand beim Direktlink `#/atelier` die
+  Überschrift nicht rechtzeitig, weil das Atelier beim Laden die 40 Probewerke
+  mitprüfte; behoben in `f4e292b`: Der Abschnitt wird nachgeladen
+  (`OriginStudies` als eigener Chunk, Atelier-Paket 101 kB statt 411 kB). In
+  beiden Fehlversuchen wurde nichts veröffentlicht und nichts archiviert.
+  Lehre: Lokale Laufzeiten sagen wenig über den Runner; neue Massentests
+  brauchen ein eigenes Zeitlimit, große Fixtures einen eigenen Chunk.
 - **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast der
-  erzeugten Werke auf einem Mobilgerät (P7); die neuen Bilder auf dem
-  Linux-Runner (erst nach einem Push); Live-Website. Der erste Schedule-Lauf
+  erzeugten Werke auf einem Mobilgerät (P7); Live-Website nicht aufgerufen. Der erste Schedule-Lauf
   seit P0 (Werkdatum 11.11.) stand bei Abschluss noch aus.
 - **Grenzen:** Determinismus ist nur unter Node 24 geprüft; Zahlen sind auf
   sechs Nachkommastellen gerundet, Winkelfunktionen sind zwischen Engines
@@ -60,8 +79,7 @@ Kunstabnahme für Generator 0.3.0 (P7) und keine Geräteabnahme.
   `fixtures/preview/phase-*.json`, Musterbogen, bestehende Browserreferenzen,
   Lockfile. Archiv-Baseline nicht erweitert (noch kein Werk nach dem 10.11.).
 
-Als Nächstes: Push von P3 nur nach Freigabe (vorher Remote prüfen und neue
-Archivcommits per Rebase übernehmen); P4 „Generator 0.3.0, Teil B“ auf
+Als Nächstes: P4 „Generator 0.3.0, Teil B“ auf
 ausdrücklichen Auftrag in einer neuen Sitzung; unabhängig davon den Lauf für
 **Werkdatum 14.11.2026** belegen, sobald er stattgefunden hat.
 [Aktueller Startprompt](NEXT-START.md).

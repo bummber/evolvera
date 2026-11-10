@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Generator 0.3.0, Teil A – Ursprungswerke (P3)
 
-Stand: 10.11.2026 · Status: lokal committet (28092ab, 2d98046, a45da38), nicht veröffentlicht; Sichtung 2 am 10.11.2026 ohne Änderungswünsche bestätigt
+Stand: 11.11.2026 · Status: veröffentlicht (f4e292b am 11.11.2026); Sichtung 2 am 10.11.2026 ohne Änderungswünsche bestätigt
 
 Generator 0.3.0 erzeugt in diesem Paket nur unabhängige Ursprungswerke im
 Schema 3 für Renderer 2. Es gibt noch keine Vererbung und keine Belege (P4),
@@ -153,7 +153,9 @@ Bewegungsintensität.
 Seeds `evolvera:ep01:origin:1` bis `…:40` im Standardprofil, ohne Auswahl.
 `scripts/origin-fixtures.ts` erzeugt sie (`--write`) und prüft in
 `npm run validate:data`, dass der Generator sie unverändert reproduziert.
-Sichtbar unten im Testatelier (`#/atelier`), getrennt vom Archiv.
+Sichtbar unten im Testatelier (`#/atelier`), getrennt vom Archiv. Der Abschnitt
+wird als eigener Chunk nachgeladen, damit das Atelier nicht auf die Prüfung
+der 40 Werke wartet.
 
 | Merkmal der 40    | Verteilung                                                                                                                                |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |

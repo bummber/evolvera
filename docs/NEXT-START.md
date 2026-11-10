@@ -11,15 +11,16 @@ Zeit, Tagesläufe und Archiv prüfen und gemeinsam sichten.
 
 EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
-Hintergrund und unversioniert. P0, P1 und P2 sind veröffentlicht (Remote-main
-388afd6 am 10.11.). P3 (Generator 0.3.0, Teil A: Ursprungswerke) ist lokal
-umgesetzt und committet (28092ab, 2d98046, a45da38 und ein Doku-Commit), aber
-bei Abschluss nicht gepusht: zuerst klären, ob P3 inzwischen veröffentlicht
-ist; wenn nicht, den Push samt Rebase auf neuere Archivcommits zur Freigabe
-vorlegen. Sichtung 2 der 40 Probewerke ist am 10.11. erfolgt und ohne
+Hintergrund und unversioniert. P0 bis P3 sind
+veröffentlicht; P3 (Generator 0.3.0, Teil A: Ursprungswerke) mit f4e292b am
+11.11. um 00:10 Berlin, CI 42921134780 und Pages 42921134852 erfolgreich
+(zwei Fehlversuche davor stehen im HANDOFF). Ein danach angelegter
+Doku-Commit kann noch ungepusht sein: bei der Sichtung prüfen. Sichtung 2 der 40 Probewerke ist am 10.11. erfolgt und ohne
 Änderungswünsche bestätigt („sehr gut“); die Stufen 15 / 40 / 70 % bleiben.
-Offen: Firefox-Prüfung, Lastmessung auf einem Mobilgerät (P7), die neuen
-Referenzbilder auf dem Linux-Runner. Der Lexikon-Beleg für Werkdatum
+Offen:
+Firefox-Prüfung, Lastmessung auf einem Mobilgerät (P7). Neue Massentests
+brauchen ein eigenes Zeitlimit, große Fixtures einen eigenen Chunk (Lehre
+aus P3). Der Lexikon-Beleg für Werkdatum
 14.11.2026 ist ein eigener Schritt und keine Voraussetzung: sobald der Lauf
 stattgefunden hat, anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion,
 Titel und Elternbausteinen belegen (erwartet Gen. 11 „Azurschweben“, 0.2.0).
