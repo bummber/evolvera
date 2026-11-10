@@ -1,5 +1,50 @@
 # Evolvera – aktueller Übergabestand
 
+## Aktueller Abschluss – 05.11.2026, Zeitumstellung veröffentlicht
+
+Der Betreiber hat die konkrete Veröffentlichung mit **„Freigegeben“** genehmigt.
+Den geprüften Remote-Archivcommit **d50f685** ausschließlich per Fetch/Fast-forward
+übernommen; beide Ursprungswerke und alle vorhandenen Arbeitsdateien erhalten.
+Danach exakt die 20 freigegebenen Dateien in **c85811308896ffada595aea4c10605c3a0e6be6b**
+committed und regulär gepusht. Direkter Elterncommit d50f685, vollständiger
+173-Dateien-Commitbaum bytegleich zum isoliert geprüften Kandidaten.
+Kein Force-Push, zusätzlicher manueller Workflow, Gate-/Moduswechsel oder Worker-Upload.
+
+- **Ab Werkdatum 06.11.2026: 01:17 Europe/Berlin**, Nachholversuche 01:47/02:23.
+  Die beiden bisherigen Werke behalten ihre 04:00-Termine und Originalbytes.
+  Startdatum 04.11., traceable/6, Generierung/Serienfreigabe und beide
+  Repositoryschalter weiterhin true. Genau zwei offizielle Werke; beim Push
+  keine neue Generation und kein weiterer Archivcommit.
+- [CI 42010783208](https://github.com/bummber/evolvera/actions/runs/42010783208)
+  und [Pages 42010782945](https://github.com/bummber/evolvera/actions/runs/42010782945)
+  erfolgreich. Je **187 Tests**, **72 Browserfälle/sechs bestehende bewusste Skips**,
+  workerd-/SQLite-Test und deaktivierter Worker-Dry-run erfolgreich.
+  Gebaut und veröffentlicht wurde tatsächlich c858113.
+- Pages-Artefakt **13406488686**, ZIP-SHA-256
+  `7ebd24d85c550015174906ff5a904f5902087823e985016a0d60e405fbea0be2`.
+  Alle **24 öffentlichen Dateien** bytegleich zum Artefakt und geprüften lokalen
+  Build; beide Werkdateien und Index gleichzeitig bytegleich zum Git-Stand.
+  Deployment **7571197263**, erfolgreich um **11:31:44 Berlin**.
+- Anonyme Liveprüfung **zehn Kombinationen bei 320/1440 Pixeln**: Heute, Galerie,
+  beide Werkdetails und Herkunft passen zum Zwei-Werke-Archiv. Rhythmusangabe
+  01:17 im DOM; historische Werktermine weiterhin 04:00. Keine Überläufe,
+  Seitenfehler, Bild-/SVG-/Canvas-Kunst, fremden Abrufe oder Schreibrequests.
+- HEAD/main und gespeichertes origin/main nach Push auf c858113. Ursprüngliches
+  zusätzliches PRD-Backup unverändert/unversioniert, nicht in den 20 Dateien.
+  Die fünf früher uncommittierten Ergebnisdokumente sind jetzt mitgesichert.
+  Vier neue Abschlussnachträge (dieser Bericht, HANDOFF, NEXT-START, Runbook)
+  bleiben anschließend lokal uncommittiert; kein weiterer Ergebniscommit/Push.
+
+Der erste Lauf mit dem neuen Zeitplan ist erst **06.11.2026 ab 01:17 Berlin**
+fällig: Generation 3 mit den beiden Ursprüngen als Eltern. Die Veröffentlichung
+belegt noch keinen pünktlichen Start oder Zuverlässigkeitsgewinn dieses Fensters.
+Der frühere Schedule-Lauf 42007979961 um 11:06 Berlin belegt nur den stark
+verspäteten alten Zeitplan. Vor einem nächsten Arbeitspaket zuerst gemeinsam
+frisch lesend sichten; keine pauschale Wiederholung alter Kunst-/Login-/Cookieabnahmen,
+neue Designrunde, Phase 5 oder EP-01. Worker, Secrets und Sitzungen erhalten.
+
+## Historische Vorbereitung dieser Veröffentlichung
+
 ## Aktuell – 05.11.2026, Zeitumstellung lokal vorbereitet
 
 Auf Betreiberauftrag Tageswechsel ab Werkdatum **06.11.2026 auf 01:17 Berlin**

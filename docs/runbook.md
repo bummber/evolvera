@@ -1,5 +1,23 @@
 # Betrieb und spätere Einrichtung
 
+## Aktuell – 05.11.2026, Zeitumstellung veröffentlicht
+
+Freigegeben und mit **c858113** regulär veröffentlicht; HEAD/main und origin/main
+synchron. Ab Werkdatum **06.11.2026 01:17 Europe/Berlin**, Nachholversuche 01:47/02:23.
+Genau zwei Originalwerke, unverändert mit ihren 04:00-Terminen, traceable/6 und
+aktive Gates erhalten. CI 42010783208 und Pages 42010782945 erfolgreich:
+je 187 Tests, 72 Browserfälle/sechs bestehende Skips und workerd/SQLite.
+Alle 24 öffentlichen Dateien bytegleich zu Artefakt 13406488686 und lokalem Build;
+zehn anonyme Livefälle bei 320/1440 bestanden.
+[Maßgeblicher vollständiger Abschlussbericht](schedule-change.md).
+
+Nächster tatsächlicher Nachweis: erster Lauf des neuen Zeitplans am 06.11. ab
+01:17 Berlin, Generation 3 mit beiden Ursprüngen als Eltern. Nicht als schon
+bestanden melden. Actions bleibt best effort. Vier neue Ergebnisnachträge bleiben
+lokal uncommittiert; PRD-Backup zusätzlich unverändert. Keine zusätzliche
+Veröffentlichung oder neue Sicherung allein aus diesem Vermerk.
+Nachfolgende Vorbereitungs-/Startstände sind historisch.
+
 ## Aktuell – Zeitumstellung am 05.11.2026 lokal vorbereitet
 
 Ab Werkdatum **06.11.2026** ist lokal **01:17 Europe/Berlin** vorgesehen,

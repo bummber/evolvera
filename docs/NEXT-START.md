@@ -1,3 +1,57 @@
+# Aktueller Startprompt – veröffentlichte Zeitumstellung ab 06.11.2026
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+neuesten HANDOFF, diesen aktuellen Startprompt und docs/schedule-change.md lesen;
+fachliche Quelle docs/PRD.md v1.1 mit gezielter Zeitergänzung vom 05.11.
+Zuerst ausschließlich lesend Bestand, Berliner Datum/Uhrzeit, tatsächlichen
+Remote und Tagesläufe prüfen und gemeinsam sichten.
+
+Veröffentlicht: c85811308896ffada595aea4c10605c3a0e6be6b, direkter Elterncommit
+d50f685, genau 20 freigegebene Dateien. HEAD/main und origin/main nach Push
+synchron. Vorher nur den echten Zwei-Dateien-Archivcommit per Fetch/Fast-forward
+übernommen. Ein inzwischen neueres Remote-Archiv niemals lokal überschreiben.
+
+Ab Werkdatum 06.11.2026 tägliche Grenze 01:17 Europe/Berlin, Nachholversuche
+01:47/02:23. Vorherige Werkdaten behalten 04:00; beide echten Ursprungswerke
+unverändert erhalten. Startdatum 04.11., traceable/6, Generierung true,
+seriesAuthorized:true, beide Repositoryschalter true.
+
+Archiv nach Veröffentlichung: 04.11., Gen. 1 „Irifalter“, Eltern []; 05.11.,
+Gen. 2 „Chromaströmung im Nirgendwo“, Eltern []. Original-SHA-256 im Bericht.
+Erst für 06.11. ab 01:17 ist Gen. 3 mit genau diesen beiden Eltern fällig.
+Bei späterem Einstieg fällige Tage am echten Berliner Datum bestimmen.
+
+CI 42010783208 und Pages 42010782945 erfolgreich, tatsächlich c858113 gebaut/
+veröffentlicht. Je 187 Tests, 72 Browserfälle/sechs bestehende Skips und
+workerd/SQLite. Alle 24 öffentlichen Dateien bytegleich zu Artefakt 13406488686
+und lokalem Build; zehn anonyme Livefälle bei 320/1440 erfolgreich. Beim Push
+keine neue Generation oder weiterer Archivcommit. Frühere Nachholung und stark
+verspäteter Schedule-Lauf am 05.11. stehen im Bericht; kein Erfolgsnachweis für
+pünktliche Starts um 01:17. GitHub Actions best effort.
+
+Jetzt den ersten tatsächlich neuen Schedule-Lauf anhand Run-ID, Zeit, Status,
+Archivcommit, Werkmetadaten, Eltern, Originalbytes und veröffentlichtem Stand
+belegen. Keine blinden Wiederholungen oder manuellen Starts. Vor 01:17 kein
+vorzeitiges Werk. Erster echter Vererbungsnachweis noch offen.
+
+Die fünf früher uncommittierten Ergebnisdokumente sind jetzt committed. Vier
+neue Abschlussnachträge (HANDOFF, NEXT-START, runbook, schedule-change) bleiben
+lokal uncommittiert. PRD_v1.1_backup.md zusätzlich unversioniert/unverändert als
+ursprünglichen PRD-Stand erhalten; kein aktueller Bytegleichheitsanspruch zum
+gezielt ergänzten PRD. Vorhandene Sicherungsarchive erhalten, kein neuer Auftrag.
+
+Noch kein Commit, Fetch/Merge/Pull, Push, Workflowstart, Deployment, Gate-/Moduswechsel
+oder neue Sicherung aus diesem Einstieg. Zuerst Befunde und nötigen nächsten
+Schritt gemeinsam sichten. Keine erneute Kunst-/Geräte-/Login-/Cookieabnahme,
+Designrunde, Phase 5 oder EP-01. Worker, Secrets und SQLite-Sitzungen erhalten;
+keine Cookie-/Token-/Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch,
+Workerausgaben außerhalb dist und Git.
+```
+
+## Historische Übergaben und Vorbereitungen
+
 # Aktueller Einstieg – Zeitumstellung 05.11.2026
 
 ## Aktuell – 05.11.2026, Zeitumstellung lokal vorbereitet
