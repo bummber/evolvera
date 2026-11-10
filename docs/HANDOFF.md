@@ -1,6 +1,62 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 05.11.2026, Zeitumstellung veröffentlicht
+## Aktueller Abschluss – 10.11.2026, sieben Werke und Titel-Lexikon 0.2.0 veröffentlicht
+
+Lesende Sichtung am 10.11.2026 um 17:11 Berlin, danach auf Betreiberauftrag
+Fetch, Rebase zweier lokaler Commits auf den Remote-Archivstand, Umsetzung der
+Titelregel und regulärer Push. Kein Force-Push, kein manueller Workflowstart,
+kein Gate-/Moduswechsel, kein Worker-Upload.
+
+- **Archiv: sieben Werke, lückenlos 04.11.–10.11.2026.** Die fünf neuen
+  Werke stammen aus Schedule-Läufen und liegen in den Archivcommits fc37f32
+  (06.11., Gen. 3 „Chrauschen“), ad1fc8d (07.11., Gen. 4 „Chrchschweben im
+  Stillstand“), 4d3c975 (08.11., Gen. 5 „Chrfieber“), f834f58 (09.11., Gen. 6
+  „Chschweif / Eisweben“) und fbc5fd4 (10.11., Gen. 7 „Chwende im Ungefähren“).
+  Alle `traceable`, Revision 6, Familie mosaic. Startdatum 04.11., Generierung
+  und Serienfreigabe unverändert true.
+- **Der Zeitplan 01:17 startet nicht pünktlich.** Täglich drei erfolgreiche
+  Schedule-Läufe, der erste archiviert. Archivcommits um 07:58 (06.11.), 07:11,
+  07:17, 07:49 und 08:29 Berlin (10.11.), also sechs bis sieben Stunden nach
+  dem geplanten Termin. `isCatchUp` ist bei 06.11. und 10.11. `false`, weil der
+  Lauf im selben Berliner Tageszyklus startet. GitHub Actions bleibt best effort.
+- **Erster Vererbungsnachweis erbracht.** Unabhängig vom Projektvalidator
+  nachgerechnet: Bei allen fünf Werken sind die Eltern n−2 und n−1, alle
+  Quellwerte stehen in der Eltern-DNA, alle Zielwerte in der Kind-DNA, die
+  Operatoren gehen auf. Gen. 3 erbt je ein sichtbares Merkmal: Breite vom 04.11.
+  (0,247285 → 0,25, Offset) und Farbe `#3c47b4` vom 05.11. (Kopie); die Basis
+  ist eine Neuschöpfung mit 21 Formen. Belege je Werk (A/B): 1/1, 1/3, 3/3,
+  4/2, 1/1. Nicht geprüft: Bytegleichheit zwischen Git, Pages-Artefakt und
+  Livestand für die neuen Werke.
+- **Titel-Lexikon 0.2.0 ab Werkdatum 14.11.2026.** Lexikon 0.1.0 vererbte
+  Buchstabenreste und hielt alle Titel bei „Ch“ fest. Die neue Regel vererbt
+  ganze Bausteine; 0.1.0 bleibt für frühere Werkdaten, Vorschauketten und die
+  40 Testwerke unverändert. Kein Archivwerk, `config/release.json` oder PRD
+  geändert. Der Betreiber hat die Titelvorschau mit „Titel passen“ abgenommen.
+  [Maßgeblicher Bericht](title-lexicon-0.2.0.md).
+- **Veröffentlicht: 4eae70074d6d42e461f8b578fbc31658f3c52bb9**, Fast-forward
+  auf fbc5fd4, fünf Commits: Claude-Code-Einrichtung (`CLAUDE.md`, Formathook,
+  Skill `/sichtung`), `PRD_1_2.md` in `.prettierignore`, Titelregel, Bericht und
+  Abnahmenachtrag. Lokal vorher `npm run check` mit **190 Tests**, Browser
+  **72 bestanden/sechs bestehende Skips** und workerd-/SQLite-Test erfolgreich.
+  [CI 42854900251](https://github.com/bummber/evolvera/actions/runs/42854900251)
+  und [Pages 42854899353](https://github.com/bummber/evolvera/actions/runs/42854899353)
+  (Build und Deploy) erfolgreich. Beim Push kein neues Werk und kein
+  Archivcommit. Die Live-Website wurde nicht aufgerufen;
+  `npm run test:acceptance` nicht ausgeführt.
+- Dieser Abschnitt und die Nachträge vom 05.11. sind lokal committed, aber
+  noch nicht gepusht; der Push soll zusammen mit dem Beleg vom 14.11. erfolgen.
+  `PRD_1_2.md` und `docs/PRD_v1.1_backup.md` bleiben unversioniert und
+  unverändert; die Rolle von `PRD_1_2.md` ist nicht geklärt.
+
+Als Nächstes den Lauf für **Werkdatum 14.11.2026** belegen: erwartet ist
+Gen. 11 „Azurschweben“ mit `lexiconVersion` 0.2.0 und Elternbaustein „schweben“
+vom 12.11. Davor sind für 11.–13.11. noch drei Titel mit 0.1.0 vorhergesagt
+(„Chschfieber im Morgen“, „Chwenchschstille / Traumschweben“, „Chwkante im
+Zwischenraum“). Weicht ein Titel ab, zuerst Ursache klären, nichts neu erzeugen.
+README und `docs/architecture.md` sind an mehreren Stellen überholt und wurden
+nicht angepasst.
+
+## Vorheriger Abschluss – 05.11.2026, Zeitumstellung veröffentlicht
 
 Der Betreiber hat die konkrete Veröffentlichung mit **„Freigegeben“** genehmigt.
 Den geprüften Remote-Archivcommit **d50f685** ausschließlich per Fetch/Fast-forward

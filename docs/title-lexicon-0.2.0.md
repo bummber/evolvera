@@ -1,8 +1,7 @@
 # Titel-Lexikon 0.2.0 – Bausteinvererbung
 
-Stand: 10.11.2026. **Lokal umgesetzt und geprüft. Der Betreiber hat die
-Titelvorschau am 10.11.2026 mit „Titel passen“ abgenommen und die
-Veröffentlichung beauftragt.** Fachliche Quelle bleibt
+Stand: 10.11.2026. **Umgesetzt, geprüft und veröffentlicht. Der Betreiber hat
+die Titelvorschau am 10.11.2026 mit „Titel passen“ abgenommen.** Fachliche Quelle bleibt
 [PRD v1.1](PRD.md), Abschnitt 7; dieses Dokument ergänzt das Verfahren aus 7.2.
 
 ## Anlass
@@ -130,8 +129,19 @@ Wechseldatum bleibt.
 | 01.01.2027 | 59   | 0.2.0   | Dämmerkante                      | kante←12-31                   |
 | 02.01.2027 | 60   | 0.2.0   | Kaleidoflucht / Funkelschweben   | –                             |
 
+## Veröffentlichung
+
+Am 10.11.2026 als Teil von `4eae70074d6d42e461f8b578fbc31658f3c52bb9` regulär
+gepusht (Fast-forward auf `fbc5fd4`).
+[CI 42854900251](https://github.com/bummber/evolvera/actions/runs/42854900251)
+und [Pages 42854899353](https://github.com/bummber/evolvera/actions/runs/42854899353)
+erfolgreich. Beim Push entstand kein neues Werk. Die Live-Website wurde nicht
+aufgerufen.
+
 ## Offen
 
-- Veröffentlichung (Push) und damit Aktivierung; bis dahin läuft die Serie
-  unverändert mit Lexikon 0.1.0.
-- Ob die Freigabedatei die Titelabnahme für 0.2.0 zusätzlich ausweisen soll.
+- Beleg des ersten Laufs mit Lexikon 0.2.0 für Werkdatum 14.11.2026; erwartet
+  ist „Azurschweben“.
+- `config/release.json` bleibt vorerst unverändert (Vorschlag vom 10.11.2026,
+  noch keine ausdrückliche Betreiberentscheidung): Die Datei belegt die Kunstabnahme der 40 Testwerke mit Lexikon
+  0.1.0, die Titelabnahme für 0.2.0 steht in diesem Dokument.
