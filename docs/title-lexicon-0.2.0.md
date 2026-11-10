@@ -142,7 +142,6 @@ aufgerufen.
 
 - Beleg des ersten Laufs mit Lexikon 0.2.0 für Werkdatum 14.11.2026; erwartet
   ist „Azurschweben“.
-- Veröffentlichung der Titelfreigabe in `config/release.json` (siehe unten).
 
 ## Titelfreigabe im Freigabevertrag
 
@@ -153,4 +152,4 @@ Titelabnahme zusätzlich als `titleReview` aus (Lexikon 0.2.0, 10.11.2026,
 anderen Lexikon als dem der Kunstabnahme nur, wenn dafür eine `titleReview`
 eingetragen ist; sonst stoppt der Lauf vor der Erzeugung. Das Feld ist
 optional, damit ältere Stände der Datei gültig bleiben. Lokal geprüft mit
-`npm run check`; noch nicht veröffentlicht.
+`npm run check` und am 10.11.2026 auf Betreiberauftrag gepusht.

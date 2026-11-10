@@ -34,7 +34,7 @@ pushen.
 
 Offen und nur auf Auftrag: README und docs/architecture.md aktualisieren; Rolle
 der unversionierten PRD_1_2.md klären; Verspätung der Schedule-Läufe.
-config/release.json weist die Titelabnahme lokal als titleReview aus (Push offen). Keine erneute Kunst-/Geräte-/Login-/
+config/release.json weist die Titelabnahme seit 10.11. als titleReview aus. Keine erneute Kunst-/Geräte-/Login-/
 Cookieabnahme, Designrunde, Phase 5 oder EP-01. Worker, Secrets und
 SQLite-Sitzungen erhalten; keine Cookie-/Token-/Liveworker-Logeinsicht. Lokale
 Tests isoliert/synthetisch, Workerausgaben außerhalb dist und Git.
