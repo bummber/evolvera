@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import rawStudies from '../../fixtures/preview/phase-1.json';
+import rawCatalog from '../../fixtures/preview/ep01-catalog.json';
+import { catalogSchema } from '../art/schema/catalog';
 import {
   previewCollectionSchema,
   familyLabels,
@@ -13,6 +15,7 @@ import { ArtRenderer } from '../art/renderer/ArtRenderer';
 import { ArtStage } from '../art/renderer/ArtStage';
 
 const studies = previewCollectionSchema.parse(rawStudies).studies;
+const sheets = catalogSchema.parse(rawCatalog).sheets;
 export default function Atelier() {
   const [selected, setSelected] = useState(studies[0]!);
   const [family, setFamily] = useState<StudyFamily>('geometric');
@@ -146,6 +149,23 @@ export default function Atelier() {
                 <span aria-hidden="true">↗</span>
               </span>
             </button>
+          ))}
+        </div>
+      </section>
+      <section className="atelier-gallery" aria-labelledby="catalog-heading">
+        <div className="atelier-gallery-heading">
+          <h2 id="catalog-heading">Musterbogen für Renderer 2.</h2>
+          <p>EP-01 · von Hand geschrieben · kein Generator, kein Archiv</p>
+        </div>
+        <div className="catalog-grid">
+          {sheets.map((sheet) => (
+            <figure className="catalog-sheet" key={sheet.id} id={sheet.id}>
+              <ArtStage source={sheet} name={sheet.title} />
+              <figcaption>
+                <strong>{sheet.title}</strong>
+                <span>{sheet.description}</span>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </section>

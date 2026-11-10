@@ -1099,6 +1099,25 @@ button:disabled {
   font-size: 11px;
   line-height: 1.5;
 }
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 32px;
+}
+.catalog-sheet {
+  margin: 0;
+  min-width: 0;
+}
+.catalog-sheet figcaption {
+  display: grid;
+  gap: 6px;
+  padding-top: 14px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.catalog-sheet figcaption span {
+  color: var(--muted);
+}
 @media (max-width: 1000px) {
   .atelier-layout {
     grid-template-columns: 1fr;
@@ -1116,6 +1135,10 @@ button:disabled {
   .study-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 26px 16px;
+  }
+  .catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
   .atelier-gallery-heading {
     display: block;
