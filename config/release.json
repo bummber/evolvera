@@ -13,5 +13,10 @@
       "phase2": "05344b8a2490beecafbd141a8b8bd58e17d26fb2db1ce4ff9496d658d24f9174",
       "phase3": "fed0a66ce4567b95cf981b06ef4edecb461b394b7000b28e8770787d0714a027"
     }
+  },
+  "titleReview": {
+    "lexiconVersion": "0.2.0",
+    "approvedOn": "2026-11-10",
+    "statement": "Titel passen"
   }
 }

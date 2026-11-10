@@ -229,6 +229,26 @@ describe('Tageslauf ohne Datei-/Netzwerkzugriff', () => {
       ['2026-11-14', '0.2.0'],
       ['2026-11-15', '0.2.0'],
     ]);
+    // Without a recorded title approval the run stops before any 0.2.0 work.
+    const withoutTitleReview: Record<string, unknown> = { ...enabled };
+    delete withoutTitleReview.titleReview;
+    const blocked = {
+      ...start,
+      settings: { ...settings, seriesStartDate: '2026-11-12' },
+      release: withoutTitleReview,
+    };
+    expect(() =>
+      prepareRun(
+        { ...blocked, runStartedAt: '2026-11-15T01:17:00+01:00' },
+        () => '2026-11-15T00:17:02Z',
+      ),
+    ).toThrow(/Titelabnahme/);
+    expect(
+      prepareRun(
+        { ...blocked, runStartedAt: '2026-11-13T01:17:00+01:00' },
+        () => '2026-11-13T00:17:02Z',
+      ).added,
+    ).toHaveLength(2);
   });
   it('plant 04:00 mit passendem Sommer-/Winteroffset', () => {
     expect(scheduledFor('2026-03-29')).toBe('2026-03-29T04:00:00+02:00');

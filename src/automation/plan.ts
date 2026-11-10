@@ -2,7 +2,7 @@ import { configSchema, instantSchema } from '../art/schema/config';
 import { snapshotSettings } from '../operator/settings';
 import { generateArtwork } from '../art/generator/evolve';
 import { addDay, cycleDate, lexiconVersionFor, scheduledFor } from './calendar';
-import { assertSeriesGate } from './release';
+import { assertSeriesGate, assertTitleGate } from './release';
 import { indexPath, indexText, readWorks, workPath } from './archive';
 
 /** No I/O. Historical bytes come from the first archived Git version, never regeneration. */
@@ -17,7 +17,7 @@ export function prepareRun(
   clock: () => string,
 ) {
   const settings = snapshotSettings(configSchema.parse(input.settings));
-  assertSeriesGate(settings, input.release);
+  const release = assertSeriesGate(settings, input.release);
   const runStartedAt = instantSchema.parse(input.runStartedAt);
   const files = new Map(input.canonical);
   const works = readWorks(files, settings.seriesStartDate);
@@ -38,6 +38,7 @@ export function prepareRun(
         throw new Error(
           'Serienbudget erreicht; manuelle Erweiterung erforderlich.',
         );
+      assertTitleGate(release, lexiconVersionFor(next));
       const work = generateArtwork(
         {
           generation: works.length + 1,

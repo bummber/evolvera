@@ -14,6 +14,14 @@ export const releaseSchema = z.strictObject({
     statement: z.string().max(1000),
     fixtureSha256: z.strictObject({ phase2: digest, phase3: digest }),
   }),
+  // Separate from the art review: operator approval of a later title lexicon.
+  titleReview: z
+    .strictObject({
+      lexiconVersion: z.literal('0.2.0'),
+      approvedOn: z.iso.date(),
+      statement: z.string().min(1).max(1000),
+    })
+    .optional(),
 });
 export type Release = z.infer<typeof releaseSchema>;
 export function assertSeriesGate(config: GenerationConfig, input: unknown) {
@@ -28,4 +36,14 @@ export function assertSeriesGate(config: GenerationConfig, input: unknown) {
   )
     throw new Error('Serienfreigabe und dokumentierte Kunstabnahme fehlen.');
   return release;
+}
+/** Lexicon 0.1.0 is covered by the art review; later versions need their own approval. */
+export function assertTitleGate(release: Release, lexiconVersion: string) {
+  if (
+    lexiconVersion !== release.artReview.lexiconVersion &&
+    release.titleReview?.lexiconVersion !== lexiconVersion
+  )
+    throw new Error(
+      `Dokumentierte Titelabnahme für Lexikon ${lexiconVersion} fehlt.`,
+    );
 }
