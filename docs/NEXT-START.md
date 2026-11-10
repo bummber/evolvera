@@ -1,4 +1,72 @@
-# Aktueller Startprompt – EP-01: P2 Renderer 2 und Musterbogen
+# Aktueller Startprompt – EP-01: P3 Generator 0.3.0, Teil A (Ursprungswerke)
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+vollständig docs/extensions/EP01-umsetzungsplan.md und
+docs/extensions/EP01-renderer-2.md lesen. Dann /sichtung ausführen: rein lesend
+Git-Zustand, Remote, Berliner Zeit, Tagesläufe und Archiv prüfen und gemeinsam
+sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. P0 und P1 sind veröffentlicht (2a24d64). P2
+(Renderer 2 und Musterbogen) ist am 10.11. lokal umgesetzt; Sichtung 1,
+Commit- und Push-Stand im HANDOFF und per /sichtung prüfen. Ist Sichtung 1
+noch offen oder hat sie Änderungswünsche ergeben, diese zuerst klären. Offen
+aus P2: Firefox-Prüfung des Musterbogens, Lastmessung auf einem Mobilgerät.
+Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein eigener Schritt und keine
+Voraussetzung: sobald der Lauf stattgefunden hat, anhand Run-ID, Zeit, Status,
+Archivcommit, lexiconVersion, Titel und Elternbausteinen belegen (erwartet
+Gen. 11 „Azurschweben“, 0.2.0).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P3 (Generator 0.3.0,
+Teil A: Ursprungswerke) aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 11.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts); Bestehendes nicht verändern.
+2. Neues Modul unter src/art/generator/v3/, frei von React und Browser. Es
+   erzeugt nur unabhängige Ursprungswerke im Schema 3 (keine Vererbung).
+3. Paletten in OKLCH mit den Strategien harmonisch, komplementär, monochrom
+   und frei; Gamut-Behandlung dokumentieren; Ausgabe als Hex.
+4. Füllungsgen für alle Formen; sechs erzeugende Familien (geometrisch,
+   Farbfeld, Mosaik, organisch, generative Strukturen, chaotisch), dazu
+   Linienbündel und Schraffuren mit sichtbarer Strichstärke.
+5. Ebenenmodell mit bis zu drei Ebenen, Maßstabskontrast, Symmetrie, Dichte.
+6. Häufigkeitsstufen 15 % / 40 % / 70 % mit dem festen Standardprofil aus
+   src/art/schema/profile.ts; das Profil als Snapshot ins Werk schreiben.
+7. Sichtbarkeitsanker und Lastgrenzen (loadLimitsV3) als harte Prüfungen mit
+   deterministischen Retries; Determinismus testen.
+8. 40 unabhängige Probewerke als getrennte Vorschau-Fixture im Atelier,
+   getrennt vom Archiv; neue Browserreferenzen nur ergänzen.
+9. npm run check und npm run test:browser ausführen und ehrlich berichten.
+10. Sichtung 2 mit dem Betreiber: die 40 Probewerke.
+
+Grenzen P3: Keine Änderung an study.ts, evolve.ts, provenance.ts,
+Titelgenerator, ArtV1, artwork.ts, Konfigurationsdateien, Worker, Workflows,
+Archivdateien, fixtures/preview/phase-*.json oder bestehenden
+Browserreferenzen. Keine Evolution und keine Belege (P4), kein
+Ähnlichkeitsfenster (P5), kein generatorChangeDate, kein Einbau in den
+Tageslauf, kein Werk im Schema 3 im Archiv. Änderungen an Renderer 2 oder
+Schema 3 nur, wenn die Probewerke sie nötig machen, und dann ausdrücklich
+benennen. P4 bis P9 nicht beginnen. Neue Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P3-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für P4 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P2 (10.11.2026)
+
+# Vorheriger Startprompt – EP-01: P2 Renderer 2 und Musterbogen
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
@@ -10,9 +78,10 @@ Archiv prüfen und gemeinsam sichten.
 
 EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
-Hintergrund und unversioniert. P0 (Archiv-Baseline) ist veröffentlicht, P1
-(Verträge) am 10.11. lokal umgesetzt; Commit- und Push-Stand von P1 im HANDOFF
-und per /sichtung prüfen. Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein
+Hintergrund und unversioniert. P0 (Archiv-Baseline) und P1 (Verträge) sind
+veröffentlicht (2a24d64 am 10.11., CI 42894962254 und Pages 42894962290
+erfolgreich). Der erste Schedule-Lauf mit diesem Stand (Werkdatum 11.11.) war
+bei Abschluss noch nicht geprüft. Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein
 eigener Schritt und keine Voraussetzung: sobald der Lauf stattgefunden hat,
 anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
 Elternbausteinen belegen (erwartet Gen. 11 „Azurschweben“, 0.2.0).

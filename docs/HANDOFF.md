@@ -1,6 +1,58 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, EP-01 P1 „Verträge“ lokal umgesetzt
+## Aktueller Abschluss – 10.11.2026, EP-01 P2 „Renderer 2 und Musterbogen“ lokal umgesetzt
+
+Der Betreiber hat P2 am 10.11.2026 beauftragt. Stand vor Beginn (21:31 Berlin)
+und bei Abschluss (22:51 Berlin, API): HEAD/main und Remote-main `2a24d64`,
+sieben Werke, kein neuer Lauf. P2 ist lokal umgesetzt und **nicht committed**.
+**Sichtung 1 durch den Betreiber (Formen- und Oberflächenkatalog) steht aus.**
+[Technik, Browserunterstützung, Messung und Grenzen](extensions/EP01-renderer-2.md).
+
+- **Neu:** `ArtRendererV2.tsx`, `ArtV2.module.css`, `v2/geometry.ts`,
+  `v2/paint.ts` und `motion.ts` unter `src/art/renderer/`;
+  `src/art/schema/catalog.ts`; Musterbogen `fixtures/preview/ep01-catalog.json`
+  mit sieben Bögen; `tests/renderer-v2.test.tsx`,
+  `tests/browser/catalog.spec.ts` und 14 neue Referenzbilder
+  `renderer-v2-<Bogen>.png` (320 px und Desktop).
+- **Geändert:** `ArtDispatch.tsx` gibt Version 2 an Renderer 2; `ArtStage.tsx`
+  benutzt den Dispatch und kann seinem Abspielschalter einen Namen geben, weil
+  das Atelier jetzt mehrere Bühnen zeigt; `Atelier.tsx` und `shell.css` zeigen
+  den Musterbogen unten im Testatelier; `artwork-v3.ts` prüft Lastgrenzen,
+  Musterwinkel und Maskenrichtung; ein Dispatch-Test in
+  `tests/artwork-v3.test.tsx` angepasst.
+- **Technik:** Alle Umrisse sind berechnete `clip-path: polygon()` oder
+  `border-radius`, Füllungen und Muster sind CSS-Verläufe, ein DOM-Knoten je
+  Element, kein `<img>`, `<svg>`, `<canvas>`, kein `url(...)` (A-34 durch Tests
+  belegt). `clip-path: path()` wird nicht benutzt.
+- **Prüfungen lokal am 10.11.2026:** `npm run check` erfolgreich mit
+  **292 Tests** (265 + 27), Datenprüfung mit sieben Werken, Archiv-Baseline
+  grün. `CI=true npm run test:browser` gegen den frischen Build:
+  **102 bestanden** (86 + 16), sechs bestehende Skips; alle bisherigen
+  Referenzen unverändert. `npm run worker:test-runtime` erfolgreich. Nach den
+  Nachträgen in HANDOFF und NEXT-START wurde nur `npm run check` wiederholt.
+- **Browser:** Chromium und WebKit (Playwright) zeigen alle Bögen ohne
+  Seitenfehler und im Sichtvergleich übereinstimmend. **Firefox nicht
+  geprüft** (startet in der Sandbox der Sitzung nicht), echte Geräte nicht
+  geprüft. Unterstützung laut MDN Browser Compat Data im Technikbericht.
+- **Lastgrenzen:** Startwerte des Plans als harte Schemaprüfung. Messung in
+  Chromium ohne Bildschirm mit CPU-Drosselung bis Faktor 6 ohne Auffälligkeit;
+  sie misst nur den Hauptthread und ersetzt keine Messung auf einem
+  Mobilgerät (P7).
+- **Nicht geprüft:** Remote-CI (kein Push). Die 14 neuen Bilder stammen von
+  macOS und enthalten Verläufe, Unschärfe und Blendmodi; ob sie mit den
+  Toleranzen auf dem Linux-Runner bestehen, zeigt erst die CI. Ein Push sollte
+  deshalb mit Abstand zum Lauf um 01:17 erfolgen und sofort kontrolliert
+  werden. Der erste Schedule-Lauf seit P0/P1 (Werkdatum 11.11.) steht aus.
+- **Unverändert:** Generator, Titelgenerator, `ArtRenderer.tsx`, `ArtV1`,
+  `artwork.ts`, Konfiguration, Worker, Workflows, Archivdateien,
+  `fixtures/preview/phase-*.json`, bestehende Browserreferenzen, Lockfile.
+  Archiv-Baseline nicht erweitert (noch kein Werk nach dem 10.11.).
+
+Als Nächstes: Sichtung 1 im Testatelier (`npm run dev`, dann `#/atelier`,
+unten „Musterbogen für Renderer 2“), danach Commit und Push nach Rückfrage und
+P3 nur auf ausdrücklichen Auftrag. [Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 10.11.2026, EP-01 P1 „Verträge“ umgesetzt und veröffentlicht
 
 Der Betreiber hat am 10.11.2026 den Lexikon-Beleg als Voraussetzung aufgehoben
 und P1 beauftragt. Stand vor Beginn: HEAD/main und Remote-main `48f55fc`
@@ -34,9 +86,19 @@ laufende Serie benutzt keinen der neuen Verträge.
   gegen den frischen Build: **86 bestanden**, sechs bestehende Skips.
   `npm run worker:test-runtime` erfolgreich. Nach den Nachträgen in Plan,
   HANDOFF und NEXT-START wurde nur `npm run check` wiederholt.
-- **Nicht geprüft:** CI auf dem Remote (kein Push), Live-Website, echter
-  Worker. Der erste Schedule-Lauf mit der Archiv-Baseline (Werkdatum 11.11.)
-  steht weiter aus.
+- **Veröffentlicht am 10.11.2026, 21:24 Berlin: 2a24d646856b49af64b3be141f6b227c2e2f1cb6**,
+  regulärer Fast-forward-Push von `48f55fc` (Remote vorher per API unverändert
+  bestätigt, kein Fetch nötig). Vier Commits: `dafd124` (Voraussetzung
+  aufgehoben), `16f9a3f` (Profil und Konfigurationsschema 2), `019d2ce`
+  (Werkschema 3 und Dispatch), `2a24d64` (Plan, HANDOFF, NEXT-START).
+  [CI 42894962254](https://github.com/bummber/evolvera/actions/runs/42894962254)
+  und [Pages 42894962290](https://github.com/bummber/evolvera/actions/runs/42894962290)
+  (Build und Deploy) erfolgreich: je **265 Tests** und **86 Browserfälle
+  bestanden/sechs bestehende Skips**, Datenprüfung mit sieben Werken. Beim
+  Push kein neues Werk und kein Archivcommit; Remote-main danach `2a24d64`.
+- **Nicht geprüft:** Live-Website und echter Worker (kein Worker-Upload; der
+  veröffentlichte Worker ist unverändert). Der erste Schedule-Lauf mit der
+  Archiv-Baseline und dem P1-Stand (Werkdatum 11.11.) steht noch aus.
 - **Unverändert:** Generator, Titelgenerator, `ArtRenderer.tsx`, `ArtV1`,
   `artwork.ts`, Konfigurationsdateien, Worker-Code, Workflows, Archivdateien,
   `fixtures/preview`, Browserreferenzen, Lockfile. Die Archiv-Baseline wurde

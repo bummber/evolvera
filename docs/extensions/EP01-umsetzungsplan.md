@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 10.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 und P1 umgesetzt, P2–P9 nicht beauftragt
+Stand: 10.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 und P1 umgesetzt, P2 umgesetzt bis auf Sichtung 1, P3–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -219,6 +219,12 @@ zusätzlich `npm run test:browser`, bei Workeränderungen
   höchstens 60 Punkte, 40 Elemente mit `clip-path`, 8 Pfade, 6 Blendmodi,
   4 Masken, 3 Unschärfen. Die Grenzen gelten auch bei `always`.
 - **Sichtung 1 mit dem Betreiber:** Formen- und Oberflächenkatalog.
+- Umgesetzt am 10.11.2026; Technik, Browserunterstützung, Messung und Grenzen
+  stehen in [EP01-renderer-2.md](EP01-renderer-2.md). Abweichungen vom
+  Planwortlaut: Alle Umrisse sind berechnete `clip-path: polygon()`, deshalb
+  wird `clip-path: path()` nicht benutzt. Referenzen gibt es für Chromium;
+  WebKit wurde im Sichtvergleich geprüft, Firefox nicht. Die Lastgrenzen sind
+  die Startwerte des Plans und noch nicht auf einem Mobilgerät gemessen.
 
 ### P3 – Generator 0.3.0, Teil A: Ursprungswerke
 
