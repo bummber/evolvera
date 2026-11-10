@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import type { FormEvent } from 'react';
 import rawStudies from '../../fixtures/preview/phase-1.json';
 import rawCatalog from '../../fixtures/preview/ep01-catalog.json';
@@ -13,8 +13,10 @@ import type { StudyFamily } from '../art/schema/preview';
 import { generateStudy } from '../art/generator/study';
 import { ArtRenderer } from '../art/renderer/ArtRenderer';
 import { ArtStage } from '../art/renderer/ArtStage';
-import { OriginStudies } from './OriginStudies';
 
+// The 40 origin studies of generator 0.3.0 load after the page itself, so
+// the atelier does not wait for their validation.
+const OriginStudies = lazy(() => import('./OriginStudies'));
 const studies = previewCollectionSchema.parse(rawStudies).studies;
 const sheets = catalogSchema.parse(rawCatalog).sheets;
 export default function Atelier() {
@@ -170,7 +172,9 @@ export default function Atelier() {
           ))}
         </div>
       </section>
-      <OriginStudies />
+      <Suspense fallback={<p role="status">Probewerke werden geladen …</p>}>
+        <OriginStudies />
+      </Suspense>
     </>
   );
 }

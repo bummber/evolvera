@@ -10,7 +10,7 @@ const origins = originCollectionSchema.parse(rawOrigins).studies;
 const label = (index: number) =>
   `Probewerk ${String(index + 1).padStart(2, '0')}`;
 
-export function OriginStudies() {
+export default function OriginStudies() {
   const [active, setActive] = useState(0);
   const selected = origins[active]!;
   return (
