@@ -60,9 +60,16 @@ Abschnitt 7.
 - `docs/future-series.md` enthält den vorgemerkten Wunsch Favoriten,
   Löschschalter und Serienneustart vom 10.11.; er ist kein Teil von EP-01.
 
-Als Nächstes: den Lauf für **Werkdatum 14.11.2026** belegen (eigener Schritt,
-Voraussetzung für P1), danach P1 „Verträge“ nur auf ausdrücklichen Auftrag.
-[Aktueller Startprompt](NEXT-START.md). P1 bis P9 sind nicht begonnen.
+Nachtrag 10.11.2026: Der Betreiber hat den Lexikon-Beleg zum 14.11. als
+Voraussetzung für P1 aufgehoben. Der Beleg bleibt ein eigener Schritt, sobald
+der Lauf stattgefunden hat; Arbeitspakete dürfen auf Auftrag schon vorher
+beginnen und veröffentlicht werden. Folge: Weicht der Titel am 14.11. ab, ist
+zuvor veröffentlichter Code, den der Tageslauf benutzt, als mögliche Ursache
+mitzuprüfen. Doku-Push `48f55fc` (CI 42891194079, Pages 42891193825) erfolgreich.
+
+Als Nächstes: P1 „Verträge“ auf ausdrücklichen Auftrag; unabhängig davon den
+Lauf für **Werkdatum 14.11.2026** belegen. [Aktueller Startprompt](NEXT-START.md).
+P1 bis P9 sind nicht begonnen.
 
 ## Vorheriger Abschluss – 10.11.2026, sieben Werke und Titel-Lexikon 0.2.0 veröffentlicht
 

@@ -1,4 +1,4 @@
-# Aktueller Startprompt – EP-01: Lexikon-Beleg 14.11., danach P1
+# Aktueller Startprompt – EP-01: P1, Lexikon-Beleg 14.11. unabhängig davon
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
@@ -17,18 +17,21 @@ Abschnitt 7 des Plans. P0 ist am 10.11. umgesetzt und veröffentlicht
 und Pages 42890298848 erfolgreich). Der erste Schedule-Lauf mit der Baseline
 (Werkdatum 11.11.) war bei Abschluss noch nicht geprüft.
 
-Schritt 1 (Voraussetzung für P1, eigener Schritt): Den Lauf für Werkdatum
-14.11.2026 anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
+Eigener Schritt, keine Voraussetzung für P1 (Betreiberentscheidung vom
+10.11.2026): Sobald der Lauf für Werkdatum 14.11.2026 stattgefunden hat, ihn
+anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
 Elternbausteinen belegen und im Lexikonbericht sowie im HANDOFF nachtragen.
 Erwartet: Gen. 11 „Azurschweben“, lexiconVersion 0.2.0, Baustein „schweben“
 vom 12.11.; davor 11.11. „Chschfieber im Morgen“, 12.11. „Chwenchschstille /
 Traumschweben“, 13.11. „Chwkante im Zwischenraum“ (alle 0.1.0). Weicht ein
 Titel ab, zuerst Ursache klären; kein Werk neu erzeugen, kein manueller
-Workflowstart. Ist der 14.11. noch nicht gelaufen, P1 nicht beginnen.
+Workflowstart. Wurde vor dem 14.11. Code veröffentlicht, den der Tageslauf
+benutzt, das bei einer Abweichung als mögliche Ursache mitprüfen.
 
-Schritt 2: Ich beauftrage jetzt ausschließlich das Arbeitspaket P1 (Verträge)
-aus dem Umsetzungsplan.
-1. Zuerst die Archiv-Baseline um die seit 11.11. archivierten Werke ergänzen
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P1 (Verträge) aus dem
+Umsetzungsplan.
+1. Zuerst die Archiv-Baseline um die seit 11.11. archivierten Werke ergänzen,
+   soweit vorhanden
    (Befehl im Kopf von tests/archive-baseline.test.tsx, neue Bilder über
    tests/browser/archive-baseline.spec.ts). Bestehende Einträge, Referenztexte
    und Bilder dabei nicht verändern.

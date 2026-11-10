@@ -157,7 +157,8 @@ zusätzlich `npm run test:browser`, bei Workeränderungen
 - `AGENTS.md` und `NEXT-START.md` an die Entscheidungen aus Abschnitt 7 anpassen
   (EP-01 ist dort noch als „nicht beauftragt“ geführt).
 - Der Beleg des Lexikon-Wechsels zum 14.11.2026 bleibt ein eigener Schritt. Er
-  ist Voraussetzung für P1, nicht für P0 (Betreiberauftrag vom 10.11.2026).
+  ist seit der Betreiberentscheidung vom 10.11.2026 keine Voraussetzung mehr
+  für ein Arbeitspaket; Pakete dürfen auf Auftrag schon vorher beginnen.
 - Regressionsschutz für das Archiv (A-36): SHA-256 aller Dateien unter
   `public/artworks/`, serialisierte Renderer-Ausgabe aller Archivwerke als
   Testreferenz, je ein Browserbild bei 320 px und Desktop.
