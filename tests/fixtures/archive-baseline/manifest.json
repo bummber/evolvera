@@ -1,0 +1,61 @@
+{
+  "frozenThrough": "2026-11-10",
+  "works": [
+    {
+      "id": "2026-11-04",
+      "generation": 1,
+      "title": "Irifalter",
+      "path": "public/artworks/2026/2026-11-04.json",
+      "sha256": "d87e21262e4b1e9ebabc2647418629118cca1f13d632eebfe3d2c1a0acd25b77",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-04.txt"
+    },
+    {
+      "id": "2026-11-05",
+      "generation": 2,
+      "title": "Chromaströmung im Nirgendwo",
+      "path": "public/artworks/2026/2026-11-05.json",
+      "sha256": "420302a71c72d12df3271c2d102171bc6c4ee82e969821f8a3d0102096395055",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-05.txt"
+    },
+    {
+      "id": "2026-11-06",
+      "generation": 3,
+      "title": "Chrauschen",
+      "path": "public/artworks/2026/2026-11-06.json",
+      "sha256": "c32e4fe1dd84bf801d0239e43c1b92b23894d18a303186063181ae49031a4b3b",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-06.txt"
+    },
+    {
+      "id": "2026-11-07",
+      "generation": 4,
+      "title": "Chrchschweben im Stillstand",
+      "path": "public/artworks/2026/2026-11-07.json",
+      "sha256": "0b3e6dcd2fd345bfdeecfb103d3997ce0467c4827864d1d4655a4f8a8a0e40fd",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-07.txt"
+    },
+    {
+      "id": "2026-11-08",
+      "generation": 5,
+      "title": "Chrfieber",
+      "path": "public/artworks/2026/2026-11-08.json",
+      "sha256": "e98c4293297e4ed926e0921e4ddbee392234aed551280922d6d72af1d1c13b4f",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-08.txt"
+    },
+    {
+      "id": "2026-11-09",
+      "generation": 6,
+      "title": "Chschweif / Eisweben",
+      "path": "public/artworks/2026/2026-11-09.json",
+      "sha256": "bc9fdede1910b746fa770c93ca91d3c5a9e9fa43a2c70a2b6764e608311af02c",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-09.txt"
+    },
+    {
+      "id": "2026-11-10",
+      "generation": 7,
+      "title": "Chwende im Ungefähren",
+      "path": "public/artworks/2026/2026-11-10.json",
+      "sha256": "d7ba092d343d5f7b398ee40e6afd0096021e0be2fd5a4841c7ea72f40084dabb",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-10.txt"
+    }
+  ]
+}
