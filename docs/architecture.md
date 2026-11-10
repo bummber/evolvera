@@ -1,7 +1,9 @@
 # Architektur – aktueller Stand und Betriebsentwurf
 
-Stand: 28.10.2026 (Phase 4 lokal implementiert; externe Abnahme offen). Fachliche Quelle: [PRD v1.1](PRD.md). Der aktuelle Auftrag
-umfasst Phase 4 mit lokal implementierter Betreiberfunktion und Tageslauf. Die Cloud-Einrichtung, echte Anmeldung und Veröffentlichung sind noch nicht erfolgt. Frühere Phasenabschnitte sind historische Zwischenstände; den aktuellen Stand beschreibt die Phase-4-Ergänzung.
+Stand: 10.11.2026 (Serie aktiv, Betrieb veröffentlicht). Fachliche Quelle: [PRD v1.1](PRD.md).
+Den aktuellen Betriebsstand beschreibt die [Ergänzung Betrieb](#ergänzung-betrieb--stand-10112026)
+am Ende. Die Abschnitte davor sind Entwurf und historische Zwischenstände der Phasen 0 bis 4;
+Aussagen wie „noch nicht eingerichtet“ oder „deaktiviert“ gelten dort für den jeweiligen Zeitpunkt.
 
 ## Lokale Entscheidungen
 
@@ -35,11 +37,13 @@ Code konsistent. Abhängigkeiten sind exakt gepinnt, das npm-Lockfile wird versi
 | `src/app`, `src/styles`    | Shell, Galerie, Werkansichten, Kunstsichtung, Navigation und Layout A                  |
 | `src/art/schema`           | Werk-, DNA-, Herkunfts-, Konfigurations- und getrennte Previewverträge                 |
 | `src/art/generator`        | Preview-Generator 0.1.0, Evolutionskern 0.2.0 und Rezeptreplay; kein offizieller Lauf  |
-| `src/art/titles`           | Separater deterministischer Titelgenerator und Lexikon 0.1.0                           |
+| `src/art/titles`           | Separater deterministischer Titelgenerator, Lexikon 0.1.0 und 0.2.0                    |
 | `src/art/renderer`         | Renderer V1 mit gemeinsamer Kunstfläche, festen Ruhevorschauen und Wiedergabesteuerung |
 | `src/archive`              | Validierter Index-/Werkzugriff und begrenzter Cache; kein Archivschreiber              |
 | `src/operator`             | Validierte öffentliche Voreinstellung und reiner Snapshot-Helfer                       |
-| `workers/admin`            | Lokaler Worker mit PKCE, SQLite-Sitzungen und festem Git-Modusschreiber                |
+| `workers/admin`            | Betreiberworker mit PKCE, SQLite-Sitzungen und festem Git-Modusschreiber               |
+| `src/series`               | Datierte Kalenderregeln: Tagesgrenze und Lexikonwechsel                                |
+| `src/automation`           | Tagesplan, Freigabevertrag, Historienprüfung und Git-Archivierung                      |
 | `scripts/validate-data.ts` | Config-/Archivprüfung und Serienfreigabesicherung; Previewvergleich separat ergänzt    |
 
 Das öffentliche Frontend darf keine offiziellen Werke generieren oder archivieren. Lokale Vorschauen bleiben im getrennten Labor. Der Generator darf keine React-
@@ -334,3 +338,43 @@ Wrangler 4.154.0 als gepinnte Dev-Abhängigkeit ermöglicht Worker-Dry-Run und e
 workerd-/SQLite-Tests. Geheimnisse werden weder gebraucht noch eingebaut. Setup,
 Betriebsgrenzen und offizielle Quellen: `docs/runbook.md`; tatsächliche Ergebnisse:
 `docs/phase-4-results.md`. Ein späteres Varianzprojekt bleibt ein separater Auftrag.
+
+## Ergänzung Betrieb – Stand 10.11.2026
+
+Die offizielle Serie läuft seit dem 04.11.2026. `config/generation.json` steht auf
+Startdatum 04.11., Generierung aktiv, `traceable`, Revision 6; `config/release.json` auf
+`seriesAuthorized: true`. Repository und Pages sind öffentlich, beide Repositoryvariablen
+gesetzt, Betreiberworker und GitHub App eingerichtet. Am 10.11. enthält das Archiv
+sieben Werke (Generation 1 bis 7).
+
+`pages.yml` ist der einzige Schreiber des Archivs. Ein Lauf prüft, ruft
+`generate-daily --apply` auf, wechselt auf den erzeugten Archivcommit, führt Check,
+Worker- und Browsertests aus und veröffentlicht nur, wenn `main` noch auf diesem Commit
+steht. Weil dieser Workflow selbst auf `main` committet, ist `origin/main` regelmäßig
+neuer als ein lokaler Stand; lokale Arbeit wird per Fast-forward oder Rebase angeglichen,
+nie durch Überschreiben. Jeder Push auf `main` ist eine Veröffentlichung.
+
+Zeitregeln sind datiert und liegen in `src/series/calendar.ts`. `scheduleChangeDate`
+(06.11.2026) stellt die Tagesgrenze von 04:00 auf 01:17 Europe/Berlin um;
+`lexiconChangeDate` (14.11.2026) wechselt das Titel-Lexikon von 0.1.0 auf 0.2.0. Beide
+Regeln gelten nur für Werkdaten ab dem Stichtag; archivierte Werke behalten ihre Termine,
+Titel und Bytes. Geplante Läufe starten ohne Zeitgarantie und bisher sechs bis sieben
+Stunden nach 01:17. `isCatchUp` bleibt dabei `false`, solange der Lauf im selben Berliner
+Tageszyklus beginnt.
+
+Der Titelgenerator hält beide Lexikonversionen nebeneinander. 0.1.0 ist unverändert
+und bleibt für frühere Werkdaten, die Vorschauketten und die 40 abgenommenen Testwerke
+maßgeblich; `generateArtwork` nutzt es als Voreinstellung. 0.2.0 vererbt ganze
+Lexikonbausteine und hält das Hauptwort unter den letzten 365 Werken eindeutig. Der
+Tagesplaner wählt die Version nach Werkdatum. Schema 2 lässt beide Versionen zu; die
+Struktur der Titel-DNA und die Herkunftsprüfung in `validateEvolution` sind gleich
+geblieben. Details: [Titel-Lexikon 0.2.0](title-lexicon-0.2.0.md).
+
+Der Freigabevertrag `config/release.json` hat zwei getrennte Abnahmen: `artReview` für
+die 40 Testwerke mit Lexikon 0.1.0 und das optionale `titleReview` für ein späteres
+Lexikon. `prepareRun` erzeugt ein Werk mit einem anderen Lexikon als dem der
+Kunstabnahme nur mit passender `titleReview` und stoppt sonst vor der Erzeugung.
+
+Der erste Vererbungsnachweis der echten Serie liegt mit Generation 3 vom 06.11.2026
+vor. Tatsächliche Läufe, Prüfungen und offene Punkte stehen in [HANDOFF](HANDOFF.md)
+und [Runbook](runbook.md).

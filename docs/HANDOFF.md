@@ -45,16 +45,18 @@ kein Gate-/Moduswechsel, kein Worker-Upload.
   `npm run test:acceptance` nicht ausgeführt.
 - Dieser Abschnitt und die Nachträge vom 05.11. wurden am 10.11.2026 auf
   Betreiberauftrag als reiner Docs-Push nachgereicht.
-  `PRD_1_2.md` und `docs/PRD_v1.1_backup.md` bleiben unversioniert und
-  unverändert; die Rolle von `PRD_1_2.md` ist nicht geklärt.
+  `docs/PRD_v1.1_backup.md` wurde am 10.11.2026 versehentlich mit Commit
+  2196c38 versioniert und veröffentlicht; der Betreiber hat entschieden, dass
+  die Datei im Repository bleibt. `PRD_1_2.md` bleibt unversioniert und
+  unverändert; ihre Rolle ist nicht geklärt.
 
 Als Nächstes den Lauf für **Werkdatum 14.11.2026** belegen: erwartet ist
 Gen. 11 „Azurschweben“ mit `lexiconVersion` 0.2.0 und Elternbaustein „schweben“
 vom 12.11. Davor sind für 11.–13.11. noch drei Titel mit 0.1.0 vorhergesagt
 („Chschfieber im Morgen“, „Chwenchschstille / Traumschweben“, „Chwkante im
 Zwischenraum“). Weicht ein Titel ab, zuerst Ursache klären, nichts neu erzeugen.
-README und `docs/architecture.md` sind an mehreren Stellen überholt und wurden
-nicht angepasst.
+README und `docs/architecture.md` wurden am 10.11.2026 auf den Betriebsstand
+gebracht; ältere Phasenabschnitte der Architektur bleiben als historisch stehen.
 
 Nachtrag 10.11.2026, auf Betreiberauftrag gepusht: `config/release.json` weist
 die Titelabnahme als `titleReview` aus, und der Tagesplaner verlangt sie für

@@ -1,18 +1,21 @@
 # Evolvera
 
-Öffentliche Testversion: https://bummber.github.io/evolvera/
-Die 40 Testwerke sind separat zugänglich; die offizielle Kunstserie ist noch nicht gestartet.
+Öffentliche Galerie: https://bummber.github.io/evolvera/
+Die offizielle Kunstserie läuft seit dem 04.11.2026 mit einem Werk pro Tag.
+Die 40 Testwerke sind davon getrennt zugänglich.
 
 Vor Website-Veröffentlichungen: `#/impressum` und `#/datenschutz` sowie die öffentlichen
 Betreiberangaben in `config/legal.json` prüfen und `npm run check:publication`
 ausführen. Die Angaben und das erste Pages-Testdeployment wurden am 02.11.2026
 ausdrücklich freigegeben; Durchführung und Ergebnis siehe [Vorbereitung](docs/publication-preparation.md).
 
-Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand 04.11.2026: Werkbuch-Galerie und geschützter Betreiberworker veröffentlicht; Restabnahme und Serienstart offen.**
+Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand 10.11.2026: Serie
+aktiv, sieben offizielle Werke (04.11.–10.11.2026), tägliche Archivierung und
+Veröffentlichung über GitHub Actions.**
 Das abgenommene Werkbuch entwickelt Designrichtung A (experimentelles Kunstmagazin) weiter.
 Galerie, Werkdetails und Herkunftsvergleich sind umgesetzt. Die getrennte Kunstsichtung
 enthält 40 abgenommene Testwerke in zwei Zwanzigerketten mit beiden Modi und poetischen Titeln.
-Die Betreiberanmeldung und Modusrunde sind nachgewiesen; die offizielle Serie bleibt aus.
+Betreiberanmeldung und Modusspeicherung sind eingerichtet und nachgewiesen.
 
 Fachliche Quelle ist [docs/PRD.md](docs/PRD.md), Version 1.1. Die unverändert erhaltene
 `Evolvera_PRD_v1.0.md` ist historisch. Aktueller Stand und Wiedereinstieg:
@@ -48,13 +51,13 @@ Kacheln bleiben statisch; nur das Hauptwerk kann animiert sein.
 Die ausgewählte Testsammlung steht im Hash-Link, z. B.
 `#/galerie?sammlung=traceable&seite=2` oder
 `#/werk/2000-01-03?sammlung=free`. Reload und Browser-Zurück erhalten die Auswahl.
-Ohne Sammlungsparameter zeigt die Website ausschließlich das leere offizielle Archiv.
+Ohne Sammlungsparameter zeigt die Website ausschließlich das offizielle Archiv.
 Die Auswahl ändert keine Betreiberkonfiguration. Alle Testdaten im Januar 2000 sind
-simuliert; die offizielle Serie hat kein Startdatum.
+simuliert; die offizielle Serie beginnt am 04.11.2026.
 
 Die 40 Werke sind in [docs/art-review.md](docs/art-review.md) einzeln erfasst.
-Die 40 Testwerke sind am 28.10.2026 ausdrücklich abgenommen. Das startet keine Serie;
-Datum, Aktivierung und Veröffentlichung bleiben separate Betreiberentscheidungen.
+Die 40 Testwerke sind am 28.10.2026 ausdrücklich abgenommen. Startdatum,
+Aktivierung und Veröffentlichung der Serie waren davon getrennte Betreiberentscheidungen.
 
 ### Frühere lokale Experimente
 
@@ -67,7 +70,7 @@ Die Eingabe ist kein offizieller Generierungslauf und schreibt keine Archivdatei
 Vorschaubilder bleiben im festen Ruhezustand. Bewegung läuft nur im Hauptwerk,
 ist pausierbar und startet bei reduzierter Bewegung statisch. Du kannst sie für
 die aktuelle Studie ausdrücklich abspielen. Diese Besucheraktion ändert keinen
-Betreibermodus. Die offiziellen Seiten zeigen weiterhin ehrliche Leerzustände.
+Betreibermodus. Testwerke erscheinen nie im offiziellen Archiv.
 
 Das getrennte [Evolutionslabor](http://127.0.0.1:5173/evolvera/#/evolutionslabor)
 zeigt je zehn Werke für beide Modi, Eltern-Kind-Vergleich, konkrete Vererbungsbelege
@@ -87,9 +90,12 @@ npm run generate:daily -- --dry-run
 npm run preview
 ```
 
-`check` umfasst Format, ESLint, Typprüfung, 166 Tests, Config-/Archiv-/Fixtureprüfung
-und Build nach `dist/` sowie Worker-Dry-Run ohne Deployment. Die 68 Browserfälle (sechs bewusste Doppelaufruf-Skips) starten den lokalen Produktionspreview
-selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium.
+`check` umfasst Format, ESLint, Typprüfung, 190 Tests, Config-/Archiv-/Fixtureprüfung
+und Build nach `dist/` sowie Worker-Dry-Run ohne Deployment. Es enthält weder
+`test:browser` noch `worker:test-runtime`. Die 78 Browserfälle (72 bestanden, sechs
+bewusste Doppelaufruf-Skips; Stand 10.11.2026) starten den lokalen Produktionspreview
+selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium. Sie testen
+den gebauten Stand in `dist/`, also vorher bauen.
 Unter Linux für einen frischen Runner: `npx playwright install --with-deps chromium`.
 Die visuellen Referenzen sind reine Testbelege unter `tests/browser/references`;
 sie werden nicht als Kunst ausgeliefert. Plattformübergreifende Toleranzen und noch
@@ -114,7 +120,7 @@ Playwright-WebKit ersetzt keine vollständige Safari-/iPhone-Abnahme.
 | `npm run preview`                         | Gebauten Stand lokal ansehen                                 |
 | `npm test`                                | Schema, PRNG, Generator, Renderer, Archiv und Routing        |
 | `npm run test:browser`                    | Echte Browser-, Wiedergabe- und visuelle Prüfungen           |
-| `npm run test:acceptance`                 | Zusätzliche lokale Browser-/Sitzungsabnahme vor Serienstart  |
+| `npm run test:acceptance`                 | Zusätzliche lokale Browser-/Sitzungsabnahme (drei Engines)   |
 | `npm run typecheck` / `npm run lint`      | Strikte Typen / ESLint ohne Warnungen                        |
 | `npm run format:check` / `npm run format` | Format prüfen / formatieren                                  |
 | `npm run validate:data`                   | Offizielles Archiv und alle gespeicherten Preview-DNA prüfen |
@@ -130,13 +136,14 @@ einer vorhandenen Referenzdatei. Normale Entwicklung nutzt die reine Prüfung.
 - `src/art/schema`: Werk-, DNA-, Herkunfts-, Konfigurations- und Previewverträge.
 - `src/art/generator`: PRNG, drei Previewfamilien und Evolutionskern 0.2.0 mit Rezeptreplay.
 - `src/art/renderer`: V1 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
-- `src/art/titles`: deterministischer Titelgenerator mit Lexikon 0.1.0 und Elternfragmenten.
+- `src/art/titles`: deterministischer Titelgenerator mit Lexikon 0.1.0 (Elternfragmente) und 0.2.0 (ganze Elternbausteine, ab Werkdatum 14.11.2026).
 - `src/archive`: validierter lesender Zugriff pro Seite/Werk, begrenzter Cache; kein Archivschreiber.
-- `src/operator`, `workers/admin`: Snapshot-Helfer und lokal implementierte Betreiberfunktion.
+- `src/operator`, `workers/admin`: Snapshot-Helfer und geschützte Betreiberfunktion (Cloudflare Worker).
+- `src/series`: datierte Kalenderregeln für Tagesgrenze und Lexikonwechsel.
 - `src/automation`: Tagesplanung, Nachholung, Historienprüfung und Git-Archivierung.
 - `src/preview`: validierte feste Testsammlung, verzögert geladen.
 - `fixtures/preview`: gespeicherte Vorschau-DNA, getrennt vom offiziellen Archiv.
-- `public/artworks`: kanonischer offizieller Bereich, derzeit nur leerer Index.
+- `public/artworks`: kanonisches offizielles Archiv, eine JSON-Datei pro Werk plus Index; wird vom Tageslauf geschrieben.
 
 Kunst ausschließlich HTML/CSS, ohne SVG, Canvas, WebGL oder Bilddateien.
 Bestehende Werke werden nie still neu gewürfelt, überschrieben oder migriert.
@@ -145,41 +152,44 @@ historische Daten später exakt aus Git wiederherstellen, bei Unsicherheit stopp
 Historische Renderer erhalten; neue Darstellungsregeln brauchen eine neue Version.
 Weitere Architekturentscheidungen: [docs/architecture.md](docs/architecture.md).
 
-## Serienfreigabe und externe Einrichtung
+## Serienbetrieb und externe Einrichtung
 
-`config/generation.json`: Startdatum `null`, Generierung `false`, Standardmodus
-`traceable` (Nachvollziehbare Vererbung), lokal noch Revision 3. Remote ist nach dem
-freigegebenen Speichertest traceable/Revision 5 gespeichert; die zwei Moduscommits sind
-lokal noch nicht übernommen. Revision 5 beim späteren Abgleich erhalten.
-`free` heißt Maximale Freiheit
-und ist im getrennten Evolutionslabor umgesetzt. Der Build blockiert weiterhin offizielle Werke,
-Aktivierung oder ein gesetztes Startdatum vor Freigabe. Tagesbefehl und Zeitplan sind lokal vorbereitet,
-aber die offizielle Generierung ist noch nicht freigegeben oder gestartet. Einstellungen wirken erst auf den nächsten
-noch nicht begonnenen Lauf, niemals auf archivierte Werke.
+`config/generation.json`: Startdatum `2026-11-04`, Generierung `true`, Modus
+`traceable` (Nachvollziehbare Vererbung), Revision 6. `free` heißt Maximale Freiheit.
+Nur der Betreiber speichert den Modus über die geschützte Betreiberseite; Änderungen
+wirken erst auf den nächsten noch nicht begonnenen Lauf, niemals auf archivierte Werke.
+`config/release.json` enthält die Kunstabnahme der 40 Testwerke (28.10.2026, Lexikon
+0.1.0), `seriesAuthorized: true` und die Titelabnahme für Lexikon 0.2.0 (10.11.2026).
+Ohne Kunstabnahme und Serienfreigabe erzeugt der Tagesplaner kein Werk, ohne
+Titelabnahme keines mit Lexikon 0.2.0.
 
-Vorhandenes Remote: [bummber/evolvera](https://github.com/bummber/evolvera).
-Lokal auf `main` eingerichtet, Ausgangsdateien erhalten. Öffentliche Galerie und
-Betreiberworker sind nach gesonderten Aufträgen eingerichtet. Werkbuch-Commit
-`d844e3f` mit erfolgreichen CI-/Pages-Läufen am 04.11. veröffentlicht.
-Der gemeinsame Tages-/Pages-Workflow ist hinter `PAGES_DEPLOYMENT_ENABLED=true`,
-`main` und öffentlichem Repository gesperrt; ein manueller Deploy verlangt zusätzlich
-`deploy=true`. Automatisierung braucht eine weitere ausdrückliche Freigabe.
+Der Workflow `pages.yml` archiviert fällige Werke, prüft, baut und veröffentlicht in
+einem Lauf. Er ist an `PAGES_DEPLOYMENT_ENABLED=true`, `EVOLVERA_AUTOMATION_ENABLED=true`,
+`main` und ein öffentliches Repository gebunden; beide Variablen sind gesetzt. Ein
+manueller Start veröffentlicht nur mit `deploy=true`. Die Automation committet selbst
+auf `main` („Archive validated daily artworks“); lokale Stände können deshalb hinter
+dem Remote liegen und werden nur per Fast-forward oder Rebase angeglichen.
 
-Galerie: [bummber.github.io/evolvera](https://bummber.github.io/evolvera/).
-Alle 22 öffentlichen Builddateien wurden bytegleich zum freigegebenen Build geprüft.
-Anbieterprüfung und gemeinsame Datenschutzhinweise sind dokumentiert. Neue
-Veröffentlichungen und die Serienaktivierung brauchen weiterhin den passenden Auftrag.
+Tagesgrenze ist seit Werkdatum 06.11.2026 **01:17 Europe/Berlin** mit Nachholversuchen
+um 01:47 und 02:23; frühere Werkdaten behalten 04:00. GitHub Actions startet geplante
+Läufe ohne Zeitgarantie: Vom 06. bis 10.11.2026 entstanden die Archivcommits zwischen
+07:11 und 08:29 Berlin, also sechs bis sieben Stunden nach dem Termin. Details:
+[Zeitumstellung](docs/schedule-change.md).
+
+Das Titel-Lexikon 0.2.0 gilt ab Werkdatum 14.11.2026 und vererbt ganze Bausteine statt
+Buchstabenresten; frühere Werke und die Testwerke bleiben bei 0.1.0. Regel, Prüfungen
+und abgenommene Titelvorschau: [Titel-Lexikon 0.2.0](docs/title-lexicon-0.2.0.md).
+
+Repository: [bummber/evolvera](https://github.com/bummber/evolvera), öffentlich. Ein Push
+auf `main` löst CI und den Pages-Workflow aus und ist damit eine Veröffentlichung.
+Vorher `#/impressum`, `#/datenschutz` und `config/legal.json` prüfen (siehe oben).
+Anbieterprüfung und Datenschutzhinweise sind dokumentiert.
 
 Cloudflare-Worker/SQLite und GitHub App sind eingerichtet, letztere ausschließlich
 auf `bummber/evolvera` beschränkt. Die öffentliche Galerie verlinkt die geschützte
-Betreiberseite. Echter Login, Logout/Neuanmeldung und traceable/1 → free/2 → traceable/3
-sind nachgewiesen. Secrets ausschließlich serverseitig, keine Secrets im Chat.
-Die lokale synthetische Top-Level-Anmeldung besteht mit eingeschränkten
-Drittanbieter-Cookies. Echte Anmeldung und Logout nach Cookieprüfanleitung sind
-auf iPhone/Safari im Privatmodus vom Betreiber bestätigt; nach Reload nach Logout
-bleibt das Formular gesperrt. Auch die separat freigegebene Modusrunde traceable/3 →
-free/4 → traceable/5 unter dieser Cookieeinstellung ist bestätigt; beide Git-/CI-/
-Pages-Nachweise und je 22 ausgelieferte Dateien geprüft.
+Betreiberseite. Echter Login, Logout/Neuanmeldung und mehrere Modusrunden sind
+nachgewiesen, auch auf iPhone/Safari im Privatmodus mit eingeschränkten
+Drittanbieter-Cookies. Secrets liegen ausschließlich serverseitig, nie im Chat.
 [Ergebnis und Grenzen](docs/operator-cookie-check.md).
 
 ## Lokale Betreiber- und Betriebsprüfungen
@@ -192,30 +202,18 @@ lokalem workerd/SQLite, einschließlich getrennten Objekten und absolutem Ablauf
 Login/Sitzung, ausschließlich mit Testdaten. Keine echten Secrets nötig.
 
 `npm run generate:daily -- --dry-run` liest den gesicherten Git-Commit und vollständige
-Historie, plant im Speicher und schreibt nichts. Aktuell null offizielle Werke und
-Generierung deaktiviert. `--apply` ist für den separat freigegebenen GitHub-Workflow
-reserviert; kein lokaler Betriebsstart. Kunstabnahme und Referenz-Digests stehen in
-`config/release.json`, `seriesAuthorized` bleibt false. Daten/Renderer werden nie still
-neu gewürfelt oder überschrieben. Vorgehen bei Fehlern: [Runbook](docs/runbook.md).
+Historie, plant im Speicher und schreibt nichts. Am 10.11.2026 meldete er sieben Werke,
+Revision 6 und nichts Fälliges. `--apply` ist dem GitHub-Workflow vorbehalten; kein
+lokaler Betriebsstart. Daten und Renderer werden nie still neu gewürfelt oder
+überschrieben. Vorgehen bei Fehlern: [Runbook](docs/runbook.md).
 
-## Nächster Schritt
+## Aktueller Stand und nächster Schritt
 
-Die [Restabnahme und den vorbereiteten Startablauf](docs/pre-series-acceptance.md)
-gemeinsam sichten. Die iPhone-/Safari-Prüfung einschließlich gespeicherter Webapp
-ist am 04.11. vom Betreiber ohne Auffälligkeiten bestätigt. Die lokale Firefox-Abnahme
-ist ebenfalls erfolgreich. Echte Cloud-Anmeldung und Logout im privaten Safari
-auf dem iPhone sind nach Anleitung bestätigt; Reload nach Logout zeigt kein Formular.
-Auch der echte Modusspeichertest ist abgeschlossen:
-[Ergebnis und Ablauf](docs/operator-cookie-check.md). Zuerst den lokalen Stand
-`d844e3f` samt uncommittierten Arbeiten und den Remote-Stand `a66d0b4`/Revision 5
-bewusst abgleichen; kein blindes Pull oder Überschreiben der lokalen Arbeiten.
-[Übergabe und Startprompt](docs/NEXT-START.md).
-Danach verbleibende Abnahmegrenzen sichten, Startdatum und Aktivierung
-gesondert freigeben; der erste geplante Archiv-/Deploymentlauf lässt sich erst nach
-Aktivierung nachweisen. Bestehende Ergebnisdokumente und das unversionierte
-PRD-Backup bleiben erhalten.
+Stand und Wiedereinstieg stehen in [docs/HANDOFF.md](docs/HANDOFF.md) und
+[docs/NEXT-START.md](docs/NEXT-START.md); zu Beginn zuerst nur lesend prüfen.
+Als Nächstes ist der erste Lauf mit Lexikon 0.2.0 für Werkdatum 14.11.2026 zu belegen.
 
-Ein Desktop-Safari-Stichprobenlauf ist erfolgt; vollständige Geräte-/WCAG-/
-Sitzungsabnahme und GPU-/FPS-Profiling bleiben offen. Remote-CI ist erfolgreich.
-Phase 5 ist nicht begonnen. Eine spätere weitere Serie mit mehr Varianz, Verläufen,
-Linien und Kurven bleibt ein [gesonderter Folgeauftrag](docs/future-series.md).
+Offen bleiben die Verspätung der geplanten Läufe, eine vollständige Geräte-/WCAG-/
+Sitzungsabnahme und GPU-/FPS-Profiling. Phase 5 ist nicht begonnen. Eine spätere
+weitere Serie mit mehr Varianz, Verläufen, Linien und Kurven bleibt ein
+[gesonderter Folgeauftrag](docs/future-series.md).
