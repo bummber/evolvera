@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Renderer 2 und Musterbogen (P2)
 
-Stand: 10.11.2026 · Status: lokal umgesetzt, Sichtung 1 durch den Betreiber offen
+Stand: 10.11.2026 · Status: veröffentlicht (e4567f2); Sichtung 1 am 10.11.2026 ohne Änderungswünsche bestätigt
 
 Renderer 2 stellt Werke im Schema 3 dar (`rendererVersion: "2"`). Er ist noch
 nicht eingefroren: Solange kein Werk mit ihm archiviert ist (frühestens P7),

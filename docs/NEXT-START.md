@@ -11,11 +11,11 @@ sichten.
 
 EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
-Hintergrund und unversioniert. P0 und P1 sind veröffentlicht (2a24d64). P2
-(Renderer 2 und Musterbogen) ist am 10.11. lokal umgesetzt; Sichtung 1,
-Commit- und Push-Stand im HANDOFF und per /sichtung prüfen. Ist Sichtung 1
-noch offen oder hat sie Änderungswünsche ergeben, diese zuerst klären. Offen
-aus P2: Firefox-Prüfung des Musterbogens, Lastmessung auf einem Mobilgerät.
+Hintergrund und unversioniert. P0, P1 und P2 (Renderer 2 und Musterbogen)
+sind veröffentlicht (e4567f2 am 10.11., CI 42910501876 und Pages 42910501402
+erfolgreich). Sichtung 1 des Musterbogens ist am 10.11. erfolgt und ohne
+Änderungswünsche bestätigt („Das Ergebnis ist gut“). Offen aus P2:
+Firefox-Prüfung des Musterbogens, Lastmessung auf einem Mobilgerät (P7).
 Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein eigener Schritt und keine
 Voraussetzung: sobald der Lauf stattgefunden hat, anhand Run-ID, Zeit, Status,
 Archivcommit, lexiconVersion, Titel und Elternbausteinen belegen (erwartet

@@ -1,11 +1,14 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, EP-01 P2 „Renderer 2 und Musterbogen“ lokal umgesetzt
+## Aktueller Abschluss – 10.11.2026, EP-01 P2 „Renderer 2 und Musterbogen“ umgesetzt und veröffentlicht
 
 Der Betreiber hat P2 am 10.11.2026 beauftragt. Stand vor Beginn (21:31 Berlin)
 und bei Abschluss (22:51 Berlin, API): HEAD/main und Remote-main `2a24d64`,
-sieben Werke, kein neuer Lauf. P2 ist lokal umgesetzt und **nicht committed**.
-**Sichtung 1 durch den Betreiber (Formen- und Oberflächenkatalog) steht aus.**
+sieben Werke, kein neuer Lauf. P2 ist umgesetzt und veröffentlicht (siehe unten).
+**Sichtung 1 ist erfolgt:** Der Betreiber hat den Formen- und
+Oberflächenkatalog am 10.11.2026 gesichtet und mit „Das Ergebnis ist gut“ ohne
+Änderungswünsche bestätigt. Das ist keine Kunstabnahme für Generator 0.3.0
+(P7) und keine Geräteabnahme.
 [Technik, Browserunterstützung, Messung und Grenzen](extensions/EP01-renderer-2.md).
 
 - **Neu:** `ArtRendererV2.tsx`, `ArtV2.module.css`, `v2/geometry.ts`,
@@ -38,19 +41,27 @@ sieben Werke, kein neuer Lauf. P2 ist lokal umgesetzt und **nicht committed**.
   Chromium ohne Bildschirm mit CPU-Drosselung bis Faktor 6 ohne Auffälligkeit;
   sie misst nur den Hauptthread und ersetzt keine Messung auf einem
   Mobilgerät (P7).
-- **Nicht geprüft:** Remote-CI (kein Push). Die 14 neuen Bilder stammen von
-  macOS und enthalten Verläufe, Unschärfe und Blendmodi; ob sie mit den
-  Toleranzen auf dem Linux-Runner bestehen, zeigt erst die CI. Ein Push sollte
-  deshalb mit Abstand zum Lauf um 01:17 erfolgen und sofort kontrolliert
-  werden. Der erste Schedule-Lauf seit P0/P1 (Werkdatum 11.11.) steht aus.
+- **Veröffentlicht am 10.11.2026, 23:00 Berlin: e4567f2a662988741d5898493882093e60e0502a**,
+  regulärer Fast-forward-Push von `2a24d64` (Remote vorher per API unverändert
+  bestätigt, kein Fetch nötig). Drei Commits: `34355fb` (Renderer 2),
+  `9f2a0fa` (Musterbogen im Atelier, Tests, 14 Bilder), `e4567f2` (Berichte).
+  [CI 42910501876](https://github.com/bummber/evolvera/actions/runs/42910501876)
+  und [Pages 42910501402](https://github.com/bummber/evolvera/actions/runs/42910501402)
+  (Build und Deploy) erfolgreich: je **292 Tests** und **102 Browserfälle
+  bestanden/sechs bestehende Skips**, ohne Wiederholungsversuch. Damit bestehen
+  die auf macOS erzeugten Musterbogen-Bilder auch auf dem Linux-Runner. Beim
+  Push kein neues Werk und kein Archivcommit; Remote-main danach `e4567f2`.
+  Der Musterbogen ist seitdem auch im veröffentlichten Testatelier sichtbar.
+- **Nicht geprüft:** Live-Website nicht aufgerufen. Der erste Schedule-Lauf
+  seit P0 (Werkdatum 11.11.) steht aus.
 - **Unverändert:** Generator, Titelgenerator, `ArtRenderer.tsx`, `ArtV1`,
   `artwork.ts`, Konfiguration, Worker, Workflows, Archivdateien,
   `fixtures/preview/phase-*.json`, bestehende Browserreferenzen, Lockfile.
   Archiv-Baseline nicht erweitert (noch kein Werk nach dem 10.11.).
 
-Als Nächstes: Sichtung 1 im Testatelier (`npm run dev`, dann `#/atelier`,
-unten „Musterbogen für Renderer 2“), danach Commit und Push nach Rückfrage und
-P3 nur auf ausdrücklichen Auftrag. [Aktueller Startprompt](NEXT-START.md).
+Als Nächstes: P3 „Generator 0.3.0, Teil A“ auf ausdrücklichen Auftrag in einer
+neuen Sitzung; unabhängig davon den Lauf für **Werkdatum 14.11.2026** belegen,
+sobald er stattgefunden hat. [Aktueller Startprompt](NEXT-START.md).
 
 ## Vorheriger Abschluss – 10.11.2026, EP-01 P1 „Verträge“ umgesetzt und veröffentlicht
 
