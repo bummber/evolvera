@@ -1,6 +1,72 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, EP-01 P2 „Renderer 2 und Musterbogen“ umgesetzt und veröffentlicht
+## Aktueller Abschluss – 10.11.2026, EP-01 P3 „Generator 0.3.0, Teil A“ lokal umgesetzt, nicht veröffentlicht
+
+Der Betreiber hat P3 am 10.11.2026 beauftragt. Sichtung vor Beginn (23:25
+Berlin) und bei Abschluss (23:56 Berlin, API): HEAD/main und Remote-main
+`388afd6`, sieben Werke, nichts fällig, kein neuer Lauf. `388afd6` ist der
+Doku-Commit nach P2 (CI 42912901856, Pages 42912901879 erfolgreich).
+**Sichtung 2 ist erfolgt:** Der Betreiber hat die 40 Probewerke am 10.11.2026
+gesichtet und mit „sehr gut“ ohne Änderungswünsche bestätigt. Das ist keine
+Kunstabnahme für Generator 0.3.0 (P7) und keine Geräteabnahme.
+[Verfahren, Gamut-Behandlung, Messung und Grenzen](extensions/EP01-generator-3.md).
+
+- **Neu:** `src/art/generator/v3/` (`index.ts`, `compose.ts`, `families.ts`,
+  `kit.ts`, `palette.ts`, `fills.ts`, `checks.ts`), frei von React, Browser
+  und Uhrzeit; `src/art/schema/preview-v3.ts`; `scripts/origin-fixtures.ts`;
+  `fixtures/preview/ep01-origins.json` mit 40 Probewerken;
+  `src/app/OriginStudies.tsx`; `tests/generator-v3.test.ts`,
+  `tests/generator-v3-palette.test.ts`, `tests/browser/origins.spec.ts` und
+  zwölf neue Referenzbilder `generator-v3-<id>.png` (sechs Werke, je eine
+  Familie, bei 320 px und Desktop).
+- **Geändert:** `Atelier.tsx` zeigt den neuen Abschnitt unten im Testatelier;
+  `shell.css` hat dafür eigene Klassen (`origin-*`), damit die Tests des
+  bisherigen Ateliers unberührt bleiben; `package.json` ruft in
+  `validate:data` zusätzlich `scripts/origin-fixtures.ts` auf.
+- **Umfang:** nur unabhängige Ursprungswerke im Schema 3. OKLCH-Paletten mit
+  vier Strategien und Hex-Ausgabe, Füllungsgen, sechs Familien, Linienbündel
+  und Schraffuren, bis zu drei Ebenen, Symmetrie, Dichte, Häufigkeitsstufen
+  15 / 40 / 70 %, Einstellungssnapshot im Probewerk, Sichtbarkeitsanker und
+  Lastgrenzen als harte Prüfungen mit bis zu 16 deterministischen Versuchen.
+- **Betreiberentscheidungen zu P3:** schlankes Vorschauformat statt
+  vollständiger Werke (die entstehen in P4); 40 fortlaufende Seeds ohne
+  Auswahl; Referenzbilder nur für sechs Werke; ein zusätzlicher Prüfaufruf in
+  `package.json`.
+- **Prüfungen lokal am 10.11.2026:** `npm run check` erfolgreich mit
+  **317 Tests** (292 + 25); Datenprüfung mit sieben Werken, Archiv-Baseline
+  grün, 40 Probewerke deterministisch reproduziert.
+  `CI=true npm run test:browser` gegen den frischen Build: **118 bestanden**
+  (102 + 16), sechs bestehende Skips, kein Wiederholungsversuch; alle
+  bisherigen Referenzen unverändert. Messung über 20 000 Seeds im
+  Standardprofil: kein Fehlschlag, 92,9 % im ersten Versuch, höchstens der
+  siebte Versuch nötig. Nach den Nachträgen in Plan, HANDOFF und NEXT-START
+  wurde nur `npm run check` wiederholt.
+- **Lokal committet, nicht gepusht:** `28092ab` (Paletten und Füllungen),
+  `2d98046` (Generator), `a45da38` (Probewerke im Atelier, Tests, zwölf
+  Bilder), danach ein Doku-Commit. main liegt damit vier Commits vor
+  Remote-main `388afd6`. Kein Fetch, Pull, Push, Workflowstart oder
+  Deployment.
+- **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast der
+  erzeugten Werke auf einem Mobilgerät (P7); die neuen Bilder auf dem
+  Linux-Runner (erst nach einem Push); Live-Website. Der erste Schedule-Lauf
+  seit P0 (Werkdatum 11.11.) stand bei Abschluss noch aus.
+- **Grenzen:** Determinismus ist nur unter Node 24 geprüft; Zahlen sind auf
+  sechs Nachkommastellen gerundet, Winkelfunktionen sind zwischen Engines
+  nicht garantiert bitgleich. Bei rund jedem fünften Werk kommt für den Anker
+  eine eigene Form dazu. Die Fixture ist bis P7 nicht eingefroren.
+- **Unverändert:** `study.ts`, `evolve.ts`, `provenance.ts`, Titelgenerator,
+  `ArtRenderer.tsx`, `ArtV1`, `artwork.ts`, `artwork-v3.ts`, Renderer 2,
+  Konfiguration, Worker, Workflows, Archivdateien,
+  `fixtures/preview/phase-*.json`, Musterbogen, bestehende Browserreferenzen,
+  Lockfile. Archiv-Baseline nicht erweitert (noch kein Werk nach dem 10.11.).
+
+Als Nächstes: Push von P3 nur nach Freigabe (vorher Remote prüfen und neue
+Archivcommits per Rebase übernehmen); P4 „Generator 0.3.0, Teil B“ auf
+ausdrücklichen Auftrag in einer neuen Sitzung; unabhängig davon den Lauf für
+**Werkdatum 14.11.2026** belegen, sobald er stattgefunden hat.
+[Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 10.11.2026, EP-01 P2 „Renderer 2 und Musterbogen“ umgesetzt und veröffentlicht
 
 Der Betreiber hat P2 am 10.11.2026 beauftragt. Stand vor Beginn (21:31 Berlin)
 und bei Abschluss (22:51 Berlin, API): HEAD/main und Remote-main `2a24d64`,

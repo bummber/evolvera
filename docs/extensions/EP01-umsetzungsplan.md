@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 10.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0, P1 und P2 umgesetzt (Sichtung 1 am 10.11.2026 bestätigt), P3–P9 nicht beauftragt
+Stand: 10.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0, P1 und P2 veröffentlicht (Sichtung 1 am 10.11.2026 bestätigt), P3 lokal umgesetzt (Sichtung 2 am 10.11.2026 bestätigt, noch nicht veröffentlicht), P4–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -244,6 +244,21 @@ Neues Modul unter `src/art/generator/v3/`, frei von React und Browser.
 - Sichtbarkeitsanker und Lastgrenzen als harte Prüfungen mit deterministischen
   Retries.
 - **Sichtung 2:** 40 unabhängige Probewerke im Atelier, getrennt vom Archiv.
+- Umgesetzt am 10.11.2026; Verfahren, Messung und Grenzen stehen in
+  [EP01-generator-3.md](EP01-generator-3.md). Sichtung 2 am selben Tag ohne
+  Änderungswünsche bestätigt („sehr gut“); die Stufen 15 / 40 / 70 % bleiben.
+  Festlegungen und Abweichungen vom Planwortlaut:
+  - Die Probewerke haben ein eigenes Vorschauformat
+    (`src/art/schema/preview-v3.ts`) ohne Titel, Datum und Kontextdigest; das
+    vollständige Werk im Schema 3 entsteht in P4.
+  - Merkmalsentscheidungen hängen nur vom Seed ab, nicht vom Versuch. Bis zu
+    16 deterministische Versuche statt der zunächst geplanten acht.
+  - Der Sichtbarkeitsanker entsteht in vier Stufen (vorhanden, nach vorn
+    geholt, versetzt, ergänzt); je Palette gibt es dafür zwei Reservetöne.
+  - `curves` umfasst Bögen, Ringe und Kurvenstriche, `generativeShapes`
+    Polygone und gefüllte Kurvenflächen. Blobs und Kreise sind Grundformen.
+  - Renderer 2 und Schema 3 blieben unverändert. Die Archiv-Baseline wurde
+    nicht ergänzt, weil es noch kein Werk nach dem 10.11. gab.
 
 ### P4 – Generator 0.3.0, Teil B: Evolution und Belege
 

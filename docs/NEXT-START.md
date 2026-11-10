@@ -1,4 +1,88 @@
-# Aktueller Startprompt – EP-01: P3 Generator 0.3.0, Teil A (Ursprungswerke)
+# Aktueller Startprompt – EP-01: P4 Generator 0.3.0, Teil B (Evolution und Belege)
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+vollständig docs/extensions/EP01-umsetzungsplan.md,
+docs/extensions/EP01-renderer-2.md und docs/extensions/EP01-generator-3.md
+lesen. Dann /sichtung ausführen: rein lesend Git-Zustand, Remote, Berliner
+Zeit, Tagesläufe und Archiv prüfen und gemeinsam sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. P0, P1 und P2 sind veröffentlicht (Remote-main
+388afd6 am 10.11.). P3 (Generator 0.3.0, Teil A: Ursprungswerke) ist lokal
+umgesetzt und committet (28092ab, 2d98046, a45da38 und ein Doku-Commit), aber
+bei Abschluss nicht gepusht: zuerst klären, ob P3 inzwischen veröffentlicht
+ist; wenn nicht, den Push samt Rebase auf neuere Archivcommits zur Freigabe
+vorlegen. Sichtung 2 der 40 Probewerke ist am 10.11. erfolgt und ohne
+Änderungswünsche bestätigt („sehr gut“); die Stufen 15 / 40 / 70 % bleiben.
+Offen: Firefox-Prüfung, Lastmessung auf einem Mobilgerät (P7), die neuen
+Referenzbilder auf dem Linux-Runner. Der Lexikon-Beleg für Werkdatum
+14.11.2026 ist ein eigener Schritt und keine Voraussetzung: sobald der Lauf
+stattgefunden hat, anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion,
+Titel und Elternbausteinen belegen (erwartet Gen. 11 „Azurschweben“, 0.2.0).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P4 (Generator 0.3.0,
+Teil B: Evolution und Belege) aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 11.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts); Bestehendes nicht verändern.
+2. Zuerst einen kurzen Bauplan vorlegen und freigeben lassen: Vererbung je
+   Ebene und Merkmalsgruppe, Belegverfahren, Umgang mit Eltern im Schema 2,
+   Seed mit Snapshot-Digest, Form des vollständigen Werks.
+3. Evolution unter src/art/generator/v3/, frei von React und Browser:
+   Vererbung je Ebene und je Merkmalsgruppe (übernehmen, mischen, mutieren,
+   neu), Mutationsstärke und Mutationssprünge.
+4. Belegverfahren nach Plan 4.3 mit den Sichtbarkeitsregeln aus checks.ts: im
+   Modus traceable je Elternteil mindestens ein sichtbarer, konkret belegter
+   Beitrag, notfalls über Palette oder Geometrie (A-31); free verlangt keine
+   Mindestübernahme. Keine Belegblöcke im Raster.
+5. off wandelt vererbte Merkmale um und belegt das mit constrained; always
+   erzwingt ein sichtbares Vorkommen (A-30).
+6. Übergang: Werke im Schema 3 mit Eltern im Schema 2; alte Eltern nur im
+   Speicher als eine Struktur-Ebene mit Vollfarben lesen, ihre Dateien nicht
+   anfassen.
+7. Vollständiges Werk im Schema 3 (artworkV3Schema) erzeugen. Der Seed bindet
+   einen Digest des vollständigen Snapshots (A-29). Das Feld novelty bleibt
+   bis P5 vorläufig; den dafür nötigen Platzhalter ausdrücklich benennen. Der
+   Titelgenerator wird nur aufgerufen, nicht geändert.
+8. Tests: Mehrgenerationsketten je Modus, Manipulationstests analog zu
+   tests/evolution.test.ts (erfundene Quellen, überdeckte Beiträge),
+   Determinismus, validateArtworkV3 über alle erzeugten Ketten.
+9. Probeketten beider Modi als getrennte Vorschau-Fixture im Atelier oder
+   Evolutionslabor, getrennt vom Archiv; neue Browserreferenzen nur ergänzen.
+10. npm run check und npm run test:browser ausführen und ehrlich berichten.
+11. Gemeinsame Sichtung der Probeketten mit dem Betreiber.
+
+Grenzen P4: Keine Änderung an study.ts, evolve.ts, provenance.ts,
+Titelgenerator, ArtV1, artwork.ts, Konfigurationsdateien, Worker, Workflows,
+Archivdateien, fixtures/preview/phase-*.json oder bestehenden
+Browserreferenzen. Kein Ähnlichkeitsfenster und keine Extremprofile (P5),
+keine Galerie- oder Detailansicht für Schema 3 (P6), kein
+generatorChangeDate, kein Einbau in den Tageslauf, kein Werk im Schema 3 im
+Archiv. fixtures/preview/ep01-origins.json nur neu erzeugen, wenn eine
+Änderung am Generator es nötig macht, und das ausdrücklich benennen.
+Änderungen an Renderer 2 oder Schema 3 nur, wenn die Evolution sie nötig
+macht, und dann ausdrücklich benennen. P5 bis P9 nicht beginnen. Neue
+Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P4-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für P5 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P3 (10.11.2026)
+
+# Vorheriger Startprompt – EP-01: P3 Generator 0.3.0, Teil A (Ursprungswerke)
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
