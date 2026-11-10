@@ -54,7 +54,8 @@ function expectValid(work: ReturnType<typeof study>) {
   expect(work.retry).toBeLessThanOrEqual(MAX_RETRY);
 }
 
-describe('Generator 0.3.0: Ursprungswerke', () => {
+// Thousands of works per test: far above the default limit on slow runners.
+describe('Generator 0.3.0: Ursprungswerke', { timeout: 120_000 }, () => {
   it('ist deterministisch und unterscheidet Seeds', () => {
     for (let index = 0; index < 40; index++) {
       const seed = `determinism:${index}`;
@@ -185,7 +186,7 @@ describe('Generator 0.3.0: Ursprungswerke', () => {
     );
     expect(often.gradients! / total).toBeGreaterThan(0.65);
     expect(often.gradients! / total).toBeLessThan(0.8);
-  }, 30_000);
+  });
 
   it('schließt mit „off“ jedes Merkmal aus und erzwingt es mit „always“', () => {
     for (let index = 0; index < 300; index++) {
