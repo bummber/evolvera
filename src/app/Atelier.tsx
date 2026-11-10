@@ -13,6 +13,7 @@ import type { StudyFamily } from '../art/schema/preview';
 import { generateStudy } from '../art/generator/study';
 import { ArtRenderer } from '../art/renderer/ArtRenderer';
 import { ArtStage } from '../art/renderer/ArtStage';
+import { OriginStudies } from './OriginStudies';
 
 const studies = previewCollectionSchema.parse(rawStudies).studies;
 const sheets = catalogSchema.parse(rawCatalog).sheets;
@@ -169,6 +170,7 @@ export default function Atelier() {
           ))}
         </div>
       </section>
+      <OriginStudies />
     </>
   );
 }

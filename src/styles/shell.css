@@ -1118,6 +1118,59 @@ button:disabled {
 .catalog-sheet figcaption span {
   color: var(--muted);
 }
+/* EP-01 origin studies: own classes, so the phase 1 atelier stays as it is. */
+.origin-main {
+  margin: 0 0 48px;
+  min-width: 0;
+  max-width: 720px;
+}
+.origin-main figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 18px;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.origin-main figcaption strong {
+  font-size: 16px;
+  font-weight: 500;
+}
+.origin-main figcaption > span {
+  font: 11px/1.7 var(--font-mono);
+}
+.origin-main figcaption > .origin-description {
+  flex-basis: 100%;
+  color: var(--muted);
+}
+.origin-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 24px;
+}
+.origin-card {
+  display: block;
+  text-align: left;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  min-width: 0;
+  cursor: pointer;
+}
+.origin-card[aria-pressed='true'] {
+  outline: 2px solid var(--accent);
+  outline-offset: 6px;
+}
+.origin-card-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  font-size: 11px;
+  line-height: 1.5;
+}
 @media (max-width: 1000px) {
   .atelier-layout {
     grid-template-columns: 1fr;
@@ -1139,6 +1192,10 @@ button:disabled {
   .catalog-grid {
     grid-template-columns: 1fr;
     gap: 36px;
+  }
+  .origin-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 16px;
   }
   .atelier-gallery-heading {
     display: block;
