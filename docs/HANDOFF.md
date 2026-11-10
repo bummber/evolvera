@@ -1,6 +1,52 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 10.11.2026, EP-01 beauftragt, P0 umgesetzt und veröffentlicht
+## Aktueller Abschluss – 10.11.2026, EP-01 P1 „Verträge“ lokal umgesetzt
+
+Der Betreiber hat am 10.11.2026 den Lexikon-Beleg als Voraussetzung aufgehoben
+und P1 beauftragt. Stand vor Beginn: HEAD/main und Remote-main `48f55fc`
+(API, 21:12 Berlin), danach lokal `dafd124` (Aufhebung der Voraussetzung in
+Plan, HANDOFF und NEXT-START; noch nicht gepusht). P1 ist rein ergänzend: Die
+laufende Serie benutzt keinen der neuen Verträge.
+
+- **Betreiberentscheidungen zu P1:** Schlüssel und Standardprofil aus
+  `PRD_1_2.md` Abschnitt 8.4 (das im Plan genannte Varianz-Dokument liegt nicht
+  im Projekt); Regelversion 1 nur mit den zwei Pflichtregeln; neuer Leser nur
+  ergänzen, bestehende Stellen nicht umstellen.
+- **Neu:** `src/art/schema/profile.ts` (Profil, Standardprofil, Regelmodul),
+  `configV2Schema` und `readGenerationConfig` in `src/art/schema/config.ts`,
+  `src/art/schema/artwork-v3.ts` (DNA und Werk im Schema 3, Belegpfade,
+  `constrained`, `validateArtworkV3`, `anyArtworkSchema`),
+  `src/art/renderer/ArtDispatch.tsx`. Tests: `tests/config-v2.test.ts`,
+  `tests/artwork-v3.test.tsx`, Fixture `tests/fixtures/artworks-v3.ts`.
+- **Einzige geänderte Bestandsdatei im Code:** `src/art/schema/config.ts`,
+  nur Ergänzungen am Dateiende und ein Import; `configSchema` (Schema 1) ist
+  unverändert. Der Worker bündelt diese Datei mit (Dry-run 805,92 KiB statt
+  801,32 KiB), benutzt die Ergänzungen aber nicht.
+- **Abweichungen vom Planwortlaut**, im Plan unter P1 festgehalten: Schema 3
+  in eigener Datei statt in `artwork.ts`; `artworkSchema` bleibt die Union aus
+  1 und 2, Schema 3 kommt über `anyArtworkSchema` dazu; Dispatch und Leser sind
+  noch nirgends eingebaut. Vorläufig bis P2/P4/P5: Wertebereiche des
+  Vokabulars, Feld `novelty`, fehlendes Evolutionsrezept, Lastgrenzen über 120
+  Elemente hinaus.
+- **Prüfungen lokal am 10.11.2026:** `npm run check` erfolgreich mit
+  **265 Tests** (207 + 58); alle sieben Archivwerke und die 40 Testwerke
+  validieren unverändert, Archiv-Baseline grün. `CI=true npm run test:browser`
+  gegen den frischen Build: **86 bestanden**, sechs bestehende Skips.
+  `npm run worker:test-runtime` erfolgreich. Nach den Nachträgen in Plan,
+  HANDOFF und NEXT-START wurde nur `npm run check` wiederholt.
+- **Nicht geprüft:** CI auf dem Remote (kein Push), Live-Website, echter
+  Worker. Der erste Schedule-Lauf mit der Archiv-Baseline (Werkdatum 11.11.)
+  steht weiter aus.
+- **Unverändert:** Generator, Titelgenerator, `ArtRenderer.tsx`, `ArtV1`,
+  `artwork.ts`, Konfigurationsdateien, Worker-Code, Workflows, Archivdateien,
+  `fixtures/preview`, Browserreferenzen, Lockfile. Die Archiv-Baseline wurde
+  nicht erweitert, weil es noch kein Werk nach dem 10.11. gibt.
+
+Als Nächstes: P2 „Renderer 2 und Musterbogen“ nur auf ausdrücklichen Auftrag;
+unabhängig davon den Lauf für **Werkdatum 14.11.2026** belegen, sobald er
+stattgefunden hat. [Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 10.11.2026, EP-01 beauftragt, P0 umgesetzt und veröffentlicht
 
 Lesende Sichtung am 10.11.2026 um 18:35 Berlin: HEAD/main und Remote-main
 (GitHub-API, ohne Fetch) beide `a258422`, sieben Werke 04.–10.11., `traceable`/6,

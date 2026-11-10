@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 10.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 umgesetzt, P1–P9 nicht beauftragt
+Stand: 10.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 und P1 umgesetzt, P2–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -181,6 +181,27 @@ zusätzlich `npm run test:browser`, bei Workeränderungen
 - Tests: Schema 1 ohne neue Schlüssel wird verarbeitet; alle Archivwerke und
   Fixtures validieren unverändert; unmögliche Profile werden mit verständlicher
   Meldung abgelehnt (A-32, A-37).
+- Umgesetzt am 10.11.2026, rein ergänzend (Betreiberentscheidungen vom selben
+  Tag):
+  - Schlüssel und Standardprofil aus `PRD_1_2.md` Abschnitt 8.4, weil das
+    Varianz-Dokument nicht im Projekt liegt; Familienschlüssel `color-field`.
+  - `src/art/schema/profile.ts` ist das geteilte Regelmodul. Regelversion 1
+    lehnt nur ab: keine aktive Familie, keine Palettenstrategie (dazu doppelt
+    genannte Strategien). Weitere Ausschlüsse brauchen eine neue Regelversion,
+    sobald P2/P3 zeigen, was technisch nicht geht.
+  - `configV2Schema` und `readGenerationConfig` stehen in
+    `src/art/schema/config.ts`. Tageslauf, Worker und Generator 0.2.0 lesen
+    weiter das strikte Schema 1; die Umstellung folgt in P3/P4 und P8.
+  - Werkschema 3 liegt in der neuen Datei `src/art/schema/artwork-v3.ts`, damit
+    `artwork.ts` unverändert bleibt. `artworkSchema` bleibt die Union aus 1
+    und 2 und damit der Archivvertrag; `anyArtworkSchema` enthält zusätzlich
+    Schema 3. Archivleser und Oberfläche wechseln erst in P6.
+  - `src/art/renderer/ArtDispatch.tsx` wählt nach `rendererVersion`; Version 2
+    meldet „noch nicht darstellbar“. Die Oberfläche benutzt ihn noch nicht.
+  - Vorläufig und vor dem ersten archivierten Werk noch änderbar: Wertebereiche
+    der Formen, Füllungen und Effekte (P2), das Feld `novelty` für Abstand und
+    Kontextdigest (P5) und ein Rezept der Evolution, das Schema 3 noch nicht
+    enthält (P4). Von den Lastgrenzen steht nur die Gesamtzahl 120 im Schema.
 
 ### P2 – Renderer 2 und Musterbogen
 

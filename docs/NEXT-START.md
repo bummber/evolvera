@@ -1,4 +1,65 @@
-# Aktueller Startprompt – EP-01: P1, Lexikon-Beleg 14.11. unabhängig davon
+# Aktueller Startprompt – EP-01: P2 Renderer 2 und Musterbogen
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md
+und vollständig docs/extensions/EP01-umsetzungsplan.md lesen. Dann /sichtung
+ausführen: rein lesend Git-Zustand, Remote, Berliner Zeit, Tagesläufe und
+Archiv prüfen und gemeinsam sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. P0 (Archiv-Baseline) ist veröffentlicht, P1
+(Verträge) am 10.11. lokal umgesetzt; Commit- und Push-Stand von P1 im HANDOFF
+und per /sichtung prüfen. Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein
+eigener Schritt und keine Voraussetzung: sobald der Lauf stattgefunden hat,
+anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
+Elternbausteinen belegen (erwartet Gen. 11 „Azurschweben“, 0.2.0).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P2 (Renderer 2 und
+Musterbogen) aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 11.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts); bestehende Einträge, Referenztexte
+   und Bilder nicht verändern.
+2. Neue Dateien ArtRendererV2.tsx und ArtV2.module.css für alle Elementarten,
+   Füllungen, Muster und Effekte aus src/art/schema/artwork-v3.ts. Kein <img>,
+   <svg>, <canvas>, kein url(...). ArtDispatch.tsx gibt Version 2 an den neuen
+   Renderer weiter. ArtRenderer.tsx und ArtV1.module.css bleiben unverändert.
+3. Technik je Baustein nachweisen und dokumentieren, besonders sichtbare Bögen
+   und Kurvenstriche (ein offener Clip-Pfad reicht nicht) sowie die
+   Browserunterstützung von clip-path: path() und Masken in Chromium, Firefox
+   und Safari anhand aktueller Primärquellen.
+4. Handgeschriebener Musterbogen fixtures/preview/ep01-catalog.json, sichtbar
+   im bestehenden Atelier; neue Browserreferenzen bei 320 px und Desktop.
+5. Lastgrenzen messen und festlegen (Startwerte im Plan); Wertebereiche in
+   artwork-v3.ts dürfen dabei noch angepasst werden, weil noch kein Werk im
+   Schema 3 archiviert ist.
+6. npm run check und npm run test:browser ausführen und ehrlich berichten.
+7. Sichtung 1 mit dem Betreiber: Formen- und Oberflächenkatalog.
+
+Grenzen P2: Keine Änderung an Generator, Titelgenerator, ArtV1, artwork.ts,
+Konfigurationsdateien, Worker, Workflows, Archivdateien, fixtures/preview/
+phase-*.json oder bestehenden Browserreferenzen. Kein Generator 0.3.0, kein
+generatorChangeDate, kein Werk im Schema 3 im Archiv. P3 bis P9 nicht
+beginnen. Neue Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P2-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für P3 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P1 (10.11.2026)
+
+# Vorheriger Startprompt – EP-01: P1, Lexikon-Beleg 14.11. unabhängig davon
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
