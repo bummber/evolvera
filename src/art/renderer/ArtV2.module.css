@@ -1,0 +1,90 @@
+/* Renderer 2 (EP-01). Frozen once the first work is archived with it. */
+.frame {
+  all: initial;
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  isolation: isolate;
+  contain: layout paint;
+}
+/* The plane carries the background too: blend modes mix inside the plane. */
+.plane {
+  all: initial;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1000px;
+  height: 1000px;
+  transform-origin: 0 0;
+  transform: scale(var(--art-scale, 0));
+}
+/* The element box takes position, rotation, opacity, blend, filter and mask. */
+.shape {
+  all: initial;
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  transform-origin: 50% 50%;
+  animation-duration: var(--duration);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+/* Outline and fill live on the pseudo-element, so that blur and shadow of the
+   box are not cut off by the outline and no wrapper node is needed. */
+.shape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--fill);
+  border-radius: var(--radius, 0);
+  clip-path: var(--clip, none);
+}
+.frame[data-state='playing'] .shape {
+  animation-play-state: running;
+}
+.frame:not([data-state='rest']) .rotate {
+  animation-name: turn;
+}
+.frame:not([data-state='rest']) .float {
+  animation-name: drift;
+}
+.frame:not([data-state='rest']) .pulse {
+  animation-name: breathe;
+}
+@keyframes turn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(var(--travel), calc(var(--travel) * -0.5));
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: var(--alpha);
+  }
+  50% {
+    transform: scale(calc(1 - var(--amplitude)));
+    opacity: calc(var(--alpha) * 0.8);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .frame:not([data-opt-in='true']) .shape {
+    animation-name: none !important;
+  }
+}

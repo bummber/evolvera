@@ -53,14 +53,28 @@ export const fillSchema = z.discriminatedUnion('kind', [
     centerY: unit,
     stops,
   }),
-  z.strictObject({
-    kind: z.literal('pattern'),
-    pattern: z.enum(['stripes', 'grid', 'dots', 'rings', 'checker', 'truchet']),
-    angle,
-    period: z.number().min(0.01).max(0.5),
-    foreground: color,
-    background: color,
-  }),
+  z
+    .strictObject({
+      kind: z.literal('pattern'),
+      pattern: z.enum([
+        'stripes',
+        'grid',
+        'dots',
+        'rings',
+        'checker',
+        'truchet',
+      ]),
+      angle,
+      period: z.number().min(0.01).max(0.5),
+      foreground: color,
+      background: color,
+    })
+    // Only stripes and grid have a direction of their own. Tiled patterns
+    // turn with the element's rotation, so a stored angle is always visible.
+    .refine(
+      (fill) => ['stripes', 'grid'].includes(fill.pattern) || fill.angle === 0,
+      { message: 'Gekachelte Muster haben keinen eigenen Winkel.' },
+    ),
 ]);
 
 export const effectsSchema = z.strictObject({
@@ -83,6 +97,10 @@ export const effectsSchema = z.strictObject({
       angle,
       from: unit,
       to: unit,
+    })
+    // Opaque up to `from`, fading out towards `to` along the gradient.
+    .refine((mask) => mask.from < mask.to, {
+      message: 'Eine Verlaufsmaske blendet von „from“ nach „to“ aus.',
     })
     .optional(),
 });
@@ -182,6 +200,50 @@ export const elementV3Schema = z.discriminatedUnion('kind', [
   }),
 ]);
 
+/**
+ * Load limits of renderer 2 per work. Start values of the EP-01 plan (P2);
+ * final values need a measurement on a real mobile device (P7). They are hard
+ * limits and also apply to profiles with features set to `always`.
+ */
+export const loadLimitsV3 = {
+  elements: 120,
+  dots: 60,
+  clipped: 40,
+  paths: 8,
+  blends: 6,
+  masks: 4,
+  blurs: 3,
+} as const;
+/** A dot is a small circle, as used for spirals and other point structures. */
+const DOT_SIZE = 0.04;
+type LoadElement = z.infer<typeof elementV3Schema>;
+export function loadCounts(elements: readonly LoadElement[]) {
+  const count = (test: (element: LoadElement) => boolean) =>
+    elements.filter(test).length;
+  return {
+    elements: elements.length,
+    dots: count(
+      (e) => e.kind === 'circle' && Math.max(e.width, e.height) <= DOT_SIZE,
+    ),
+    clipped: count((e) => ['arc', 'ring', 'polygon', 'path'].includes(e.kind)),
+    paths: count((e) => e.kind === 'path'),
+    blends: count((e) => e.effects?.blend !== undefined),
+    masks: count((e) => e.effects?.mask !== undefined),
+    blurs: count(
+      (e) => e.effects?.blur !== undefined || e.effects?.shadow !== undefined,
+    ),
+  };
+}
+const loadLabels: Record<keyof typeof loadLimitsV3, string> = {
+  elements: 'Elemente',
+  dots: 'Punkte',
+  clipped: 'Elemente mit Clip-Pfad',
+  paths: 'Pfade',
+  blends: 'Blendmodi',
+  masks: 'Masken',
+  blurs: 'Unschärfen und Schatten',
+};
+
 export const dnaV3Schema = z
   .strictObject({
     background: color,
@@ -200,6 +262,16 @@ export const dnaV3Schema = z
         message: 'Ein Werk braucht mindestens eine Ebene.',
         path: ['layers'],
       });
+    const counts = loadCounts(dna.elements);
+    for (const key of Object.keys(
+      loadLimitsV3,
+    ) as (keyof typeof loadLimitsV3)[])
+      if (counts[key] > loadLimitsV3[key])
+        ctx.addIssue({
+          code: 'custom',
+          message: `Lastgrenze überschritten: höchstens ${loadLimitsV3[key]} ${loadLabels[key]}.`,
+          path: ['elements'],
+        });
     let previous = 0;
     dna.elements.forEach((element, index) => {
       const order = layerNames.indexOf(element.layer);

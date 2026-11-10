@@ -290,11 +290,20 @@ describe('Renderer-Dispatch nach Version', () => {
       ),
     );
   });
-  it('meldet Werke für Renderer 2 als noch nicht darstellbar', () => {
+  it('gibt Werke im Schema 3 an Renderer 2 weiter', () => {
     const markup = renderToStaticMarkup(<ArtDispatch source={originV3()} />);
-    expect(markup).toContain('role="alert"');
-    expect(markup).toContain('Renderer 2');
-    expect(markup).not.toContain('data-art-element');
+    expect(markup).toContain('data-renderer="2"');
+    expect(markup).not.toContain('role="alert"');
+  });
+  it('zeichnet kein Werk mit den Regeln der anderen Version', () => {
+    for (const source of [
+      { ...originV3(), rendererVersion: '1' },
+      { ...v1, rendererVersion: '2' },
+    ]) {
+      const markup = renderToStaticMarkup(<ArtDispatch source={source} />);
+      expect(markup).toContain('role="alert"');
+      expect(markup).not.toContain('data-art-element');
+    }
   });
   it('stellt unbekannte Versionen nicht dar', () => {
     const markup = renderToStaticMarkup(

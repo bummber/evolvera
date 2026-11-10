@@ -1,7 +1,7 @@
 import { useState, useSyncExternalStore } from 'react';
-import { ArtRenderer } from './ArtRenderer';
+import { ArtDispatch } from './ArtDispatch';
 import type { RenderSource, Playback } from './ArtRenderer';
-import { dnaSchema } from '../schema/artwork';
+import { hasMotion } from './motion';
 
 const query = '(prefers-reduced-motion: reduce)';
 function subscribe(callback: () => void) {
@@ -14,18 +14,24 @@ const reduced = () =>
   typeof window.matchMedia !== 'function' || window.matchMedia(query).matches;
 
 /** Mount with key=study.id to reset playback on selection. Visitor preference only. */
-export function ArtStage({ source }: { source: RenderSource }) {
+export function ArtStage({
+  source,
+  name,
+}: {
+  source: RenderSource;
+  /** Distinguishes the playback button when a page shows several stages. */
+  name?: string;
+}) {
   const reduceMotion = useSyncExternalStore(subscribe, reduced, () => true);
   const [manual, setManual] = useState<Playback | null>(null);
   const [optIn, setOptIn] = useState(false);
-  const parsed = dnaSchema.safeParse(source.dna);
-  const animated =
-    parsed.success &&
-    parsed.data.elements.some((element) => element.motion.kind !== 'static');
+  const animated = hasMotion(source);
   const state = manual ?? (reduceMotion ? 'rest' : 'playing');
+  const action =
+    state === 'playing' ? 'Animation pausieren' : 'Animation abspielen';
   return (
     <div className="art-stage">
-      <ArtRenderer
+      <ArtDispatch
         source={source}
         presentation="main"
         playback={animated ? state : 'rest'}
@@ -36,14 +42,13 @@ export function ArtStage({ source }: { source: RenderSource }) {
           <button
             type="button"
             aria-pressed={state === 'playing'}
+            aria-label={name ? `${action}: ${name}` : undefined}
             onClick={() => {
               setOptIn(true);
               setManual(state === 'playing' ? 'paused' : 'playing');
             }}
           >
-            {state === 'playing'
-              ? 'Animation pausieren'
-              : 'Animation abspielen'}
+            {action}
           </button>
         ) : (
           <span>Statische Komposition</span>
