@@ -42,6 +42,8 @@ Die verbindlichen Projektregeln stehen in AGENTS.md und gelten vollständig:
   unverändert. Der Generator bleibt frei von React- und Browser-Abhängigkeiten.
 - Zeitlogik der Serie liegt datiert in `src/series/calendar.ts` (vor 06.11.2026
   04:00, danach 01:17 Europe/Berlin). Bestehende Werke behalten ihre alten Termine.
+  Dort steht auch der datierte Wechsel des Titel-Lexikons (0.1.0 → 0.2.0); der
+  Algorithmus 0.1.0 in `src/art/titles/generate.ts` bleibt unverändert erhalten.
 - `work/`, `.worker-build/`, `.dev.vars` und `.wrangler/` sind gitignored und
   bleiben außerhalb von `dist` und Git.
 
