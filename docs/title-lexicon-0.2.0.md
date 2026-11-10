@@ -142,6 +142,15 @@ aufgerufen.
 
 - Beleg des ersten Laufs mit Lexikon 0.2.0 für Werkdatum 14.11.2026; erwartet
   ist „Azurschweben“.
-- `config/release.json` bleibt vorerst unverändert (Vorschlag vom 10.11.2026,
-  noch keine ausdrückliche Betreiberentscheidung): Die Datei belegt die Kunstabnahme der 40 Testwerke mit Lexikon
-  0.1.0, die Titelabnahme für 0.2.0 steht in diesem Dokument.
+- Veröffentlichung der Titelfreigabe in `config/release.json` (siehe unten).
+
+## Titelfreigabe im Freigabevertrag
+
+Auf Betreiberauftrag vom 10.11.2026 weist `config/release.json` die
+Titelabnahme zusätzlich als `titleReview` aus (Lexikon 0.2.0, 10.11.2026,
+„Titel passen“). Die Kunstabnahme der 40 Testwerke mit Lexikon 0.1.0 unter
+`artReview` bleibt unverändert. Der Tagesplaner erzeugt ein Werk mit einem
+anderen Lexikon als dem der Kunstabnahme nur, wenn dafür eine `titleReview`
+eingetragen ist; sonst stoppt der Lauf vor der Erzeugung. Das Feld ist
+optional, damit ältere Stände der Datei gültig bleiben. Lokal geprüft mit
+`npm run check`; noch nicht veröffentlicht.

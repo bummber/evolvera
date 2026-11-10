@@ -56,6 +56,17 @@ Zwischenraum“). Weicht ein Titel ab, zuerst Ursache klären, nichts neu erzeug
 README und `docs/architecture.md` sind an mehreren Stellen überholt und wurden
 nicht angepasst.
 
+Nachtrag 10.11.2026, lokal und noch nicht gepusht: `config/release.json` weist
+die Titelabnahme als `titleReview` aus, und der Tagesplaner verlangt sie für
+Lexikon 0.2.0 ([Bericht](title-lexicon-0.2.0.md)). Dieser Stand muss vor dem
+Lauf für den 14.11. veröffentlicht oder bewusst zurückgehalten werden; ohne Push
+gilt weiter der veröffentlichte Stand ohne diese Prüfung.
+
+Der Betreiber hat am 10.11.2026 angekündigt, dass zu einem noch offenen
+Zeitpunkt alle bestehenden Werke gelöscht werden sollen, weil das Projekt
+umgebaut wird. Dafür liegt noch kein Auftrag vor; bis dahin gelten die
+Erhaltungsregeln aus `AGENTS.md` unverändert.
+
 ## Vorheriger Abschluss – 05.11.2026, Zeitumstellung veröffentlicht
 
 Der Betreiber hat die konkrete Veröffentlichung mit **„Freigegeben“** genehmigt.
