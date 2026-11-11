@@ -15,10 +15,11 @@ Hintergrund und unversioniert. P0 bis P3 sind veröffentlicht (f4e292b am
 11.11.). P4 (Generator 0.3.0, Teil B: Evolution und Belege) ist am 11.11.
 umgesetzt, gesichtet und veröffentlicht (bebaca5, CI 43065133460 und Pages
 43065133417 erfolgreich; die 14 Kettenbilder sind damit auch auf dem
-Linux-Runner bestätigt); die Startwerte der Vererbung bleiben. Danach kann
-ein Doku-Commit zur Veröffentlichung von P4 lokal ungepusht liegen: bei der
-Sichtung prüfen und den Remote-Stand (täglicher Archivcommit) nur per
-Fast-forward bzw. Rebase übernehmen. Offen: Firefox-Prüfung, Lastmessung auf einem
+Linux-Runner bestätigt); die Startwerte der Vererbung bleiben. Auch der
+Doku-Nachtrag zur Veröffentlichung ist gepusht (20709f4); lokal und Remote
+waren danach synchron. Seitdem schreibt nur der Tageslauf auf main: dessen
+Archivcommits bei der Sichtung feststellen und nur per Fast-forward
+übernehmen. Offen: Firefox-Prüfung, Lastmessung auf einem
 Mobilgerät (P7). Neue Massentests brauchen ein eigenes Zeitlimit, große
 Fixtures einen eigenen Chunk; neue Kachelraster im Atelier brauchen einen
 einzigen Tab-Halt (Lehren aus P3 und P4). Der Lexikon-Beleg für Werkdatum
