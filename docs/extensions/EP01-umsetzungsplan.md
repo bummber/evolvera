@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P3 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt), P4 lokal umgesetzt und am 11.11.2026 gesichtet, P5–P9 nicht beauftragt
+Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P4 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 am 11.11.2026 gesichtet), P5–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den

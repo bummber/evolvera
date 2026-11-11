@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Generator 0.3.0, Teil B – Evolution und Belege (P4)
 
-Stand: 11.11.2026 · Status: lokal umgesetzt und committet, nicht veröffentlicht; Probeketten am 11.11.2026 gesichtet, Startwerte bleiben
+Stand: 11.11.2026 · Status: umgesetzt und am 11.11.2026 veröffentlicht (`bebaca5`); Probeketten am 11.11.2026 gesichtet, Startwerte bleiben
 
 Generator 0.3.0 erzeugt jetzt vollständige Werke im Schema 3: Ursprungswerke
 und Kinder der beiden unmittelbaren Vorgänger. Es gibt weiterhin kein

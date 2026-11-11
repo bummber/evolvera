@@ -13,13 +13,12 @@ EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
 Hintergrund und unversioniert. P0 bis P3 sind veröffentlicht (f4e292b am
 11.11.). P4 (Generator 0.3.0, Teil B: Evolution und Belege) ist am 11.11.
-lokal umgesetzt, committet und gesichtet; die Startwerte der Vererbung
-bleiben. Bei Abschluss von P4 waren sechs lokale Commits ungepusht (Doku zu
-P3, Archiv-Baseline 11.11., Rezept im Schema 3, Evolution, Probeketten, Doku
-zu P4): bei der Sichtung prüfen, ob sie inzwischen veröffentlicht sind, und
-den Remote-Stand (täglicher Archivcommit) nur per Fast-forward bzw. Rebase
-übernehmen. Die 14 neuen Kettenbilder sind auf dem Linux-Runner erst nach
-einem Push bestätigt. Offen: Firefox-Prüfung, Lastmessung auf einem
+umgesetzt, gesichtet und veröffentlicht (bebaca5, CI 43065133460 und Pages
+43065133417 erfolgreich; die 14 Kettenbilder sind damit auch auf dem
+Linux-Runner bestätigt); die Startwerte der Vererbung bleiben. Danach kann
+ein Doku-Commit zur Veröffentlichung von P4 lokal ungepusht liegen: bei der
+Sichtung prüfen und den Remote-Stand (täglicher Archivcommit) nur per
+Fast-forward bzw. Rebase übernehmen. Offen: Firefox-Prüfung, Lastmessung auf einem
 Mobilgerät (P7). Neue Massentests brauchen ein eigenes Zeitlimit, große
 Fixtures einen eigenen Chunk; neue Kachelraster im Atelier brauchen einen
 einzigen Tab-Halt (Lehren aus P3 und P4). Der Lexikon-Beleg für Werkdatum

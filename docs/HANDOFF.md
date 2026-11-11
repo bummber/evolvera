@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P4 „Generator 0.3.0, Teil B“ lokal umgesetzt, nicht veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P4 „Generator 0.3.0, Teil B“ umgesetzt und veröffentlicht
 
 Der Betreiber hat P4 am 11.11.2026 beauftragt. Sichtung vor Beginn (07:51
 Berlin): lokal `8ef9dbb` (Doku-Commit zu P3, ungepusht), Remote-main `3f1b6a1`
@@ -51,12 +51,15 @@ für Generator 0.3.0 (P7) und keine Geräteabnahme.
   unverändert. Messung über je 5 000 Kinder pro Modus im Standardprofil: kein
   Fehlschlag, höchstens der siebte Versuch nötig. Nach den Nachträgen in
   Plan, HANDOFF und NEXT-START wurde nur `npm run check` wiederholt.
-- **Lokale Commits, alle ungepusht** (auf `3f1b6a1`): `8fe6e6d` (Doku zu P3),
-  `7c81407` (Baseline), `3358cd7` (Rezept im Schema 3), `a78aed6`
-  (Evolution und Belege), `00a25c6` (Probeketten im Atelier) und der
-  Doku-Commit zu P4. Ein Push ist eine Veröffentlichung und braucht eine
-  eigene Freigabe; vorher Remote prüfen, denn der Tageslauf vom 12.11.
-  schreibt wieder auf `main`.
+- **Veröffentlicht am 11.11.2026, 18:07 Berlin** (Betreiberfreigabe; Remote
+  stand unverändert auf `3f1b6a1`, kein Rebase nötig): `8fe6e6d` (Doku zu
+  P3), `7c81407` (Baseline), `3358cd7` (Rezept im Schema 3), `a78aed6`
+  (Evolution und Belege), `00a25c6` (Probeketten im Atelier) und `bebaca5`
+  (Doku zu P4). Beide Push-Läufe erfolgreich: CI 43065133460 mit
+  `npm run check` (334 Tests), `npm run worker:test-runtime` und
+  `npm run test:browser` (138 bestanden, sechs Skips) sowie Pages 43065133417. Damit sind die 14 neuen Kettenbilder auch auf dem
+  Linux-Runner bestätigt. Der Nachtrag dieser Veröffentlichung in HANDOFF,
+  NEXT-START, Plan und Bericht ist ein eigener Doku-Commit danach.
 - **Lehre:** Ein erster Entwurf holte für den zweiten Elternteil fast immer
   eine neue Belegform dazu (46 % der Beiträge). Erst die Messung zeigte das;
   jetzt tragen zuerst vorhandene Formen den Beitrag (neue Form rund 7 %).
@@ -64,8 +67,7 @@ für Generator 0.3.0 (P7) und keine Geräteabnahme.
   Ketten sind deshalb je ein Tab-Halt mit Pfeiltasten.
 - **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast auf einem
   Mobilgerät (P7); Live-Website nicht aufgerufen; `npm run worker:test-runtime`
-  nicht ausgeführt (Worker unberührt). Auf dem Linux-Runner sind die 14 neuen
-  Bilder noch nicht bestätigt, weil nichts gepusht ist.
+  lokal nicht ausgeführt (Worker unberührt; in der CI gelaufen).
 - **Grenzen:** siehe Bericht; insbesondere Versatzbelege, gemeinsame Farben
   beider Eltern, entfernte Effekte unter `off`, Determinismus nur unter
   Node 24. Die Ketten-Fixture ist bis P7 nicht eingefroren.
@@ -75,7 +77,7 @@ für Generator 0.3.0 (P7) und keine Geräteabnahme.
   `fixtures/preview/phase-*.json`, `ep01-origins.json`, Musterbogen,
   bestehende Browserreferenzen, Lockfile.
 
-Als Nächstes: Push von P4 nur auf ausdrückliche Freigabe; P5 „Vielfalt und
+Als Nächstes: P5 „Vielfalt und
 Extremprofile“ auf ausdrücklichen Auftrag in einer neuen Sitzung; unabhängig
 davon den Lauf für **Werkdatum 14.11.2026** belegen, sobald er stattgefunden
 hat. [Aktueller Startprompt](NEXT-START.md).
