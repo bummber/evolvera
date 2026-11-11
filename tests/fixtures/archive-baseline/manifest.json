@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-10",
+  "frozenThrough": "2026-11-11",
   "works": [
     {
       "id": "2026-11-04",
@@ -56,6 +56,14 @@
       "path": "public/artworks/2026/2026-11-10.json",
       "sha256": "d7ba092d343d5f7b398ee40e6afd0096021e0be2fd5a4841c7ea72f40084dabb",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-10.txt"
+    },
+    {
+      "id": "2026-11-11",
+      "generation": 8,
+      "title": "Chschfieber im Morgen",
+      "path": "public/artworks/2026/2026-11-11.json",
+      "sha256": "6c660eb296018eba7a8fca4c06c9c8d12e87b08f4e77dca996ce6db48f512215",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-11.txt"
     }
   ]
 }
