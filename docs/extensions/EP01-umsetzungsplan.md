@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P4 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 am 11.11.2026 gesichtet), P5–P9 nicht beauftragt
+Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P4 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 am 11.11.2026 gesichtet), P5 am 11.11.2026 umgesetzt und gesichtet, lokal committet und noch nicht veröffentlicht, P6–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -306,6 +306,21 @@ Neues Modul unter `src/art/generator/v3/`, frei von React und Browser.
   höchstens etwa jeder zehnte Kandidat verworfen wird.
 - Extremprofile mit je mindestens 50 Werken pro Modus: alles `off`, alles
   `always`, nur eine Familie, `wild` (A-35).
+- Lokal umgesetzt und mit dem Betreiber gesichtet am 11.11.2026 (Schwelle
+  und Extremprofile abgenommen), noch nicht veröffentlicht; Verfahren,
+  Messung und Grenzen stehen in [EP01-vielfalt-5.md](EP01-vielfalt-5.md).
+  Festlegungen und Abweichungen vom Planwortlaut (Bauplan vom Betreiber am
+  11.11.2026 freigegeben):
+  - Gewichte: Familien 0,25, Palette 0,25, Formarten 0,15, Füllarten 0,15,
+    Dichte 0,10, Bewegung 0,10. Mindestabstand 0,02 für beide Modi; damit
+    werden im Modus `traceable` 9,3 % der Kandidaten verworfen, im Modus
+    `free` 0,3 %.
+  - `src/automation/plan.ts` wurde nicht berührt. Der Generator nimmt die
+    Historie als Eingabe; die Verdrahtung im Tagesplaner gehört zur
+    Aktivierung in P7.
+  - Die Historie geht nicht in den Seed ein, sondern wählt unter den
+    deterministischen Versuchen. Schema 3 und Renderer 2 blieben unverändert.
+  - Kein Extremprofil war unmöglich; die Regelversion 1 bleibt.
 
 ### P6 – Galerie und Detailansicht für Schema 3
 

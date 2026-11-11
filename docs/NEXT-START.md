@@ -1,4 +1,93 @@
-# Aktueller Startprompt – EP-01: P5 Vielfalt und Extremprofile
+# Aktueller Startprompt – EP-01: P6 Galerie und Detailansicht für Schema 3
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+vollständig docs/extensions/EP01-umsetzungsplan.md,
+docs/extensions/EP01-renderer-2.md, docs/extensions/EP01-evolution-3.md und
+docs/extensions/EP01-vielfalt-5.md lesen. Dann /sichtung ausführen: rein
+lesend Git-Zustand, Remote, Berliner Zeit, Tagesläufe und Archiv prüfen und
+gemeinsam sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. P0 bis P4 sind veröffentlicht (zuletzt b6f0b05
+am 11.11.). P5 (Vielfalt und Extremprofile) ist am 11.11. umgesetzt und
+gesichtet: Mindestabstand 0,02 für beide Modi, Extremprofile abgenommen. Bei
+Abschluss lag P5 in drei lokalen Commits auf b6f0b05 vor (1d29baa, d5c18a0
+und ein Doku-Commit) und war NICHT gepusht; die Archiv-Baseline für Werke ab
+12.11. war noch nicht ergänzt. Bei der Sichtung zuerst klären, ob P5
+inzwischen veröffentlicht ist. Falls nicht: Archivcommits des Tageslaufs auf
+Freigabe per Fetch und Rebase übernehmen, Baseline ergänzen, P5 auf Freigabe
+pushen und CI und Pages belegen (die zwei ersetzten Kettenbilder
+generator-v3-chain-traceable-10.png sind auf dem Linux-Runner noch nicht
+bestätigt), bevor P6 beginnt. Offen: Firefox-Prüfung, Lastmessung auf einem
+Mobilgerät (P7), Verdrahtung des Historienkontexts im Tagesplaner (P7). Neue
+Massentests brauchen ein eigenes Zeitlimit, große Fixtures einen eigenen
+Chunk; neue Kachelraster brauchen einen einzigen Tab-Halt (Lehren aus P3 und
+P4). Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein eigener Schritt und
+keine Voraussetzung: sobald der Lauf stattgefunden hat, anhand Run-ID, Zeit,
+Status, Archivcommit, lexiconVersion, Titel und Elternbausteinen belegen
+(erwartet Gen. 11 „Azurschweben“, 0.2.0).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P6 (Galerie und
+Detailansicht für Schema 3) aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 12.11. archivierten Werke ergänzen, soweit
+   noch nicht geschehen (Befehl im Kopf von tests/archive-baseline.test.tsx,
+   neue Bilder über tests/browser/archive-baseline.spec.ts); Bestehendes
+   nicht verändern.
+2. Zuerst einen kurzen Bauplan vorlegen und freigeben lassen: wie Archivleser
+   und Datenprüfung Schema 3 annehmen (artworkSchema bleibt die Union aus 1
+   und 2, anyArtworkSchema enthält Schema 3), welche Ansichten betroffen
+   sind, womit Werke im Schema 3 ohne Archiveintrag gezeigt und getestet
+   werden (synthetisches Testarchiv oder Vorschau-Fixture), Aufbau des
+   Abschnitts „Rahmenbedingungen“, Texte der Werkbeschreibung, und ob das
+   Feld novelty in der Detailansicht erscheint.
+3. Galerie, Heute-Ansicht, Evolution und WorkProvenance.tsx stellen Werke im
+   Schema 3 über ArtDispatch.tsx dar; Kacheln bleiben statisch. Werke im
+   Schema 1 und 2 sehen unverändert aus (Archiv-Baseline bleibt grün).
+4. Aufklappbarer Abschnitt „Rahmenbedingungen“ aus dem Snapshot des Werks;
+   alte Werke zeigen dort „in dieser Version nicht gespeichert“.
+5. Der Mutationsbericht nennt umgewandelte Merkmale (constrained)
+   ausdrücklich; Belege für Ebenen, Füllungen und Eltern im Schema 2 bleiben
+   nachvollziehbar.
+6. Werkbeschreibung (description) für die neuen Familien und Ebenen.
+7. Tests: gemischte Ketten aus Schema 2 und 3, Detailansicht eines Werks im
+   Schema 3 bei 320 px und Desktop, Tastaturweg, reduzierte Bewegung; neue
+   Browserreferenzen nur ergänzen.
+8. npm run check und npm run test:browser ausführen und ehrlich berichten.
+9. Gemeinsame Sichtung der Ansichten mit dem Betreiber.
+
+Grenzen P6: Keine Änderung an Generator 0.2.0 (study.ts, evolve.ts,
+provenance.ts), Generator 0.3.0 einschließlich Abstandsmaß und
+NOVELTY_MINIMUM, Titelgenerator, ArtV1, ArtRenderer.tsx, artwork.ts,
+Konfigurationsdateien, Worker, Workflows, Archivdateien, Archiv-Baseline
+(nur ergänzen), fixtures/preview/phase-*.json, ep01-origins.json,
+ep01-chains.json oder bestehenden Browserreferenzen. Kein generatorChangeDate,
+keine Aktivierung von Generator 0.3.0 im Tageslauf, keine Änderung an
+src/automation/plan.ts, kein Werk im Schema 3 im Archiv; der laufende
+Tageslauf mit Generator 0.2.0 darf sich nicht ändern. Keine Testwerke zur
+Kunstabnahme und keine Geräteabnahme (P7), keine Betreiberoberfläche (P8).
+Änderungen an Renderer 2 oder Schema 3 nur, wenn die Ansichten sie nötig
+machen, und dann ausdrücklich benennen. P7 bis P9 nicht beginnen. Neue
+Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P6-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für P7 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P5 (11.11.2026)
+
+# Vorheriger Startprompt – EP-01: P5 Vielfalt und Extremprofile
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera

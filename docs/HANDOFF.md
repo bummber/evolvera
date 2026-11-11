@@ -1,6 +1,82 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P4 „Generator 0.3.0, Teil B“ umgesetzt und veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P5 „Vielfalt und Extremprofile“ umgesetzt und gesichtet, lokal committet, nicht veröffentlicht
+
+Der Betreiber hat P5 am 11.11.2026 beauftragt. Sichtung vor Beginn (18:34
+Berlin): lokal und Remote synchron auf `b6f0b05` (Korrektur des
+P5-Startprompts; CI 43068013686 und Pages 43068013550 erfolgreich), acht
+Werke 04.–11.11., nichts fällig. Bauplan freigegeben, Ergebnis am selben Tag
+gemeinsam gesichtet.
+[Verfahren, Messung und Grenzen](extensions/EP01-vielfalt-5.md).
+
+- **Stand:** drei lokale Commits auf `b6f0b05`, **nicht gepusht**: `1d29baa`
+  (Abstandsmaß und Fenster), `d5c18a0` (Probeketten und zwei Kettenbilder)
+  und der Doku-Commit mit diesem Abschnitt. `1d29baa` allein ist nicht grün,
+  weil die Datenprüfung die neu erzeugte Ketten-Fixture aus `d5c18a0`
+  braucht; beide gehören zusammen. Kein Fetch in dieser Sitzung.
+- **Archiv-Baseline (Schritt 1): nichts ergänzt.** Seit dem 11.11. gibt es
+  kein neues Werk; das Werk vom 12.11. ist erst ab 01:17 fällig. Vor dem
+  Push nachholen.
+- **Neu:** `src/art/generator/v3/distance.ts`,
+  `src/art/generator/novelty-simulation.ts`, `scripts/novelty-simulation.ts`
+  (nicht Teil von `npm run check`), `tests/novelty-v3.test.ts`,
+  `docs/extensions/EP01-vielfalt-5.md`.
+- **Geändert:** `evolve.ts`, `provenance.ts` und `parents.ts` unter
+  `src/art/generator/v3/`, `preview-chain-v3.ts`,
+  `tests/evolution-v3.test.ts`.
+- **Umfang:** Abstandsmaß Version 1 (Familien 0,25, Palette 0,25, Formarten
+  0,15, Füllarten 0,15, Dichte 0,10, Bewegung 0,10; auch gegenüber Schema 1
+  und 2). Der Generator nimmt die geordnete Historie als Eingabe (höchstens
+  30 Werke, endet mit den Eltern), nimmt in 16 Versuchen den ersten gültigen
+  Kandidaten über dem Mindestabstand, sonst den abstandsstärksten mit
+  `minimumReached: false`. Das Feld `novelty` ist echt; der Platzhalter
+  `NOVELTY_PLACEHOLDER` ist entfallen. `validateEvolutionV3` rechnet Digest,
+  Abstand und Vermerk nach. Die Historie geht nicht in den Seed ein.
+- **Betreiberentscheidungen zu P5:** Bauplan freigegeben; **Mindestabstand
+  0,02 für beide Modi** (keine eigene Schwelle für `free`; in P7 an den
+  Abnahmewerken noch einmal ansehen); Extremprofile abgenommen, Profilregeln
+  unverändert; `src/automation/plan.ts` bleibt bis P7 unberührt.
+- **Messung** (vier Ketten × 365 Tage je Modus): bei 0,02 werden im Modus
+  `traceable` 9,3 % der Kandidaten verworfen, im Modus `free` 0,3 %; der
+  Mindestabstand wird nie verfehlt, höchstens der sechste Versuch ist nötig.
+  Bei 0,22 wären es 60,4 % und 9,5 %.
+- **Extremprofile** (18 Ketten mit je 52 Werken): alle fehlerfrei und vom
+  strengen Prüfer bestätigt, kein Profil unmöglich, Mindestabstand nie
+  verfehlt. Auffällig nur alles `off` im Modus `traceable` mit 27 %
+  verworfenen Kandidaten.
+- **Probeketten neu erzeugt** (`fixtures/preview/ep01-chains.json`): alle 24
+  Werke haben neuen Digest und Abstand; in der Gestalt verändert sind sechs
+  (`traceable` Gen. 8–10, Übergangskette Gen. 12–14). Ersetzt wurden nur die
+  zwei Bilder `generator-v3-chain-traceable-10.png`; die übrigen zwölf
+  Kettenbilder und alle anderen Referenzen sind unverändert.
+  `ep01-origins.json` wurde nicht neu erzeugt und reproduziert unverändert.
+- **Prüfungen lokal am 11.11.2026:** `npm run check` erfolgreich mit
+  **366 Tests** (334 + 32); Datenprüfung mit acht Werken, 40
+  Ursprungs-Probewerke und 24 Kettenwerke reproduziert.
+  `CI=true npm run test:browser` gegen den frischen Build: **138 bestanden**,
+  sechs bestehende Skips. Nach den Nachträgen in Plan, Bericht, HANDOFF und
+  NEXT-START wurde nur `npm run check` wiederholt. Die zwei ersetzten Bilder
+  sind auf dem Linux-Runner noch nicht bestätigt.
+- **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast auf einem
+  Mobilgerät (P7); Live-Website; `npm run worker:test-runtime` (Worker
+  unberührt).
+- **Grenzen:** siehe Bericht; insbesondere prüft der Generator nicht, ob der
+  Aufrufer genug Historie mitgibt (Verdrahtung in P7), die Übergangskette
+  kennt nur ihre zwei alten Eltern, und das Abstandsmaß sieht weder Lage
+  noch Größe der Formen.
+- **Unverändert:** `study.ts`, `evolve.ts` und `provenance.ts` von Generator
+  0.2.0, Titelgenerator, `ArtV1`, `artwork.ts`, `artwork-v3.ts`,
+  `profile.ts`, Renderer 2, Konfiguration, `src/automation/plan.ts`, Worker,
+  Workflows, Archivdateien, Archiv-Baseline, `fixtures/preview/phase-*.json`,
+  Atelier, `package.json`, Lockfile.
+
+Als Nächstes: Sobald das Werk vom 12.11. archiviert ist, auf Freigabe per
+Fetch und Rebase übernehmen, die Archiv-Baseline ergänzen und P5 pushen.
+Danach P6 „Galerie und Detailansicht für Schema 3“ auf ausdrücklichen Auftrag
+in einer neuen Sitzung; unabhängig davon den Lauf für **Werkdatum
+14.11.2026** belegen. [Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 11.11.2026, EP-01 P4 „Generator 0.3.0, Teil B“ umgesetzt und veröffentlicht
 
 Der Betreiber hat P4 am 11.11.2026 beauftragt. Sichtung vor Beginn (07:51
 Berlin): lokal `8ef9dbb` (Doku-Commit zu P3, ungepusht), Remote-main `3f1b6a1`
