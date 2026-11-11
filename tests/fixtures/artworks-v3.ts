@@ -157,7 +157,33 @@ export function originV3(generation = 1, id = '2026-10-27'): ArtworkV3 {
       ],
     },
     titleDna: { tokens: ['Schema'], pattern: 'compound', parentFragments: [] },
-    evolution: { type: 'origin', evaluatedParentIds: [], decisions: [] },
+    evolution: {
+      type: 'origin',
+      evaluatedParentIds: [],
+      decisions: [],
+      recipe: originRecipe(),
+    },
+  };
+}
+export function originRecipe(): ArtworkV3['evolution']['recipe'] {
+  return {
+    retry: 0,
+    palette: 'new',
+    layers: { background: 'new', structure: 'new', accent: 'new' },
+    mutationJump: false,
+    features: {
+      gradients: true,
+      patterns: true,
+      masks: true,
+      blendModes: true,
+      blurShadow: true,
+      lines: false,
+      curves: true,
+      generativeShapes: true,
+      animation: false,
+      symmetry: false,
+    },
+    anchor: 'natural',
   };
 }
 
@@ -186,6 +212,11 @@ export function transitionFamily() {
         operation: { kind: 'offset', amount: 0.1 },
       },
     ],
+    recipe: {
+      ...originRecipe(),
+      palette: 'parentA',
+      layers: { background: 'new', structure: 'parentB', accent: 'new' },
+    },
   };
   return { a, b, child };
 }

@@ -326,6 +326,42 @@ export const evidenceV3Schema = z.strictObject({
   ]),
 });
 
+/** Where a layer or the palette of a work comes from. `mixed`: forms of one
+ * parent with fills of the other, or colours of both. */
+const heritage = z.enum(['new', 'parentA', 'parentB', 'mixed']);
+const drawn = z.boolean();
+/**
+ * Decisions of generator 0.3.0 that the DNA alone does not name (EP-01, P4).
+ * A summary for the provenance view, not a replayable recipe: the work is
+ * reproduced from its complete inputs, not from this record.
+ */
+export const recipeV3Schema = z.strictObject({
+  /** Deterministic attempt that produced the work, 0 to 15. */
+  retry: z.number().int().min(0).max(15),
+  palette: heritage,
+  layers: z.strictObject({
+    background: heritage.optional(),
+    structure: heritage.optional(),
+    accent: heritage.optional(),
+  }),
+  mutationJump: z.boolean(),
+  /** Feature groups drawn for the parts built anew. */
+  features: z.strictObject({
+    gradients: drawn,
+    patterns: drawn,
+    masks: drawn,
+    blendModes: drawn,
+    blurShadow: drawn,
+    lines: drawn,
+    curves: drawn,
+    generativeShapes: drawn,
+    animation: drawn,
+    symmetry: drawn,
+  }),
+  anchor: z.enum(['natural', 'promoted', 'moved', 'added']),
+});
+export type RecipeV3 = z.infer<typeof recipeV3Schema>;
+
 export function readTraitV3(
   dna: DnaV3,
   path: string,
@@ -396,6 +432,7 @@ export const artworkV3Schema = z
       type: z.enum(['origin', 'hybrid']),
       evaluatedParentIds: z.array(workDateSchema).max(2),
       decisions: z.array(evidenceV3Schema).max(240),
+      recipe: recipeV3Schema,
     }),
   })
   .superRefine((work, ctx) => {
@@ -422,6 +459,18 @@ export const artworkV3Schema = z
       fail('Beide Eltern müssen als ausgewertete Quellen protokolliert sein.');
     if (origin && work.evolution.decisions.length > 0)
       fail('Ursprungswerke haben keine Vererbungsbelege.');
+    const { recipe } = work.evolution;
+    if (
+      layerNames.some((name) => !recipe.layers[name] !== !work.dna.layers[name])
+    )
+      fail('Rezept und DNA nennen unterschiedliche Ebenen.');
+    if (
+      origin &&
+      (recipe.palette !== 'new' ||
+        recipe.mutationJump ||
+        layerNames.some((name) => (recipe.layers[name] ?? 'new') !== 'new'))
+    )
+      fail('Ursprungswerke entstehen vollständig neu.');
     for (const decision of work.evolution.decisions) {
       if (!work.parentIds.includes(decision.parentId))
         fail('Beleg verweist auf ein fremdes Elternwerk.');

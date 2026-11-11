@@ -14,7 +14,11 @@ import {
   validateArtworkV3,
 } from '../src/art/schema/artwork-v3';
 import { origin } from './fixtures/artworks';
-import { originV3, transitionFamily } from './fixtures/artworks-v3';
+import {
+  originRecipe,
+  originV3,
+  transitionFamily,
+} from './fixtures/artworks-v3';
 
 const storedWorks = () => {
   const archive = (
@@ -216,6 +220,10 @@ describe('Werkschema 3 (EP-01)', () => {
           operation: { kind: 'copy' },
         },
       ],
+      recipe: {
+        ...originRecipe(),
+        layers: { background: 'parentA', structure: 'parentB', accent: 'new' },
+      },
     };
     expect(validateArtworkV3(child, [a, b])).toEqual(child);
     child.evolution.decisions[0]!.target.value = 'linear';
