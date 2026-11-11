@@ -2,7 +2,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { configSchema } from '../src/art/schema/config';
 import { releaseSchema, assertSeriesGate } from '../src/automation/release';
-import { readWorks, indexText, indexPath } from '../src/automation/archive';
+import { readArchive, indexText, indexPath } from '../src/automation/archive';
 import { canonicalHistory, git } from '../src/automation/git';
 import { operatorSchema } from '../src/operator/access';
 const readJson = async (file: string) =>
@@ -33,7 +33,7 @@ for (const file of await readdir('public/artworks', { recursive: true })) {
       await readFile(`public/artworks/${file}`, 'utf8'),
     );
 }
-const works = readWorks(files, settings.seriesStartDate);
+const works = readArchive(files, settings.seriesStartDate);
 if (
   !files.has(indexPath) ||
   JSON.stringify(JSON.parse(files.get(indexPath)!)) !==
