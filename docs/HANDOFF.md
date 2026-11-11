@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P5 „Vielfalt und Extremprofile“ umgesetzt und gesichtet, lokal committet, nicht veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P5 „Vielfalt und Extremprofile“ umgesetzt, gesichtet und veröffentlicht
 
 Der Betreiber hat P5 am 11.11.2026 beauftragt. Sichtung vor Beginn (18:34
 Berlin): lokal und Remote synchron auf `b6f0b05` (Korrektur des
@@ -9,14 +9,28 @@ Werke 04.–11.11., nichts fällig. Bauplan freigegeben, Ergebnis am selben Tag
 gemeinsam gesichtet.
 [Verfahren, Messung und Grenzen](extensions/EP01-vielfalt-5.md).
 
-- **Stand:** drei lokale Commits auf `b6f0b05`, **nicht gepusht**: `1d29baa`
-  (Abstandsmaß und Fenster), `d5c18a0` (Probeketten und zwei Kettenbilder)
-  und der Doku-Commit mit diesem Abschnitt. `1d29baa` allein ist nicht grün,
+- **Veröffentlicht am 11.11.2026, 22:23 Berlin** (Betreiberfreigabe; Remote
+  stand unverändert auf `b6f0b05`, reiner Fast-forward, kein Fetch nötig):
+  `1d29baa` (Abstandsmaß und Fenster), `d5c18a0` (Probeketten und zwei
+  Kettenbilder) und `acd0140` (Doku zu P5). `1d29baa` allein ist nicht grün,
   weil die Datenprüfung die neu erzeugte Ketten-Fixture aus `d5c18a0`
-  braucht; beide gehören zusammen. Kein Fetch in dieser Sitzung.
+  braucht; beide gehören zusammen. Beide Push-Läufe erfolgreich: CI
+  43102561677 mit `npm run check` (366 Tests),
+  `npm run worker:test-runtime` und `npm run test:browser` (138 bestanden,
+  sechs Skips) sowie Pages 43102561790. Damit sind die zwei ersetzten
+  Kettenbilder auch auf dem Linux-Runner bestätigt. Der Nachtrag dieser
+  Veröffentlichung in HANDOFF, NEXT-START, Plan und Bericht ist ein eigener
+  Doku-Commit danach.
 - **Archiv-Baseline (Schritt 1): nichts ergänzt.** Seit dem 11.11. gibt es
-  kein neues Werk; das Werk vom 12.11. ist erst ab 01:17 fällig. Vor dem
-  Push nachholen.
+  kein neues Werk; das Werk vom 12.11. ist erst ab 01:17 fällig. Die
+  Ergänzung ist der erste Schritt von P6.
+- **Neustart der Serie zurückgestellt:** Der Betreiber hat am 11.11. gefragt,
+  ob alle bisherigen Werke gelöscht werden können, damit die Serie mit der
+  Neuentwicklung neu beginnt, und sich dann entschieden, vorerst ohne
+  Löschen weiterzumachen. Kein Auftrag; nichts gelöscht. Empfehlung aus dem
+  Gespräch: falls gewünscht, als Teil der Aktivierung in P7 und nur mit
+  ausdrücklicher Freigabe, weil es `AGENTS.md` (historische Werke erhalten),
+  Betreiberentscheidung 1 (keine neue Serie) und die Archiv-Baseline berührt.
 - **Neu:** `src/art/generator/v3/distance.ts`,
   `src/art/generator/novelty-simulation.ts`, `scripts/novelty-simulation.ts`
   (nicht Teil von `npm run check`), `tests/novelty-v3.test.ts`,
@@ -55,8 +69,7 @@ gemeinsam gesichtet.
   Ursprungs-Probewerke und 24 Kettenwerke reproduziert.
   `CI=true npm run test:browser` gegen den frischen Build: **138 bestanden**,
   sechs bestehende Skips. Nach den Nachträgen in Plan, Bericht, HANDOFF und
-  NEXT-START wurde nur `npm run check` wiederholt. Die zwei ersetzten Bilder
-  sind auf dem Linux-Runner noch nicht bestätigt.
+  NEXT-START wurde nur `npm run check` wiederholt.
 - **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast auf einem
   Mobilgerät (P7); Live-Website; `npm run worker:test-runtime` (Worker
   unberührt).
@@ -70,11 +83,10 @@ gemeinsam gesichtet.
   Workflows, Archivdateien, Archiv-Baseline, `fixtures/preview/phase-*.json`,
   Atelier, `package.json`, Lockfile.
 
-Als Nächstes: Sobald das Werk vom 12.11. archiviert ist, auf Freigabe per
-Fetch und Rebase übernehmen, die Archiv-Baseline ergänzen und P5 pushen.
-Danach P6 „Galerie und Detailansicht für Schema 3“ auf ausdrücklichen Auftrag
-in einer neuen Sitzung; unabhängig davon den Lauf für **Werkdatum
-14.11.2026** belegen. [Aktueller Startprompt](NEXT-START.md).
+Als Nächstes: P6 „Galerie und Detailansicht für Schema 3“ auf
+ausdrücklichen Auftrag in einer neuen Sitzung, beginnend mit der Ergänzung
+der Archiv-Baseline um die Werke ab 12.11.; unabhängig davon den Lauf für
+**Werkdatum 14.11.2026** belegen. [Aktueller Startprompt](NEXT-START.md).
 
 ## Vorheriger Abschluss – 11.11.2026, EP-01 P4 „Generator 0.3.0, Teil B“ umgesetzt und veröffentlicht
 

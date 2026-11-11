@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Vielfalt und Extremprofile (P5)
 
-Stand: 11.11.2026 · Status: lokal umgesetzt und committet, nicht veröffentlicht; Schwelle, Verwerfungsrate und Extremprofile am 11.11.2026 mit dem Betreiber gesichtet und abgenommen (Mindestabstand 0,02 für beide Modi, in P7 an den Abnahmewerken erneut ansehen)
+Stand: 11.11.2026 · Status: umgesetzt und am 11.11.2026 veröffentlicht (`acd0140`, CI 43102561677 und Pages 43102561790 erfolgreich); Schwelle, Verwerfungsrate und Extremprofile am 11.11.2026 mit dem Betreiber gesichtet und abgenommen (Mindestabstand 0,02 für beide Modi, in P7 an den Abnahmewerken erneut ansehen)
 
 Generator 0.3.0 prüft jetzt jeden Kandidaten gegen die letzten Werke seiner
 Kette und speichert das Ergebnis im Werk. Es gibt weiterhin keine Galerie-

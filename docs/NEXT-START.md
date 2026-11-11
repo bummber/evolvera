@@ -12,18 +12,19 @@ gemeinsam sichten.
 
 EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
-Hintergrund und unversioniert. P0 bis P4 sind veröffentlicht (zuletzt b6f0b05
-am 11.11.). P5 (Vielfalt und Extremprofile) ist am 11.11. umgesetzt und
-gesichtet: Mindestabstand 0,02 für beide Modi, Extremprofile abgenommen. Bei
-Abschluss lag P5 in drei lokalen Commits auf b6f0b05 vor (1d29baa, d5c18a0
-und ein Doku-Commit) und war NICHT gepusht; die Archiv-Baseline für Werke ab
-12.11. war noch nicht ergänzt. Bei der Sichtung zuerst klären, ob P5
-inzwischen veröffentlicht ist. Falls nicht: Archivcommits des Tageslaufs auf
-Freigabe per Fetch und Rebase übernehmen, Baseline ergänzen, P5 auf Freigabe
-pushen und CI und Pages belegen (die zwei ersetzten Kettenbilder
-generator-v3-chain-traceable-10.png sind auf dem Linux-Runner noch nicht
-bestätigt), bevor P6 beginnt. Offen: Firefox-Prüfung, Lastmessung auf einem
-Mobilgerät (P7), Verdrahtung des Historienkontexts im Tagesplaner (P7). Neue
+Hintergrund und unversioniert. P0 bis P4 sind veröffentlicht. P5 (Vielfalt
+und Extremprofile) ist am 11.11. umgesetzt, gesichtet und veröffentlicht
+(acd0140, CI 43102561677 und Pages 43102561790 erfolgreich; die zwei
+ersetzten Kettenbilder sind damit auch auf dem Linux-Runner bestätigt):
+Mindestabstand 0,02 für beide Modi, Extremprofile abgenommen. Ein danach
+angelegter Doku-Commit zur Veröffentlichung kann noch ungepusht sein: bei der
+Sichtung prüfen. Seitdem schreibt nur der Tageslauf auf main: dessen
+Archivcommits bei der Sichtung feststellen und nur per Fast-forward bzw.
+Rebase übernehmen. Die Archiv-Baseline für Werke ab 12.11. ist noch nicht
+ergänzt. Der Betreiber hat am 11.11. einen Neustart der Serie mit Löschung
+aller Werke erwogen und zurückgestellt: kein Auftrag, nichts löschen. Offen:
+Firefox-Prüfung, Lastmessung auf einem Mobilgerät (P7), Verdrahtung des
+Historienkontexts im Tagesplaner (P7). Neue
 Massentests brauchen ein eigenes Zeitlimit, große Fixtures einen eigenen
 Chunk; neue Kachelraster brauchen einen einzigen Tab-Halt (Lehren aus P3 und
 P4). Der Lexikon-Beleg für Werkdatum 14.11.2026 ist ein eigener Schritt und
