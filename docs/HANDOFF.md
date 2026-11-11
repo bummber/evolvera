@@ -1,6 +1,86 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P3 „Generator 0.3.0, Teil A“ umgesetzt und veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P4 „Generator 0.3.0, Teil B“ lokal umgesetzt, nicht veröffentlicht
+
+Der Betreiber hat P4 am 11.11.2026 beauftragt. Sichtung vor Beginn (07:51
+Berlin): lokal `8ef9dbb` (Doku-Commit zu P3, ungepusht), Remote-main `3f1b6a1`
+mit dem Archivcommit des Tageslaufs. Auf Betreiberfreigabe Fetch und Rebase
+des Doku-Commits auf `3f1b6a1` (jetzt `8fe6e6d`); kein Push.
+**Die Probeketten sind gesichtet:** Der Betreiber hat sie am 11.11.2026
+gesichtet; die Startwerte der Vererbung bleiben. Das ist keine Kunstabnahme
+für Generator 0.3.0 (P7) und keine Geräteabnahme.
+[Verfahren, Messung und Grenzen](extensions/EP01-evolution-3.md).
+
+- **Tageslauf 11.11.:** Schedule-Lauf 42974147412 erfolgreich, gestartet
+  07:41 Berlin, Archivcommit `3f1b6a1` um 07:43: Gen. 8 „Chschfieber im
+  Morgen“, Eltern 09.11. und 10.11., `traceable`/6, Generator 0.2.0,
+  Renderer 1, Lexikon 0.1.0; Titel wie im Lexikonbericht vorhergesagt. Das
+  war der erste Schedule-Lauf mit dem Stand P0 bis P3. Start wieder gut sechs
+  Stunden nach 01:17.
+- **Archiv-Baseline:** um das Werk vom 11.11. ergänzt (`7c81407`); die sieben
+  bestehenden Einträge und 14 Bilder sind unverändert.
+- **Neu:** `evolve.ts`, `inherit.ts`, `parents.ts`, `provenance.ts` und
+  `sha256.ts` unter `src/art/generator/v3/`;
+  `src/art/generator/preview-chain-v3.ts`; `src/art/schema/chains-v3.ts`;
+  `scripts/chain-fixtures.ts`; `fixtures/preview/ep01-chains.json` mit 24
+  Kettenwerken; `src/app/EvolutionChains.tsx`; `tests/evolution-v3.test.ts`,
+  `tests/browser/chains.spec.ts` und 14 neue Referenzbilder
+  `generator-v3-chain-<Kette>-<Generation>.png`.
+- **Geändert:** `artwork-v3.ts` hat das neue Pflichtfeld `evolution.recipe`
+  (Betreiberentscheidung; Testfixture und ein Test dazu angepasst);
+  `compose.ts` ist in wiederverwendbare Teile zerlegt, `kit.ts` und
+  `checks.ts` haben je eine Ergänzung; `Atelier.tsx` zeigt den neuen
+  Abschnitt, `shell.css` hat dafür eigene Klassen (`chainv3-*`);
+  `package.json` ruft in `validate:data` zusätzlich
+  `scripts/chain-fixtures.ts` auf.
+- **Umfang:** vollständige Werke im Schema 3 als Ursprung oder Kind zweier
+  Eltern; Vererbung je Ebene und Merkmalsgruppe; Belege nur an sichtbaren
+  Formen, ohne Raster und Polster; `off` mit `constrained`, `always`;
+  Mutationsstärke und Mutationssprünge; Eltern im Schema 2 nur im Speicher;
+  Seed mit SHA-256 des vollständigen Snapshots; strenger Prüfer
+  `validateEvolutionV3`. `novelty` ist bis P5 ein benannter Platzhalter.
+- **Betreiberentscheidungen zu P4:** Bauplan freigegeben; kleines Feld
+  `evolution.recipe` im Schema 3; zusätzliche Übergangskette aus vier Werken;
+  Startwerte der Vererbung wie im Bericht, nach der Sichtung bestätigt.
+- **Prüfungen lokal am 11.11.2026:** `npm run check` erfolgreich mit
+  **334 Tests** (317 + 2 für die Baseline + 15); Datenprüfung mit acht
+  Werken, Archiv-Baseline grün, 40 Ursprungs-Probewerke und 24 Kettenwerke
+  deterministisch reproduziert. `CI=true npm run test:browser` gegen den
+  frischen Build: **138 bestanden** (118 + 2 für die Baseline + 18), sechs
+  bestehende Skips, kein Wiederholungsversuch; alle bisherigen Referenzen
+  unverändert. Messung über je 5 000 Kinder pro Modus im Standardprofil: kein
+  Fehlschlag, höchstens der siebte Versuch nötig. Nach den Nachträgen in
+  Plan, HANDOFF und NEXT-START wurde nur `npm run check` wiederholt.
+- **Lokale Commits, alle ungepusht** (auf `3f1b6a1`): `8fe6e6d` (Doku zu P3),
+  `7c81407` (Baseline), `3358cd7` (Rezept im Schema 3), `a78aed6`
+  (Evolution und Belege), `00a25c6` (Probeketten im Atelier) und der
+  Doku-Commit zu P4. Ein Push ist eine Veröffentlichung und braucht eine
+  eigene Freigabe; vorher Remote prüfen, denn der Tageslauf vom 12.11.
+  schreibt wieder auf `main`.
+- **Lehre:** Ein erster Entwurf holte für den zweiten Elternteil fast immer
+  eine neue Belegform dazu (46 % der Beiträge). Erst die Messung zeigte das;
+  jetzt tragen zuerst vorhandene Formen den Beitrag (neue Form rund 7 %).
+  Außerdem: Neue Kachelraster im Atelier verlängern den Tastaturweg; die
+  Ketten sind deshalb je ein Tab-Halt mit Pfeiltasten.
+- **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast auf einem
+  Mobilgerät (P7); Live-Website nicht aufgerufen; `npm run worker:test-runtime`
+  nicht ausgeführt (Worker unberührt). Auf dem Linux-Runner sind die 14 neuen
+  Bilder noch nicht bestätigt, weil nichts gepusht ist.
+- **Grenzen:** siehe Bericht; insbesondere Versatzbelege, gemeinsame Farben
+  beider Eltern, entfernte Effekte unter `off`, Determinismus nur unter
+  Node 24. Die Ketten-Fixture ist bis P7 nicht eingefroren.
+- **Unverändert:** `study.ts`, `evolve.ts` (0.2.0), `provenance.ts` (0.2.0),
+  Titelgenerator, `ArtRenderer.tsx`, `ArtV1`, `artwork.ts`, Renderer 2,
+  Konfiguration, Worker, Workflows, Archivdateien,
+  `fixtures/preview/phase-*.json`, `ep01-origins.json`, Musterbogen,
+  bestehende Browserreferenzen, Lockfile.
+
+Als Nächstes: Push von P4 nur auf ausdrückliche Freigabe; P5 „Vielfalt und
+Extremprofile“ auf ausdrücklichen Auftrag in einer neuen Sitzung; unabhängig
+davon den Lauf für **Werkdatum 14.11.2026** belegen, sobald er stattgefunden
+hat. [Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 11.11.2026, EP-01 P3 „Generator 0.3.0, Teil A“ umgesetzt und veröffentlicht
 
 Der Betreiber hat P3 am 10.11.2026 beauftragt. Sichtung vor Beginn (23:25
 Berlin) und bei Abschluss (23:56 Berlin, API): HEAD/main und Remote-main

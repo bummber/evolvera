@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P3 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt), P4–P9 nicht beauftragt
+Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P3 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt), P4 lokal umgesetzt und am 11.11.2026 gesichtet, P5–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -274,6 +274,25 @@ Neues Modul unter `src/art/generator/v3/`, frei von React und Browser.
   Revision (A-29).
 - Tests: Mehrgenerationsketten je Modus, Manipulationstests analog zu
   `tests/evolution.test.ts` (erfundene Quellen, überdeckte Beiträge), Determinismus.
+- Umgesetzt am 11.11.2026; Verfahren, Messung und Grenzen stehen in
+  [EP01-evolution-3.md](EP01-evolution-3.md). Die Probeketten wurden am selben
+  Tag gesichtet; die Startwerte der Vererbung bleiben. Festlegungen und
+  Abweichungen vom Planwortlaut (Betreiberentscheidungen vom 11.11.2026):
+  - Schema 3 hat das neue Pflichtfeld `evolution.recipe` (Herkunft je Ebene
+    und der Palette, Versuch, Mutationssprung, gezogene Merkmale, Ankerweg).
+    Es ist eine Zusammenfassung, kein abspielbares Rezept.
+  - Startwerte je Ebene und Palette: `traceable` 35 % je Elternteil, 10 %
+    gemischt, 20 % neu; `free` 20 / 10 / 50 %, dazu 35 % vollständige Brüche.
+    Mutationsstärke 10 / 25 / 45 / 70 % der Formen; Mutationssprung 10 %.
+  - Der Seed-Digest ist ein SHA-256 aus einer eigenen, reinen Funktion; keine
+    neue Abhängigkeit.
+  - Der Beitrag eines Elternteils wird zuerst an vorhandenen Formen sichtbar
+    gemacht; eine neue Form ist der letzte Ausweg (gemessen rund 7 %).
+  - Effekte und Bewegung werden unter `off` entfernt, nicht umgewandelt und
+    nicht belegt. `always` prüft das Vorkommen, nicht die Sichtbarkeit.
+  - `novelty` ist bis P5 ein benannter Platzhalter. Renderer 2 blieb
+    unverändert; `compose.ts`, `kit.ts` und `checks.ts` wurden ergänzt, ohne
+    die Ursprungs-Probewerke zu verändern.
 
 ### P5 – Vielfalt und Extremprofile
 

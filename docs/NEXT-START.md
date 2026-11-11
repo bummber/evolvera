@@ -1,4 +1,99 @@
-# Aktueller Startprompt – EP-01: P4 Generator 0.3.0, Teil B (Evolution und Belege)
+# Aktueller Startprompt – EP-01: P5 Vielfalt und Extremprofile
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+vollständig docs/extensions/EP01-umsetzungsplan.md,
+docs/extensions/EP01-generator-3.md und docs/extensions/EP01-evolution-3.md
+lesen. Dann /sichtung ausführen: rein lesend Git-Zustand, Remote, Berliner
+Zeit, Tagesläufe und Archiv prüfen und gemeinsam sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. P0 bis P3 sind veröffentlicht (f4e292b am
+11.11.). P4 (Generator 0.3.0, Teil B: Evolution und Belege) ist am 11.11.
+lokal umgesetzt, committet und gesichtet; die Startwerte der Vererbung
+bleiben. Bei Abschluss von P4 waren sechs lokale Commits ungepusht (Doku zu
+P3, Archiv-Baseline 11.11., Rezept im Schema 3, Evolution, Probeketten, Doku
+zu P4): bei der Sichtung prüfen, ob sie inzwischen veröffentlicht sind, und
+den Remote-Stand (täglicher Archivcommit) nur per Fast-forward bzw. Rebase
+übernehmen. Die 14 neuen Kettenbilder sind auf dem Linux-Runner erst nach
+einem Push bestätigt. Offen: Firefox-Prüfung, Lastmessung auf einem
+Mobilgerät (P7). Neue Massentests brauchen ein eigenes Zeitlimit, große
+Fixtures einen eigenen Chunk; neue Kachelraster im Atelier brauchen einen
+einzigen Tab-Halt (Lehren aus P3 und P4). Der Lexikon-Beleg für Werkdatum
+14.11.2026 ist ein eigener Schritt und keine Voraussetzung: sobald der Lauf
+stattgefunden hat, anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion,
+Titel und Elternbausteinen belegen (erwartet Gen. 11 „Azurschweben“, 0.2.0).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P5 (Vielfalt und
+Extremprofile) aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 12.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts); Bestehendes nicht verändern.
+2. Zuerst einen kurzen Bauplan vorlegen und freigeben lassen: Abstandsmaß
+   Version 1 (Merkmale, Gewichte), Form des Historienkontexts und seines
+   Digests, Verfahren zur Schwelle, Umgang mit verfehltem Mindestabstand,
+   Extremprofile, und ob src/automation/plan.ts schon in P5 berührt wird.
+3. Abstandsmaß Version 1 unter src/art/generator/v3/, frei von React und
+   Browser: Familien je Ebene, Palette (OKLCH-Abstand), Formarten, Füllarten,
+   Dichte und Bewegung; auch gegenüber Werken im Schema 2.
+4. Ähnlichkeitsfenster über die letzten N Werke derselben Kette
+   (variation.noveltyWindow, bei kürzeren Ketten alle): Der Generator nimmt
+   den geordneten Historienkontext als Eingabe, prüft Kandidaten in den
+   deterministischen Versuchen und speichert distanceVersion, contextDigest,
+   erreichten Abstand und minimumReached im Feld novelty. Der Platzhalter
+   NOVELTY_PLACEHOLDER aus P4 entfällt.
+5. Mindestabstand nicht erreichbar (Betreiberentscheidung 4): den
+   abstandsstärksten gültigen Kandidaten nehmen und im Werk vermerken; kein
+   Stopp. Sicherheits-, Sichtbarkeits- und Lastgrenzen sowie die
+   Elternbeiträge im Modus traceable bleiben harte Bedingungen.
+6. Schwelle aus Simulationen ableiten: je Modus 365 Testtage; Ziel ist, dass
+   höchstens etwa jeder zehnte Kandidat verworfen wird. Ergebnis und
+   Verteilung dokumentieren.
+7. Extremprofile mit je mindestens 50 Werken pro Modus (A-35): alle
+   optionalen Merkmale off, alle always, nur eine Familie, Mutationsstärke
+   wild. Last, Sichtbarkeit, Elternbeiträge und Ähnlichkeitsregeln prüfen;
+   unmögliche Profile verständlich ablehnen, kein stiller Fallback.
+8. Tests: Determinismus einschließlich Historienkontext (neue Historie darf
+   den Digest ändern, alte Werke nicht), Retry-Grenzen, Nachholung erweitert
+   den Kontext chronologisch, validateEvolutionV3 über alle Ketten.
+9. Probeketten neu erzeugen (das Fenster verändert sie) und das ausdrücklich
+   benennen; neue Browserreferenzen nur für die eigenen Kettenbilder aus P4
+   ersetzen, alle übrigen Referenzen bleiben unverändert.
+10. npm run check und npm run test:browser ausführen und ehrlich berichten.
+11. Gemeinsame Sichtung: Schwelle, Verwerfungsrate und Extremprofile.
+
+Grenzen P5: Keine Änderung an study.ts, evolve.ts und provenance.ts von
+Generator 0.2.0, Titelgenerator, ArtV1, artwork.ts, Konfigurationsdateien,
+Worker, Workflows, Archivdateien, fixtures/preview/phase-*.json oder
+bestehenden Browserreferenzen außer den eigenen Kettenbildern. Keine Galerie-
+oder Detailansicht für Schema 3 (P6), kein generatorChangeDate, keine
+Aktivierung von Generator 0.3.0 im Tageslauf, kein Werk im Schema 3 im
+Archiv. Der laufende Tageslauf mit Generator 0.2.0 darf sich nicht ändern;
+eine Änderung an src/automation/plan.ts nur nach Freigabe im Bauplan.
+fixtures/preview/ep01-origins.json nur neu erzeugen, wenn eine Änderung am
+Generator es nötig macht, und das ausdrücklich benennen. Änderungen an
+Renderer 2 oder Schema 3 nur, wenn das Fenster sie nötig macht, und dann
+ausdrücklich benennen. P6 bis P9 nicht beginnen. Neue Abhängigkeiten nur nach
+Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P5-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für P6 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P4 (11.11.2026)
+
+# Vorheriger Startprompt – EP-01: P4 Generator 0.3.0, Teil B (Evolution und Belege)
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
