@@ -17,6 +17,8 @@ import { ArtStage } from '../art/renderer/ArtStage';
 // The 40 origin studies of generator 0.3.0 load after the page itself, so
 // the atelier does not wait for their validation.
 const OriginStudies = lazy(() => import('./OriginStudies'));
+// The preview chains of generator 0.3.0 load the same way.
+const EvolutionChains = lazy(() => import('./EvolutionChains'));
 const studies = previewCollectionSchema.parse(rawStudies).studies;
 const sheets = catalogSchema.parse(rawCatalog).sheets;
 export default function Atelier() {
@@ -174,6 +176,9 @@ export default function Atelier() {
       </section>
       <Suspense fallback={<p role="status">Probewerke werden geladen …</p>}>
         <OriginStudies />
+      </Suspense>
+      <Suspense fallback={<p role="status">Probeketten werden geladen …</p>}>
+        <EvolutionChains />
       </Suspense>
     </>
   );
