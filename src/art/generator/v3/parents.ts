@@ -1,4 +1,4 @@
-import type { AnyArtwork } from '../../schema/artwork-v3';
+import type { AnyArtwork, DnaV3 } from '../../schema/artwork-v3';
 import { hashSeed } from '../random';
 import type { Family } from './families';
 import { fillColors, solid, type Fill } from './fills';
@@ -75,22 +75,25 @@ function derivePalette(background: string, sources: readonly Source[]) {
 const legacyFamily = (family: string): Family =>
   family === 'kinetic' ? 'generative' : (family as Family);
 
+/** A DNA of schema 3 as generator 0.3.0 reads it, also before it is a work. */
+export function viewOfDna(id: string, dna: DnaV3): ParentView {
+  const sources = dna.elements.map((element, index) => ({
+    element,
+    path: `elements.${index}`,
+    legacy: false,
+  }));
+  return {
+    id,
+    legacy: false,
+    background: dna.background,
+    layers: dna.layers,
+    sources,
+    palette: derivePalette(dna.background, sources),
+  };
+}
+
 export function readParent(work: AnyArtwork): ParentView {
-  if (work.schemaVersion === 3) {
-    const sources = work.dna.elements.map((element, index) => ({
-      element,
-      path: `elements.${index}`,
-      legacy: false,
-    }));
-    return {
-      id: work.id,
-      legacy: false,
-      background: work.dna.background,
-      layers: work.dna.layers,
-      sources,
-      palette: derivePalette(work.dna.background, sources),
-    };
-  }
+  if (work.schemaVersion === 3) return viewOfDna(work.id, work.dna);
   const { background } = work.dna;
   const sources = work.dna.elements
     .map(({ color, ...rest }, index) => ({

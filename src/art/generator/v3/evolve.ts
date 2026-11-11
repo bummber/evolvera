@@ -15,6 +15,17 @@ import {
 } from '../../schema/preview-v3';
 import { generateTitle } from '../../titles/generate';
 import { compose, drawFlags } from './compose';
+import {
+  assertHistory,
+  contextDigest,
+  DISTANCE_VERSION,
+  distanceToWindow,
+  MAX_NOVELTY_WINDOW,
+  NOVELTY_MINIMUM,
+  noveltyWindow,
+  signatureOf,
+  signatureOfDna,
+} from './distance';
 import { composeChild } from './inherit';
 import { readParent } from './parents';
 import { validateEvolutionV3 } from './provenance';
@@ -36,6 +47,12 @@ export const generationInputV3Schema = z.strictObject({
   settings: settingsSnapshotSchema,
   settingsRevision: z.number().int().positive(),
   parents: z.array(anyArtworkSchema).max(2),
+  /**
+   * Ordered history context: the works of the same chain right before this
+   * one, oldest first, at least as many as the similarity window asks for
+   * (or all of a shorter chain). Works of a catch-up run join it one by one.
+   */
+  history: z.array(anyArtworkSchema).max(MAX_NOVELTY_WINDOW).default([]),
   scheduledFor: instantSchema,
   runStartedAt: instantSchema,
   usedTitles: z.array(z.string().max(160)).max(10000).default([]),
@@ -54,17 +71,13 @@ export function settingsDigest(settings: SettingsSnapshot, revision: number) {
 export const boundSeed = (seed: string, digest: string) =>
   `${seed}:settings-${digest}`;
 
-/**
- * Placeholder until the similarity window exists (P5): no history context is
- * evaluated yet. The digest is that of an empty context, the distance is
- * unknown (`null`) and no minimum is claimed to be missed.
- */
-export const NOVELTY_PLACEHOLDER: ArtworkV3['novelty'] = Object.freeze({
-  distanceVersion: 1,
-  contextDigest: sha256(canonicalJson({ distanceVersion: 1, window: [] })),
-  distance: null,
-  minimumReached: true,
-});
+/** For simulations only; official callers never pass it. */
+export type NoveltyTuning = {
+  /** Minimum distance instead of `NOVELTY_MINIMUM`. */
+  minimum?: number;
+  /** Sees every valid candidate with its distance to the recent works. */
+  observe?: (candidate: { retry: number; distance: number | null }) => void;
+};
 
 const layerLabels = {
   background: 'Hintergrund',
@@ -111,10 +124,16 @@ function describe(title: string, dna: DnaV3, recipe: Omit<RecipeV3, 'retry'>) {
  * work apart from `generatedAt`. Generations 1 and 2 are independent
  * origins; later works are children of exactly the two preceding works,
  * which may still be stored in schema 1 or 2.
+ *
+ * The first valid candidate that keeps the minimum distance to its window is
+ * taken. If none of the attempts does, the valid candidate with the largest
+ * distance is taken and the work records the missed minimum (operator
+ * decision 4); all other conditions stay hard.
  */
 export function generateArtworkV3(
   input: unknown,
   clock: () => string,
+  tuning: NoveltyTuning = {},
 ): ArtworkV3 {
   const request = generationInputV3Schema.parse(input);
   const generatedAt = instantSchema.parse(clock());
@@ -132,6 +151,23 @@ export function generateArtworkV3(
       );
   });
   const { settings } = request;
+  assertHistory(request.history, request.generation, request.workDate);
+  request.parents.forEach((parent, index) => {
+    const entry = request.history.at(index - request.parents.length);
+    if (
+      entry?.id !== parent.id ||
+      JSON.stringify(entry.dna) !== JSON.stringify(parent.dna)
+    )
+      throw new Error('Historienkontext endet nicht mit den beiden Eltern.');
+  });
+  // Similarity window: the last N works of the chain. The history selects
+  // among the deterministic candidates; it never changes a candidate.
+  const recent = noveltyWindow(
+    request.history,
+    settings.variation.noveltyWindow,
+  );
+  const context = recent.map(signatureOf);
+  const minimum = tuning.minimum ?? NOVELTY_MINIMUM;
   const digest = settingsDigest(settings, request.settingsRevision);
   const parentDigest = sha256(
     canonicalJson(
@@ -148,11 +184,20 @@ export function generateArtworkV3(
     parents: request.parents.map(({ id, title }) => ({ id, title })),
     usedTitles: request.usedTitles,
   });
+  type Candidate = {
+    retry: number;
+    dna: DnaV3;
+    recipe: Omit<RecipeV3, 'retry'>;
+    decisions: ArtworkV3['evolution']['decisions'];
+    distance: number | null;
+  };
+  let chosen: Candidate | undefined;
+  let farthest: Candidate | undefined;
   for (let retry = 0; retry <= MAX_RETRY_V3; retry++) {
     const seed = `${base}:retry-${retry}`;
     let dna: DnaV3;
     let recipe: Omit<RecipeV3, 'retry'>;
-    let decisions: ArtworkV3['evolution']['decisions'] = [];
+    let decisions: Candidate['decisions'] = [];
     if (origin) {
       const result = compose(seed, settings, flags);
       if (!result) continue;
@@ -184,42 +229,63 @@ export function generateArtworkV3(
       if (JSON.stringify(dna) === JSON.stringify(request.parents.at(-1)!.dna))
         continue;
     }
-    const work = artworkV3Schema.safeParse({
-      schemaVersion: 3,
-      generatorVersion: GENERATOR_VERSION_V3,
-      rendererVersion: '2',
-      lexiconVersion: request.lexiconVersion,
-      id: request.workDate,
-      generation: request.generation,
-      title: title.title,
-      description: describe(title.title, dna, recipe),
-      timezone: 'Europe/Berlin',
-      scheduledFor: request.scheduledFor,
-      generatedAt,
-      runStartedAt: request.runStartedAt,
-      isCatchUp: isCatchUp(request.workDate, request.runStartedAt),
-      seed: boundSeed(request.seed, digest),
-      inheritanceMode: settings.inheritanceMode,
-      settingsRevision: request.settingsRevision,
-      settings,
-      novelty: NOVELTY_PLACEHOLDER,
-      parentIds: request.parents.map((parent) => parent.id),
-      dna,
-      titleDna: {
-        tokens: title.tokens,
-        pattern: title.pattern,
-        parentFragments: title.parentFragments,
-      },
-      evolution: {
-        type: origin ? 'origin' : 'hybrid',
-        evaluatedParentIds: request.parents.map((parent) => parent.id),
-        decisions,
-        recipe: { retry, ...recipe },
-      },
-    });
-    // Metadata errors do not heal with another attempt.
-    if (!work.success) throw work.error;
-    return validateEvolutionV3(work.data, request.parents);
+    const distance = distanceToWindow(signatureOfDna(dna), context);
+    tuning.observe?.({ retry, distance });
+    const candidate = { retry, dna, recipe, decisions, distance };
+    if (distance === null || distance >= minimum) {
+      chosen = candidate;
+      break;
+    }
+    if (!farthest || distance > farthest.distance!) farthest = candidate;
   }
-  throw new Error('Kein gültiges Werk nach den deterministischen Versuchen.');
+  chosen ??= farthest;
+  if (!chosen)
+    throw new Error('Kein gültiges Werk nach den deterministischen Versuchen.');
+  const { retry, dna, recipe, decisions, distance } = chosen;
+  const work = artworkV3Schema.safeParse({
+    schemaVersion: 3,
+    generatorVersion: GENERATOR_VERSION_V3,
+    rendererVersion: '2',
+    lexiconVersion: request.lexiconVersion,
+    id: request.workDate,
+    generation: request.generation,
+    title: title.title,
+    description: describe(title.title, dna, recipe),
+    timezone: 'Europe/Berlin',
+    scheduledFor: request.scheduledFor,
+    generatedAt,
+    runStartedAt: request.runStartedAt,
+    isCatchUp: isCatchUp(request.workDate, request.runStartedAt),
+    seed: boundSeed(request.seed, digest),
+    inheritanceMode: settings.inheritanceMode,
+    settingsRevision: request.settingsRevision,
+    settings,
+    novelty: {
+      distanceVersion: DISTANCE_VERSION,
+      contextDigest: contextDigest(recent),
+      distance,
+      minimumReached: distance === null || distance >= minimum,
+    },
+    parentIds: request.parents.map((parent) => parent.id),
+    dna,
+    titleDna: {
+      tokens: title.tokens,
+      pattern: title.pattern,
+      parentFragments: title.parentFragments,
+    },
+    evolution: {
+      type: origin ? 'origin' : 'hybrid',
+      evaluatedParentIds: request.parents.map((parent) => parent.id),
+      decisions,
+      recipe: { retry, ...recipe },
+    },
+  });
+  // Metadata errors do not heal with another attempt.
+  if (!work.success) throw work.error;
+  return validateEvolutionV3(
+    work.data,
+    request.parents,
+    request.history,
+    minimum,
+  );
 }

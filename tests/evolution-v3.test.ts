@@ -10,7 +10,6 @@ import {
   boundSeed,
   generateArtworkV3,
   MAX_RETRY_V3,
-  NOVELTY_PLACEHOLDER,
   settingsDigest,
 } from '../src/art/generator/v3/evolve';
 import { featureNames } from '../src/art/generator/v3/kit';
@@ -60,6 +59,8 @@ function inputFor(
   parents: readonly AnyArtwork[],
   usedTitles: readonly string[],
   settings: SettingsSnapshot = work.settings,
+  /** Ordered history context; the parents alone are the shortest valid one. */
+  history: readonly AnyArtwork[] = parents,
 ) {
   return {
     generation: work.generation,
@@ -68,6 +69,7 @@ function inputFor(
     settings,
     settingsRevision: work.settingsRevision,
     parents: [...parents],
+    history: [...history],
     scheduledFor: work.scheduledFor,
     runStartedAt: work.runStartedAt,
     usedTitles: [...usedTitles],
@@ -221,6 +223,8 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
             work,
             chain.works.slice(index - 2, index),
             chain.works.slice(0, index).map((entry) => entry.title),
+            work.settings,
+            chain.works.slice(0, index),
           ),
         ),
       );
@@ -261,7 +265,7 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
     );
   });
 
-  it('erzeugt das vollständige Werk mit Titelgenerator und benanntem Platzhalter', () => {
+  it('erzeugt das vollständige Werk mit Titelgenerator und Ähnlichkeitsvermerk', () => {
     const index = 3;
     const work = traceable.works[index]!;
     const parents = traceable.works.slice(index - 2, index);
@@ -273,14 +277,14 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
       inheritanceMode: 'traceable',
       ...defaultProfile,
     });
-    // Until P5 no history context is evaluated.
-    expect(work.novelty).toEqual(NOVELTY_PLACEHOLDER);
-    expect(work.novelty).toEqual({
+    // The first work of a chain has an empty window: no distance to claim.
+    expect(traceable.works[0]!.novelty).toEqual({
       distanceVersion: 1,
       contextDigest: sha256('{"distanceVersion":1,"window":[]}'),
       distance: null,
       minimumReached: true,
     });
+    expect(work.novelty.distance).toBeGreaterThanOrEqual(0);
     const title = generateTitle({
       seed: `evolvera:ep01:chain:traceable:${work.generation}:${work.generation}`,
       lexiconVersion: '0.2.0',

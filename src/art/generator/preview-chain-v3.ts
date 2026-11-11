@@ -4,11 +4,13 @@ import type { AnyArtwork, ArtworkV3 } from '../schema/artwork-v3';
 import { previewChainV3Schema, type PreviewChainV3 } from '../schema/chains-v3';
 import type { SettingsSnapshot } from '../schema/preview-v3';
 import { defaultProfile, type Profile } from '../schema/profile';
+import { MAX_NOVELTY_WINDOW } from './v3/distance';
 import { generateArtworkV3 } from './v3/evolve';
 import { validateEvolutionV3 } from './v3/provenance';
 
 // Preview chains of generator 0.3.0 (EP-01, P4). Simulation only: the dates
 // are fixture metadata, not a series start, and nothing reaches the archive.
+// Since P5 every work gets the works before it as ordered history context.
 
 const nextDay = (id: string) => {
   const date = new Date(`${id}T12:00:00Z`);
@@ -65,6 +67,7 @@ export function createPreviewChainV3(options: {
         settings,
         settingsRevision: 1,
         parents: generation <= 2 ? [] : history.slice(-2),
+        history: history.slice(-MAX_NOVELTY_WINDOW),
         seed: `${prefix}:${key}:${generation}`,
         usedTitles: history.map((entry) => entry.title),
       },
@@ -108,7 +111,11 @@ export function validatePreviewChainV3(input: unknown): PreviewChainV3 {
     if (titles.has(title))
       throw new Error('Doppelter Titel in der Vorschaukette.');
     titles.add(title);
-    validateEvolutionV3(work, generation <= 2 ? [] : history.slice(-2));
+    validateEvolutionV3(
+      work,
+      generation <= 2 ? [] : history.slice(-2),
+      history.slice(-MAX_NOVELTY_WINDOW),
+    );
     history.push(work);
     expectedDate = nextDay(expectedDate);
     generation++;

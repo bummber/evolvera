@@ -5,6 +5,15 @@ import {
   type ArtworkV3,
 } from '../../schema/artwork-v3';
 import { featuresOf, findAnchor, isAnchor } from './checks';
+import {
+  assertHistory,
+  contextDigest,
+  distanceToWindow,
+  NOVELTY_MINIMUM,
+  noveltyWindow,
+  signatureOf,
+  signatureOfDna,
+} from './distance';
 import { featureNames } from './kit';
 import { canonicalJson, sha256 } from './sha256';
 
@@ -15,9 +24,16 @@ import { canonicalJson, sha256 } from './sha256';
 
 const elementTarget = /^elements\.(0|[1-9]\d*)\./;
 
+/**
+ * With `history` (the ordered works right before this one) the similarity
+ * window is recomputed too: context digest, distance and the recorded
+ * minimum. Without it only their consistency can be checked.
+ */
 export function validateEvolutionV3(
   input: unknown,
   parents: readonly AnyArtwork[],
+  history?: readonly AnyArtwork[],
+  minimum = NOVELTY_MINIMUM,
 ): ArtworkV3 {
   const work = validateArtworkV3(input, parents);
   const { settings, dna } = work;
@@ -92,5 +108,30 @@ export function validateEvolutionV3(
   }
   if (work.evolution.type === 'origin' && work.titleDna.parentFragments.length)
     fail('Ursprünge müssen vollständig unabhängig bleiben.');
+
+  // Similarity window (P5): a missed minimum is recorded, never hidden.
+  const { novelty } = work;
+  if (
+    novelty.minimumReached !==
+    (novelty.distance === null || novelty.distance >= minimum)
+  )
+    fail('Vermerk zum Mindestabstand passt nicht zum gespeicherten Abstand.');
+  if (history) {
+    assertHistory(history, work.generation, work.id);
+    if (
+      parents.some(
+        (parent, index) => history.at(index - parents.length)?.id !== parent.id,
+      )
+    )
+      fail('Historienkontext endet nicht mit den beiden Eltern.');
+    const recent = noveltyWindow(history, settings.variation.noveltyWindow);
+    if (novelty.contextDigest !== contextDigest(recent))
+      fail('Kontextdigest passt nicht zum Historienkontext.');
+    if (
+      novelty.distance !==
+      distanceToWindow(signatureOfDna(dna), recent.map(signatureOf))
+    )
+      fail('Gespeicherter Abstand passt nicht zum Historienkontext.');
+  }
   return work;
 }
