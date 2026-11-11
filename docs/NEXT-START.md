@@ -1,4 +1,106 @@
-# Aktueller Startprompt – EP-01: P6 Galerie und Detailansicht für Schema 3
+# Aktueller Startprompt – EP-01: P7 Kunstabnahme und Aktivierung
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+vollständig docs/extensions/EP01-umsetzungsplan.md,
+docs/extensions/EP01-renderer-2.md, docs/extensions/EP01-vielfalt-5.md und
+docs/extensions/EP01-ansichten-6.md lesen. Dann /sichtung ausführen: rein
+lesend Git-Zustand, Remote, Berliner Zeit, Tagesläufe und Archiv prüfen und
+gemeinsam sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
+Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
+Hintergrund und unversioniert. P0 bis P5 sind veröffentlicht (acd0140). P6
+(Galerie und Detailansicht für Schema 3) ist am 11.11. umgesetzt und vom
+Betreiber abgenommen, bei Abschluss aber NICHT veröffentlicht: lokal lagen
+d7cc35f, 7f45991, 9c56ae3, 0e1d443, 5aea1d0 und ein Doku-Commit vor dem
+Remote. Bei der Sichtung prüfen, ob das noch so ist. Falls ja: zuerst mit
+Rückfrage Fetch, Rebase auf die Archivcommits des Tageslaufs, npm run check
+und npm run test:browser, dann Push nach Freigabe; die sechs neuen
+Referenzbilder schema3-detail-*.png sind erst danach auf dem Linux-Runner
+bestätigt. Die Archiv-Baseline für Werke ab 12.11. ist noch nicht ergänzt.
+Der Betreiber hat am 11.11. einen Neustart der Serie mit Löschung aller
+Werke erwogen und zurückgestellt: kein Auftrag, nichts löschen; falls er es
+wünscht, gehört die Frage in den Aktivierungsplan. Offen: Firefox-Prüfung,
+Lastmessung auf einem Mobilgerät, Verdrahtung des Historienkontexts im
+Tagesplaner, eigene Schwelle für den Modus free (in P5 zurückgestellt).
+Neue Massentests brauchen ein eigenes Zeitlimit, große Fixtures einen
+eigenen Chunk; neue Kachelraster brauchen einen einzigen Tab-Halt. Der
+Lexikon-Beleg für Werkdatum 14.11.2026 ist ein eigener Schritt und keine
+Voraussetzung: sobald der Lauf stattgefunden hat, anhand Run-ID, Zeit,
+Status, Archivcommit, lexiconVersion, Titel und Elternbausteinen belegen
+(erwartet Gen. 11 „Azurschweben“, 0.2.0).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P7 (Kunstabnahme und
+Aktivierung) aus dem Umsetzungsplan, in drei Teilen. Teil C endet mit einem
+Plan; die Aktivierung selbst braucht danach eine eigene Freigabe.
+1. Archiv-Baseline um die seit 12.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts); Bestehendes nicht verändern.
+2. Zuerst einen kurzen Bauplan vorlegen und freigeben lassen: Umfang und
+   Form der Abnahmewerke, wo sie gezeigt werden, welche abweichenden Profile,
+   Ablauf der Gerätemessung, und welche Dateien die Aktivierung berühren
+   würde.
+3. Teil A, Abnahmewerke: 30–50 neue Testwerke im Standardprofil, beide Modi
+   mit Beispielketten, dazu kurze Ketten für zwei bis drei abweichende
+   Profile; als getrennte Vorschau-Fixture, über die Sammlungsauswahl oder
+   das Atelier sichtbar. Die Abnahme der alten 40 Werke gilt nicht für
+   Generator 0.3.0.
+4. Ausdrückliche Kunstabnahme durch den Betreiber. Dabei den Mindestabstand
+   0,02 und die Frage einer eigenen Schwelle für free noch einmal ansehen.
+   Erst nach der Abnahme die Fixtures einfrieren und die Abnahme
+   dokumentieren.
+5. Teil B, Geräte: Lastprüfung auf einem realen Mobilgerät des Betreibers
+   (Anleitung und Messseite vorbereiten, Ergebnis gemeinsam festhalten),
+   reduzierte Bewegung, 320 px; Firefox und Safari prüfen oder ausdrücklich
+   offen halten. Danach die Lastgrenzen bestätigen oder anpassen
+   (Betreiberentscheidung 7). Renderer 2 und Schema 3 sind bis zum ersten
+   archivierten Werk noch änderbar; jede Änderung ausdrücklich benennen.
+6. Teil C, Aktivierungsplan vorlegen, noch nichts aktivieren:
+   generatorChangeDate in src/series/calendar.ts, Verdrahtung in
+   src/automation/plan.ts (Generator 0.3.0 ab dem Datum, geordneter
+   Historienkontext mit höchstens 30 Werken, Standardprofil aus
+   readGenerationConfig), Umstellung des Tageslaufs von readWorks auf
+   readArchive, Nachweis der Kunstabnahme in config/release.json samt Gate,
+   betroffene Dateien, Push-Reihenfolge und Kontrolle des ersten neuen Laufs
+   (Run-ID, Archivcommit, Versionen, Eltern, Originalbytes der alten Werke).
+7. Tests zum Plan, soweit ohne Aktivierung möglich: Tageslauf vor und nach
+   dem Wechseldatum in isolierten Repositories, Nachholung über das Datum
+   hinweg, unveränderte Bytes aller alten Werke.
+8. npm run check, npm run test:browser und bei Änderungen am Tageslauf die
+   Automationstests ausführen und ehrlich berichten.
+9. Gemeinsame Sichtung: Abnahme, Messung und Aktivierungsplan.
+
+Grenzen P7: Ohne eigene Freigabe kein generatorChangeDate im
+veröffentlichten Stand, kein Werk im Schema 3 im Archiv, keine Änderung an
+config/generation.json oder config/release.json, kein Push. Keine Änderung
+an Generator 0.2.0 (study.ts, evolve.ts, provenance.ts), Titelgenerator,
+ArtV1, ArtRenderer.tsx, artwork.ts, Worker, Workflows, Archivdateien,
+Archiv-Baseline (nur ergänzen), fixtures/preview/phase-*.json oder
+bestehenden Browserreferenzen. Änderungen an Generator 0.3.0, Renderer 2
+oder Schema 3 nur, wenn Abnahme oder Messung sie nötig machen, und dann
+ausdrücklich benennen; danach betroffene Fixtures bewusst neu erzeugen und
+neu sichten. Keine Betreiberoberfläche (P8), kein Abschluss (P9). Kein
+Löschen von Werken ohne ausdrücklichen Auftrag. Neue Abhängigkeiten nur nach
+Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung. Kleine, thematisch getrennte Commits
+vorschlagen. Kein manueller Workflowstart, kein Deployment, keine Secrets.
+Worker, Secrets und SQLite-Sitzungen erhalten; keine Cookie-/Token-/
+Liveworker-Logeinsicht. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+
+Abschließend P7-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START nachtragen
+und den abgegrenzten Auftrag für die Aktivierung bzw. P8 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P6 (11.11.2026)
+
+# Vorheriger Startprompt – EP-01: P6 Galerie und Detailansicht für Schema 3
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera

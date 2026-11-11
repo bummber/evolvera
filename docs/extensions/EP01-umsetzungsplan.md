@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P5 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 und P5 am 11.11.2026 gesichtet), P6–P9 nicht beauftragt
+Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P5 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 und P5 am 11.11.2026 gesichtet), P6 am 11.11.2026 umgesetzt und abgenommen, noch nicht veröffentlicht, P7–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -330,6 +330,25 @@ Neues Modul unter `src/art/generator/v3/`, frei von React und Browser.
   zeigen dort „in dieser Version nicht gespeichert“.
 - Der Mutationsbericht nennt umgewandelte Merkmale (`constrained`) ausdrücklich.
 - Werkbeschreibung (`description`) für die neuen Familien und Ebenen.
+- Umgesetzt und vom Betreiber abgenommen am 11.11.2026, noch nicht
+  veröffentlicht; Aufbau, Texte und Grenzen stehen in
+  [EP01-ansichten-6.md](EP01-ansichten-6.md). Festlegungen und Abweichungen
+  vom Planwortlaut (Bauplan vom Betreiber am 11.11.2026 freigegeben):
+  - Werke im Schema 3 werden über vier getrennte Testsammlungen gezeigt
+    (nachvollziehbar, frei, Übergang, Umwandlungen); im Archiv liegt keines.
+  - Die gespeicherte `description` bleibt unverändert, weil sie der Generator
+    schreibt. Die Ansicht zeigt sie und ergänzt eine Liste „Aufbau“ aus der
+    DNA.
+  - Neue kleine Fixture `ep01-constraints.json`, weil die Probeketten aus P4
+    keine Umwandlung enthalten. Gleiche Umwandlungen werden in der Ansicht
+    zusammengefasst; jeder Einzelbeleg bleibt aufklappbar.
+  - Die Datenprüfung liest mit der neuen Funktion `readArchive`; der
+    Tageslauf bleibt bis P7 bei `readWorks`. Der Leser im Browser prüft
+    Schema 3 ohne Historie.
+  - `novelty` erscheint unter „Rahmenbedingungen“ mit Abstand und Vermerk;
+    der Kontextdigest wird nicht angezeigt.
+  - Zusätzlich aus der Sichtung: Der Titel der Detailansicht richtet seine
+    Größe nach dem längsten Wort, auch bei alten Werken.
 
 ### P7 – Kunstabnahme und Aktivierung
 

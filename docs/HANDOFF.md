@@ -1,6 +1,81 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P5 „Vielfalt und Extremprofile“ umgesetzt, gesichtet und veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P6 „Galerie und Detailansicht für Schema 3“ umgesetzt und gesichtet, nicht veröffentlicht
+
+Der Betreiber hat P6 am 11.11.2026 beauftragt. Sichtung vor Beginn (22:39
+Berlin): lokal `d7cc35f` (Doku-Commit zur Veröffentlichung von P5, ungepusht),
+Remote-main `acd0140`, acht Werke 04.–11.11., nichts fällig. Bauplan mit allen
+Empfehlungen freigegeben; die Ansichten hat der Betreiber am selben Abend
+abgenommen. Das ist keine Kunstabnahme für Generator 0.3.0 (P7) und keine
+Geräteabnahme.
+[Aufbau, Texte und Grenzen](extensions/EP01-ansichten-6.md).
+
+- **Nicht veröffentlicht:** Lokal liegen fünf Commits vor dem Remote:
+  `d7cc35f` (Doku zu P5), `7f45991` (Probekette mit Umwandlungen), `9c56ae3`
+  (Datenprüfung), `0e1d443` (Ansichten) und `5aea1d0` (Tests), dazu der
+  Doku-Commit zu P6. Kein Fetch, kein Push in dieser Sitzung. Die sechs neuen
+  Referenzbilder sind damit noch nicht auf dem Linux-Runner bestätigt.
+- **Archiv-Baseline (Schritt 1): nichts ergänzt.** Das Werk vom 12.11. war
+  bei Abschluss noch nicht fällig (ab 01:17). Die Ergänzung bleibt der erste
+  Schritt der nächsten Sitzung.
+- **Neu:** `src/app/WorkProvenanceV3.tsx`, `WorkConditions.tsx`,
+  `WorkComposition.tsx`, `work-labels.ts`; `src/preview/ep01.ts` und
+  `equal.ts`; `scripts/constraint-fixtures.ts`;
+  `fixtures/preview/ep01-constraints.json` (sechs Werke, 55 Umwandlungen);
+  `tests/archive-v3.test.tsx`, `tests/browser/schema3-views.spec.ts` und
+  sechs Referenzbilder `schema3-detail-<Sammlung>-<Generation>.png`.
+- **Geändert:** `src/archive/reader.ts` (liest mit `anyArtworkSchema`, vier
+  neue Sammlungen, Prüfer für Schema 3 wird nachgeladen);
+  `src/automation/archive.ts` (neue Funktion `readArchive`, `indexText` mit
+  weiterem Parametertyp; `readWorks` wörtlich unverändert);
+  `scripts/validate-data.ts` (benutzt `readArchive`); `ArchivePages.tsx`,
+  `EvolutionBraid.tsx`, `WorkProvenance.tsx`, `WorkTitle.tsx`;
+  `src/art/schema/chains-v3.ts` (Schema der neuen Fixture); `shell.css`,
+  `detail.css`; `package.json` (ein weiterer Aufruf in `validate:data`).
+- **Umfang:** Galerie, Heute, Evolution und Detailansicht stellen Werke im
+  Schema 3 über `ArtDispatch` dar; Kacheln bleiben statisch. Vier
+  Testsammlungen im Auswahlfeld: EP-01 nachvollziehbar (10), frei (10),
+  Übergang (14, gemischt aus Schema 2 und 3) und Umwandlungen (6).
+  Aufklappbarer Abschnitt „Rahmenbedingungen“ aus dem Snapshot samt
+  Ähnlichkeitsprüfung; alte Werke zeigen Modus, Revision und „in dieser
+  Version nicht gespeichert“. Herkunft mit Form und Ebene je Beleg, eigener
+  Liste der Umwandlungen und Hinweis bei Eltern im Schema 2. Gespeicherte
+  Werkbeschreibung und Liste „Aufbau“ nur bei Schema 3.
+- **Betreiberentscheidungen zu P6:** Bauplan mit allen sechs Empfehlungen
+  freigegeben; Ansichten abgenommen; der Titelumbruch langer Wörter in der
+  Detailansicht wird behoben (Auftrag aus der Sichtung).
+- **Titel in der Detailansicht:** Die Schriftgröße richtet sich nach dem
+  längsten Wort. Das wirkt auch auf offizielle Werke mit Wörtern ab etwa elf
+  Buchstaben (bei 1280 px: 11.11. von 90 auf 86 px, 07.11. von 90 auf 72 px).
+  Kunstfläche und Referenzbilder sind unberührt.
+- **Prüfungen lokal am 11.11.2026:** `npm run check` erfolgreich mit
+  **385 Tests** (366 + 19); Datenprüfung mit acht Werken, alle Fixtures
+  reproduziert. `CI=true npm run test:browser` gegen den frischen Build:
+  **152 bestanden** (138 + 14), sechs bestehende Skips; Archiv-Baseline
+  grün, kein bestehendes Referenzbild verändert. Nach den Doku-Nachträgen
+  wurde nur `npm run check` wiederholt.
+- **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast auf einem
+  Mobilgerät (P7); Live-Website; `npm run worker:test-runtime` (Worker
+  unberührt).
+- **Grenzen:** siehe Bericht; insbesondere rechnet der Leser im Browser
+  Kontextdigest und Abstand nicht nach (das tut die Datenprüfung), der
+  Tageslauf liest weiter mit `readWorks` und lehnt Schema 3 ab (Umstellung
+  in P7), und die Übergangssammlung besteht `readArchive` nicht, weil ihr
+  gespeicherter Kontext nur die zwei alten Eltern kennt.
+- **Unverändert:** Generator 0.2.0 und 0.3.0, Titelgenerator, `ArtV1`,
+  `ArtRenderer.tsx`, Renderer 2, `artwork.ts`, `artwork-v3.ts`,
+  `src/automation/plan.ts`, Konfiguration, Worker, Workflows, Archivdateien,
+  Archiv-Baseline, `fixtures/preview/phase-*.json`, `ep01-origins.json`,
+  `ep01-chains.json`, bestehende Browserreferenzen, Lockfile. Keine neue
+  Abhängigkeit.
+
+Als Nächstes: Veröffentlichung von P6 nach Betreiberfreigabe (vorher Fetch
+und Rebase auf den Archivcommit des Tageslaufs), dann P7 „Kunstabnahme und
+Aktivierung“ auf ausdrücklichen Auftrag in einer neuen Sitzung; unabhängig
+davon den Lauf für **Werkdatum 14.11.2026** belegen.
+[Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 11.11.2026, EP-01 P5 „Vielfalt und Extremprofile“ umgesetzt, gesichtet und veröffentlicht
 
 Der Betreiber hat P5 am 11.11.2026 beauftragt. Sichtung vor Beginn (18:34
 Berlin): lokal und Remote synchron auf `b6f0b05` (Korrektur des
