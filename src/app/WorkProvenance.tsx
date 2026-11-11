@@ -1,4 +1,5 @@
-import type { Artwork, InheritanceDecision } from '../art/schema/artwork';
+import type { AnyArtwork } from '../art/schema/artwork-v3';
+import { WorkProvenanceV3 } from './WorkProvenanceV3';
 const percent = (value: string | number) =>
   (Number(value) * 100).toLocaleString('de-DE', { maximumFractionDigits: 4 });
 const labels: Record<string, string> = {
@@ -18,7 +19,12 @@ const traitValue = (value: string | number, path: string) =>
     : field(path) === 'rotation'
       ? `${value}°`
       : `${percent(value)} %`;
-function TraitPreview({ decision }: { decision: InheritanceDecision }) {
+/** Small preview of a proven trait. Shared with the schema 3 view. */
+export function TraitPreview({
+  decision,
+}: {
+  decision: { target: { path: string; value: string | number } };
+}) {
   const trait = field(decision.target.path);
   const value = decision.target.value;
   if (
@@ -58,11 +64,18 @@ function TraitPreview({ decision }: { decision: InheritanceDecision }) {
 }
 export function WorkProvenance({
   work,
+  parents,
   decorated = false,
 }: {
-  work: Artwork;
+  work: AnyArtwork;
+  /** Loaded parents; schema 3 works use them to explain older parents. */
+  parents?: readonly AnyArtwork[];
   decorated?: boolean;
 }) {
+  if (work.schemaVersion === 3)
+    return (
+      <WorkProvenanceV3 work={work} parents={parents} decorated={decorated} />
+    );
   const value = (raw: string | number, path: string) =>
     decorated ? (
       <span className="proof-value">{traitValue(raw, path)}</span>

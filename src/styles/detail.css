@@ -30,7 +30,11 @@
   background: var(--paper-raised);
 }
 .work-detail .work-title {
-  font-size: clamp(52px, 7vw, 90px);
+  /* The longest word must fit the column: about 0.52em per capital. */
+  font-size: min(
+    clamp(52px, 7vw, 90px),
+    calc(100cqi / (var(--title-longest, 8) * 0.52))
+  );
   line-height: 0.92;
   hyphens: auto;
   hyphenate-limit-chars: 8 4 4;
@@ -269,7 +273,10 @@
 }
 @media (min-width: 390px) {
   .work-detail .work-title {
-    font-size: clamp(60px, 7vw, 90px);
+    font-size: min(
+      clamp(60px, 7vw, 90px),
+      calc(100cqi / (var(--title-longest, 8) * 0.52))
+    );
   }
 }
 @media (min-width: 1000px) {
@@ -283,4 +290,44 @@
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: clamp(32px, 4vw, 64px);
   }
+}
+
+/* EP-01 P6: the frame conditions follow the work data in the same style. */
+.work-detail > .work-conditions {
+  border-top: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.work-detail > .work-conditions > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 56px;
+  list-style: none;
+  font-size: 19px;
+  font-weight: 700;
+}
+.work-detail > .work-conditions > summary::-webkit-details-marker {
+  display: none;
+}
+.work-detail > .work-conditions > summary::after {
+  content: '+';
+  font: 400 22px/1 var(--font-mono);
+}
+.work-detail > .work-conditions[open] > summary::after {
+  content: '−';
+}
+.work-detail > .work-conditions > dl {
+  gap: 24px;
+  padding-block: var(--space-4) var(--space-8);
+}
+.work-detail > .work-conditions dd,
+.work-detail > .work-conditions p {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Lets the detail title measure its own column (cqi above). */
+.work-detail .detail-story {
+  container-type: inline-size;
 }

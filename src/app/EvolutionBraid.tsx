@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import type { Artwork } from '../art/schema/artwork';
+import type { AnyArtwork } from '../art/schema/artwork-v3';
 import type { ArchiveReader } from '../archive/reader';
 import { collectionLink } from '../archive/reader';
-import { ArtRenderer } from '../art/renderer/ArtRenderer';
+import { ArtDispatch } from '../art/renderer/ArtDispatch';
 
 /** A view of the already validated context, not a new ancestry calculation. */
 export function EvolutionBraid({
@@ -12,8 +12,8 @@ export function EvolutionBraid({
   parents,
 }: {
   reader: ArchiveReader;
-  work: Artwork;
-  parents: Artwork[];
+  work: AnyArtwork;
+  parents: AnyArtwork[];
 }) {
   const nodes = [work, ...parents].toSorted(
     (a, b) => b.generation - a.generation,
@@ -84,7 +84,7 @@ export function EvolutionBraid({
                     aria-current={selected ? 'true' : undefined}
                   >
                     <span className="lineage-preview" aria-hidden="true">
-                      <ArtRenderer source={node} />
+                      <ArtDispatch source={node} />
                     </span>
                     <span className="lineage-label">
                       <span className="lineage-generation">

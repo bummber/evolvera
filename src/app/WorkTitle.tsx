@@ -1,14 +1,14 @@
-import type { ReactNode } from 'react';
-import type { Artwork } from '../art/schema/artwork';
+import type { CSSProperties, ReactNode } from 'react';
+import type { AnyArtwork } from '../art/schema/artwork-v3';
 
-export function WorkTitle({ work }: { work: Artwork }) {
+export function WorkTitle({ work }: { work: AnyArtwork }) {
   const fragments =
-    work.schemaVersion === 2
-      ? work.titleDna.parentFragments.flatMap(({ parentId, fragment }) => {
+    work.schemaVersion === 1
+      ? []
+      : work.titleDna.parentFragments.flatMap(({ parentId, fragment }) => {
           const parent = work.parentIds.indexOf(parentId);
           return parent === 0 || parent === 1 ? [{ fragment, parent }] : [];
-        })
-      : [];
+        });
   // Stored fragments have no offsets. Only underline unique, non-overlapping
   // occurrences; keep every recorded attribution in the legend below.
   const candidates = fragments.flatMap(({ fragment, parent }) => {
@@ -53,9 +53,19 @@ export function WorkTitle({ work }: { work: Artwork }) {
     cursor = range.end;
   }
   title.push(work.title.slice(cursor));
+  // Longest word in characters: the detail view sizes the title so that
+  // this word fits its column instead of breaking inside the word.
+  const longest = Math.max(
+    ...work.title.split(/[\s/]+/).map((word) => [...word].length),
+  );
   return (
     <>
-      <h1 className="work-title">{title}</h1>
+      <h1
+        className="work-title"
+        style={{ '--title-longest': longest } as CSSProperties}
+      >
+        {title}
+      </h1>
       {fragments.length > 0 && (
         <ul className="title-dna-legend" aria-label="Titelherkunft" role="list">
           {fragments.map(({ fragment, parent }, index) => (

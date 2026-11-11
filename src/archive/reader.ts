@@ -1,21 +1,37 @@
 import { cycleDate } from '../series/calendar';
-import { artworkSchema, validateArtwork } from '../art/schema/artwork';
+import { validateArtwork } from '../art/schema/artwork';
 import type { Artwork } from '../art/schema/artwork';
+import { anyArtworkSchema } from '../art/schema/artwork-v3';
+import type { AnyArtwork } from '../art/schema/artwork-v3';
 import { validateEvolution } from '../art/generator/provenance';
 import { workDateSchema } from '../art/schema/config';
 import { archiveIndexSchema, dataPath, loadArchiveIndex } from './index';
 import type { ArchiveIndex } from './index';
 
-export type CollectionKey = 'official' | 'traceable' | 'free';
+// EP-01 P6: preview collections of generator 0.3.0 next to the two reviewed
+// test collections. `ep01-transition` mixes schema 2 and schema 3.
+export const ep01Collections = [
+  'ep01-traceable',
+  'ep01-free',
+  'ep01-transition',
+  'ep01-constraints',
+] as const;
+export type Ep01Collection = (typeof ep01Collections)[number];
+export type CollectionKey = 'official' | 'traceable' | 'free' | Ep01Collection;
+const previewKeys: readonly string[] = [
+  'traceable',
+  'free',
+  ...ep01Collections,
+];
 export type ArchiveReader = {
   key: CollectionKey;
   index: ArchiveIndex;
-  read: (id: string, signal?: AbortSignal) => Promise<Artwork>;
+  read: (id: string, signal?: AbortSignal) => Promise<AnyArtwork>;
 };
 export function collectionKey(search: URLSearchParams): CollectionKey | null {
   const values = search.getAll('sammlung');
   if (values.length === 0) return 'official';
-  return values.length === 1 && ['traceable', 'free'].includes(values[0]!)
+  return values.length === 1 && previewKeys.includes(values[0]!)
     ? (values[0] as CollectionKey)
     : null;
 }
@@ -53,7 +69,7 @@ export function createReader(
   const generations = new Map(
     index.works.map((row) => [row.generation, row.id]),
   );
-  const cache = new Map<string, Artwork>();
+  const cache = new Map<string, AnyArtwork>();
   return {
     key,
     index,
@@ -63,7 +79,7 @@ export function createReader(
       const row = rows.get(id);
       if (!row) throw new Error('Werk ist nicht im Index verzeichnet.');
       if (cache.has(id)) return cache.get(id)!;
-      const work = artworkSchema.parse(await load(id, signal));
+      const work = anyArtworkSchema.parse(await load(id, signal));
       signal?.throwIfAborted();
       const expectedParents =
         work.generation < 3
@@ -91,10 +107,15 @@ export async function openCollection(
   key: CollectionKey,
   signal?: AbortSignal,
 ): Promise<ArchiveReader> {
-  if (key !== 'official') {
+  if (key === 'traceable' || key === 'free') {
     const { previewReader } = await import('../preview/review');
     signal?.throwIfAborted();
     return previewReader(key);
+  }
+  if (key !== 'official') {
+    const { ep01Reader } = await import('../preview/ep01');
+    signal?.throwIfAborted();
+    return ep01Reader(key);
   }
   return createReader(
     key,
@@ -119,8 +140,25 @@ export async function loadWorkContext(
   const parents = await Promise.all(
     work.parentIds.map((parent) => reader.read(parent, signal)),
   );
-  if (work.schemaVersion === 2) validateEvolution(work, parents);
-  else validateArtwork(work, parents);
+  if (work.schemaVersion === 3) {
+    // Loaded on demand: the official archive holds no schema 3 work yet.
+    // Without the history context the digest and distance of the similarity
+    // window are not recomputed here; the data validation does that.
+    const { validateEvolutionV3 } =
+      await import('../art/generator/v3/provenance');
+    signal?.throwIfAborted();
+    validateEvolutionV3(work, parents);
+  } else {
+    const legacy = parents.filter(
+      (parent): parent is Artwork => parent.schemaVersion !== 3,
+    );
+    if (legacy.length !== parents.length)
+      throw new Error(
+        'Ein älteres Werk kann kein Elternwerk im Schema 3 haben.',
+      );
+    if (work.schemaVersion === 2) validateEvolution(work, legacy);
+    else validateArtwork(work, legacy);
+  }
   const candidates = reader.index.works
     .filter(
       (row) =>

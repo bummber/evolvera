@@ -6,6 +6,7 @@ import {
   berlinCycleDate,
   collectionKey,
   collectionLink,
+  ep01Collections,
   loadWorkContext,
   openCollection,
   pageOf,
@@ -16,12 +17,14 @@ import type {
   WorkContext,
 } from '../archive/reader';
 import type { ArchiveIndex } from '../archive';
-import type { Artwork } from '../art/schema/artwork';
+import type { AnyArtwork } from '../art/schema/artwork-v3';
 import { modeLabels, workDateSchema } from '../art/schema/config';
 import { initialSettings } from '../operator/settings';
-import { ArtRenderer } from '../art/renderer/ArtRenderer';
+import { ArtDispatch } from '../art/renderer/ArtDispatch';
 import { ArtStage } from '../art/renderer/ArtStage';
 import { WorkProvenance } from './WorkProvenance';
+import { WorkConditions } from './WorkConditions';
+import { WorkComposition } from './WorkComposition';
 import { StageFrame } from './StageFrame';
 import { WorkTitle } from './WorkTitle';
 import { EvolutionBraid } from './EvolutionBraid';
@@ -101,6 +104,32 @@ function Failure({ work = false }: { work?: boolean }) {
     </div>
   );
 }
+// EP-01 P6: preview collections of generator 0.3.0. Texts per collection;
+// the two reviewed test collections keep their wording.
+const ep01Info: Partial<
+  Record<CollectionKey, { option: string; count: number; eyebrow: string }>
+> = {
+  'ep01-traceable': {
+    option: 'EP-01 · Nachvollziehbare Vererbung',
+    count: 10,
+    eyebrow: 'Eine Probekette · zehn Generationen',
+  },
+  'ep01-free': {
+    option: 'EP-01 · Maximale Freiheit',
+    count: 10,
+    eyebrow: 'Eine Probekette · zehn Generationen',
+  },
+  'ep01-transition': {
+    option: 'EP-01 · Übergang von alten Elternwerken',
+    count: 14,
+    eyebrow: 'Eine gemischte Probekette · vierzehn Generationen',
+  },
+  'ep01-constraints': {
+    option: 'EP-01 · Umwandlungen durch Rahmenbedingungen',
+    count: 6,
+    eyebrow: 'Eine Probekette · sechs Generationen',
+  },
+};
 function CollectionBar({ source }: { source: CollectionKey }) {
   const [search, setSearch] = useSearchParams();
   return (
@@ -127,6 +156,11 @@ function CollectionBar({ source }: { source: CollectionKey }) {
           <option value="official">Offizielles Archiv</option>
           <option value="traceable">Test · Nachvollziehbare Vererbung</option>
           <option value="free">Test · Maximale Freiheit</option>
+          {ep01Collections.map((key) => (
+            <option key={key} value={key}>
+              {ep01Info[key]!.option}
+            </option>
+          ))}
         </select>
       </div>
       <p>
@@ -134,7 +168,9 @@ function CollectionBar({ source }: { source: CollectionKey }) {
           ? initialSettings.generationEnabled
             ? 'Gespeicherte Werke der offiziellen Serie.'
             : 'Die offizielle Serie hat noch nicht begonnen.'
-          : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
+          : ep01Info[source]
+            ? `Probekette von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Keine offizielle Serie und keine Kunstabnahme. Die Auswahl ändert keine Einstellung.`
+            : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
       </p>
       <Link to="/kunstpruefung">Zur gemeinsamen Kunstsichtung ↗</Link>
     </section>
@@ -391,7 +427,8 @@ function Gallery({ reader }: { reader: ArchiveReader }) {
             eyebrow={
               reader.key === 'official'
                 ? 'Das bleibende Gedächtnis'
-                : 'Eine Testsammlung · zwanzig Generationen'
+                : (ep01Info[reader.key]?.eyebrow ??
+                  'Eine Testsammlung · zwanzig Generationen')
             }
           />
         </div>
@@ -515,7 +552,7 @@ function WorkCard({
       >
         <div className="card-art">
           {state.status === 'ready' ? (
-            <ArtRenderer source={state.value} />
+            <ArtDispatch source={state.value} />
           ) : (
             <div
               className="card-placeholder"
@@ -675,10 +712,10 @@ function Related({
 }: {
   reader: ArchiveReader;
   title: string;
-  works: Artwork[];
+  works: AnyArtwork[];
   empty: string;
-  child?: Artwork;
-  parentOrder?: Artwork;
+  child?: AnyArtwork;
+  parentOrder?: AnyArtwork;
 }) {
   return (
     <section
@@ -695,7 +732,7 @@ function Related({
               to={collectionLink(`/werk/${work.id}`, reader.key)}
               aria-label={`Generation ${work.generation}: ${work.title}`}
             >
-              <ArtRenderer source={work} />
+              <ArtDispatch source={work} />
               <span>
                 {(child || parentOrder) && (
                   <>
@@ -724,7 +761,7 @@ function Related({
           <div className="parent-bracket" aria-hidden="true" />
           <p className="diagram-child">
             <span className="diagram-child-art" aria-hidden="true">
-              <ArtRenderer source={child} />
+              <ArtDispatch source={child} />
             </span>
             <span>Dieses Werk · Generation {child.generation}</span>
           </p>
@@ -863,8 +900,12 @@ function WorkPresentation({
   );
   const information = (
     <aside className="work-information">
-      <WorkProvenance work={work} />
-      {metadata}
+      {work.schemaVersion === 3 && <WorkComposition work={work} />}
+      <WorkProvenance work={work} parents={parents} />
+      <div className="work-records">
+        {metadata}
+        <WorkConditions work={work} />
+      </div>
     </aside>
   );
   const stage = <ArtStage key={`${reader.key}:${work.id}`} source={work} />;
@@ -884,6 +925,7 @@ function WorkPresentation({
           <div className="work-layout detail-hero">
             <div className="detail-story">
               {heading}
+              {work.schemaVersion === 3 && <WorkComposition work={work} />}
               {actions}
             </div>
             <div className="detail-stage">
@@ -899,10 +941,11 @@ function WorkPresentation({
               empty="Ursprungswerk – unabhängig generiert, ohne Elternwerke."
             />
             <aside className="work-information">
-              <WorkProvenance work={work} decorated />
+              <WorkProvenance work={work} parents={parents} decorated />
             </aside>
           </div>
           {metadata}
+          <WorkConditions work={work} />
         </section>
       ) : todayLabel ? (
         <section className="today-work">
@@ -1012,10 +1055,16 @@ function WorkPresentation({
       {todayLabel && !initialSettings.generationEnabled && <SeriesInfo />}
       {reader.key !== 'official' && (
         <p className="atelier-notice">
-          Testwerk aus einer getrennten Zwanzigerkette. Die Daten sind
-          simuliert. Die 40 Testwerke sind abgenommen.
-          {!initialSettings.seriesStartDate &&
-            ' Die offizielle Serie ist noch nicht gestartet.'}
+          {ep01Info[reader.key] ? (
+            'Probewerk von Generator 0.3.0 aus einer getrennten Probekette. Die Daten sind simuliert. Keine Kunstabnahme; nicht Teil des offiziellen Archivs.'
+          ) : (
+            <>
+              Testwerk aus einer getrennten Zwanzigerkette. Die Daten sind
+              simuliert. Die 40 Testwerke sind abgenommen.
+              {!initialSettings.seriesStartDate &&
+                ' Die offizielle Serie ist noch nicht gestartet.'}
+            </>
+          )}
         </p>
       )}
     </>
