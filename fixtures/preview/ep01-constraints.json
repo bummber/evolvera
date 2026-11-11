@@ -1,0 +1,4329 @@
+{
+  "schemaVersion": 1,
+  "purpose": "ep01-constraints-preview-only",
+  "chain": {
+    "schemaVersion": 1,
+    "kind": "evolution-preview-v3",
+    "key": "constraints",
+    "inheritanceMode": "traceable",
+    "simulationStart": "2000-01-01",
+    "legacyParents": [],
+    "works": [
+      {
+        "schemaVersion": 3,
+        "generatorVersion": "0.3.0",
+        "rendererVersion": "2",
+        "lexiconVersion": "0.2.0",
+        "id": "2000-01-01",
+        "generation": 1,
+        "title": "Nebelschweif",
+        "description": "Nebelschweif: 30 Elemente in 2 Ebenen: Struktur chaotische Überlagerung, Akzent Mosaik. Palette neu. Statisch.",
+        "timezone": "Europe/Berlin",
+        "scheduledFor": "2000-01-01T04:00:00+01:00",
+        "generatedAt": "2000-01-01T03:00:02.000Z",
+        "runStartedAt": "2000-01-01T03:00:01.000Z",
+        "isCatchUp": false,
+        "seed": "evolvera:ep01:rules:1:settings-9ca4930e70266d1a01a0bf217253487380ecf5cf22bc707eb8f8ab2fa6abff29",
+        "inheritanceMode": "traceable",
+        "settingsRevision": 1,
+        "settings": {
+          "inheritanceMode": "traceable",
+          "variation": { "mutationStrength": "medium", "noveltyWindow": 7 },
+          "features": {
+            "gradients": "normal",
+            "patterns": "normal",
+            "masks": "rare",
+            "blendModes": "rare",
+            "blurShadow": "rare",
+            "lines": "normal",
+            "curves": "rare",
+            "generativeShapes": "rare",
+            "animation": "normal"
+          },
+          "palette": {
+            "strategies": ["harmonic", "complementary", "monochrome", "free"],
+            "contrast": "varied"
+          },
+          "families": {
+            "geometric": true,
+            "color-field": true,
+            "mosaic": true,
+            "organic": true,
+            "generative": true,
+            "chaotic": true
+          },
+          "composition": {
+            "maxLayers": 3,
+            "symmetry": "normal",
+            "density": "varied"
+          },
+          "motion": { "intensity": "varied" },
+          "experimental": { "mutationJumps": false }
+        },
+        "novelty": {
+          "distanceVersion": 1,
+          "contextDigest": "e01bf6c6fa22f3b0fd0fcf7ef295d5d28eec217fa8f7a9267c3eb0c4400c8a6f",
+          "distance": null,
+          "minimumReached": true
+        },
+        "parentIds": [],
+        "dna": {
+          "background": "#005a4b",
+          "layers": {
+            "structure": { "family": "chaotic" },
+            "accent": { "family": "mosaic" }
+          },
+          "elements": [
+            {
+              "kind": "ring",
+              "layer": "structure",
+              "x": 0.278062,
+              "y": 0.035749,
+              "width": 0.057013,
+              "height": 0.057013,
+              "rotation": 112,
+              "opacity": 0.700571,
+              "fill": { "kind": "solid", "color": "#75742b" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "strokeWidth": 0.008321 }
+            },
+            {
+              "kind": "ring",
+              "layer": "structure",
+              "x": 0.882426,
+              "y": 0.566349,
+              "width": 0.066232,
+              "height": 0.066232,
+              "rotation": 35,
+              "opacity": 0.407649,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "strokeWidth": 0.010752 }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.112493,
+              "y": 0.578137,
+              "width": 0.187946,
+              "height": 0.187946,
+              "rotation": -5,
+              "opacity": 0.586346,
+              "fill": {
+                "kind": "linear",
+                "angle": 288,
+                "stops": [
+                  { "color": "#00626d", "offset": 0 },
+                  { "color": "#00bbbc", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.11459,
+              "y": 0.371824,
+              "width": 0.074625,
+              "height": 0.111232,
+              "rotation": 121,
+              "opacity": 0.552181,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.293716,
+              "y": 0.301934,
+              "width": 0.280313,
+              "height": 0.274295,
+              "rotation": 170,
+              "opacity": 0.797986,
+              "fill": {
+                "kind": "conic",
+                "angle": 164,
+                "centerX": 0.641054,
+                "centerY": 0.592225,
+                "stops": [
+                  { "color": "#ffa189", "offset": 0 },
+                  { "color": "#00626d", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.507392,
+              "y": 0.399423,
+              "width": 0.206465,
+              "height": 0.209179,
+              "rotation": -73,
+              "opacity": 0.541551,
+              "fill": {
+                "kind": "linear",
+                "angle": 285,
+                "stops": [
+                  { "color": "#75742b", "offset": 0 },
+                  { "color": "#ebedff", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.550817,
+              "y": 0.461957,
+              "width": 0.129398,
+              "height": 0.129398,
+              "rotation": 178,
+              "opacity": 0.887292,
+              "fill": {
+                "kind": "conic",
+                "angle": 226,
+                "centerX": 0.721628,
+                "centerY": 0.708338,
+                "stops": [
+                  { "color": "#00626d", "offset": 0 },
+                  { "color": "#00bbbc", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "arc",
+              "layer": "structure",
+              "x": 0.534596,
+              "y": 0.626151,
+              "width": 0.051843,
+              "height": 0.051843,
+              "rotation": 161,
+              "opacity": 0.894058,
+              "fill": {
+                "kind": "pattern",
+                "pattern": "checker",
+                "angle": 0,
+                "period": 0.080151,
+                "foreground": "#ffa189",
+                "background": "#00bbbc"
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 135, "sweep": 90, "strokeWidth": 0.008 }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.422439,
+              "y": 0.04072,
+              "width": 0.127752,
+              "height": 0.127752,
+              "rotation": 81,
+              "opacity": 0.774219,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.75597,
+              "y": 0.607938,
+              "width": 0.24403,
+              "height": 0.260627,
+              "rotation": -30,
+              "opacity": 0.717221,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.130484,
+              "y": 0.528529,
+              "width": 0.323395,
+              "height": 0.398696,
+              "rotation": 19,
+              "opacity": 0.401453,
+              "fill": {
+                "kind": "conic",
+                "angle": 349,
+                "centerX": 0.630943,
+                "centerY": 0.798196,
+                "stops": [
+                  { "color": "#ebedff", "offset": 0 },
+                  { "color": "#00bbbc", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.451887,
+              "y": 0.652301,
+              "width": 0.127323,
+              "height": 0.084613,
+              "rotation": -97,
+              "opacity": 0.495916,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.656608, 0.343392, 0.662338, 0.337662, 0.490595, 0.399302,
+                  0.600698, 0.509405
+                ]
+              }
+            },
+            {
+              "kind": "arc",
+              "layer": "structure",
+              "x": 0.714937,
+              "y": 0.637514,
+              "width": 0.285063,
+              "height": 0.285063,
+              "rotation": 25,
+              "opacity": 0.405216,
+              "fill": {
+                "kind": "conic",
+                "angle": 134,
+                "centerX": 0.39628,
+                "centerY": 0.675744,
+                "stops": [
+                  { "color": "#ffa189", "offset": 0 },
+                  { "color": "#00626d", "offset": 0.5 },
+                  { "color": "#00bbbc", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 270, "sweep": 135, "strokeWidth": 0.055715 }
+            },
+            {
+              "kind": "arc",
+              "layer": "structure",
+              "x": 0.858864,
+              "y": 0.388374,
+              "width": 0.068687,
+              "height": 0.068687,
+              "rotation": -106,
+              "opacity": 0.354912,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 315, "sweep": 180, "strokeWidth": 0.020263 }
+            },
+            {
+              "kind": "ring",
+              "layer": "structure",
+              "x": 0.395907,
+              "y": 0.03374,
+              "width": 0.212844,
+              "height": 0.212844,
+              "rotation": -77,
+              "opacity": 0.373203,
+              "fill": {
+                "kind": "conic",
+                "angle": 293,
+                "centerX": 0.738759,
+                "centerY": 0.737267,
+                "stops": [
+                  { "color": "#ebedff", "offset": 0 },
+                  { "color": "#00626d", "offset": 0.5 },
+                  { "color": "#00626d", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "strokeWidth": 0.032626 }
+            },
+            {
+              "kind": "arc",
+              "layer": "structure",
+              "x": 0.110922,
+              "y": 0.277401,
+              "width": 0.513131,
+              "height": 0.513131,
+              "rotation": 172,
+              "opacity": 0.701874,
+              "fill": {
+                "kind": "linear",
+                "angle": 185,
+                "stops": [
+                  { "color": "#00bbbc", "offset": 0 },
+                  { "color": "#75742b", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 315, "sweep": 135, "strokeWidth": 0.116204 }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.196736,
+              "y": 0.5765,
+              "width": 0.052044,
+              "height": 0.052044,
+              "rotation": 172,
+              "opacity": 0.577613,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.758548,
+                "centerY": 0.776491,
+                "stops": [
+                  { "color": "#ffa189", "offset": 0 },
+                  { "color": "#ebedff", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.253392,
+              "y": 0.504129,
+              "width": 0.272476,
+              "height": 0.319953,
+              "rotation": 150,
+              "opacity": 0.527212,
+              "fill": {
+                "kind": "pattern",
+                "pattern": "rings",
+                "angle": 0,
+                "period": 0.089647,
+                "foreground": "#00bbbc",
+                "background": "#00626d"
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.086,
+              "y": 0.107,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": {
+                "kind": "conic",
+                "angle": 15,
+                "centerX": 0.540766,
+                "centerY": 0.607127,
+                "stops": [
+                  { "color": "#00bbbc", "offset": 0 },
+                  { "color": "#ebedff", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 315, "sweep": 180, "strokeWidth": 0.042417 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.422,
+              "y": 0.107,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 180, "sweep": 270, "strokeWidth": 0.022316 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.59,
+              "y": 0.107,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 225, "sweep": 90, "strokeWidth": 0.038256 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.086,
+              "y": 0.317,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.288274,
+                "centerY": 0.685112,
+                "stops": [
+                  { "color": "#ffa189", "offset": 0 },
+                  { "color": "#00bbbc", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 0, "sweep": 270, "strokeWidth": 0.035924 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.254,
+              "y": 0.317,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": {
+                "kind": "conic",
+                "angle": 309,
+                "centerX": 0.266033,
+                "centerY": 0.708883,
+                "stops": [
+                  { "color": "#00bbbc", "offset": 0 },
+                  { "color": "#00626d", "offset": 0.5 },
+                  { "color": "#75742b", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 135, "sweep": 180, "strokeWidth": 0.028162 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.422,
+              "y": 0.317,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": {
+                "kind": "pattern",
+                "pattern": "checker",
+                "angle": 0,
+                "period": 0.038791,
+                "foreground": "#ebedff",
+                "background": "#00626d"
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 270, "sweep": 90, "strokeWidth": 0.042032 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.422,
+              "y": 0.527,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": {
+                "kind": "conic",
+                "angle": 87,
+                "centerX": 0.567603,
+                "centerY": 0.454498,
+                "stops": [
+                  { "color": "#00bbbc", "offset": 0 },
+                  { "color": "#ffa189", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 135, "sweep": 135, "strokeWidth": 0.037056 }
+            },
+            {
+              "kind": "arc",
+              "layer": "accent",
+              "x": 0.086,
+              "y": 0.737,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.444015,
+                "centerY": 0.711007,
+                "stops": [
+                  { "color": "#ffa189", "offset": 0 },
+                  { "color": "#00626d", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "start": 90, "sweep": 270, "strokeWidth": 0.044948 }
+            },
+            {
+              "kind": "path",
+              "layer": "accent",
+              "x": 0,
+              "y": 0.372509,
+              "width": 0.750127,
+              "height": 0.417428,
+              "rotation": -19,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "commands": [
+                  { "op": "M", "x": 0, "y": 0.327037 },
+                  {
+                    "op": "C",
+                    "c1x": 0.397712,
+                    "c1y": 0.113637,
+                    "c2x": 0.763218,
+                    "c2y": 0.775196,
+                    "x": 1,
+                    "y": 0.39831
+                  }
+                ],
+                "closed": false,
+                "strokeWidth": 0.028973
+              }
+            },
+            {
+              "kind": "path",
+              "layer": "accent",
+              "x": 0.109399,
+              "y": 0.422828,
+              "width": 0.452618,
+              "height": 0.316791,
+              "rotation": 12,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "commands": [
+                  { "op": "M", "x": 0, "y": 0.796289 },
+                  {
+                    "op": "C",
+                    "c1x": 0.219837,
+                    "c1y": 0.87585,
+                    "c2x": 0.669087,
+                    "c2y": 0.638615,
+                    "x": 1,
+                    "y": 0.170366
+                  }
+                ],
+                "closed": false,
+                "strokeWidth": 0.019393
+              }
+            },
+            {
+              "kind": "path",
+              "layer": "accent",
+              "x": 0,
+              "y": 0.424024,
+              "width": 0.713797,
+              "height": 0.314399,
+              "rotation": -5,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "commands": [
+                  { "op": "M", "x": 0, "y": 0.141779 },
+                  {
+                    "op": "C",
+                    "c1x": 0.203222,
+                    "c1y": 0.428374,
+                    "c2x": 0.638102,
+                    "c2y": 0.66458,
+                    "x": 1,
+                    "y": 0.724405
+                  }
+                ],
+                "closed": false,
+                "strokeWidth": 0.016685
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "accent",
+              "x": 0.76,
+              "y": 0.04,
+              "width": 0.2,
+              "height": 0.2,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            }
+          ]
+        },
+        "titleDna": {
+          "tokens": ["Nebel", "schweif"],
+          "pattern": "compound",
+          "parentFragments": []
+        },
+        "evolution": {
+          "type": "origin",
+          "evaluatedParentIds": [],
+          "decisions": [],
+          "recipe": {
+            "retry": 0,
+            "palette": "new",
+            "layers": { "structure": "new", "accent": "new" },
+            "mutationJump": false,
+            "features": {
+              "gradients": true,
+              "patterns": true,
+              "masks": false,
+              "blendModes": false,
+              "blurShadow": false,
+              "lines": false,
+              "curves": true,
+              "generativeShapes": false,
+              "animation": false,
+              "symmetry": false
+            },
+            "anchor": "added"
+          }
+        }
+      },
+      {
+        "schemaVersion": 3,
+        "generatorVersion": "0.3.0",
+        "rendererVersion": "2",
+        "lexiconVersion": "0.2.0",
+        "id": "2000-01-02",
+        "generation": 2,
+        "title": "Traumbogen",
+        "description": "Traumbogen: 20 Elemente in einer Ebene: Struktur organische Formen. Palette neu. Statisch.",
+        "timezone": "Europe/Berlin",
+        "scheduledFor": "2000-01-02T04:00:00+01:00",
+        "generatedAt": "2000-01-02T03:00:02.000Z",
+        "runStartedAt": "2000-01-02T03:00:01.000Z",
+        "isCatchUp": false,
+        "seed": "evolvera:ep01:rules:2:settings-9ca4930e70266d1a01a0bf217253487380ecf5cf22bc707eb8f8ab2fa6abff29",
+        "inheritanceMode": "traceable",
+        "settingsRevision": 1,
+        "settings": {
+          "inheritanceMode": "traceable",
+          "variation": { "mutationStrength": "medium", "noveltyWindow": 7 },
+          "features": {
+            "gradients": "normal",
+            "patterns": "normal",
+            "masks": "rare",
+            "blendModes": "rare",
+            "blurShadow": "rare",
+            "lines": "normal",
+            "curves": "rare",
+            "generativeShapes": "rare",
+            "animation": "normal"
+          },
+          "palette": {
+            "strategies": ["harmonic", "complementary", "monochrome", "free"],
+            "contrast": "varied"
+          },
+          "families": {
+            "geometric": true,
+            "color-field": true,
+            "mosaic": true,
+            "organic": true,
+            "generative": true,
+            "chaotic": true
+          },
+          "composition": {
+            "maxLayers": 3,
+            "symmetry": "normal",
+            "density": "varied"
+          },
+          "motion": { "intensity": "varied" },
+          "experimental": { "mutationJumps": false }
+        },
+        "novelty": {
+          "distanceVersion": 1,
+          "contextDigest": "a02e941020e8f62515753a41c86f2241836d8c839d39909e74e3f8ad4c854151",
+          "distance": 0.642642,
+          "minimumReached": true
+        },
+        "parentIds": [],
+        "dna": {
+          "background": "#ffdfe1",
+          "layers": { "structure": { "family": "organic" } },
+          "elements": [
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.027259,
+              "y": 0.087673,
+              "width": 0.308516,
+              "height": 0.275273,
+              "rotation": -54,
+              "opacity": 0.818454,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.201503,
+                "centerY": 0.756651,
+                "stops": [
+                  { "color": "#211300", "offset": 0 },
+                  { "color": "#b96e00", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.469952, 0.530048, 0.656813, 0.343187, 0.352566, 0.598622,
+                  0.401378, 0.647434
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.212517,
+              "y": 0.528908,
+              "width": 0.29518,
+              "height": 0.354584,
+              "rotation": 74,
+              "opacity": 0.812235,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.234369,
+                "centerY": 0.487762,
+                "stops": [
+                  { "color": "#551a00", "offset": 0 },
+                  { "color": "#ff9887", "offset": 1 }
+                ]
+              },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.623589, 0.376411, 0.371573, 0.628427, 0.62531, 0.377266,
+                  0.622734, 0.37469
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.018462,
+              "y": 0.533741,
+              "width": 0.301493,
+              "height": 0.227714,
+              "rotation": 65,
+              "opacity": 0.712222,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.581035, 0.418965, 0.413742, 0.586258, 0.6475, 0.682298,
+                  0.317702, 0.3525
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.270616,
+              "y": 0.610858,
+              "width": 0.232992,
+              "height": 0.281048,
+              "rotation": 15,
+              "opacity": 0.833789,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.698383,
+                "centerY": 0.208889,
+                "stops": [
+                  { "color": "#211300", "offset": 0 },
+                  { "color": "#b96e00", "offset": 1 }
+                ]
+              },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.398818, 0.601182, 0.514146, 0.485854, 0.470116, 0.435962,
+                  0.564038, 0.529884
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.116948,
+              "y": 0.594828,
+              "width": 0.401963,
+              "height": 0.405172,
+              "rotation": 47,
+              "opacity": 0.587076,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.743894,
+                "centerY": 0.635357,
+                "stops": [
+                  { "color": "#ff9887", "offset": 0 },
+                  { "color": "#211300", "offset": 1 }
+                ]
+              },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 65,
+                  "from": 0.276369,
+                  "to": 0.729934
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.674713, 0.325287, 0.530414, 0.469586, 0.517993, 0.374574,
+                  0.625426, 0.482007
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.448978,
+              "y": 0.568869,
+              "width": 0.378252,
+              "height": 0.317784,
+              "rotation": -53,
+              "opacity": 0.56649,
+              "fill": {
+                "kind": "linear",
+                "angle": 195,
+                "stops": [
+                  { "color": "#884100", "offset": 0 },
+                  { "color": "#551a00", "offset": 0.5 },
+                  { "color": "#b96e00", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.427361, 0.572639, 0.460008, 0.539992, 0.564024, 0.403768,
+                  0.596232, 0.435976
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.336573,
+              "y": 0.051118,
+              "width": 0.402764,
+              "height": 0.309518,
+              "rotation": 87,
+              "opacity": 0.87234,
+              "fill": {
+                "kind": "radial",
+                "centerX": 0.441774,
+                "centerY": 0.397276,
+                "stops": [
+                  { "color": "#ff9887", "offset": 0 },
+                  { "color": "#551a00", "offset": 1 }
+                ]
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.421402, 0.578598, 0.515916, 0.484084, 0.399202, 0.424283,
+                  0.575717, 0.600798
+                ]
+              }
+            },
+            {
+              "kind": "path",
+              "layer": "structure",
+              "x": 0.383307,
+              "y": 0.342464,
+              "width": 0.391499,
+              "height": 0.355181,
+              "rotation": 35,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#211300" },
+              "effects": { "blend": "overlay" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "commands": [
+                  { "op": "M", "x": 0, "y": 0.394904 },
+                  {
+                    "op": "C",
+                    "c1x": 0.379976,
+                    "c1y": 0.317668,
+                    "c2x": 0.754601,
+                    "c2y": 0.346549,
+                    "x": 1,
+                    "y": 0.722383
+                  }
+                ],
+                "closed": false,
+                "strokeWidth": 0.013411
+              }
+            },
+            {
+              "kind": "path",
+              "layer": "structure",
+              "x": 0.159523,
+              "y": 0.349255,
+              "width": 0.4263,
+              "height": 0.319975,
+              "rotation": 12,
+              "opacity": 1,
+              "fill": {
+                "kind": "pattern",
+                "pattern": "dots",
+                "angle": 0,
+                "period": 0.055669,
+                "foreground": "#ff9887",
+                "background": "#884100"
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "commands": [
+                  { "op": "M", "x": 0, "y": 0.850357 },
+                  {
+                    "op": "C",
+                    "c1x": 0.249482,
+                    "c1y": 0.741751,
+                    "c2x": 0.684916,
+                    "c2y": 0.882819,
+                    "x": 1,
+                    "y": 0.568028
+                  }
+                ],
+                "closed": false,
+                "strokeWidth": 0.019735
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.322327,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.368177,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.414027,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.459878,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.505728,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.551578,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "line",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.597428,
+              "width": 0.719157,
+              "height": 0.010242,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ff9887" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ring",
+              "layer": "structure",
+              "x": 0.175384,
+              "y": 0.500226,
+              "width": 0.236566,
+              "height": 0.236566,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#211300" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "strokeWidth": 0.032026 }
+            },
+            {
+              "kind": "ring",
+              "layer": "structure",
+              "x": 0.122264,
+              "y": 0.542236,
+              "width": 0.288812,
+              "height": 0.288812,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#211300" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "strokeWidth": 0.074651 }
+            },
+            {
+              "kind": "ring",
+              "layer": "structure",
+              "x": 0.248545,
+              "y": 0.235223,
+              "width": 0.148086,
+              "height": 0.148086,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#211300" },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 64,
+                  "from": 0.287107,
+                  "to": 0.63112
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": { "strokeWidth": 0.038073 }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.740755,
+              "y": 0.10675,
+              "width": 0.23849,
+              "height": 0.246501,
+              "rotation": 0,
+              "opacity": 0.821757,
+              "fill": { "kind": "solid", "color": "#211300" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.302241, 0.697759, 0.374028, 0.625972, 0.672387, 0.678496,
+                  0.321504, 0.327613
+                ]
+              }
+            }
+          ]
+        },
+        "titleDna": {
+          "tokens": ["Traum", "bogen"],
+          "pattern": "compound",
+          "parentFragments": []
+        },
+        "evolution": {
+          "type": "origin",
+          "evaluatedParentIds": [],
+          "decisions": [],
+          "recipe": {
+            "retry": 0,
+            "palette": "new",
+            "layers": { "structure": "new" },
+            "mutationJump": false,
+            "features": {
+              "gradients": true,
+              "patterns": true,
+              "masks": true,
+              "blendModes": true,
+              "blurShadow": false,
+              "lines": true,
+              "curves": true,
+              "generativeShapes": false,
+              "animation": false,
+              "symmetry": false
+            },
+            "anchor": "moved"
+          }
+        }
+      },
+      {
+        "schemaVersion": 3,
+        "generatorVersion": "0.3.0",
+        "rendererVersion": "2",
+        "lexiconVersion": "0.2.0",
+        "id": "2000-01-03",
+        "generation": 3,
+        "title": "Traumschweif",
+        "description": "Traumschweif: 37 Elemente in 3 Ebenen: Hintergrund Farbfeld (neu), Struktur organische Formen (vom jüngeren Elternwerk), Akzent Mosaik (vom älteren Elternwerk). Palette vom älteren Elternwerk. Statisch.",
+        "timezone": "Europe/Berlin",
+        "scheduledFor": "2000-01-03T04:00:00+01:00",
+        "generatedAt": "2000-01-03T03:00:02.000Z",
+        "runStartedAt": "2000-01-03T03:00:01.000Z",
+        "isCatchUp": false,
+        "seed": "evolvera:ep01:rules:3:settings-f3a921344f1b2d658286e6f4567a68560a36df61615d01f97f13a8c80e5bb883",
+        "inheritanceMode": "traceable",
+        "settingsRevision": 2,
+        "settings": {
+          "inheritanceMode": "traceable",
+          "variation": { "mutationStrength": "medium", "noveltyWindow": 7 },
+          "features": {
+            "gradients": "off",
+            "patterns": "off",
+            "masks": "rare",
+            "blendModes": "rare",
+            "blurShadow": "rare",
+            "lines": "off",
+            "curves": "off",
+            "generativeShapes": "off",
+            "animation": "normal"
+          },
+          "palette": {
+            "strategies": ["harmonic", "complementary", "monochrome", "free"],
+            "contrast": "varied"
+          },
+          "families": {
+            "geometric": true,
+            "color-field": true,
+            "mosaic": true,
+            "organic": true,
+            "generative": true,
+            "chaotic": true
+          },
+          "composition": {
+            "maxLayers": 3,
+            "symmetry": "normal",
+            "density": "varied"
+          },
+          "motion": { "intensity": "varied" },
+          "experimental": { "mutationJumps": false }
+        },
+        "novelty": {
+          "distanceVersion": 1,
+          "contextDigest": "c2f739d97bf4b5c2ce4f1b76f0732c01f6967ee64a43bf926f35105552a83d7e",
+          "distance": 0.360536,
+          "minimumReached": true
+        },
+        "parentIds": ["2000-01-01", "2000-01-02"],
+        "dna": {
+          "background": "#005a4b",
+          "layers": {
+            "background": { "family": "color-field" },
+            "structure": { "family": "organic" },
+            "accent": { "family": "mosaic" }
+          },
+          "elements": [
+            {
+              "kind": "rectangle",
+              "layer": "background",
+              "x": 0,
+              "y": 0,
+              "width": 1,
+              "height": 0.163477,
+              "rotation": 0,
+              "opacity": 0.724614,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "background",
+              "x": 0,
+              "y": 0.163477,
+              "width": 1,
+              "height": 0.266986,
+              "rotation": 0,
+              "opacity": 0.761106,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "background",
+              "x": 0,
+              "y": 0.430463,
+              "width": 1,
+              "height": 0.227248,
+              "rotation": 0,
+              "opacity": 0.731612,
+              "fill": { "kind": "solid", "color": "#75742b" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "background",
+              "x": 0,
+              "y": 0.657711,
+              "width": 1,
+              "height": 0.166291,
+              "rotation": 0,
+              "opacity": 0.987665,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "background",
+              "x": 0,
+              "y": 0.824002,
+              "width": 1,
+              "height": 0.175998,
+              "rotation": 0,
+              "opacity": 0.834983,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.027259,
+              "y": 0.087673,
+              "width": 0.308516,
+              "height": 0.275273,
+              "rotation": -54,
+              "opacity": 0.818454,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.469952, 0.530048, 0.656813, 0.343187, 0.352566, 0.598622,
+                  0.401378, 0.647434
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.212517,
+              "y": 0.528908,
+              "width": 0.29518,
+              "height": 0.354584,
+              "rotation": 74,
+              "opacity": 0.812235,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.623589, 0.376411, 0.371573, 0.628427, 0.62531, 0.377266,
+                  0.622734, 0.37469
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.018462,
+              "y": 0.533741,
+              "width": 0.301493,
+              "height": 0.227714,
+              "rotation": 65,
+              "opacity": 0.712222,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "effects": { "blur": 0.019248 },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.581035, 0.418965, 0.413742, 0.586258, 0.6475, 0.682298,
+                  0.317702, 0.3525
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.270616,
+              "y": 0.610858,
+              "width": 0.232992,
+              "height": 0.281048,
+              "rotation": 15,
+              "opacity": 0.833789,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.398818, 0.601182, 0.514146, 0.485854, 0.470116, 0.435962,
+                  0.564038, 0.529884
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.116948,
+              "y": 0.594828,
+              "width": 0.401963,
+              "height": 0.405172,
+              "rotation": 47,
+              "opacity": 0.587076,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 65,
+                  "from": 0.276369,
+                  "to": 0.729934
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.674713, 0.325287, 0.530414, 0.469586, 0.517993, 0.374574,
+                  0.625426, 0.482007
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.448978,
+              "y": 0.568869,
+              "width": 0.378252,
+              "height": 0.317784,
+              "rotation": -53,
+              "opacity": 0.56649,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.427361, 0.572639, 0.460008, 0.539992, 0.564024, 0.403768,
+                  0.596232, 0.435976
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.336573,
+              "y": 0.051118,
+              "width": 0.402764,
+              "height": 0.309518,
+              "rotation": 87,
+              "opacity": 0.87234,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.421402, 0.578598, 0.515916, 0.484084, 0.399202, 0.424283,
+                  0.575717, 0.600798
+                ]
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.383307,
+              "y": 0.342464,
+              "width": 0.391499,
+              "height": 0.355181,
+              "rotation": 35,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": { "blend": "overlay" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.159523,
+              "y": 0.349255,
+              "width": 0.4263,
+              "height": 0.319975,
+              "rotation": 6,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.309948,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.355798,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.401648,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.447499,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.493349,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.221212,
+              "y": 0.491684,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.585049,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.175384,
+              "y": 0.500226,
+              "width": 0.236566,
+              "height": 0.236566,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.122264,
+              "y": 0.542236,
+              "width": 0.288812,
+              "height": 0.288812,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.740755,
+              "y": 0.10675,
+              "width": 0.23849,
+              "height": 0.246501,
+              "rotation": 0,
+              "opacity": 0.821757,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.302241, 0.697759, 0.374028, 0.625972, 0.672387, 0.678496,
+                  0.321504, 0.327613
+                ]
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.422,
+              "y": 0.107,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.59,
+              "y": 0.107,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.086,
+              "y": 0.317,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.254,
+              "y": 0.317,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.422,
+              "y": 0.317,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.422,
+              "y": 0.527,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.086,
+              "y": 0.737,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": -8,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0,
+              "y": 0.372509,
+              "width": 0.750127,
+              "height": 0.417428,
+              "rotation": -19,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.109399,
+              "y": 0.422828,
+              "width": 0.452618,
+              "height": 0.316791,
+              "rotation": 12,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0,
+              "y": 0.424024,
+              "width": 0.713797,
+              "height": 0.314399,
+              "rotation": -5,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "accent",
+              "x": 0.794453,
+              "y": 0.016187,
+              "width": 0.2,
+              "height": 0.2,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "accent",
+              "x": 0.086,
+              "y": 0.107,
+              "width": 0.156,
+              "height": 0.156,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#070707" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "accent",
+              "x": 0.248545,
+              "y": 0.235223,
+              "width": 0.148086,
+              "height": 0.148086,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#211300" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            }
+          ]
+        },
+        "titleDna": {
+          "tokens": ["Traum", "schweif"],
+          "pattern": "compound",
+          "parentFragments": [
+            { "parentId": "2000-01-01", "fragment": "schweif" },
+            { "parentId": "2000-01-02", "fragment": "Traum" }
+          ]
+        },
+        "evolution": {
+          "type": "hybrid",
+          "evaluatedParentIds": ["2000-01-01", "2000-01-02"],
+          "decisions": [
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.18.width", "value": 0.156 },
+              "target": { "path": "elements.35.width", "value": 0.156 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.18.height", "value": 0.156 },
+              "target": { "path": "elements.35.height", "value": 0.156 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.18.x", "value": 0.086 },
+              "target": { "path": "elements.35.x", "value": 0.086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.18.y", "value": 0.107 },
+              "target": { "path": "elements.35.y", "value": 0.107 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": {
+                "path": "elements.0.fill.stops.0.color",
+                "value": "#211300"
+              },
+              "target": {
+                "path": "elements.36.fill.color",
+                "value": "#211300"
+              },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.18.width", "value": 0.148086 },
+              "target": { "path": "elements.36.width", "value": 0.148086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.18.height", "value": 0.148086 },
+              "target": { "path": "elements.36.height", "value": 0.148086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.18.x", "value": 0.248545 },
+              "target": { "path": "elements.36.x", "value": 0.248545 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.0.fill.kind", "value": "radial" },
+              "target": { "path": "elements.5.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.1.fill.kind", "value": "radial" },
+              "target": { "path": "elements.6.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.3.fill.kind", "value": "radial" },
+              "target": { "path": "elements.8.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.4.fill.kind", "value": "radial" },
+              "target": { "path": "elements.9.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.5.fill.kind", "value": "linear" },
+              "target": { "path": "elements.10.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.6.fill.kind", "value": "radial" },
+              "target": { "path": "elements.11.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.7.kind", "value": "path" },
+              "target": { "path": "elements.12.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.8.fill.kind", "value": "pattern" },
+              "target": { "path": "elements.13.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.patterns=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.8.kind", "value": "path" },
+              "target": { "path": "elements.13.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.9.kind", "value": "line" },
+              "target": { "path": "elements.14.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.10.kind", "value": "line" },
+              "target": { "path": "elements.15.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.11.kind", "value": "line" },
+              "target": { "path": "elements.16.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.12.kind", "value": "line" },
+              "target": { "path": "elements.17.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.13.kind", "value": "line" },
+              "target": { "path": "elements.18.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.14.kind", "value": "line" },
+              "target": { "path": "elements.19.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.15.kind", "value": "line" },
+              "target": { "path": "elements.20.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.16.kind", "value": "ring" },
+              "target": { "path": "elements.21.kind", "value": "circle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.17.kind", "value": "ring" },
+              "target": { "path": "elements.22.kind", "value": "circle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.18.kind", "value": "ring" },
+              "target": { "path": "elements.36.kind", "value": "circle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.18.fill.kind", "value": "conic" },
+              "target": { "path": "elements.35.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.18.kind", "value": "arc" },
+              "target": { "path": "elements.35.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.19.kind", "value": "arc" },
+              "target": { "path": "elements.24.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.20.kind", "value": "arc" },
+              "target": { "path": "elements.25.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.21.fill.kind", "value": "radial" },
+              "target": { "path": "elements.26.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.21.kind", "value": "arc" },
+              "target": { "path": "elements.26.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.22.fill.kind", "value": "conic" },
+              "target": { "path": "elements.27.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.22.kind", "value": "arc" },
+              "target": { "path": "elements.27.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.23.fill.kind", "value": "pattern" },
+              "target": { "path": "elements.28.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.patterns=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.23.kind", "value": "arc" },
+              "target": { "path": "elements.28.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.24.fill.kind", "value": "conic" },
+              "target": { "path": "elements.29.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.24.kind", "value": "arc" },
+              "target": { "path": "elements.29.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.25.fill.kind", "value": "radial" },
+              "target": { "path": "elements.30.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.25.kind", "value": "arc" },
+              "target": { "path": "elements.30.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.26.kind", "value": "path" },
+              "target": { "path": "elements.31.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.27.kind", "value": "path" },
+              "target": { "path": "elements.32.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-01",
+              "source": { "path": "elements.28.kind", "value": "path" },
+              "target": { "path": "elements.33.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            }
+          ],
+          "recipe": {
+            "retry": 0,
+            "palette": "parentA",
+            "layers": {
+              "background": "new",
+              "structure": "parentB",
+              "accent": "parentA"
+            },
+            "mutationJump": false,
+            "features": {
+              "gradients": false,
+              "patterns": false,
+              "masks": false,
+              "blendModes": false,
+              "blurShadow": true,
+              "lines": false,
+              "curves": false,
+              "generativeShapes": false,
+              "animation": false,
+              "symmetry": true
+            },
+            "anchor": "natural"
+          }
+        }
+      },
+      {
+        "schemaVersion": 3,
+        "generatorVersion": "0.3.0",
+        "rendererVersion": "2",
+        "lexiconVersion": "0.2.0",
+        "id": "2000-01-04",
+        "generation": 4,
+        "title": "Traumsaum im Umbruch",
+        "description": "Traumsaum im Umbruch: 22 Elemente in 2 Ebenen: Struktur organische Formen (vom älteren Elternwerk), Akzent Mosaik (neu). Palette vom jüngeren Elternwerk. Statisch.",
+        "timezone": "Europe/Berlin",
+        "scheduledFor": "2000-01-04T04:00:00+01:00",
+        "generatedAt": "2000-01-04T03:00:02.000Z",
+        "runStartedAt": "2000-01-04T03:00:01.000Z",
+        "isCatchUp": false,
+        "seed": "evolvera:ep01:rules:4:settings-f3a921344f1b2d658286e6f4567a68560a36df61615d01f97f13a8c80e5bb883",
+        "inheritanceMode": "traceable",
+        "settingsRevision": 2,
+        "settings": {
+          "inheritanceMode": "traceable",
+          "variation": { "mutationStrength": "medium", "noveltyWindow": 7 },
+          "features": {
+            "gradients": "off",
+            "patterns": "off",
+            "masks": "rare",
+            "blendModes": "rare",
+            "blurShadow": "rare",
+            "lines": "off",
+            "curves": "off",
+            "generativeShapes": "off",
+            "animation": "normal"
+          },
+          "palette": {
+            "strategies": ["harmonic", "complementary", "monochrome", "free"],
+            "contrast": "varied"
+          },
+          "families": {
+            "geometric": true,
+            "color-field": true,
+            "mosaic": true,
+            "organic": true,
+            "generative": true,
+            "chaotic": true
+          },
+          "composition": {
+            "maxLayers": 3,
+            "symmetry": "normal",
+            "density": "varied"
+          },
+          "motion": { "intensity": "varied" },
+          "experimental": { "mutationJumps": false }
+        },
+        "novelty": {
+          "distanceVersion": 1,
+          "contextDigest": "72e149db8f0a6c3d2a58b3b0d6f9e74b489b6c7f38b20135107cf811db499e6d",
+          "distance": 0.1474,
+          "minimumReached": true
+        },
+        "parentIds": ["2000-01-02", "2000-01-03"],
+        "dna": {
+          "background": "#005a4b",
+          "layers": {
+            "structure": { "family": "organic" },
+            "accent": { "family": "mosaic" }
+          },
+          "elements": [
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.027259,
+              "y": 0.087673,
+              "width": 0.308516,
+              "height": 0.275273,
+              "rotation": -54,
+              "opacity": 0.818454,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.469952, 0.530048, 0.656813, 0.343187, 0.352566, 0.598622,
+                  0.401378, 0.647434
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.212517,
+              "y": 0.528908,
+              "width": 0.29518,
+              "height": 0.354584,
+              "rotation": 74,
+              "opacity": 0.812235,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.623589, 0.376411, 0.371573, 0.628427, 0.62531, 0.377266,
+                  0.622734, 0.37469
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.018462,
+              "y": 0.533741,
+              "width": 0.301493,
+              "height": 0.227714,
+              "rotation": 65,
+              "opacity": 0.712222,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.581035, 0.418965, 0.413742, 0.586258, 0.6475, 0.682298,
+                  0.317702, 0.3525
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.270616,
+              "y": 0.610858,
+              "width": 0.232992,
+              "height": 0.281048,
+              "rotation": 15,
+              "opacity": 0.833789,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.398818, 0.601182, 0.514146, 0.485854, 0.470116, 0.435962,
+                  0.564038, 0.529884
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.116948,
+              "y": 0.594828,
+              "width": 0.401963,
+              "height": 0.405172,
+              "rotation": 47,
+              "opacity": 0.587076,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 65,
+                  "from": 0.276369,
+                  "to": 0.729934
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.674713, 0.325287, 0.530414, 0.469586, 0.517993, 0.374574,
+                  0.625426, 0.482007
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.448978,
+              "y": 0.568869,
+              "width": 0.378252,
+              "height": 0.317784,
+              "rotation": -53,
+              "opacity": 0.56649,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.427361, 0.572639, 0.460008, 0.539992, 0.564024, 0.403768,
+                  0.596232, 0.435976
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.318226,
+              "y": 0.037019,
+              "width": 0.439458,
+              "height": 0.337717,
+              "rotation": 87,
+              "opacity": 0.87234,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.421402, 0.578598, 0.515916, 0.484084, 0.399202, 0.424283,
+                  0.575717, 0.600798
+                ]
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.383307,
+              "y": 0.342464,
+              "width": 0.391499,
+              "height": 0.355181,
+              "rotation": 35,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": { "blend": "overlay" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.159523,
+              "y": 0.349255,
+              "width": 0.4263,
+              "height": 0.319975,
+              "rotation": 12,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.309948,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.355798,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.1676,
+              "y": 0.428694,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.447499,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.493349,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.162816,
+              "y": 0.538205,
+              "width": 0.759996,
+              "height": 0.036988,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.585049,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": -4,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.175384,
+              "y": 0.500226,
+              "width": 0.236566,
+              "height": 0.236566,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.122264,
+              "y": 0.542236,
+              "width": 0.288812,
+              "height": 0.288812,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#75742b" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.248545,
+              "y": 0.235223,
+              "width": 0.148086,
+              "height": 0.148086,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 64,
+                  "from": 0.287107,
+                  "to": 0.63112
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.740755,
+              "y": 0.10675,
+              "width": 0.23849,
+              "height": 0.246501,
+              "rotation": 0,
+              "opacity": 0.821757,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.302241, 0.697759, 0.374028, 0.625972, 0.672387, 0.678496,
+                  0.321504, 0.327613
+                ]
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "accent",
+              "x": 0.08,
+              "y": 0.08,
+              "width": 0.21,
+              "height": 0.21,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "accent",
+              "x": 0.71,
+              "y": 0.71,
+              "width": 0.21,
+              "height": 0.21,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            }
+          ]
+        },
+        "titleDna": {
+          "tokens": ["Traum", "saum", "im", "Umbruch"],
+          "pattern": "phrase",
+          "parentFragments": [{ "parentId": "2000-01-02", "fragment": "Traum" }]
+        },
+        "evolution": {
+          "type": "hybrid",
+          "evaluatedParentIds": ["2000-01-02", "2000-01-03"],
+          "decisions": [
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.19.width", "value": 0.23849 },
+              "target": { "path": "elements.19.width", "value": 0.23849 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.19.height", "value": 0.246501 },
+              "target": { "path": "elements.19.height", "value": 0.246501 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.19.x", "value": 0.740755 },
+              "target": { "path": "elements.19.x", "value": 0.740755 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.19.y", "value": 0.10675 },
+              "target": { "path": "elements.19.y", "value": 0.10675 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-03",
+              "source": { "path": "elements.5.fill.color", "value": "#ebedff" },
+              "target": {
+                "path": "elements.19.fill.color",
+                "value": "#ebedff"
+              },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-03",
+              "source": { "path": "elements.5.fill.color", "value": "#ebedff" },
+              "target": {
+                "path": "elements.21.fill.color",
+                "value": "#ebedff"
+              },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.0.fill.kind", "value": "radial" },
+              "target": { "path": "elements.0.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.1.fill.kind", "value": "radial" },
+              "target": { "path": "elements.1.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.3.fill.kind", "value": "radial" },
+              "target": { "path": "elements.3.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.4.fill.kind", "value": "radial" },
+              "target": { "path": "elements.4.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.5.fill.kind", "value": "linear" },
+              "target": { "path": "elements.5.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.6.fill.kind", "value": "radial" },
+              "target": { "path": "elements.6.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.gradients=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.7.kind", "value": "path" },
+              "target": { "path": "elements.7.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.8.fill.kind", "value": "pattern" },
+              "target": { "path": "elements.8.fill.kind", "value": "solid" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.patterns=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.8.kind", "value": "path" },
+              "target": { "path": "elements.8.kind", "value": "ellipse" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.9.kind", "value": "line" },
+              "target": { "path": "elements.9.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.10.kind", "value": "line" },
+              "target": { "path": "elements.10.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.11.kind", "value": "line" },
+              "target": { "path": "elements.11.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.12.kind", "value": "line" },
+              "target": { "path": "elements.12.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.13.kind", "value": "line" },
+              "target": { "path": "elements.13.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.14.kind", "value": "line" },
+              "target": { "path": "elements.14.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.15.kind", "value": "line" },
+              "target": { "path": "elements.15.kind", "value": "rectangle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.lines=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.16.kind", "value": "ring" },
+              "target": { "path": "elements.16.kind", "value": "circle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.17.kind", "value": "ring" },
+              "target": { "path": "elements.17.kind", "value": "circle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            },
+            {
+              "parentId": "2000-01-02",
+              "source": { "path": "elements.18.kind", "value": "ring" },
+              "target": { "path": "elements.18.kind", "value": "circle" },
+              "operation": {
+                "kind": "constrained",
+                "rule": "features.curves=off"
+              }
+            }
+          ],
+          "recipe": {
+            "retry": 0,
+            "palette": "parentB",
+            "layers": { "structure": "parentA", "accent": "new" },
+            "mutationJump": false,
+            "features": {
+              "gradients": false,
+              "patterns": false,
+              "masks": false,
+              "blendModes": false,
+              "blurShadow": false,
+              "lines": false,
+              "curves": false,
+              "generativeShapes": false,
+              "animation": false,
+              "symmetry": false
+            },
+            "anchor": "natural"
+          }
+        }
+      },
+      {
+        "schemaVersion": 3,
+        "generatorVersion": "0.3.0",
+        "rendererVersion": "2",
+        "lexiconVersion": "0.2.0",
+        "id": "2000-01-05",
+        "generation": 5,
+        "title": "Zwischenrauschen / Ockerdrift",
+        "description": "Zwischenrauschen / Ockerdrift: 20 Elemente in einer Ebene: Struktur organische Formen (vom jüngeren Elternwerk). Palette neu. Statisch.",
+        "timezone": "Europe/Berlin",
+        "scheduledFor": "2000-01-05T04:00:00+01:00",
+        "generatedAt": "2000-01-05T03:00:02.000Z",
+        "runStartedAt": "2000-01-05T03:00:01.000Z",
+        "isCatchUp": false,
+        "seed": "evolvera:ep01:rules:5:settings-f3a921344f1b2d658286e6f4567a68560a36df61615d01f97f13a8c80e5bb883",
+        "inheritanceMode": "traceable",
+        "settingsRevision": 2,
+        "settings": {
+          "inheritanceMode": "traceable",
+          "variation": { "mutationStrength": "medium", "noveltyWindow": 7 },
+          "features": {
+            "gradients": "off",
+            "patterns": "off",
+            "masks": "rare",
+            "blendModes": "rare",
+            "blurShadow": "rare",
+            "lines": "off",
+            "curves": "off",
+            "generativeShapes": "off",
+            "animation": "normal"
+          },
+          "palette": {
+            "strategies": ["harmonic", "complementary", "monochrome", "free"],
+            "contrast": "varied"
+          },
+          "families": {
+            "geometric": true,
+            "color-field": true,
+            "mosaic": true,
+            "organic": true,
+            "generative": true,
+            "chaotic": true
+          },
+          "composition": {
+            "maxLayers": 3,
+            "symmetry": "normal",
+            "density": "varied"
+          },
+          "motion": { "intensity": "varied" },
+          "experimental": { "mutationJumps": false }
+        },
+        "novelty": {
+          "distanceVersion": 1,
+          "contextDigest": "260d3d60f2dbe57c9c52a91c1d68731cf727f810a0ad165039497c8c04cc7149",
+          "distance": 0.240135,
+          "minimumReached": true
+        },
+        "parentIds": ["2000-01-03", "2000-01-04"],
+        "dna": {
+          "background": "#d1efeb",
+          "layers": { "structure": { "family": "organic" } },
+          "elements": [
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.027259,
+              "y": 0.087673,
+              "width": 0.308516,
+              "height": 0.275273,
+              "rotation": -54,
+              "opacity": 0.818454,
+              "fill": { "kind": "solid", "color": "#00312d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.469952, 0.530048, 0.656813, 0.343187, 0.352566, 0.598622,
+                  0.401378, 0.647434
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.212517,
+              "y": 0.528908,
+              "width": 0.29518,
+              "height": 0.354584,
+              "rotation": 68,
+              "opacity": 0.812235,
+              "fill": { "kind": "solid", "color": "#6f1b32" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.623589, 0.376411, 0.371573, 0.628427, 0.62531, 0.377266,
+                  0.622734, 0.37469
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.018462,
+              "y": 0.533741,
+              "width": 0.301493,
+              "height": 0.227714,
+              "rotation": 65,
+              "opacity": 0.712222,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.581035, 0.418965, 0.413742, 0.586258, 0.6475, 0.682298,
+                  0.317702, 0.3525
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.263725,
+              "y": 0.602545,
+              "width": 0.246775,
+              "height": 0.297674,
+              "rotation": 15,
+              "opacity": 0.833789,
+              "fill": { "kind": "solid", "color": "#00312d" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.398818, 0.601182, 0.514146, 0.485854, 0.470116, 0.435962,
+                  0.564038, 0.529884
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.116948,
+              "y": 0.594828,
+              "width": 0.401963,
+              "height": 0.405172,
+              "rotation": 47,
+              "opacity": 0.587076,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 65,
+                  "from": 0.276369,
+                  "to": 0.729934
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.674713, 0.325287, 0.530414, 0.469586, 0.517993, 0.374574,
+                  0.625426, 0.482007
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.448978,
+              "y": 0.568869,
+              "width": 0.378252,
+              "height": 0.317784,
+              "rotation": -53,
+              "opacity": 0.56649,
+              "fill": { "kind": "solid", "color": "#006a6c" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.427361, 0.572639, 0.460008, 0.539992, 0.564024, 0.403768,
+                  0.596232, 0.435976
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.318226,
+              "y": 0.037019,
+              "width": 0.439458,
+              "height": 0.337717,
+              "rotation": 87,
+              "opacity": 0.87234,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.421402, 0.578598, 0.515916, 0.484084, 0.399202, 0.424283,
+                  0.575717, 0.600798
+                ]
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.383307,
+              "y": 0.342464,
+              "width": 0.391499,
+              "height": 0.355181,
+              "rotation": 35,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00312d" },
+              "effects": { "blend": "overlay" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.109528,
+              "y": 0.380799,
+              "width": 0.4263,
+              "height": 0.319975,
+              "rotation": 12,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.309948,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.355798,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.1676,
+              "y": 0.428694,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.447499,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.493349,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.162816,
+              "y": 0.538205,
+              "width": 0.759996,
+              "height": 0.036988,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.585049,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": -4,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#d18699" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.175384,
+              "y": 0.500226,
+              "width": 0.236566,
+              "height": 0.236566,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00312d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.068389,
+              "y": 0.486108,
+              "width": 0.288812,
+              "height": 0.288812,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#008683" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.740755,
+              "y": 0.10675,
+              "width": 0.23849,
+              "height": 0.246501,
+              "rotation": 0,
+              "opacity": 0.821757,
+              "fill": { "kind": "solid", "color": "#00312d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.302241, 0.697759, 0.374028, 0.625972, 0.672387, 0.678496,
+                  0.321504, 0.327613
+                ]
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.248545,
+              "y": 0.235223,
+              "width": 0.148086,
+              "height": 0.148086,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00626d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            }
+          ]
+        },
+        "titleDna": {
+          "tokens": ["Zwischen", "rauschen", "Ockerdrift"],
+          "pattern": "pair",
+          "parentFragments": []
+        },
+        "evolution": {
+          "type": "hybrid",
+          "evaluatedParentIds": ["2000-01-03", "2000-01-04"],
+          "decisions": [
+            {
+              "parentId": "2000-01-03",
+              "source": { "path": "elements.1.fill.color", "value": "#00626d" },
+              "target": {
+                "path": "elements.19.fill.color",
+                "value": "#00626d"
+              },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.19.width", "value": 0.23849 },
+              "target": { "path": "elements.18.width", "value": 0.23849 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.19.height", "value": 0.246501 },
+              "target": { "path": "elements.18.height", "value": 0.246501 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.19.x", "value": 0.740755 },
+              "target": { "path": "elements.18.x", "value": 0.740755 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.19.y", "value": 0.10675 },
+              "target": { "path": "elements.18.y", "value": 0.10675 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.2.fill.color", "value": "#00626d" },
+              "target": {
+                "path": "elements.19.fill.color",
+                "value": "#00626d"
+              },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.18.width", "value": 0.148086 },
+              "target": { "path": "elements.19.width", "value": 0.148086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.18.height", "value": 0.148086 },
+              "target": { "path": "elements.19.height", "value": 0.148086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.18.x", "value": 0.248545 },
+              "target": { "path": "elements.19.x", "value": 0.248545 },
+              "operation": { "kind": "copy" }
+            }
+          ],
+          "recipe": {
+            "retry": 0,
+            "palette": "new",
+            "layers": { "structure": "parentB" },
+            "mutationJump": false,
+            "features": {
+              "gradients": false,
+              "patterns": false,
+              "masks": false,
+              "blendModes": false,
+              "blurShadow": false,
+              "lines": false,
+              "curves": false,
+              "generativeShapes": false,
+              "animation": false,
+              "symmetry": false
+            },
+            "anchor": "natural"
+          }
+        }
+      },
+      {
+        "schemaVersion": 3,
+        "generatorVersion": "0.3.0",
+        "rendererVersion": "2",
+        "lexiconVersion": "0.2.0",
+        "id": "2000-01-06",
+        "generation": 6,
+        "title": "Ockersaum im Morgen",
+        "description": "Ockersaum im Morgen: 22 Elemente in 2 Ebenen: Struktur organische Formen (aus beiden Elternwerken gemischt), Akzent Farbfeld (neu). Palette aus beiden Elternwerken gemischt. Statisch.",
+        "timezone": "Europe/Berlin",
+        "scheduledFor": "2000-01-06T04:00:00+01:00",
+        "generatedAt": "2000-01-06T03:00:02.000Z",
+        "runStartedAt": "2000-01-06T03:00:01.000Z",
+        "isCatchUp": false,
+        "seed": "evolvera:ep01:rules:6:settings-f3a921344f1b2d658286e6f4567a68560a36df61615d01f97f13a8c80e5bb883",
+        "inheritanceMode": "traceable",
+        "settingsRevision": 2,
+        "settings": {
+          "inheritanceMode": "traceable",
+          "variation": { "mutationStrength": "medium", "noveltyWindow": 7 },
+          "features": {
+            "gradients": "off",
+            "patterns": "off",
+            "masks": "rare",
+            "blendModes": "rare",
+            "blurShadow": "rare",
+            "lines": "off",
+            "curves": "off",
+            "generativeShapes": "off",
+            "animation": "normal"
+          },
+          "palette": {
+            "strategies": ["harmonic", "complementary", "monochrome", "free"],
+            "contrast": "varied"
+          },
+          "families": {
+            "geometric": true,
+            "color-field": true,
+            "mosaic": true,
+            "organic": true,
+            "generative": true,
+            "chaotic": true
+          },
+          "composition": {
+            "maxLayers": 3,
+            "symmetry": "normal",
+            "density": "varied"
+          },
+          "motion": { "intensity": "varied" },
+          "experimental": { "mutationJumps": false }
+        },
+        "novelty": {
+          "distanceVersion": 1,
+          "contextDigest": "592be6c9392a2e5a338092e5e2930a793e63ec53bdb16b58dc6f32cf574ca38c",
+          "distance": 0.170802,
+          "minimumReached": true
+        },
+        "parentIds": ["2000-01-04", "2000-01-05"],
+        "dna": {
+          "background": "#005a4b",
+          "layers": {
+            "structure": { "family": "organic" },
+            "accent": { "family": "color-field" }
+          },
+          "elements": [
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.027259,
+              "y": 0.087673,
+              "width": 0.308516,
+              "height": 0.275273,
+              "rotation": -54,
+              "opacity": 0.818454,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.469952, 0.530048, 0.656813, 0.343187, 0.352566, 0.598622,
+                  0.401378, 0.647434
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.212517,
+              "y": 0.528908,
+              "width": 0.29518,
+              "height": 0.354584,
+              "rotation": 68,
+              "opacity": 0.812235,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.623589, 0.376411, 0.371573, 0.628427, 0.62531, 0.377266,
+                  0.622734, 0.37469
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.27843,
+              "y": 0.548558,
+              "width": 0.246775,
+              "height": 0.297674,
+              "rotation": 15,
+              "opacity": 0.833789,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": { "blend": "soft-light" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.398818, 0.601182, 0.514146, 0.485854, 0.470116, 0.435962,
+                  0.564038, 0.529884
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.116948,
+              "y": 0.594828,
+              "width": 0.401963,
+              "height": 0.405172,
+              "rotation": 47,
+              "opacity": 0.587076,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "effects": {
+                "mask": {
+                  "kind": "linear",
+                  "angle": 65,
+                  "from": 0.276369,
+                  "to": 0.729934
+                }
+              },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.674713, 0.325287, 0.530414, 0.469586, 0.517993, 0.374574,
+                  0.625426, 0.482007
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.448978,
+              "y": 0.568869,
+              "width": 0.378252,
+              "height": 0.317784,
+              "rotation": -53,
+              "opacity": 0.56649,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.427361, 0.572639, 0.460008, 0.539992, 0.564024, 0.403768,
+                  0.596232, 0.435976
+                ]
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.318226,
+              "y": 0.037019,
+              "width": 0.439458,
+              "height": 0.337717,
+              "rotation": 87,
+              "opacity": 0.87234,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.421402, 0.578598, 0.515916, 0.484084, 0.399202, 0.424283,
+                  0.575717, 0.600798
+                ]
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.383307,
+              "y": 0.342464,
+              "width": 0.391499,
+              "height": 0.355181,
+              "rotation": 35,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "effects": { "blend": "overlay" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "ellipse",
+              "layer": "structure",
+              "x": 0.109528,
+              "y": 0.380799,
+              "width": 0.4263,
+              "height": 0.319975,
+              "rotation": 4,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.309948,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00312d" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.355798,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.1676,
+              "y": 0.428694,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": -6,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.447499,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.165323,
+              "y": 0.504407,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.162816,
+              "y": 0.538205,
+              "width": 0.759996,
+              "height": 0.036988,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "structure",
+              "x": 0.183236,
+              "y": 0.585049,
+              "width": 0.719157,
+              "height": 0.035,
+              "rotation": -4,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.122721,
+              "y": 0.486399,
+              "width": 0.236566,
+              "height": 0.236566,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "structure",
+              "x": 0.068389,
+              "y": 0.486108,
+              "width": 0.288812,
+              "height": 0.288812,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "structure",
+              "x": 0.740755,
+              "y": 0.10675,
+              "width": 0.23849,
+              "height": 0.246501,
+              "rotation": 0,
+              "opacity": 0.821757,
+              "fill": { "kind": "solid", "color": "#00bbbc" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.302241, 0.697759, 0.374028, 0.625972, 0.672387, 0.678496,
+                  0.321504, 0.327613
+                ]
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "accent",
+              "x": 0,
+              "y": 0.552462,
+              "width": 1,
+              "height": 0.031577,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "rectangle",
+              "layer": "accent",
+              "x": 0,
+              "y": 0.12356,
+              "width": 1,
+              "height": 0.098983,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ffa189" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "circle",
+              "layer": "accent",
+              "x": 0.515957,
+              "y": 0.785957,
+              "width": 0.148086,
+              "height": 0.148086,
+              "rotation": 0,
+              "opacity": 1,
+              "fill": { "kind": "solid", "color": "#ebedff" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              }
+            },
+            {
+              "kind": "blob",
+              "layer": "accent",
+              "x": 0.018462,
+              "y": 0.533741,
+              "width": 0.301493,
+              "height": 0.227714,
+              "rotation": 0,
+              "opacity": 0.8,
+              "fill": { "kind": "solid", "color": "#070707" },
+              "motion": {
+                "kind": "static",
+                "durationSeconds": 30,
+                "amplitude": 0
+              },
+              "shape": {
+                "radii": [
+                  0.581035, 0.418965, 0.413742, 0.586258, 0.6475, 0.682298,
+                  0.317702, 0.3525
+                ]
+              }
+            }
+          ]
+        },
+        "titleDna": {
+          "tokens": ["Ocker", "saum", "im", "Morgen"],
+          "pattern": "phrase",
+          "parentFragments": [
+            { "parentId": "2000-01-04", "fragment": "saum" },
+            { "parentId": "2000-01-05", "fragment": "Ocker" }
+          ]
+        },
+        "evolution": {
+          "type": "hybrid",
+          "evaluatedParentIds": ["2000-01-04", "2000-01-05"],
+          "decisions": [
+            {
+              "parentId": "2000-01-04",
+              "source": { "path": "elements.0.fill.color", "value": "#ebedff" },
+              "target": {
+                "path": "elements.20.fill.color",
+                "value": "#ebedff"
+              },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-05",
+              "source": { "path": "elements.19.width", "value": 0.148086 },
+              "target": { "path": "elements.20.width", "value": 0.148086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-05",
+              "source": { "path": "elements.19.height", "value": 0.148086 },
+              "target": { "path": "elements.20.height", "value": 0.148086 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-05",
+              "source": { "path": "elements.2.width", "value": 0.301493 },
+              "target": { "path": "elements.21.width", "value": 0.301493 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-05",
+              "source": { "path": "elements.2.height", "value": 0.227714 },
+              "target": { "path": "elements.21.height", "value": 0.227714 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-05",
+              "source": { "path": "elements.2.x", "value": 0.018462 },
+              "target": { "path": "elements.21.x", "value": 0.018462 },
+              "operation": { "kind": "copy" }
+            },
+            {
+              "parentId": "2000-01-05",
+              "source": { "path": "elements.2.y", "value": 0.533741 },
+              "target": { "path": "elements.21.y", "value": 0.533741 },
+              "operation": { "kind": "copy" }
+            }
+          ],
+          "recipe": {
+            "retry": 0,
+            "palette": "mixed",
+            "layers": { "structure": "mixed", "accent": "new" },
+            "mutationJump": false,
+            "features": {
+              "gradients": false,
+              "patterns": false,
+              "masks": true,
+              "blendModes": false,
+              "blurShadow": false,
+              "lines": false,
+              "curves": false,
+              "generativeShapes": false,
+              "animation": false,
+              "symmetry": false
+            },
+            "anchor": "natural"
+          }
+        }
+      }
+    ]
+  }
+}

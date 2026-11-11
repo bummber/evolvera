@@ -24,3 +24,11 @@ export const chainCollectionV3Schema = z.strictObject({
   purpose: z.literal('ep01-chains-preview-only'),
   chains: z.array(previewChainV3Schema).min(1).max(8),
 });
+
+// EP-01 P6: one short chain whose settings switch features off from the
+// third work on, so that the views can show converted traits (`constrained`).
+export const constraintPreviewSchema = z.strictObject({
+  schemaVersion: z.literal(1),
+  purpose: z.literal('ep01-constraints-preview-only'),
+  chain: previewChainV3Schema,
+});
