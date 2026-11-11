@@ -12,15 +12,15 @@ gemeinsam sichten.
 
 EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. Fachliche
 Quelle ist docs/PRD.md v1.1 mit EP-01 und dem Umsetzungsplan; PRD_1_2.md bleibt
-Hintergrund und unversioniert. P0 bis P5 sind veröffentlicht (acd0140). P6
-(Galerie und Detailansicht für Schema 3) ist am 11.11. umgesetzt und vom
-Betreiber abgenommen, bei Abschluss aber NICHT veröffentlicht: lokal lagen
-d7cc35f, 7f45991, 9c56ae3, 0e1d443, 5aea1d0 und ein Doku-Commit vor dem
-Remote. Bei der Sichtung prüfen, ob das noch so ist. Falls ja: zuerst mit
-Rückfrage Fetch, Rebase auf die Archivcommits des Tageslaufs, npm run check
-und npm run test:browser, dann Push nach Freigabe; die sechs neuen
-Referenzbilder schema3-detail-*.png sind erst danach auf dem Linux-Runner
-bestätigt. Die Archiv-Baseline für Werke ab 12.11. ist noch nicht ergänzt.
+Hintergrund und unversioniert. P0 bis P5 sind veröffentlicht. P6 (Galerie
+und Detailansicht für Schema 3) ist am 11.11. umgesetzt, vom Betreiber
+abgenommen und veröffentlicht (9cb062c, CI 43108814933 und Pages
+43108814953 erfolgreich; die sechs neuen Referenzbilder schema3-detail-*.png
+sind damit auch auf dem Linux-Runner bestätigt). Ein danach angelegter
+Doku-Commit zur Veröffentlichung kann noch ungepusht sein: bei der Sichtung
+prüfen. Seitdem schreibt nur der Tageslauf auf main: dessen Archivcommits
+bei der Sichtung feststellen und nur per Fast-forward bzw. Rebase
+übernehmen. Die Archiv-Baseline für Werke ab 12.11. ist noch nicht ergänzt.
 Der Betreiber hat am 11.11. einen Neustart der Serie mit Löschung aller
 Werke erwogen und zurückgestellt: kein Auftrag, nichts löschen; falls er es
 wünscht, gehört die Frage in den Aktivierungsplan. Offen: Firefox-Prüfung,

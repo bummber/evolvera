@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P6 „Galerie und Detailansicht für Schema 3“ umgesetzt und gesichtet, nicht veröffentlicht
+## Aktueller Abschluss – 11.11.2026, EP-01 P6 „Galerie und Detailansicht für Schema 3“ umgesetzt, abgenommen und veröffentlicht
 
 Der Betreiber hat P6 am 11.11.2026 beauftragt. Sichtung vor Beginn (22:39
 Berlin): lokal `d7cc35f` (Doku-Commit zur Veröffentlichung von P5, ungepusht),
@@ -10,11 +10,13 @@ abgenommen. Das ist keine Kunstabnahme für Generator 0.3.0 (P7) und keine
 Geräteabnahme.
 [Aufbau, Texte und Grenzen](extensions/EP01-ansichten-6.md).
 
-- **Nicht veröffentlicht:** Lokal liegen fünf Commits vor dem Remote:
+- **Veröffentlicht am 11.11.2026, 23:05 Berlin** (Betreiberfreigabe; Remote
+  stand unverändert auf `acd0140`, reiner Fast-forward, kein Fetch nötig):
   `d7cc35f` (Doku zu P5), `7f45991` (Probekette mit Umwandlungen), `9c56ae3`
-  (Datenprüfung), `0e1d443` (Ansichten) und `5aea1d0` (Tests), dazu der
-  Doku-Commit zu P6. Kein Fetch, kein Push in dieser Sitzung. Die sechs neuen
-  Referenzbilder sind damit noch nicht auf dem Linux-Runner bestätigt.
+  (Datenprüfung), `0e1d443` (Ansichten), `5aea1d0` (Tests) und `9cb062c`
+  (Doku zu P6). Beide Push-Läufe erfolgreich: CI 43108814933 und Pages 43108814953. Damit sind die sechs neuen Referenzbilder auch auf dem
+  Linux-Runner bestätigt. Der Nachtrag dieser Veröffentlichung in HANDOFF,
+  NEXT-START, Plan und Bericht ist ein eigener Doku-Commit danach.
 - **Archiv-Baseline (Schritt 1): nichts ergänzt.** Das Werk vom 12.11. war
   bei Abschluss noch nicht fällig (ab 01:17). Die Ergänzung bleibt der erste
   Schritt der nächsten Sitzung.
@@ -69,9 +71,9 @@ Geräteabnahme.
   `ep01-chains.json`, bestehende Browserreferenzen, Lockfile. Keine neue
   Abhängigkeit.
 
-Als Nächstes: Veröffentlichung von P6 nach Betreiberfreigabe (vorher Fetch
-und Rebase auf den Archivcommit des Tageslaufs), dann P7 „Kunstabnahme und
-Aktivierung“ auf ausdrücklichen Auftrag in einer neuen Sitzung; unabhängig
+Als Nächstes: P7 „Kunstabnahme und Aktivierung“ auf ausdrücklichen Auftrag
+in einer neuen Sitzung, beginnend mit der Ergänzung der Archiv-Baseline um
+die Werke ab 12.11.; unabhängig
 davon den Lauf für **Werkdatum 14.11.2026** belegen.
 [Aktueller Startprompt](NEXT-START.md).
 

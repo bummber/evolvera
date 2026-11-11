@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P5 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 und P5 am 11.11.2026 gesichtet), P6 am 11.11.2026 umgesetzt und abgenommen, noch nicht veröffentlicht, P7–P9 nicht beauftragt
+Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P5 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 und P5 am 11.11.2026 gesichtet), P6 am 11.11.2026 umgesetzt, abgenommen und veröffentlicht, P7–P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -330,8 +330,8 @@ Neues Modul unter `src/art/generator/v3/`, frei von React und Browser.
   zeigen dort „in dieser Version nicht gespeichert“.
 - Der Mutationsbericht nennt umgewandelte Merkmale (`constrained`) ausdrücklich.
 - Werkbeschreibung (`description`) für die neuen Familien und Ebenen.
-- Umgesetzt und vom Betreiber abgenommen am 11.11.2026, noch nicht
-  veröffentlicht; Aufbau, Texte und Grenzen stehen in
+- Umgesetzt, vom Betreiber abgenommen und veröffentlicht am 11.11.2026
+  (`9cb062c`); Aufbau, Texte und Grenzen stehen in
   [EP01-ansichten-6.md](EP01-ansichten-6.md). Festlegungen und Abweichungen
   vom Planwortlaut (Bauplan vom Betreiber am 11.11.2026 freigegeben):
   - Werke im Schema 3 werden über vier getrennte Testsammlungen gezeigt

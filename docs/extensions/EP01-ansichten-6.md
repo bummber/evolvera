@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Galerie und Detailansicht für Schema 3 (P6)
 
-Stand: 11.11.2026 · Status: umgesetzt und am 11.11.2026 vom Betreiber abgenommen (Ansichten und Texte); noch nicht veröffentlicht
+Stand: 11.11.2026 · Status: umgesetzt, am 11.11.2026 vom Betreiber abgenommen (Ansichten und Texte) und veröffentlicht (`9cb062c`, CI 43108814933 und Pages 43108814953 erfolgreich)
 
 Galerie, Heute-Ansicht, Evolution und Detailansicht stellen jetzt auch Werke
 im Schema 3 dar. Es gibt weiterhin kein Werk im Schema 3 im Archiv, kein
@@ -122,4 +122,4 @@ bestehenden Skips.
 - **Titelgröße:** Der Faktor 0,52 je Großbuchstabe ist an der Schrift
   gemessen, nicht berechnet; sehr breite Wörter können knapp werden.
 - **Nicht geprüft:** Firefox, Safari und echte Geräte; Renderlast auf einem
-  Mobilgerät (P7); die neuen Referenzbilder auf dem Linux-Runner.
+  Mobilgerät (P7).
