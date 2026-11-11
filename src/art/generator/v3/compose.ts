@@ -34,10 +34,11 @@ import {
   round,
   type Effects,
   type Element,
+  type FeatureName,
   type Flags,
   type LayerName,
 } from './kit';
-import { createPalette, type PaletteStrategy } from './palette';
+import { createPalette, type Palette, type PaletteStrategy } from './palette';
 
 // Composition of one independent origin work: feature decisions, palette,
 // layer model, effects, motion and the hard checks. Every decision group
@@ -90,14 +91,14 @@ const roleWeights: Record<LayerName, Record<Family, number>> = {
 };
 /** Element limits per layer. The shared budget keeps the sum below 120;
  * supplements are built first and so never lose their place. */
-const layerCaps: Record<LayerName, number> = {
+export const layerCaps: Record<LayerName, number> = {
   background: 14,
   structure: 64,
   accent: 20,
 };
 const SUPPLEMENT_CAP = 40;
 
-function planLayers(random: Random, profile: Profile) {
+export function planLayers(random: Random, profile: Profile) {
   const draw = random.next();
   const count = Math.min(
     profile.composition.maxLayers,
@@ -125,10 +126,11 @@ function planLayers(random: Random, profile: Profile) {
   });
 }
 
-type Group = Element[];
-const area = (group: Group) => group[0]!.width * group[0]!.height;
-const shortSide = (group: Group) => Math.min(group[0]!.width, group[0]!.height);
-function setFill(group: Group, fill: Fill) {
+export type Group = Element[];
+export const area = (group: Group) => group[0]!.width * group[0]!.height;
+export const shortSide = (group: Group) =>
+  Math.min(group[0]!.width, group[0]!.height);
+export function setFill(group: Group, fill: Fill) {
   group[0]!.fill = fill;
   if (group[1]) group[1].fill = mirrorFill(fill);
 }
@@ -164,74 +166,16 @@ export type Recipe = {
 };
 
 /**
- * One attempt. Returns `null` when a hard check fails; the caller then
- * retries with the next deterministic seed.
+ * Fill guarantees: a drawn gradient or pattern must really occur. Returns
+ * `false` when no form can carry it.
  */
-export function compose(
-  seed: string,
-  profile: Profile,
+export function guaranteeFills(
+  fillRandom: Random,
+  groups: readonly Group[],
+  palette: Palette,
   flags: Flags,
-): { dna: DnaV3; recipe: Recipe } | null {
-  const paletteRandom = createRandom(`${seed}:palette`);
-  const palette = createPalette(
-    paletteRandom,
-    paletteRandom.pick(profile.palette.strategies),
-    profile.palette.contrast,
-  );
-  const layerRandom = createRandom(`${seed}:layers`);
-  const plan = planLayers(layerRandom, profile);
-  const density =
-    profile.composition.density === 'sparse'
-      ? 0.2
-      : profile.composition.density === 'dense'
-        ? 0.85
-        : layerRandom.between(0.15, 0.95);
-  const symmetric = (name: LayerName) =>
-    flags.symmetry && (name === 'structure' || layerRandom.next() < 0.5);
-  const layout = plan.map((entry) => ({
-    ...entry,
-    symmetric: symmetric(entry.name),
-  }));
-  const budget = createBudget();
-  const top = layout.at(-1)!;
-
-  // Supplements guarantee the drawn feature groups; they are built first so
-  // that the families cannot use up their load, and drawn last.
-  const supplements = createLayer({
-    random: createRandom(`${seed}:supplements`),
-    palette,
-    flags,
-    role: top.name,
-    density,
-    budget,
-    symmetric: top.symmetric,
-    overflow: 'fold',
-    cap: SUPPLEMENT_CAP,
-  });
-  if (flags.lines) lineBundle(supplements);
-  if (flags.curves) curveSet(supplements);
-  if (flags.generativeShapes) polygonSet(supplements);
-
-  let groups: Group[] = [];
-  for (const entry of layout) {
-    const layer = createLayer({
-      random: createRandom(`${seed}:layer:${entry.name}`),
-      palette,
-      flags,
-      role: entry.name,
-      density,
-      budget,
-      symmetric: entry.symmetric,
-      cap: layerCaps[entry.name],
-    });
-    families[entry.family](layer);
-    groups.push(...layer.groups);
-  }
-  groups.push(...supplements.groups);
-  if (groups.length === 0) return null;
-
+): boolean {
   // Fill guarantees: a drawn gradient or pattern must really occur.
-  const fillRandom = createRandom(`${seed}:fills`);
   const bySize = [...groups]
     .filter((group) => group[0]!.kind !== 'line')
     .sort((a, b) => area(b) - area(a));
@@ -244,7 +188,7 @@ export function compose(
   };
   if (flags.gradients && !hasFill(['linear', 'radial', 'conic'])) {
     const target = bySize.find((group) => group[0]!.fill.kind === 'solid');
-    if (!target) return null;
+    if (!target) return false;
     setFill(target, gradient(fillRandom, two()));
   }
   if (flags.patterns && !hasFill(['pattern'])) {
@@ -255,21 +199,39 @@ export function compose(
     const gradients = wide.filter((group) => group[0]!.fill.kind !== 'solid');
     const target =
       plain[1] ?? plain[0] ?? (gradients.length > 1 ? gradients[1] : undefined);
-    if (!target) return null;
+    if (!target) return false;
     const [foreground, background] = two();
     setFill(target, pattern(fillRandom, foreground!, background!));
   }
+  return true;
+}
 
-  // Visibility anchor, settled before effects and motion so that both
-  // leave it alone. Elements stay grouped by layer; within the top layer a
-  // group may move to the front.
-  const assemble = (list: readonly Group[]): DnaV3 => ({
-    background: palette.background,
+/** Builds the DNA of a list of groups; elements stay grouped by layer. */
+export function assembler(
+  background: string,
+  layout: readonly { name: LayerName; family: Family }[],
+) {
+  return (list: readonly Group[]): DnaV3 => ({
+    background,
     layers: Object.fromEntries(
       layout.map((entry) => [entry.name, { family: entry.family }]),
     ),
     elements: list.flat(),
   });
+}
+
+/**
+ * Visibility anchor of a work. Within the top layer a group may move to the
+ * front. Returns `null` when no place reaches the minimum contrast.
+ */
+export function settleAnchor(
+  seed: string,
+  input: readonly Group[],
+  top: { name: LayerName; symmetric: boolean },
+  palette: Palette,
+  assemble: (list: readonly Group[]) => DnaV3,
+): { groups: Group[]; anchorGroup: Group; anchor: Recipe['anchor'] } | null {
+  let groups = [...input];
   let anchor: Recipe['anchor'] = 'natural';
   let anchorGroup: Group | undefined;
   const natural = assemble(groups);
@@ -406,14 +368,31 @@ export function compose(
       anchor = 'added';
     }
   }
-  const free = groups.filter((group) => group !== anchorGroup);
+  if (!anchorGroup) return null;
+  return { groups, anchorGroup, anchor };
+}
 
+/**
+ * Effects within the load limits of renderer 2, then motion. `free` are the
+ * groups that may change, `front` those that must not spread a blur or
+ * shadow. Feature groups already `present` (inherited) are not added again.
+ * Returns `false` when a drawn feature finds no form.
+ */
+export function decorate(
+  seed: string,
+  profile: Profile,
+  flags: Flags,
+  groups: readonly Group[],
+  free: readonly Group[],
+  front: readonly Group[],
+  present: Partial<Record<FeatureName, boolean>> = {},
+): boolean {
   // Effects within the load limits of renderer 2.
   const effectRandom = createRandom(`${seed}:effects`);
   const solidEnough = free.filter(
     (group) => group[0]!.kind !== 'line' && shortSide(group) >= 0.06,
   );
-  if (flags.blendModes) {
+  if (flags.blendModes && !present.blendModes) {
     // The first group has nothing below it to blend with.
     const chosen = choose(
       effectRandom,
@@ -421,7 +400,7 @@ export function compose(
       effectRandom.integer(1, 3),
       loadLimitsV3.blends,
     );
-    if (!chosen.length) return null;
+    if (!chosen.length) return false;
     for (const group of chosen)
       addEffects(group, {
         blend: effectRandom.pick([
@@ -433,14 +412,14 @@ export function compose(
         ] as const),
       });
   }
-  if (flags.masks) {
+  if (flags.masks && !present.masks) {
     const chosen = choose(
       effectRandom,
       solidEnough.filter((group) => shortSide(group) >= 0.12),
       effectRandom.integer(1, 2),
       loadLimitsV3.masks,
     );
-    if (!chosen.length) return null;
+    if (!chosen.length) return false;
     for (const group of chosen) {
       const kind = effectRandom.pick(['linear', 'radial'] as const);
       const from = round(effectRandom.between(0.2, 0.5));
@@ -454,19 +433,14 @@ export function compose(
       });
     }
   }
-  if (flags.blurShadow) {
-    // Blur and shadow spread; behind a natural anchor they could cover it.
-    const front =
-      anchor === 'natural' && anchorGroup
-        ? groups.slice(groups.indexOf(anchorGroup) + 1)
-        : [];
+  if (flags.blurShadow && !present.blurShadow) {
     const chosen = choose(
       effectRandom,
       solidEnough.filter((group) => !front.includes(group)),
       effectRandom.integer(1, 2),
       loadLimitsV3.blurs,
     );
-    if (!chosen.length) return null;
+    if (!chosen.length) return false;
     for (const group of chosen)
       addEffects(
         group,
@@ -485,7 +459,7 @@ export function compose(
   }
 
   // Motion: a share of the smaller elements, by intensity.
-  if (flags.animation) {
+  if (flags.animation && !present.animation) {
     const motionRandom = createRandom(`${seed}:motion`);
     const intensity = profile.motion.intensity;
     const share =
@@ -500,7 +474,7 @@ export function compose(
         : intensity === 'strong'
           ? [0.04, 0.1]
           : [0.01, 0.08];
-    if (!free.length) return null;
+    if (!free.length) return false;
     const moving = free.filter(() => motionRandom.next() < share);
     if (!moving.length) moving.push(motionRandom.pick(free));
     for (const group of moving) {
@@ -522,6 +496,91 @@ export function compose(
       for (const element of group) element.motion = { ...motion };
     }
   }
+  return true;
+}
+
+/**
+ * One attempt. Returns `null` when a hard check fails; the caller then
+ * retries with the next deterministic seed.
+ */
+export function compose(
+  seed: string,
+  profile: Profile,
+  flags: Flags,
+): { dna: DnaV3; recipe: Recipe } | null {
+  const paletteRandom = createRandom(`${seed}:palette`);
+  const palette = createPalette(
+    paletteRandom,
+    paletteRandom.pick(profile.palette.strategies),
+    profile.palette.contrast,
+  );
+  const layerRandom = createRandom(`${seed}:layers`);
+  const plan = planLayers(layerRandom, profile);
+  const density =
+    profile.composition.density === 'sparse'
+      ? 0.2
+      : profile.composition.density === 'dense'
+        ? 0.85
+        : layerRandom.between(0.15, 0.95);
+  const symmetric = (name: LayerName) =>
+    flags.symmetry && (name === 'structure' || layerRandom.next() < 0.5);
+  const layout = plan.map((entry) => ({
+    ...entry,
+    symmetric: symmetric(entry.name),
+  }));
+  const budget = createBudget();
+  const top = layout.at(-1)!;
+
+  // Supplements guarantee the drawn feature groups; they are built first so
+  // that the families cannot use up their load, and drawn last.
+  const supplements = createLayer({
+    random: createRandom(`${seed}:supplements`),
+    palette,
+    flags,
+    role: top.name,
+    density,
+    budget,
+    symmetric: top.symmetric,
+    overflow: 'fold',
+    cap: SUPPLEMENT_CAP,
+  });
+  if (flags.lines) lineBundle(supplements);
+  if (flags.curves) curveSet(supplements);
+  if (flags.generativeShapes) polygonSet(supplements);
+
+  let groups: Group[] = [];
+  for (const entry of layout) {
+    const layer = createLayer({
+      random: createRandom(`${seed}:layer:${entry.name}`),
+      palette,
+      flags,
+      role: entry.name,
+      density,
+      budget,
+      symmetric: entry.symmetric,
+      cap: layerCaps[entry.name],
+    });
+    families[entry.family](layer);
+    groups.push(...layer.groups);
+  }
+  groups.push(...supplements.groups);
+  if (groups.length === 0) return null;
+
+  if (!guaranteeFills(createRandom(`${seed}:fills`), groups, palette, flags))
+    return null;
+
+  // Visibility anchor, settled before effects and motion so that both
+  // leave it alone.
+  const assemble = assembler(palette.background, layout);
+  const settled = settleAnchor(seed, groups, top, palette, assemble);
+  if (!settled) return null;
+  groups = settled.groups;
+  const { anchor, anchorGroup } = settled;
+  const free = groups.filter((group) => group !== anchorGroup);
+  // Blur and shadow spread; behind a natural anchor they could cover it.
+  const front =
+    anchor === 'natural' ? groups.slice(groups.indexOf(anchorGroup) + 1) : [];
+  if (!decorate(seed, profile, flags, groups, free, front)) return null;
 
   const parsed = dnaV3Schema.safeParse(assemble(groups));
   if (!parsed.success || findAnchor(parsed.data) === -1) return null;

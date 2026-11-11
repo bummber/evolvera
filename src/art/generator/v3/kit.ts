@@ -61,6 +61,14 @@ export const createBudget = (): Budget => ({
   paths: loadLimitsV3.paths,
 });
 
+/** Charges a ready-made group to the budget; `false` when it does not fit. */
+export function spend(budget: Budget, group: readonly Element[]): boolean {
+  const cost = loadCounts(group);
+  if (budgetKeys.some((key) => cost[key] > budget[key])) return false;
+  for (const key of budgetKeys) budget[key] -= cost[key];
+  return true;
+}
+
 const flip = (angle: number) => round((720 - angle) % 360);
 
 export function mirrorFill(fill: Fill): Fill {

@@ -152,6 +152,8 @@ export function placeAnchor(
   sizes: readonly (readonly [number, number])[],
   /** Mirrored top layer: on the axis, or left of it with a mirror image. */
   symmetric: boolean,
+  /** Forms the anchor must not touch, e.g. other visible contributions. */
+  avoid: readonly Element[] = [],
 ) {
   const steps = [0.14, 0.23, 0.32, 0.41, 0.5, 0.59, 0.68, 0.77, 0.86];
   const below = dna.elements.length;
@@ -177,6 +179,14 @@ export function placeAnchor(
           halfHeight: height / 2,
           turn: 0,
         };
+        if (
+          avoid.some(
+            (other) =>
+              overlaps(bounds(other), box) ||
+              (paired && overlaps(bounds(other), { ...box, cx: 1 - cx })),
+          )
+        )
+          continue;
         const { color, score: here } = strongest(dna, box, below, palette);
         const score = paired
           ? Math.min(
