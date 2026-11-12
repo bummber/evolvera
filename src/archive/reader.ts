@@ -17,11 +17,22 @@ export const ep01Collections = [
   'ep01-constraints',
 ] as const;
 export type Ep01Collection = (typeof ep01Collections)[number];
-export type CollectionKey = 'official' | 'traceable' | 'free' | Ep01Collection;
+// EP-01 P7: the works presented for the art review of generator 0.3.0.
+export const acceptanceCollections = [
+  'abnahme-traceable',
+  'abnahme-free',
+  'abnahme-ruhig',
+  'abnahme-wild',
+  'abnahme-reduziert',
+] as const;
+export type AcceptanceCollection = (typeof acceptanceCollections)[number];
+export type CollectionKey =
+  'official' | 'traceable' | 'free' | Ep01Collection | AcceptanceCollection;
 const previewKeys: readonly string[] = [
   'traceable',
   'free',
   ...ep01Collections,
+  ...acceptanceCollections,
 ];
 export type ArchiveReader = {
   key: CollectionKey;
@@ -112,10 +123,15 @@ export async function openCollection(
     signal?.throwIfAborted();
     return previewReader(key);
   }
+  if ((acceptanceCollections as readonly string[]).includes(key)) {
+    const { acceptanceReader } = await import('../preview/acceptance');
+    signal?.throwIfAborted();
+    return acceptanceReader(key as AcceptanceCollection);
+  }
   if (key !== 'official') {
     const { ep01Reader } = await import('../preview/ep01');
     signal?.throwIfAborted();
-    return ep01Reader(key);
+    return ep01Reader(key as Ep01Collection);
   }
   return createReader(
     key,

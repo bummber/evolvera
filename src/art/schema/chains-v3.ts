@@ -32,3 +32,12 @@ export const constraintPreviewSchema = z.strictObject({
   purpose: z.literal('ep01-constraints-preview-only'),
   chain: previewChainV3Schema,
 });
+
+// EP-01 P7: the works presented for the art review of generator 0.3.0, as
+// two files: the standard profile and the deviating profiles.
+export const acceptanceCollectionV3Schema = z.strictObject({
+  schemaVersion: z.literal(1),
+  purpose: z.literal('ep01-acceptance-preview-only'),
+  profiles: z.enum(['standard', 'deviating']),
+  chains: z.array(previewChainV3Schema).min(1).max(4),
+});

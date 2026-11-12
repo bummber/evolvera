@@ -5,6 +5,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import {
   berlinCycleDate,
   collectionKey,
+  acceptanceCollections,
   collectionLink,
   ep01Collections,
   loadWorkContext,
@@ -107,8 +108,42 @@ function Failure({ work = false }: { work?: boolean }) {
 // EP-01 P6: preview collections of generator 0.3.0. Texts per collection;
 // the two reviewed test collections keep their wording.
 const ep01Info: Partial<
-  Record<CollectionKey, { option: string; count: number; eyebrow: string }>
+  Record<
+    CollectionKey,
+    { option: string; count: number; eyebrow: string; review?: true }
+  >
 > = {
+  // EP-01 P7: the works of the art review of generator 0.3.0 (approved).
+  'abnahme-traceable': {
+    option: 'Abnahme 0.3.0 · Nachvollziehbare Vererbung',
+    count: 20,
+    eyebrow: 'Abnahmewerke · Standardprofil · zwanzig Generationen',
+    review: true,
+  },
+  'abnahme-free': {
+    option: 'Abnahme 0.3.0 · Maximale Freiheit',
+    count: 20,
+    eyebrow: 'Abnahmewerke · Standardprofil · zwanzig Generationen',
+    review: true,
+  },
+  'abnahme-ruhig': {
+    option: 'Abnahme 0.3.0 · Profil „Ruhig“',
+    count: 6,
+    eyebrow: 'Abnahmewerke · abweichendes Profil · sechs Generationen',
+    review: true,
+  },
+  'abnahme-wild': {
+    option: 'Abnahme 0.3.0 · Profil „Wild“',
+    count: 6,
+    eyebrow: 'Abnahmewerke · abweichendes Profil · sechs Generationen',
+    review: true,
+  },
+  'abnahme-reduziert': {
+    option: 'Abnahme 0.3.0 · Profil „Reduziert“',
+    count: 6,
+    eyebrow: 'Abnahmewerke · abweichendes Profil · sechs Generationen',
+    review: true,
+  },
   'ep01-traceable': {
     option: 'EP-01 · Nachvollziehbare Vererbung',
     count: 10,
@@ -161,6 +196,11 @@ function CollectionBar({ source }: { source: CollectionKey }) {
               {ep01Info[key]!.option}
             </option>
           ))}
+          {acceptanceCollections.map((key) => (
+            <option key={key} value={key}>
+              {ep01Info[key]!.option}
+            </option>
+          ))}
         </select>
       </div>
       <p>
@@ -168,9 +208,11 @@ function CollectionBar({ source }: { source: CollectionKey }) {
           ? initialSettings.generationEnabled
             ? 'Gespeicherte Werke der offiziellen Serie.'
             : 'Die offizielle Serie hat noch nicht begonnen.'
-          : ep01Info[source]
-            ? `Probekette von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Keine offizielle Serie und keine Kunstabnahme. Die Auswahl ändert keine Einstellung.`
-            : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
+          : ep01Info[source]?.review
+            ? `Abnahmewerke von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Am 12.11.2026 abgenommen; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
+            : ep01Info[source]
+              ? `Probekette von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Keine offizielle Serie und keine Kunstabnahme. Die Auswahl ändert keine Einstellung.`
+              : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
       </p>
       <Link to="/kunstpruefung">Zur gemeinsamen Kunstsichtung ↗</Link>
     </section>
@@ -1055,7 +1097,9 @@ function WorkPresentation({
       {todayLabel && !initialSettings.generationEnabled && <SeriesInfo />}
       {reader.key !== 'official' && (
         <p className="atelier-notice">
-          {ep01Info[reader.key] ? (
+          {ep01Info[reader.key]?.review ? (
+            'Abnahmewerk von Generator 0.3.0 aus einer getrennten Kette. Die Daten sind simuliert. Am 12.11.2026 abgenommen; nicht Teil des offiziellen Archivs.'
+          ) : ep01Info[reader.key] ? (
             'Probewerk von Generator 0.3.0 aus einer getrennten Probekette. Die Daten sind simuliert. Keine Kunstabnahme; nicht Teil des offiziellen Archivs.'
           ) : (
             <>
