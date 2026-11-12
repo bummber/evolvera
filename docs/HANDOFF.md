@@ -1,6 +1,77 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 11.11.2026, EP-01 P6 „Galerie und Detailansicht für Schema 3“ umgesetzt, abgenommen und veröffentlicht
+## Aktueller Abschluss – 12.11.2026, EP-01 P7 „Kunstabnahme und Aktivierung“: abgenommen, gemessen, Aktivierungsplan vorgelegt; nicht aktiviert, nicht veröffentlicht
+
+Der Betreiber hat P7 am 12.11.2026 beauftragt. Sichtung vor Beginn (08:33
+Berlin): lokal `31788db` (Doku-Commit zur Veröffentlichung von P6, ungepusht),
+Remote-main `18445d1` mit dem Archivcommit des Tageslaufs. Auf
+Betreiberfreigabe Fetch und Rebase des Doku-Commits (jetzt `10d5bcd`); kein
+Push. Bauplan freigegeben.
+[Abnahme, Messung, Aktivierungsplan und Grenzen](extensions/EP01-abnahme-7.md).
+
+- **Tageslauf 12.11.:** Schedule-Lauf 43174780077 erfolgreich, gestartet
+  08:22 Berlin, Archivcommit `18445d1` um 08:25: Gen. 9 „Chwenchschstille /
+  Traumschweben“, Eltern 10.11. und 11.11., `traceable`/6, Generator 0.2.0,
+  Renderer 1, Lexikon 0.1.0; Titel wie vorhergesagt.
+- **Archiv-Baseline:** um das Werk vom 12.11. ergänzt (`26940d4`); die acht
+  bestehenden Einträge und 16 Bilder sind unverändert.
+- **Kunstabnahme erteilt (12.11.2026):** 58 neue Werke von Generator 0.3.0
+  (40 im Standardprofil in zwei Zwanzigerketten, dazu je sechs für „Ruhig“,
+  „Wild“, „Reduziert“), sichtbar als fünf Sammlungen `abnahme-*`. Wortlaut:
+  „Die Werke sind so abgenommen“; spätere Änderungswünsche will der Betreiber
+  gesondert besprechen. Mindestabstand 0,02 bleibt für beide Modi. Die
+  Fixtures `ep01-review.json` und `ep01-review-profiles.json` sind per
+  SHA-256 eingefroren (Test). Der Nachweis steht noch **nicht** in
+  `config/release.json`; das gehört zur Aktivierung.
+- **Lastgrenzen bestätigt (Betreiberentscheidung 7):** Messung mit der neuen
+  Seite `#/messung` auf MacBook (Chrome 157) und iPhone 13 (Safari):
+  Musterbogen „Lastgrenze“ Median 16,7 bzw. 17 ms, 95 % 16,8 bzw. 17 ms;
+  Augenschein „flüssig und gut“. Die Werte aus P2 bleiben; Schema 3 und
+  Renderer 2 unverändert. Ein iPhone-Lauf war durch eine Unterbrechung von
+  15,7 s nicht verwertbar; zum Lauf mit reduzierter Bewegung liegt nur die
+  Rückmeldung „ok“ vor.
+- **Verdrahtung gebaut, aber inaktiv:** `generatorChangeDate = null` in
+  `src/series/calendar.ts`. `src/automation/plan.ts` erzeugt ab einem Datum
+  mit Generator 0.3.0 (Historie höchstens 30 Werke, Standardprofil aus
+  `readGenerationConfig`), liest mit `readArchive` und stoppt, wenn Schema 3
+  nicht genau ab dem Datum vorkommt. `src/automation/release.ts` kennt das
+  optionale Feld `artReviewV3` und verlangt es für 0.3.0. Ohne Datum
+  verhält sich der Tageslauf wie bisher: Der neue Planer sagt für 13.11.
+  „Chwkante im Zwischenraum“ und für 14.11. „Azurschweben“ (0.2.0) voraus.
+- **Neu:** `src/art/generator/acceptance-v3.ts`,
+  `scripts/acceptance-fixtures.ts`, `src/preview/acceptance.ts`, zwei
+  Fixtures, `src/app/LoadMeasure.tsx`, `src/app/frame-stats.ts`,
+  `tests/acceptance-v3.test.tsx`, `tests/frame-stats.test.ts`,
+  `tests/activation.test.ts`, `tests/browser/acceptance.spec.ts`,
+  `docs/extensions/EP01-abnahme-7.md`.
+- **Geändert:** `src/archive/reader.ts`, `src/app/ArchivePages.tsx`,
+  `src/app/App.tsx` (Route `/messung`), `src/styles/shell.css`,
+  `src/art/schema/chains-v3.ts`, `src/series/calendar.ts`,
+  `src/automation/calendar.ts`, `plan.ts`, `release.ts`, `git.ts`,
+  `scripts/validate-data.ts`, `package.json` (ein weiterer Aufruf in
+  `validate:data`).
+- **Prüfungen lokal am 12.11.2026:** `npm run check` erfolgreich mit
+  **408 Tests** (385 + 2 für die Baseline + 21); Datenprüfung mit neun
+  Werken, alle Fixtures reproduziert; Worker-Bundle unverändert
+  (805,92 KiB). `CI=true npm run test:browser` gegen den frischen Build:
+  **170 bestanden** (152 + 2 + 16), sechs bestehende Skips; kein bestehendes
+  Referenzbild verändert. WebKit (Playwright) für Abnahmesammlungen,
+  Schema-3-Ansichten, Musterbogen und Messseite: 46 Fälle ohne Fehler, ohne
+  Bildvergleich. `npm run generate:daily -- --dry-run`: nichts fällig.
+- **Nicht geprüft:** Firefox (startet in der Sandbox der Sitzung nicht);
+  Live-Website; `npm run worker:test-runtime` (Worker unberührt).
+- **Nicht veröffentlicht:** Alle Commits seit `18445d1` liegen nur lokal.
+- **Unverändert:** Generator 0.2.0 und 0.3.0, Titelgenerator, `ArtV1`,
+  `ArtRenderer.tsx`, Renderer 2, `artwork.ts`, `artwork-v3.ts`,
+  `config/generation.json`, `config/release.json`, Worker, Workflows,
+  Archivdateien, `fixtures/preview/phase-*.json`, übrige EP-01-Fixtures,
+  bestehende Browserreferenzen, Lockfile. Keine neue Abhängigkeit.
+
+Als Nächstes, je auf ausdrücklichen Auftrag: Push des inaktiven Stands,
+danach die Aktivierung mit Wechseldatum; unabhängig davon den Lauf für
+**Werkdatum 14.11.2026** belegen. [Aktueller Startprompt](NEXT-START.md).
+
+## Vorheriger Abschluss – 11.11.2026, EP-01 P6 „Galerie und Detailansicht für Schema 3“ umgesetzt, abgenommen und veröffentlicht
 
 Der Betreiber hat P6 am 11.11.2026 beauftragt. Sichtung vor Beginn (22:39
 Berlin): lokal `d7cc35f` (Doku-Commit zur Veröffentlichung von P5, ungepusht),

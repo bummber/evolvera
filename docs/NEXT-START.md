@@ -1,4 +1,82 @@
-# Aktueller Startprompt – EP-01: P7 Kunstabnahme und Aktivierung
+# Aktueller Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt,
+docs/extensions/EP01-umsetzungsplan.md (Abschnitt P7 und Abschnitt 7) und
+vollständig docs/extensions/EP01-abnahme-7.md lesen. Dann /sichtung ausführen:
+rein lesend Git-Zustand, Remote, Berliner Zeit, Tagesläufe und Archiv prüfen
+und gemeinsam sichten.
+
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. P0 bis P6
+sind veröffentlicht. P7 ist am 12.11.2026 bis auf die Aktivierung umgesetzt:
+58 Abnahmewerke von Generator 0.3.0 sind vom Betreiber abgenommen und per
+SHA-256 eingefroren, der Mindestabstand 0,02 gilt für beide Modi, die
+Lastgrenzen sind nach Messung auf iPhone 13 (Safari) und MacBook (Chrome)
+bestätigt, die Verdrahtung im Tagesplaner ist gebaut, aber inaktiv
+(generatorChangeDate = null). Dieser Stand liegt nur lokal: bei der Sichtung
+feststellen, welche Commits ungepusht sind. Seitdem schreibt nur der
+Tageslauf auf main: dessen Archivcommits nur per Fast-forward bzw. Rebase
+übernehmen und die Archiv-Baseline um die seit 13.11. archivierten Werke
+ergänzen. Offen: Firefox-Prüfung; Serienneustart mit Löschung aller Werke
+(zurückgestellt, kein Auftrag, nichts löschen). Der Lexikon-Beleg für
+Werkdatum 14.11.2026 ist ein eigener Schritt: sobald der Lauf stattgefunden
+hat, anhand Run-ID, Zeit, Status, Archivcommit, lexiconVersion, Titel und
+Elternbausteinen belegen (erwartet Gen. 11 „Azurschweben“, 0.2.0; für den
+13.11. erwartet „Chwkante im Zwischenraum“, 0.1.0).
+
+Ich beauftrage jetzt ausschließlich die folgenden Schritte nach dem
+Aktivierungsplan in EP01-abnahme-7.md; jeder Push braucht meine Freigabe
+unmittelbar davor.
+1. Archiv-Baseline um die seit 13.11. archivierten Werke ergänzen;
+   Bestehendes nicht verändern.
+2. Push 1, inaktiver Stand: nur wenn nichts fällig ist. Vorher npm run check,
+   npm run test:browser und npm run worker:test-runtime. Danach CI und Pages
+   belegen und den nächsten Schedule-Lauf abwarten: Generator 0.2.0, Titel
+   wie vorhergesagt, alte Bytes unverändert.
+3. Mit mir das Werkdatum D des Wechsels festlegen (nach dem letzten
+   archivierten Werk; Empfehlung frühestens 16.11.2026 und mindestens zwei
+   Tage nach dem Aktivierungs-Push).
+4. Aktivierungs-Commit vorbereiten und mir zeigen: generatorChangeDate = D in
+   src/series/calendar.ts, artReviewV3 in config/release.json (Abnahme vom
+   12.11.2026, 40 Werke, Wortlaut, beide Fixture-Hashes), Anpassung von
+   tests/activation.test.ts, AGENTS.md und Doku. Tests und Trockenlauf
+   ausführen.
+5. Push 2, Aktivierung, erst nach ausdrücklicher Freigabe.
+6. Den ersten Lauf mit Werkdatum D nach der Liste im Aktivierungsplan
+   belegen (Run-ID, Archivcommit, Versionen, Eltern, Snapshot, Originalbytes
+   der alten Werke, Datenprüfung, Detailansicht).
+7. Danach Archiv-Baseline und tests/activation.test.ts für Werke im Schema 3
+   vorbereiten (Dispatch statt Renderer 1, readArchive statt readWorks) und
+   den Auftrag für P8 formulieren.
+
+Grenzen: Keine Änderung an Generator 0.2.0 und 0.3.0, Abstandsmaß,
+Titelgenerator, ArtV1, ArtRenderer.tsx, Renderer 2, artwork.ts,
+artwork-v3.ts, config/generation.json, Worker, Workflows, Archivdateien,
+Archiv-Baseline (nur ergänzen), eingefrorenen Fixtures
+(fixtures/preview/phase-*.json, ep01-review*.json) oder bestehenden
+Browserreferenzen. Ab dem ersten archivierten Werk im Schema 3 sind
+Renderer 2 und Schema 3 eingefroren. Zeigt das erste neue Werk einen Fehler:
+nichts löschen, nichts neu erzeugen, gemeinsam entscheiden. Keine
+Betreiberoberfläche (P8), kein Abschluss (P9). Kein Löschen von Werken ohne
+ausdrücklichen Auftrag. Neue Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung und löst auch den Tageslauf aus. Kleine,
+thematisch getrennte Commits vorschlagen. Kein manueller Workflowstart, kein
+Deployment, keine Secrets. Worker, Secrets und SQLite-Sitzungen erhalten;
+keine Cookie-/Token-/Liveworker-Logeinsicht. Lokale Tests
+isoliert/synthetisch, Workerausgaben außerhalb dist und Git.
+
+Abschließend das Ergebnis gemeinsam sichten, HANDOFF und NEXT-START
+nachtragen und den abgegrenzten Auftrag für P8 formulieren.
+```
+
+## Historische Startprompts – Stand vor der Aktivierung (12.11.2026)
+
+# Vorheriger Startprompt – EP-01: P7 Kunstabnahme und Aktivierung
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera

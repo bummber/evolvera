@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 11.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P5 veröffentlicht (Sichtung 1 und Sichtung 2 am 10.11.2026 bestätigt, P4 und P5 am 11.11.2026 gesichtet), P6 am 11.11.2026 umgesetzt, abgenommen und veröffentlicht, P7–P9 nicht beauftragt
+Stand: 12.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P6 veröffentlicht; P7 am 12.11.2026 beauftragt: Kunstabnahme erteilt, Lastgrenzen bestätigt, Aktivierungsplan vorgelegt, lokal und nicht veröffentlicht; Aktivierung nicht freigegeben; P8 und P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
@@ -361,6 +361,21 @@ Neues Modul unter `src/art/generator/v3/`, frei von React und Browser.
   Versionen, Eltern, Originalbytes der alten Werke).
 - Ab hier erzeugt die Serie mit dem Standardprofil. Die Schalter sind noch nicht
   über die Oberfläche änderbar.
+- Umgesetzt am 12.11.2026 bis auf die Aktivierung selbst; Abnahme, Messung,
+  Plan und Grenzen stehen in [EP01-abnahme-7.md](EP01-abnahme-7.md).
+  Festlegungen und Abweichungen vom Planwortlaut (Bauplan vom Betreiber am
+  12.11.2026 freigegeben):
+  - 58 Abnahmewerke (40 im Standardprofil, drei Profilketten „Ruhig“, „Wild“,
+    „Reduziert“) als fünf Sammlungen; am 12.11.2026 abgenommen und per
+    SHA-256 eingefroren. Mindestabstand 0,02 bleibt für beide Modi.
+  - Lastgrenzen aus P2 nach Messung auf iPhone 13 (Safari) und MacBook
+    (Chrome) bestätigt; Firefox bleibt offen.
+  - Die Verdrahtung im Tagesplaner ist gebaut, aber inaktiv
+    (`generatorChangeDate = null`). Datum, Nachweis in `config/release.json`
+    und Push brauchen eine eigene Freigabe.
+  - Der Tageslauf liest die Konfiguration weiter strikt als Schema 1 und
+    holt nur das Profil über `readGenerationConfig`; Schema 2 im Tageslauf
+    folgt mit P8.
 
 ### P8 – Betreiberoberfläche
 
@@ -421,9 +436,9 @@ Mindestabstand darf verfehlt werden. Das Werk speichert dann den erreichten
 Abstand und den Vermerk „Mindestabstand nicht erreicht“, und die Detailansicht
 zeigt ihn unter „Rahmenbedingungen“.
 
-Weiter offen und erst im jeweiligen Paket zu klären: das konkrete Werkdatum des
-Wechsels (P7), Schwelle und Gewichte des Abstandsmaßes (P5), endgültige
-Lastgrenzen (P2).
+Weiter offen: das konkrete Werkdatum des Wechsels (Freigabe der Aktivierung).
+Entschieden sind Schwelle und Gewichte des Abstandsmaßes (P5, in P7 bestätigt)
+und die Lastgrenzen (am 12.11.2026 nach der Gerätemessung bestätigt).
 
 ## 8. Risiken
 
