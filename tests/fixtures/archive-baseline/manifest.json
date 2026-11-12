@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-11",
+  "frozenThrough": "2026-11-12",
   "works": [
     {
       "id": "2026-11-04",
@@ -64,6 +64,14 @@
       "path": "public/artworks/2026/2026-11-11.json",
       "sha256": "6c660eb296018eba7a8fca4c06c9c8d12e87b08f4e77dca996ce6db48f512215",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-11.txt"
+    },
+    {
+      "id": "2026-11-12",
+      "generation": 9,
+      "title": "Chwenchschstille / Traumschweben",
+      "path": "public/artworks/2026/2026-11-12.json",
+      "sha256": "24dc044940216214eded20b87cda3d8dd29900a9aeac5dd852146dac7adc8b09",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-12.txt"
     }
   ]
 }
