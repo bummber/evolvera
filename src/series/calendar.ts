@@ -14,6 +14,21 @@ export function lexiconVersionFor(id: string) {
   workDateSchema.parse(id);
   return id < lexiconChangeDate ? ('0.1.0' as const) : ('0.2.0' as const);
 }
+// EP-01, operator decision 1: dated generator change inside the running
+// series. `null` means not activated: every work date keeps generator 0.2.0.
+// A date is set only with the operator's explicit approval of the activation
+// and must lie after the last archived work.
+export const generatorChangeDate: string | null = null;
+export function generatorVersionFor(
+  id: string,
+  changeDate: string | null = generatorChangeDate,
+) {
+  workDateSchema.parse(id);
+  if (changeDate !== null) workDateSchema.parse(changeDate);
+  return changeDate !== null && id >= changeDate
+    ? ('0.3.0' as const)
+    : ('0.2.0' as const);
+}
 export function addDay(id: string) {
   workDateSchema.parse(id);
   const date = new Date(`${id}T12:00:00Z`);

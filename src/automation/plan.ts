@@ -1,9 +1,48 @@
-import { configSchema, instantSchema } from '../art/schema/config';
+import {
+  configSchema,
+  instantSchema,
+  readGenerationConfig,
+} from '../art/schema/config';
+import type { Artwork } from '../art/schema/artwork';
+import type { AnyArtwork } from '../art/schema/artwork-v3';
 import { snapshotSettings } from '../operator/settings';
 import { generateArtwork } from '../art/generator/evolve';
-import { addDay, cycleDate, lexiconVersionFor, scheduledFor } from './calendar';
-import { assertSeriesGate, assertTitleGate } from './release';
-import { indexPath, indexText, readWorks, workPath } from './archive';
+import { MAX_NOVELTY_WINDOW } from '../art/generator/v3/distance';
+import { generateArtworkV3 } from '../art/generator/v3/evolve';
+import {
+  addDay,
+  cycleDate,
+  generatorChangeDate,
+  generatorVersionFor,
+  lexiconVersionFor,
+  scheduledFor,
+} from './calendar';
+import {
+  assertGeneratorGate,
+  assertSeriesGate,
+  assertTitleGate,
+} from './release';
+import { indexPath, indexText, readArchive, workPath } from './archive';
+
+/**
+ * Reads the archive and checks that each work was made by the generator of
+ * its work date: schema 3 exactly from the dated generator change on (EP-01).
+ * Without a change date no schema 3 work is accepted at all.
+ */
+function readSeries(
+  files: ReadonlyMap<string, string>,
+  start: string | null,
+  changeDate: string | null,
+) {
+  const works = readArchive(files, start);
+  for (const work of works)
+    if (
+      (work.schemaVersion === 3) !==
+      (generatorVersionFor(work.id, changeDate) === '0.3.0')
+    )
+      throw new Error('Archivwerk passt nicht zum datierten Generatorwechsel.');
+  return works;
+}
 
 /** No I/O. Historical bytes come from the first archived Git version, never regeneration. */
 export function prepareRun(
@@ -15,12 +54,22 @@ export function prepareRun(
     runStartedAt: string;
   },
   clock: () => string,
+  /** Tests only: another change date than the published one. */
+  options: { generatorChangeDate?: string | null } = {},
 ) {
+  const changeDate =
+    options.generatorChangeDate === undefined
+      ? generatorChangeDate
+      : options.generatorChangeDate;
   const settings = snapshotSettings(configSchema.parse(input.settings));
   const release = assertSeriesGate(settings, input.release);
   const runStartedAt = instantSchema.parse(input.runStartedAt);
   const files = new Map(input.canonical);
-  const works = readWorks(files, settings.seriesStartDate);
+  const works: AnyArtwork[] = readSeries(
+    files,
+    settings.seriesStartDate,
+    changeDate,
+  );
   const restored = [...files]
     .filter(([path, text]) => input.current.get(path) !== text)
     .map(([path]) => path);
@@ -39,20 +88,48 @@ export function prepareRun(
           'Serienbudget erreicht; manuelle Erweiterung erforderlich.',
         );
       assertTitleGate(release, lexiconVersionFor(next));
-      const work = generateArtwork(
-        {
-          generation: works.length + 1,
-          workDate: next,
-          seed: `evolvera:0.2.0:${next}`,
-          scheduledFor: scheduledFor(next),
-          runStartedAt,
-          settings,
-          parents: works.length < 2 ? [] : works.slice(-2),
-          usedTitles: works.map((work) => work.title),
-          lexiconVersion: lexiconVersionFor(next),
-        },
-        clock,
-      );
+      const generatorVersion = generatorVersionFor(next, changeDate);
+      assertGeneratorGate(release, generatorVersion);
+      const request = {
+        generation: works.length + 1,
+        workDate: next,
+        seed: `evolvera:${generatorVersion}:${next}`,
+        scheduledFor: scheduledFor(next),
+        runStartedAt,
+        usedTitles: works.map((work) => work.title),
+        lexiconVersion: lexiconVersionFor(next),
+      };
+      const parents = works.length < 2 ? [] : works.slice(-2);
+      const work =
+        generatorVersion === '0.3.0'
+          ? generateArtworkV3(
+              {
+                ...request,
+                // Complete effective settings of this run: the mode and the
+                // profile of the configuration (schema 1: standard profile).
+                settings: {
+                  inheritanceMode: settings.inheritanceMode,
+                  ...structuredClone(
+                    readGenerationConfig(input.settings).profile,
+                  ),
+                },
+                settingsRevision: settings.revision,
+                parents,
+                // Ordered history context, oldest first; works of a
+                // catch-up run join it one by one.
+                history: works.slice(-MAX_NOVELTY_WINDOW),
+              },
+              clock,
+            )
+          : generateArtwork(
+              {
+                ...request,
+                settings,
+                // Before the change date every work is of schema 1 or 2.
+                parents: parents as Artwork[],
+              },
+              clock,
+            );
       const path = workPath(next);
       files.set(path, JSON.stringify(work, null, 2) + '\n');
       added.push(path);
@@ -60,7 +137,7 @@ export function prepareRun(
       next = addDay(next);
     }
   }
-  readWorks(files, settings.seriesStartDate);
+  readSeries(files, settings.seriesStartDate, changeDate);
   const expectedIndex = indexText(works);
   let previousIndex = input.current.get(indexPath);
   try {

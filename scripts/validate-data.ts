@@ -25,6 +25,21 @@ for (const [name, file] of [
       'Abgenommene Testreferenzen wurden verändert. Neue Abnahme erforderlich.',
     );
 }
+// EP-01 P7: once the art review of generator 0.3.0 is recorded, its
+// acceptance works are frozen as well.
+if (release.artReviewV3)
+  for (const [name, file] of [
+    ['standard', 'fixtures/preview/ep01-review.json'],
+    ['profiles', 'fixtures/preview/ep01-review-profiles.json'],
+  ] as const) {
+    const digest = createHash('sha256')
+      .update(await readFile(file))
+      .digest('hex');
+    if (digest !== release.artReviewV3.fixtureSha256[name])
+      throw new Error(
+        'Abgenommene Werke von Generator 0.3.0 wurden verändert. Neue Abnahme erforderlich.',
+      );
+  }
 const files = new Map<string, string>();
 for (const file of await readdir('public/artworks', { recursive: true })) {
   if (file.endsWith('.json'))

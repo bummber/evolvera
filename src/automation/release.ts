@@ -22,6 +22,19 @@ export const releaseSchema = z.strictObject({
       statement: z.string().min(1).max(1000),
     })
     .optional(),
+  // EP-01 P7: separate art review of generator 0.3.0 with renderer 2. The
+  // review of the 40 older test works does not cover it.
+  artReviewV3: z
+    .strictObject({
+      generatorVersion: z.literal('0.3.0'),
+      rendererVersion: z.literal('2'),
+      approvedOn: z.iso.date(),
+      /** Reviewed works of the standard profile (EP-01: 30 to 50). */
+      workCount: z.number().int().min(30).max(50),
+      statement: z.string().min(1).max(1000),
+      fixtureSha256: z.strictObject({ standard: digest, profiles: digest }),
+    })
+    .optional(),
 });
 export type Release = z.infer<typeof releaseSchema>;
 export function assertSeriesGate(config: GenerationConfig, input: unknown) {
@@ -45,5 +58,18 @@ export function assertTitleGate(release: Release, lexiconVersion: string) {
   )
     throw new Error(
       `Dokumentierte Titelabnahme für Lexikon ${lexiconVersion} fehlt.`,
+    );
+}
+/** Generator 0.2.0 is covered by the art review; 0.3.0 needs its own. */
+export function assertGeneratorGate(
+  release: Release,
+  generatorVersion: string,
+) {
+  if (
+    generatorVersion !== release.artReview.generatorVersion &&
+    release.artReviewV3?.generatorVersion !== generatorVersion
+  )
+    throw new Error(
+      `Dokumentierte Kunstabnahme für Generator ${generatorVersion} fehlt.`,
     );
 }

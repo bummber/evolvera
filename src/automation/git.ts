@@ -134,6 +134,8 @@ export function planAt(
   revision: string,
   runStartedAt: string,
   clock: () => string,
+  /** Tests only; see `prepareRun`. */
+  options?: Parameters<typeof prepareRun>[2],
 ) {
   return prepareRun(
     {
@@ -148,6 +150,7 @@ export function planAt(
       runStartedAt,
     },
     clock,
+    options,
   );
 }
 /** Called only by the separately gated CI entrypoint. Fast-forward-only push; one config-only retry. */

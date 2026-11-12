@@ -2,6 +2,8 @@
 export {
   addDay,
   cycleDate,
+  generatorChangeDate,
+  generatorVersionFor,
   lexiconVersionFor,
   scheduledFor,
 } from '../series/calendar';
