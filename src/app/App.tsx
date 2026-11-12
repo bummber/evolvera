@@ -26,6 +26,8 @@ const ArtReview = lazy(() => import('./ArtReview'));
 const Atelier = lazy(() => import('./Atelier'));
 const EvolutionLab = lazy(() => import('./EvolutionLab'));
 const LegalPages = lazy(() => import('./LegalPages'));
+// EP-01 P7: measuring aid for the device check; not part of the navigation.
+const LoadMeasure = lazy(() => import('./LoadMeasure'));
 
 const navigation = [
   ['/', 'Heute'],
@@ -606,6 +608,7 @@ export function App() {
                 element={<ArchivePage view="detail" />}
               />
               <Route path="/kunstpruefung" element={<ArtReview />} />
+              <Route path="/messung" element={<LoadMeasure />} />
               <Route path="/ueber" element={<About />} />
               <Route path="/einstellungen" element={<Settings />} />
               <Route

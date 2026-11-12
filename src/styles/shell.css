@@ -1830,3 +1830,23 @@ input:focus-visible {
 .proof-place {
   color: var(--ink-soft);
 }
+
+/* EP-01 P7: load measurement page (#/messung). */
+.measure-status {
+  font: 12px/1.6 var(--font-mono);
+  margin: 16px 0;
+}
+.measure-stage {
+  width: min(100%, 660px);
+  min-height: 40px;
+}
+.measure-report {
+  display: block;
+  width: 100%;
+  max-width: 90ch;
+  font: 12px/1.5 var(--font-mono);
+  padding: 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: inherit;
+}
