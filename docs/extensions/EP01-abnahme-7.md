@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Kunstabnahme, Geräteprüfung und Aktivierungsplan (P7)
 
-Stand: 12.11.2026 · Status: Abnahmewerke am 12.11.2026 vom Betreiber abgenommen und eingefroren; Lastgrenzen nach Messung auf iPhone 13 und MacBook bestätigt; inaktive Verdrahtung umgesetzt (lokal, nicht veröffentlicht); **Aktivierung nicht freigegeben**
+Stand: 12.11.2026 · Status: Abnahmewerke am 12.11.2026 vom Betreiber abgenommen und eingefroren; Lastgrenzen nach Messung auf iPhone 13 und MacBook bestätigt; inaktiver Stand am 12.11.2026 veröffentlicht (`b98b4a9`, CI 43194138740 und Pages 43194138581 erfolgreich); **Aktivierung nicht freigegeben**
 
 Generator 0.3.0 ist weiterhin nicht aktiv: `generatorChangeDate` ist `null`,
 im Archiv liegt kein Werk im Schema 3, `config/generation.json` und

@@ -15,8 +15,10 @@ sind veröffentlicht. P7 ist am 12.11.2026 bis auf die Aktivierung umgesetzt:
 SHA-256 eingefroren, der Mindestabstand 0,02 gilt für beide Modi, die
 Lastgrenzen sind nach Messung auf iPhone 13 (Safari) und MacBook (Chrome)
 bestätigt, die Verdrahtung im Tagesplaner ist gebaut, aber inaktiv
-(generatorChangeDate = null). Dieser Stand liegt nur lokal: bei der Sichtung
-feststellen, welche Commits ungepusht sind. Seitdem schreibt nur der
+(generatorChangeDate = null). Dieser inaktive Stand ist am 12.11.
+veröffentlicht (b98b4a9, CI 43194138740 und Pages 43194138581 erfolgreich);
+Push 1 aus dem Aktivierungsplan ist damit erledigt. Ein danach angelegter
+Doku-Commit kann noch ungepusht sein: bei der Sichtung prüfen. Seitdem schreibt nur der
 Tageslauf auf main: dessen Archivcommits nur per Fast-forward bzw. Rebase
 übernehmen und die Archiv-Baseline um die seit 13.11. archivierten Werke
 ergänzen. Offen: Firefox-Prüfung; Serienneustart mit Löschung aller Werke
@@ -31,10 +33,9 @@ Aktivierungsplan in EP01-abnahme-7.md; jeder Push braucht meine Freigabe
 unmittelbar davor.
 1. Archiv-Baseline um die seit 13.11. archivierten Werke ergänzen;
    Bestehendes nicht verändern.
-2. Push 1, inaktiver Stand: nur wenn nichts fällig ist. Vorher npm run check,
-   npm run test:browser und npm run worker:test-runtime. Danach CI und Pages
-   belegen und den nächsten Schedule-Lauf abwarten: Generator 0.2.0, Titel
-   wie vorhergesagt, alte Bytes unverändert.
+2. Den ersten Schedule-Lauf auf dem veröffentlichten P7-Stand belegen
+   (Werkdatum 13.11.): Generator 0.2.0, Titel wie vorhergesagt, alte Bytes
+   unverändert.
 3. Mit mir das Werkdatum D des Wechsels festlegen (nach dem letzten
    archivierten Werk; Empfehlung frühestens 16.11.2026 und mindestens zwei
    Tage nach dem Aktivierungs-Push).

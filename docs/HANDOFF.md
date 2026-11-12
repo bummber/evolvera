@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Aktueller Abschluss – 12.11.2026, EP-01 P7 „Kunstabnahme und Aktivierung“: abgenommen, gemessen, Aktivierungsplan vorgelegt; nicht aktiviert, nicht veröffentlicht
+## Aktueller Abschluss – 12.11.2026, EP-01 P7 „Kunstabnahme und Aktivierung“: abgenommen, gemessen, inaktiver Stand veröffentlicht; Generator 0.3.0 nicht aktiviert
 
 Der Betreiber hat P7 am 12.11.2026 beauftragt. Sichtung vor Beginn (08:33
 Berlin): lokal `31788db` (Doku-Commit zur Veröffentlichung von P6, ungepusht),
@@ -60,15 +60,27 @@ Push. Bauplan freigegeben.
   Bildvergleich. `npm run generate:daily -- --dry-run`: nichts fällig.
 - **Nicht geprüft:** Firefox (startet in der Sandbox der Sitzung nicht);
   Live-Website; `npm run worker:test-runtime` (Worker unberührt).
-- **Nicht veröffentlicht:** Alle Commits seit `18445d1` liegen nur lokal.
+- **Veröffentlicht am 12.11.2026, 10:44 Berlin** (Betreiberfreigabe „Setze
+  um, was du vorschlägst“; Remote stand unverändert auf `18445d1`, reiner
+  Fast-forward, nichts fällig): `10d5bcd` (Doku zu P6), `26940d4`
+  (Baseline), `93e7877` (Abnahmewerke), `8ccd570` (Messseite), `948bf61`
+  (inaktive Verdrahtung) und `b98b4a9` (Doku zu P7). Vorher lokal zusätzlich
+  `npm run worker:test-runtime` erfolgreich. Beide Push-Läufe erfolgreich:
+  CI 43194138740 und Pages 43194138581; kein neues Werk, kein Archivcommit,
+  Remote-main danach `b98b4a9`. Das ist **nicht** die Aktivierung:
+  `generatorChangeDate` ist `null`, `config/release.json` unverändert. Der
+  Nachtrag dieser Veröffentlichung ist ein eigener Doku-Commit danach.
+- **Noch zu belegen:** der erste Schedule-Lauf auf diesem Stand (Werkdatum
+  13.11., erwartet Gen. 10 „Chwkante im Zwischenraum“, Generator 0.2.0).
 - **Unverändert:** Generator 0.2.0 und 0.3.0, Titelgenerator, `ArtV1`,
   `ArtRenderer.tsx`, Renderer 2, `artwork.ts`, `artwork-v3.ts`,
   `config/generation.json`, `config/release.json`, Worker, Workflows,
   Archivdateien, `fixtures/preview/phase-*.json`, übrige EP-01-Fixtures,
   bestehende Browserreferenzen, Lockfile. Keine neue Abhängigkeit.
 
-Als Nächstes, je auf ausdrücklichen Auftrag: Push des inaktiven Stands,
-danach die Aktivierung mit Wechseldatum; unabhängig davon den Lauf für
+Als Nächstes: den Schedule-Lauf für den 13.11. belegen, danach auf
+ausdrückliche Freigabe die Aktivierung mit Wechseldatum (Empfehlung
+frühestens 16.11.2026); unabhängig davon den Lauf für
 **Werkdatum 14.11.2026** belegen. [Aktueller Startprompt](NEXT-START.md).
 
 ## Vorheriger Abschluss – 11.11.2026, EP-01 P6 „Galerie und Detailansicht für Schema 3“ umgesetzt, abgenommen und veröffentlicht

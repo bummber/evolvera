@@ -1,6 +1,6 @@
 # Evolvera – EP-01: Angepasster Umsetzungsplan
 
-Stand: 12.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P6 veröffentlicht; P7 am 12.11.2026 beauftragt: Kunstabnahme erteilt, Lastgrenzen bestätigt, Aktivierungsplan vorgelegt, lokal und nicht veröffentlicht; Aktivierung nicht freigegeben; P8 und P9 nicht beauftragt
+Stand: 12.11.2026 · Status: EP-01 beauftragt, Umsetzung paketweise; P0 bis P6 veröffentlicht; P7 am 12.11.2026 beauftragt: Kunstabnahme erteilt, Lastgrenzen bestätigt, Aktivierungsplan vorgelegt, inaktiver Stand veröffentlicht (`b98b4a9`); Aktivierung nicht freigegeben; P8 und P9 nicht beauftragt
 
 Dieser Plan bildet `docs/extensions/PRD-EP01.md` und das Projektdokument „Mehr
 Varianz: Generierungsschalter, Formenkatalog und Vielfaltsregeln“ auf den
