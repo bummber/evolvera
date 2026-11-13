@@ -371,5 +371,6 @@ describe('Generatorwechsel in isolierten Git-Repositories', () => {
     expect(repair.restored).toEqual([lost]);
     expect(repair.added).toEqual([]);
     expect(repair.files.get(lost)).toBe(original);
-  });
+    // Many real git processes: exceeded the default 5 s on the CI runner.
+  }, 120_000);
 });
