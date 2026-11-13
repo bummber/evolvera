@@ -1,5 +1,40 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 13.11.2026, Tageslauf 13.11. belegt, Baseline ergänzt, Zeitlimit eines Tests
+
+Sichtung um 10:17 Berlin: lokal `d8fdefd` (Doku-Commit zur Veröffentlichung
+von P7, ungepusht), Remote-main `4ca3762` mit dem Archivcommit des Tageslaufs.
+Auf Betreiberfreigabe Fetch und Rebase des Doku-Commits (jetzt `8b76fb4`).
+
+- **Tageslauf 13.11.:** Schedule-Lauf 43382035036, gestartet 07:55 Berlin auf
+  `b98b4a9`, Archivcommit `4ca3762` um 07:58 (genau eine neue Werkdatei und
+  `index.json`): Gen. 10 „Chwkante im Zwischenraum“, Eltern 11.11. und 12.11.,
+  `traceable`/6, Schema 2, Generator 0.2.0, Renderer 1, Lexikon 0.1.0; Titel
+  wie vorhergesagt. Das war der erste Schedule-Lauf auf dem veröffentlichten
+  P7-Stand. Die neun älteren Werkdateien stimmen mit den SHA-256 der
+  Archiv-Baseline überein.
+- **Derselbe Lauf ist nach dem Archivieren fehlgeschlagen:** In
+  `npm run check` lief der Test mit echtem Git-Repository
+  (`tests/activation.test.ts`, „archiviert vor und nach dem Wechseldatum …“)
+  über das Standardlimit von 5 s; 407 von 408 Tests bestanden, Deploy
+  übersprungen. Die Schedule-Läufe 43385212430 (08:21 Berlin) und 43391105018
+  (09:10) liefen auf `4ca3762` vollständig durch; das Werk ist seit dem
+  ersten davon veröffentlicht. Ob der Runner wegen einer Störung langsamer
+  war, ist nicht belegt. Behoben durch ein eigenes Zeitlimit von 120 s für
+  diesen Test (Lehre aus P3, hier übersehen).
+- **Archiv-Baseline:** um das Werk vom 13.11. ergänzt; die neun bestehenden
+  Einträge und 18 Bilder sind unverändert.
+- **Betreiberentscheidung 13.11.2026:** Werkdatum des Generatorwechsels ist
+  der **16.11.2026**. Die Aktivierung selbst (Push 2) ist damit noch nicht
+  freigegeben; sie folgt nach dem Beleg des Laufs zum 14.11.
+- **Prüfungen lokal am 13.11.2026:** `npm run check` erfolgreich mit
+  **410 Tests** (408 + 2 für die Baseline), Datenprüfung mit zehn Werken.
+  `CI=true npm run test:browser` gegen den frischen Build: **172 bestanden**
+  (170 + 2), sechs bestehende Skips; kein bestehendes Referenzbild
+  verändert. `npm run generate:daily -- --dry-run`: nichts fällig.
+- **Nicht geprüft:** Firefox; Live-Website; `npm run worker:test-runtime`
+  (Worker unberührt).
+
 ## Aktueller Abschluss – 12.11.2026, EP-01 P7 „Kunstabnahme und Aktivierung“: abgenommen, gemessen, inaktiver Stand veröffentlicht; Generator 0.3.0 nicht aktiviert
 
 Der Betreiber hat P7 am 12.11.2026 beauftragt. Sichtung vor Beginn (08:33
