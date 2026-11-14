@@ -29,8 +29,17 @@ der uncommittete Aktivierungsstand blieb unberührt.
   (172 + 2), sechs bestehende Skips; kein bestehendes Referenzbild verändert.
   `npm run worker:test-runtime` erfolgreich. Trockenlauf des Tageslaufs
   (`--dry-run`): nichts fällig, elf Werke.
+- **Push 2 – Aktivierung, am 14.11.2026 vom Betreiber freigegeben:** drei
+  Commits `a910f0d` (Baseline), `8fac841` (Doku) und `9136f5e`
+  (`generatorChangeDate = '2026-11-16'`, `artReviewV3`, Aktivierungstest,
+  `AGENTS.md`, Abnahmebericht), gepusht um 20:49 Berlin als Fast-forward auf
+  `4e36b01`; vorher war nichts fällig und kein Lauf aktiv. CI 43634152132 und
+  Pages 43634152118 (Build und Deploy) erfolgreich. Beim Push entstand kein
+  neues Werk; Remote-main blieb auf `9136f5e`.
 - **Nicht geprüft:** Firefox; Live-Website.
-- **Offen:** Push 2 (Aktivierung) ist nicht freigegeben.
+- **Offen:** Beleg des Laufs zum 15.11. (erwartet Gen. 12 „Leuchtkante“,
+  Generator 0.2.0, erster Lauf auf dem aktivierten Stand) und des ersten
+  Laufs mit Generator 0.3.0 zum 16.11. nach der Liste im Aktivierungsplan.
 
 ## Nachtrag – 13.11.2026, Tageslauf 13.11. belegt, Baseline ergänzt, Zeitlimit eines Tests
 

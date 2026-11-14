@@ -1,42 +1,42 @@
 # Aktueller Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
 
-## Zwischenstand vom 13.11.2026 – zuerst lesen
+## Zwischenstand vom 14.11.2026 – zuerst lesen
 
-Der Startprompt unten ist in Arbeit; Schritte 1 bis 4 sind am 13.11. erledigt
-bzw. vorbereitet. Beim Fortsetzen gilt:
+Der Startprompt unten ist in Arbeit: Schritte 1 bis 5 sind erledigt, offen
+sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
 
-- **Veröffentlicht:** `a3d0bde` (Baseline bis 13.11., Zeitlimit 120 s für den
-  Git-Repository-Test in `tests/activation.test.ts`, HANDOFF-Nachtrag); CI
-  43402696576 und Pages 43402696312 erfolgreich, kein neues Werk. Diese zwei
-  Run-IDs stehen noch nicht im HANDOFF.
-- **Betreiberentscheidung:** Werkdatum des Wechsels ist **D = 16.11.2026**.
-- **Aktivierungsstand liegt uncommittet im Arbeitsverzeichnis** (nicht
-  verwerfen, nicht in fremde Commits mitnehmen): `src/series/calendar.ts`
-  (`generatorChangeDate = '2026-11-16'`), `config/release.json`
-  (`artReviewV3`), `tests/activation.test.ts`, `AGENTS.md`,
-  `docs/extensions/EP01-abnahme-7.md` und dieser Abschnitt in
-  `docs/NEXT-START.md`. Darauf am 13.11. geprüft: `npm run check` (410 Tests),
-  `CI=true npm run test:browser` (172 bestanden, sechs Skips),
-  `npm run worker:test-runtime`, Trockenlauf (nichts fällig). Push 2 ist
-  **nicht** freigegeben.
-- **Vorhersage des Planers mit diesem Stand:** 14.11. Gen. 11 „Azurschweben“,
-  15.11. Gen. 12 „Leuchtkante“ (beide Generator 0.2.0, Lexikon 0.2.0), 16.11.
-  Gen. 13 „Azurkante / Wellenschweben“ (Generator 0.3.0, Schema 3, Renderer 2,
-  Eltern 14.11. und 15.11.).
-- **Stand 14.11.2026, 21 Uhr:** Archivcommit `4e36b01` per Fast-forward
-  übernommen. Lauf 43567446669 belegt: Gen. 11 „Azurschweben“, Generator
-  0.2.0, Lexikon 0.2.0, wie vorhergesagt (HANDOFF-Nachtrag 14.11. und
-  Lexikonbericht). Baseline um den 14.11. ergänzt. Auf diesem Stand samt
-  Aktivierungsstand geprüft: `npm run check` (412 Tests),
-  `CI=true npm run test:browser` (174 bestanden, sechs Skips),
+- **Aktivierung veröffentlicht (Push 2, 14.11.2026, 20:49 Berlin):**
+  `a910f0d` (Baseline bis 14.11.), `8fac841` (Doku) und `9136f5e`
+  (`generatorChangeDate = '2026-11-16'`, `artReviewV3`, Aktivierungstest,
+  `AGENTS.md`, Abnahmebericht). CI 43634152132 und Pages 43634152118
+  erfolgreich, kein neues Werk. Betreiberentscheidung vom 13.11.: Werkdatum
+  des Wechsels ist der 16.11.2026; am 14.11. bestätigt, dass es dabei bleibt.
+- **Belegt:** Lauf 43567446669 zum 14.11. (Gen. 11 „Azurschweben“, Generator
+  0.2.0, Lexikon 0.2.0, wie vorhergesagt); Einzelheiten im HANDOFF-Nachtrag
+  14.11. und im Lexikonbericht.
+- **Geprüft am 14.11. auf dem veröffentlichten Inhalt:** `npm run check`
+  (412 Tests), `CI=true npm run test:browser` (174 bestanden, sechs Skips),
   `npm run worker:test-runtime`, Trockenlauf (nichts fällig, elf Werke).
-- **Nächste Schritte:** Commits freigeben lassen (Baseline, Doku, Aktivierung
-  getrennt); Freigabe für Push 2 einholen und nur pushen, wenn nichts fällig
-  ist (das Werk vom 15.11. entsteht ab 01:17; nach dem Lauf erst
-  Fast-forward, Baseline, Prüfungen). Schritte 6 und 7 des Startprompts sind
-  erst ab dem 16.11. möglich.
-- `docs/extensions/EP02-umsetzungsplan.md` ist eine unversionierte Datei des
-  Betreibers und bleibt liegen.
+- **Lokal kann ein Doku-Commit ungepusht sein** („docs: record the activation
+  push“): bei der Sichtung prüfen und mit dem nächsten Baseline-Commit
+  pushen, nicht allein.
+- **Vorhersage des Planers:** 15.11. Gen. 12 „Leuchtkante“ (Generator 0.2.0,
+  Lexikon 0.2.0), 16.11. Gen. 13 „Azurkante / Wellenschweben“ (Generator
+  0.3.0, Schema 3, Renderer 2, Eltern 14.11. und 15.11.).
+- **Nächste Schritte am 15.11. nach dem Tageslauf:** `/sichtung`;
+  Archivcommit per Fast-forward bzw. Rebase holen; Lauf zum 15.11. belegen
+  (erster Lauf auf dem aktivierten Stand, alte Bytes unverändert); Baseline
+  um den 15.11. ergänzen; Prüfungen wiederholen; HANDOFF nachtragen; Commits
+  und Push nach Freigabe.
+- **Ab dem 16.11. nach dem Tageslauf:** Schritt 6 (ersten Lauf mit Generator
+  0.3.0 nach der Liste im Aktivierungsplan belegen, auch Detailansicht auf
+  der Live-Website), dann Schritt 7 und der Auftrag für P8. Das Werk im
+  Schema 3 kommt erst nach Schritt 7 in die Baseline. Zeigt es einen Fehler:
+  nichts löschen, nichts neu erzeugen, gemeinsam entscheiden.
+- **Offen ohne Termin:** Firefox-Prüfung; Live-Website am 14.11. nicht
+  aufgerufen.
+- `PRD_1_2.md` und `docs/extensions/EP02-umsetzungsplan.md` sind
+  unversionierte Dateien des Betreibers und bleiben liegen.
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
