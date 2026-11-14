@@ -1,5 +1,43 @@
 # Aktueller Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
 
+## Zwischenstand vom 13.11.2026 – zuerst lesen
+
+Der Startprompt unten ist in Arbeit; Schritte 1 bis 4 sind am 13.11. erledigt
+bzw. vorbereitet. Beim Fortsetzen gilt:
+
+- **Veröffentlicht:** `a3d0bde` (Baseline bis 13.11., Zeitlimit 120 s für den
+  Git-Repository-Test in `tests/activation.test.ts`, HANDOFF-Nachtrag); CI
+  43402696576 und Pages 43402696312 erfolgreich, kein neues Werk. Diese zwei
+  Run-IDs stehen noch nicht im HANDOFF.
+- **Betreiberentscheidung:** Werkdatum des Wechsels ist **D = 16.11.2026**.
+- **Aktivierungsstand liegt uncommittet im Arbeitsverzeichnis** (nicht
+  verwerfen, nicht in fremde Commits mitnehmen): `src/series/calendar.ts`
+  (`generatorChangeDate = '2026-11-16'`), `config/release.json`
+  (`artReviewV3`), `tests/activation.test.ts`, `AGENTS.md`,
+  `docs/extensions/EP01-abnahme-7.md` und dieser Abschnitt in
+  `docs/NEXT-START.md`. Darauf am 13.11. geprüft: `npm run check` (410 Tests),
+  `CI=true npm run test:browser` (172 bestanden, sechs Skips),
+  `npm run worker:test-runtime`, Trockenlauf (nichts fällig). Push 2 ist
+  **nicht** freigegeben.
+- **Vorhersage des Planers mit diesem Stand:** 14.11. Gen. 11 „Azurschweben“,
+  15.11. Gen. 12 „Leuchtkante“ (beide Generator 0.2.0, Lexikon 0.2.0), 16.11.
+  Gen. 13 „Azurkante / Wellenschweben“ (Generator 0.3.0, Schema 3, Renderer 2,
+  Eltern 14.11. und 15.11.).
+- **Stand 14.11.2026, 21 Uhr:** Archivcommit `4e36b01` per Fast-forward
+  übernommen. Lauf 43567446669 belegt: Gen. 11 „Azurschweben“, Generator
+  0.2.0, Lexikon 0.2.0, wie vorhergesagt (HANDOFF-Nachtrag 14.11. und
+  Lexikonbericht). Baseline um den 14.11. ergänzt. Auf diesem Stand samt
+  Aktivierungsstand geprüft: `npm run check` (412 Tests),
+  `CI=true npm run test:browser` (174 bestanden, sechs Skips),
+  `npm run worker:test-runtime`, Trockenlauf (nichts fällig, elf Werke).
+- **Nächste Schritte:** Commits freigeben lassen (Baseline, Doku, Aktivierung
+  getrennt); Freigabe für Push 2 einholen und nur pushen, wenn nichts fällig
+  ist (das Werk vom 15.11. entsteht ab 01:17; nach dem Lauf erst
+  Fast-forward, Baseline, Prüfungen). Schritte 6 und 7 des Startprompts sind
+  erst ab dem 16.11. möglich.
+- `docs/extensions/EP02-umsetzungsplan.md` ist eine unversionierte Datei des
+  Betreibers und bleibt liegen.
+
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
 mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,

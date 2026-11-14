@@ -28,10 +28,10 @@ import {
   generatorVersionFor,
 } from '../src/series/calendar';
 
-// EP-01 P7: the dated generator change in the daily run, tested without
-// activating it. The published change date stays `null`; the tests pass
-// their own date. Real archive bytes are only read; all writes happen in
-// isolated temporary repositories with a local bare remote.
+// EP-01 P7: the dated generator change in the daily run. The published
+// change date is 2026-11-16; the tests pass their own date (or `null`) so
+// they do not depend on it. Real archive bytes are only read; all writes
+// happen in isolated temporary repositories with a local bare remote.
 
 const archive = new Map<string, string>();
 for (const file of readdirSync('public/artworks', { recursive: true }))
@@ -52,9 +52,11 @@ const change = day(lastOld, 4);
 const at = (id: string) => `${id}T08:00:00+01:00`;
 const clock = (id: string) => () => `${id}T07:00:02Z`;
 const sha = (text: string) => createHash('sha256').update(text).digest('hex');
-/** Synthetic record of an art review; the real one comes with the activation. */
+/** The release record as it was before the art review of generator 0.3.0. */
+const { artReviewV3: recordedReview, ...unreviewed } = releaseRecord;
+/** Synthetic record of an art review, independent of the real one. */
 const reviewed = {
-  ...releaseRecord,
+  ...unreviewed,
   artReviewV3: {
     generatorVersion: '0.3.0',
     rendererVersion: '2',
@@ -78,19 +80,28 @@ const expectOldBytes = (files: ReadonlyMap<string, string>) => {
     if (file !== indexPath) expect(sha(files.get(file)!)).toBe(sha(text));
 };
 
-describe('Datierter Generatorwechsel im Tageslauf (nicht aktiviert)', () => {
-  it('ist im veröffentlichten Stand nicht gesetzt', () => {
-    expect(generatorChangeDate).toBeNull();
-    expect(generatorVersionFor('2099-01-01')).toBe('0.2.0');
+describe('Datierter Generatorwechsel im Tageslauf', () => {
+  it('ist im veröffentlichten Stand auf den 16.11.2026 gesetzt und abgenommen', () => {
+    expect(generatorChangeDate).toBe('2026-11-16');
+    expect(generatorVersionFor('2026-11-15')).toBe('0.2.0');
+    expect(generatorVersionFor('2026-11-16')).toBe('0.3.0');
+    expect(generatorVersionFor('2099-01-01', null)).toBe('0.2.0');
     expect(generatorVersionFor(change, change)).toBe('0.3.0');
     expect(generatorVersionFor(day(change, -1), change)).toBe('0.2.0');
-    // The real release record carries no review of generator 0.3.0 yet.
-    expect('artReviewV3' in releaseRecord).toBe(false);
+    // The real release record carries the review of 2026-11-12.
+    expect(recordedReview).toMatchObject({
+      generatorVersion: '0.3.0',
+      rendererVersion: '2',
+      approvedOn: '2026-11-12',
+      workCount: 40,
+    });
   });
 
   it('erzeugt ohne Wechseldatum weiter mit Generator 0.2.0 und lässt alte Bytes unberührt', () => {
     const runDay = day(lastOld, 6);
-    const plan = prepareRun(input(runDay, releaseRecord), clock(runDay));
+    const plan = prepareRun(input(runDay, unreviewed), clock(runDay), {
+      generatorChangeDate: null,
+    });
     const works = parse(plan);
     expect(plan.added).toHaveLength(6);
     expect(plan.restored).toEqual([]);
@@ -148,8 +159,9 @@ describe('Datierter Generatorwechsel im Tageslauf (nicht aktiviert)', () => {
     expectOldBytes(plan.files);
     // Works before the date do not depend on the change date at all.
     const without = prepareRun(
-      input(day(change, -1), releaseRecord),
+      input(day(change, -1), unreviewed),
       clock(runDay),
+      { generatorChangeDate: null },
     );
     for (const work of added.slice(0, 3)) {
       const file = `public/artworks/${work.id.slice(0, 4)}/${work.id}.json`;
@@ -195,14 +207,14 @@ describe('Datierter Generatorwechsel im Tageslauf (nicht aktiviert)', () => {
 
   it('stoppt ohne dokumentierte Kunstabnahme vor dem ersten Werk von Generator 0.3.0', () => {
     expect(() =>
-      prepareRun(input(change, releaseRecord), clock(change), {
+      prepareRun(input(change, unreviewed), clock(change), {
         generatorChangeDate: change,
       }),
     ).toThrow(/Kunstabnahme für Generator 0\.3\.0/);
     // Before the date the same record is sufficient.
     const before = day(change, -1);
     expect(
-      prepareRun(input(before, releaseRecord), clock(before), {
+      prepareRun(input(before, unreviewed), clock(before), {
         generatorChangeDate: change,
       }).added,
     ).toHaveLength(3);

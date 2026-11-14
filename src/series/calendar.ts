@@ -17,8 +17,9 @@ export function lexiconVersionFor(id: string) {
 // EP-01, operator decision 1: dated generator change inside the running
 // series. `null` means not activated: every work date keeps generator 0.2.0.
 // A date is set only with the operator's explicit approval of the activation
-// and must lie after the last archived work.
-export const generatorChangeDate: string | null = null;
+// and must lie after the last archived work. Set on 2026-11-13: works dated
+// from 2026-11-16 use generator 0.3.0; earlier works keep generator 0.2.0.
+export const generatorChangeDate: string | null = '2026-11-16';
 export function generatorVersionFor(
   id: string,
   changeDate: string | null = generatorChangeDate,

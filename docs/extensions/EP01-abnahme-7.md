@@ -1,12 +1,18 @@
 # Evolvera – EP-01: Kunstabnahme, Geräteprüfung und Aktivierungsplan (P7)
 
-Stand: 12.11.2026 · Status: Abnahmewerke am 12.11.2026 vom Betreiber abgenommen und eingefroren; Lastgrenzen nach Messung auf iPhone 13 und MacBook bestätigt; inaktiver Stand am 12.11.2026 veröffentlicht (`b98b4a9`, CI 43194138740 und Pages 43194138581 erfolgreich); **Aktivierung nicht freigegeben**
+Stand: 12.11.2026 · Status: Abnahmewerke am 12.11.2026 vom Betreiber abgenommen und eingefroren; Lastgrenzen nach Messung auf iPhone 13 und MacBook bestätigt; inaktiver Stand am 12.11.2026 veröffentlicht (`b98b4a9`, CI 43194138740 und Pages 43194138581 erfolgreich); **Wechseldatum 16.11.2026 am 13.11.2026 vom Betreiber festgelegt**
 
-Generator 0.3.0 ist weiterhin nicht aktiv: `generatorChangeDate` ist `null`,
-im Archiv liegt kein Werk im Schema 3, `config/generation.json` und
-`config/release.json` sind unverändert. Generator 0.2.0 und 0.3.0,
-Titelgenerator, Renderer 1 und 2, Schema 3, Worker und Workflows sind
-unverändert.
+Nachtrag 13.11.2026: `generatorChangeDate` ist `2026-11-16`, die Abnahme
+steht als `artReviewV3` in `config/release.json` (12.11.2026, 40 Werke im
+Standardprofil, „Die Werke sind so abgenommen“, beide Fixture-Hashes). Werke
+bis 15.11.2026 entstehen weiter mit Generator 0.2.0. Der Planer sagt mit
+diesem Stand voraus: 14.11. Gen. 11 „Azurschweben“, 15.11. Gen. 12
+„Leuchtkante“ (beide Generator 0.2.0, Lexikon 0.2.0), 16.11. Gen. 13
+„Azurkante / Wellenschweben“ (Generator 0.3.0, Schema 3, Renderer 2, Eltern
+14.11. und 15.11., Abstand 0,373). Die übrigen Aussagen dieses Berichts
+beschreiben den Stand vom 12.11.2026 vor der Aktivierung.
+`config/generation.json`, Generator 0.2.0 und 0.3.0, Titelgenerator,
+Renderer 1 und 2, Schema 3, Worker und Workflows sind unverändert.
 
 ## Teil A – Abnahmewerke
 

@@ -10,6 +10,12 @@
   Paket braucht einen eigenen Auftrag und endet mit gemeinsamer Sichtung; Push und
   Aktivierung brauchen zusätzlich die passende Freigabe. Rangfolge bei
   Widersprüchen: `AGENTS.md`, dann EP-01, dann Umsetzungsplan.
+- Generatorwechsel (Betreiberentscheidung vom 13.11.2026): Werke ab Werkdatum
+  16.11.2026 entstehen mit Generator 0.3.0, Schema 3 und Renderer 2
+  (`generatorChangeDate` in `src/series/calendar.ts`, Abnahme als `artReviewV3`
+  in `config/release.json`); frühere Werke behalten Generator 0.2.0. Datum und
+  Nachweis nicht ändern. Ab dem ersten archivierten Werk im Schema 3 sind
+  Renderer 2 und Schema 3 eingefroren.
 - Archiv-Baseline (A-36) unter `tests/fixtures/archive-baseline/` und die
   Bilder `archive-*.png` schützen eingefrorene Werke: bestehende Einträge und
   Referenzen nie aktualisieren, nur gezielt um spätere Werke ergänzen.
