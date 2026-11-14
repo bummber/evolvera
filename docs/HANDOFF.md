@@ -1,5 +1,37 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 14.11.2026, Tageslauf 14.11. und Lexikon 0.2.0 belegt, Baseline ergänzt
+
+Sichtung um 20:42 Berlin: lokal `a3d0bde`, Remote-main `4e36b01` mit dem
+Archivcommit des Tageslaufs. Auf Betreiberfreigabe Fetch und Fast-forward;
+der uncommittete Aktivierungsstand blieb unberührt.
+
+- **Nachtrag zum 13.11.:** Der Push von `a3d0bde` lief mit CI 43402696576 und
+  Pages 43402696312 erfolgreich durch; dabei entstand kein neues Werk.
+- **Tageslauf 14.11. (Lexikon-Beleg):** Schedule-Lauf 43567446669, gestartet
+  07:39 Berlin auf `a3d0bde`, Status erfolgreich (Build und Deploy),
+  Archivcommit `4e36b01` um 07:42 mit genau einer neuen Werkdatei und
+  `index.json`: Gen. 11 „Azurschweben“, Eltern 12.11. und 13.11.,
+  `traceable`/6, Schema 2, Generator 0.2.0, Renderer 1, **`lexiconVersion`
+  0.2.0**, Titelbausteine „Azur“ + „schweben“ (Muster `compound`),
+  Elternbaustein „schweben“ vom 12.11.; kein Nachholwerk. Titel, Lexikon und
+  Baustein wie im Lexikonbericht vorhergesagt. Das ist der erste Lauf mit
+  Lexikon 0.2.0. Die Schedule-Läufe 43569316334 (08:04) und 43572169423
+  (08:40) liefen ebenfalls erfolgreich und archivierten nichts.
+- **Alte Bytes:** Die zehn älteren Werkdateien stimmen mit den SHA-256 der
+  Archiv-Baseline überein.
+- **Archiv-Baseline:** um das Werk vom 14.11. ergänzt (Manifest, Markup, zwei
+  Bilder); die zehn bestehenden Einträge und 20 Bilder sind unverändert.
+- **Prüfungen lokal am 14.11.2026** (auf `4e36b01` mit ergänzter Baseline und
+  dem uncommitteten Aktivierungsstand): `npm run check` erfolgreich mit
+  **412 Tests** (410 + 2 für die Baseline), Datenprüfung mit elf Werken.
+  `CI=true npm run test:browser` gegen den frischen Build: **174 bestanden**
+  (172 + 2), sechs bestehende Skips; kein bestehendes Referenzbild verändert.
+  `npm run worker:test-runtime` erfolgreich. Trockenlauf des Tageslaufs
+  (`--dry-run`): nichts fällig, elf Werke.
+- **Nicht geprüft:** Firefox; Live-Website.
+- **Offen:** Push 2 (Aktivierung) ist nicht freigegeben.
+
 ## Nachtrag – 13.11.2026, Tageslauf 13.11. belegt, Baseline ergänzt, Zeitlimit eines Tests
 
 Sichtung um 10:17 Berlin: lokal `d8fdefd` (Doku-Commit zur Veröffentlichung

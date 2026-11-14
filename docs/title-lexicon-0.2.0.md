@@ -140,8 +140,12 @@ aufgerufen.
 
 ## Offen
 
-- Beleg des ersten Laufs mit Lexikon 0.2.0 für Werkdatum 14.11.2026; erwartet
-  ist „Azurschweben“.
+- Erledigt am 14.11.2026: Beleg des ersten Laufs mit Lexikon 0.2.0 für
+  Werkdatum 14.11.2026. Schedule-Lauf 43567446669, gestartet 07:39 Berlin,
+  erfolgreich; Archivcommit `4e36b01` um 07:42. Werk Gen. 11 „Azurschweben“,
+  `lexiconVersion` 0.2.0, Bausteine „Azur“ + „schweben“, Elternbaustein
+  „schweben“ vom 12.11.; wie vorhergesagt. Auch die Titel für 11. bis 13.11.
+  (Lexikon 0.1.0) entstanden wie in der Vorschau.
 
 ## Titelfreigabe im Freigabevertrag
 
