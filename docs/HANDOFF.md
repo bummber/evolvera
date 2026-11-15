@@ -1,5 +1,36 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 15.11.2026, Tageslauf 15.11. auf dem aktivierten Stand belegt, Baseline ergänzt
+
+Sichtung um 14:03 Berlin: lokal `b649471` (Doku-Commit zum Aktivierungs-Push,
+ungepusht), Remote-main `d504950` mit dem Archivcommit des Tageslaufs. Auf
+Betreiberfreigabe Fetch und Rebase des Doku-Commits (jetzt `a405b35`).
+
+- **Tageslauf 15.11.:** Schedule-Lauf 43686900322, gestartet 07:45 Berlin auf
+  `9136f5e`, Status erfolgreich (Build und Deploy), Archivcommit `d504950` um
+  07:47 mit genau einer neuen Werkdatei und `index.json`: Gen. 12
+  „Leuchtkante“, Eltern 13.11. und 14.11., `traceable`/6, Schema 2,
+  Generator 0.2.0, Renderer 1, Lexikon 0.2.0; kein Nachholwerk. Titel wie
+  vorhergesagt. Das ist der erste Schedule-Lauf auf dem aktivierten Stand
+  (`generatorChangeDate = '2026-11-16'`); er hat wie geplant noch mit
+  Generator 0.2.0 erzeugt. Die Schedule-Läufe 43689065568 (08:14) und
+  43692174622 (08:56) liefen ebenfalls erfolgreich und archivierten nichts.
+- **Alte Bytes:** Die elf älteren Werkdateien stimmen mit den SHA-256 der
+  Archiv-Baseline überein (Baseline-Test vor dem Ergänzen grün).
+- **Archiv-Baseline:** um das Werk vom 15.11. ergänzt (Manifest, Markup, zwei
+  Bilder); die elf bestehenden Einträge und 22 Bilder sind unverändert.
+- **Prüfungen lokal am 15.11.2026** (auf `a405b35` mit ergänzter Baseline):
+  `npm run check` erfolgreich mit **414 Tests** (412 + 2 für die Baseline),
+  Datenprüfung mit zwölf Werken. `CI=true npm run test:browser` gegen den
+  frischen Build: **176 bestanden** (174 + 2), sechs bestehende Skips; kein
+  bestehendes Referenzbild verändert. `npm run worker:test-runtime`
+  erfolgreich. Trockenlauf des Tageslaufs (`--dry-run`): nichts fällig, zwölf
+  Werke.
+- **Nicht geprüft:** Firefox; Live-Website.
+- **Offen:** Beleg des ersten Laufs mit Generator 0.3.0 zum 16.11. nach der
+  Liste im Aktivierungsplan (Schritt 6), danach Schritt 7 und der Auftrag
+  für P8.
+
 ## Nachtrag – 14.11.2026, Tageslauf 14.11. und Lexikon 0.2.0 belegt, Baseline ergänzt
 
 Sichtung um 20:42 Berlin: lokal `a3d0bde`, Remote-main `4e36b01` mit dem

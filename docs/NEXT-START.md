@@ -1,6 +1,6 @@
 # Aktueller Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
 
-## Zwischenstand vom 14.11.2026 – zuerst lesen
+## Zwischenstand vom 15.11.2026 – zuerst lesen
 
 Der Startprompt unten ist in Arbeit: Schritte 1 bis 5 sind erledigt, offen
 sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
@@ -11,23 +11,18 @@ sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
   `AGENTS.md`, Abnahmebericht). CI 43634152132 und Pages 43634152118
   erfolgreich, kein neues Werk. Betreiberentscheidung vom 13.11.: Werkdatum
   des Wechsels ist der 16.11.2026; am 14.11. bestätigt, dass es dabei bleibt.
-- **Belegt:** Lauf 43567446669 zum 14.11. (Gen. 11 „Azurschweben“, Generator
-  0.2.0, Lexikon 0.2.0, wie vorhergesagt); Einzelheiten im HANDOFF-Nachtrag
-  14.11. und im Lexikonbericht.
-- **Geprüft am 14.11. auf dem veröffentlichten Inhalt:** `npm run check`
-  (412 Tests), `CI=true npm run test:browser` (174 bestanden, sechs Skips),
-  `npm run worker:test-runtime`, Trockenlauf (nichts fällig, elf Werke).
-- **Lokal kann ein Doku-Commit ungepusht sein** („docs: record the activation
-  push“): bei der Sichtung prüfen und mit dem nächsten Baseline-Commit
-  pushen, nicht allein.
-- **Vorhersage des Planers:** 15.11. Gen. 12 „Leuchtkante“ (Generator 0.2.0,
-  Lexikon 0.2.0), 16.11. Gen. 13 „Azurkante / Wellenschweben“ (Generator
-  0.3.0, Schema 3, Renderer 2, Eltern 14.11. und 15.11.).
-- **Nächste Schritte am 15.11. nach dem Tageslauf:** `/sichtung`;
-  Archivcommit per Fast-forward bzw. Rebase holen; Lauf zum 15.11. belegen
-  (erster Lauf auf dem aktivierten Stand, alte Bytes unverändert); Baseline
-  um den 15.11. ergänzen; Prüfungen wiederholen; HANDOFF nachtragen; Commits
-  und Push nach Freigabe.
+- **Belegt:** Lauf 43567446669 zum 14.11. (Gen. 11 „Azurschweben“) und Lauf
+  43686900322 zum 15.11. (Gen. 12 „Leuchtkante“, Generator 0.2.0, Lexikon
+  0.2.0, erster Schedule-Lauf auf dem aktivierten Stand, wie vorhergesagt);
+  Einzelheiten in den HANDOFF-Nachträgen 14.11. und 15.11.
+- **Geprüft am 15.11. lokal mit Baseline bis 15.11.:** `npm run check`
+  (414 Tests), `CI=true npm run test:browser` (176 bestanden, sechs Skips),
+  `npm run worker:test-runtime`, Trockenlauf (nichts fällig, zwölf Werke).
+- **Lokal können Commits ungepusht sein** („docs: record the activation
+  push“, Baseline 15.11., Doku 15.11.): bei der Sichtung prüfen. Ein Push
+  löst den Tageslauf aus, deshalb nur pushen, wenn nichts fällig ist.
+- **Vorhersage des Planers:** 16.11. Gen. 13 „Azurkante / Wellenschweben“
+  (Generator 0.3.0, Schema 3, Renderer 2, Eltern 14.11. und 15.11.).
 - **Ab dem 16.11. nach dem Tageslauf:** Schritt 6 (ersten Lauf mit Generator
   0.3.0 nach der Liste im Aktivierungsplan belegen, auch Detailansicht auf
   der Live-Website), dann Schritt 7 und der Auftrag für P8. Das Werk im
