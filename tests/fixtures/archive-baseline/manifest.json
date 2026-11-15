@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-14",
+  "frozenThrough": "2026-11-15",
   "works": [
     {
       "id": "2026-11-04",
@@ -88,6 +88,14 @@
       "path": "public/artworks/2026/2026-11-14.json",
       "sha256": "faac3378aa722d86453e5a000182ac50c1f5a6babda80a89d65de2ad9f37fc28",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-14.txt"
+    },
+    {
+      "id": "2026-11-15",
+      "generation": 12,
+      "title": "Leuchtkante",
+      "path": "public/artworks/2026/2026-11-15.json",
+      "sha256": "05de2a4a61e8eb260f7765921a515c516d4f94ae457ba5e5f87d04cad616e8af",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-15.txt"
     }
   ]
 }
