@@ -26,6 +26,12 @@ Betreiberfreigabe Fetch und Rebase des Doku-Commits (jetzt `a405b35`).
   bestehendes Referenzbild verändert. `npm run worker:test-runtime`
   erfolgreich. Trockenlauf des Tageslaufs (`--dry-run`): nichts fällig, zwölf
   Werke.
+- **Push am 15.11.2026, vom Betreiber freigegeben:** drei Commits `a405b35`
+  (Doku zum Aktivierungs-Push), `93f8578` (Baseline 15.11.) und `056a873`
+  (Doku 15.11.), gepusht um 14:11 Berlin als Fast-forward auf `d504950`;
+  vorher war nichts fällig und kein Lauf aktiv. CI 43717698985 und Pages
+  43717699134 erfolgreich. Beim Push entstand kein neues Werk; Remote-main
+  blieb auf `056a873`.
 - **Nicht geprüft:** Firefox; Live-Website.
 - **Offen:** Beleg des ersten Laufs mit Generator 0.3.0 zum 16.11. nach der
   Liste im Aktivierungsplan (Schritt 6), danach Schritt 7 und der Auftrag

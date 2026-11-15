@@ -18,9 +18,13 @@ sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
 - **Geprüft am 15.11. lokal mit Baseline bis 15.11.:** `npm run check`
   (414 Tests), `CI=true npm run test:browser` (176 bestanden, sechs Skips),
   `npm run worker:test-runtime`, Trockenlauf (nichts fällig, zwölf Werke).
-- **Lokal können Commits ungepusht sein** („docs: record the activation
-  push“, Baseline 15.11., Doku 15.11.): bei der Sichtung prüfen. Ein Push
-  löst den Tageslauf aus, deshalb nur pushen, wenn nichts fällig ist.
+- **Veröffentlicht am 15.11., 14:11 Berlin:** `a405b35`, `93f8578` (Baseline
+  bis 15.11.) und `056a873`; CI 43717698985 und Pages 43717699134
+  erfolgreich, kein neues Werk.
+- **Lokal kann ein Doku-Commit ungepusht sein** („docs: record the push of
+  2026-11-15“): bei der Sichtung prüfen und mit dem nächsten Commit pushen,
+  nicht allein. Ein Push löst den Tageslauf aus, deshalb nur pushen, wenn
+  nichts fällig ist.
 - **Vorhersage des Planers:** 16.11. Gen. 13 „Azurkante / Wellenschweben“
   (Generator 0.3.0, Schema 3, Renderer 2, Eltern 14.11. und 15.11.).
 - **Ab dem 16.11. nach dem Tageslauf:** Schritt 6 (ersten Lauf mit Generator
@@ -28,8 +32,8 @@ sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
   der Live-Website), dann Schritt 7 und der Auftrag für P8. Das Werk im
   Schema 3 kommt erst nach Schritt 7 in die Baseline. Zeigt es einen Fehler:
   nichts löschen, nichts neu erzeugen, gemeinsam entscheiden.
-- **Offen ohne Termin:** Firefox-Prüfung; Live-Website am 14.11. nicht
-  aufgerufen.
+- **Offen ohne Termin:** Firefox-Prüfung; Live-Website am 14.11. und
+  15.11. nicht aufgerufen.
 - `PRD_1_2.md` und `docs/extensions/EP02-umsetzungsplan.md` sind
   unversionierte Dateien des Betreibers und bleiben liegen.
 
