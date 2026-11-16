@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Nachtrag – 16.11.2026, erster Lauf mit Generator 0.3.0 belegt (Schritt 6), roter Build behoben
+## Nachtrag – 16.11.2026, erster Lauf mit Generator 0.3.0 belegt, roter Build behoben, Baseline für Schema 3 (Schritte 6 und 7)
 
 Anlass: Der Betreiber meldete am 16.11. gegen 10:15 Berlin einen
 fehlgeschlagenen Build. Lokal lag `8d84720` (Doku-Commit, ungepusht),
@@ -68,10 +68,23 @@ und Rebase des Doku-Commits (jetzt `c3a3573`).
   (`AGENTS.md`).
 - **Nicht geprüft:** Firefox, Safari, Mobilgerät und 320 px auf der
   Live-Website.
-- **Offen:** Rest von Schritt 7 (Archiv-Baseline und ihre Browserprüfung auf
-  den Dispatch umstellen, dann um das Werk vom 16.11. ergänzen) und der
-  Auftrag für P8. Bis dahin ist das Werk vom 16.11. nicht durch die Baseline
-  geschützt.
+- **Schritt 7, Archiv-Baseline für Schema 3:**
+  `tests/archive-baseline.test.tsx` rendert jetzt über `ArtDispatch` und
+  erwartet je Werk die gespeicherte Rendererversion;
+  `tests/browser/archive-baseline.spec.ts` liest sie aus der Werkdatei. Vor
+  dem Ergänzen liefen alle 27 bestehenden Baseline-Tests mit dem Dispatch
+  unverändert grün (Markup der zwölf alten Werke bytegleich). Danach um das
+  Werk vom 16.11. ergänzt: Manifesteintrag, `markup/2026-11-16.txt`
+  (`data-renderer="2"`) und zwei Bilder `archive-2026-11-16.png`. Die zwölf
+  bestehenden Einträge und 24 Bilder sind unverändert; `frozenThrough` ist
+  der 16.11. Die zwei neuen Bilder stammen von macOS und sind auf dem
+  Linux-Runner erst mit dem nächsten Push bestätigt.
+- **Prüfungen lokal nach Schritt 7:** `npm run check` erfolgreich mit
+  **416 Tests** (414 + 2 für die Baseline), Datenprüfung mit 13 Werken;
+  `CI=true npm run test:browser` **178 bestanden** (176 + 2), sechs
+  bestehende Skips; `npm run worker:test-runtime` erfolgreich.
+- **Offen:** Push der Commits zu Schritt 6 und 7 (nur nach Freigabe); danach
+  der Auftrag für P8 (formuliert in `docs/NEXT-START.md`).
 
 ## Nachtrag – 15.11.2026, Tageslauf 15.11. auf dem aktivierten Stand belegt, Baseline ergänzt
 

@@ -1,9 +1,89 @@
-# Aktueller Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
+# Aktueller Startprompt – EP-01: P8 Betreiberoberfläche
 
-## Zwischenstand vom 16.11.2026 – zuerst lesen
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt, docs/extensions/PRD-EP01.md,
+docs/extensions/EP01-umsetzungsplan.md (Abschnitte 4.1, P8 und 7) und
+workers/admin/README.md lesen. Dann /sichtung ausführen: rein lesend
+Git-Zustand, Remote, Berliner Zeit, Tagesläufe und Archiv prüfen und
+gemeinsam sichten.
 
-Der Startprompt unten ist in Arbeit: Schritte 1 bis 6 sind erledigt, offen
-sind der Rest von Schritt 7 und der Abschluss. Beim Fortsetzen gilt:
+EP-01 ist seit 10.11.2026 beauftragt und wird paketweise umgesetzt. P0 bis P7
+sind veröffentlicht. Generator 0.3.0 ist seit Werkdatum 16.11.2026 aktiv:
+Lauf 43818820488 hat Gen. 13 „Azurkante / Wellenschweben“ archiviert
+(a7992e9; Schema 3, Renderer 2, Eltern 14.11. und 15.11.), der Beleg steht im
+HANDOFF-Nachtrag 16.11. Renderer 2 und Schema 3 sind seitdem eingefroren. Die
+Archiv-Baseline rendert über den Dispatch und reicht bis zum 16.11. Ein
+danach angelegter Commit kann noch ungepusht sein: bei der Sichtung prüfen.
+Seitdem schreibt nur der Tageslauf auf main: dessen Archivcommits nur per
+Fast-forward bzw. Rebase übernehmen. Bei der Sichtung die Läufe ab 17.11.
+prüfen (weitere Werke im Schema 3; ab 18.11. haben beide Eltern Schema 3) und
+einen roten Lauf zuerst klären. Offen: Firefox-Prüfung; Serienneustart mit
+Löschung aller Werke (zurückgestellt, kein Auftrag, nichts löschen).
+
+Ich beauftrage jetzt ausschließlich das Arbeitspaket P8 (Betreiberoberfläche)
+aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 17.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx, neue Bilder über
+   tests/browser/archive-baseline.spec.ts); Bestehendes nicht verändern.
+2. Zuerst einen kurzen Bauplan vorlegen und freigeben lassen: Reihenfolge im
+   Betrieb (erst liest der veröffentlichte Stand Schema 2, dann schreibt der
+   Worker es), welche Schlüssel schreibbar sind, Aufbau der Seite und der
+   Vorschau, zusätzlicher Vite-Einstieg und Auslieferung als Worker-Asset,
+   nötige CSP-Änderung, Teilung in Unterpakete und Pushes.
+3. Worker: Validierung mit dem geteilten Regelmodul aus
+   src/art/schema/config.ts, nur freigegebene Schlüssel schreibbar, revision
+   erhöhen, konfliktfestes Schreiben wie bisher (A-28); unmögliche
+   Kombinationen verständlich ablehnen (A-32).
+4. Oberfläche: eine Seite mit sieben aufklappbaren Bereichen (Evolution,
+   Formen, Oberfläche, Farbe, Komposition, Bewegung, Experimente), ab 320 px,
+   Touch-Flächen ab 44 px, ein Erklärsatz je Schalter; Schnellprofile
+   „Standard“, „Ruhig“, „Wild“ (Betreiberentscheidung 8).
+5. Vorschau im Browser mit derselben Generator- und Rendererbibliothek: 6–9
+   Probewerke, zwei Probe-Eltern mit mindestens einem Kind, „Neu würfeln“;
+   keine Dateien, IDs oder Commits (A-33).
+6. Änderungszusammenfassung gegenüber der gespeicherten Revision, Warnung bei
+   vielfaltverringernden Kombinationen; Erfolg erst nach bestätigter
+   Speicherung anzeigen.
+7. Tests: Worker mit npm run worker:test-runtime (isoliert, synthetische
+   Zugangsdaten), Snapshot-Regel (Änderung wirkt erst ab dem nächsten noch
+   nicht begonnenen Lauf, kein Archivwerk ändert sich), Oberfläche bei 320 px
+   und Desktop, Tastaturweg.
+8. npm run check, npm run test:browser und npm run worker:test-runtime
+   ausführen und ehrlich berichten.
+9. Gemeinsame Sichtung der Oberfläche mit dem Betreiber.
+
+Grenzen P8: Keine Änderung an Generator 0.2.0 und 0.3.0, Abstandsmaß,
+Titelgenerator, ArtV1, ArtRenderer.tsx, Renderer 2, artwork.ts,
+artwork-v3.ts, generatorChangeDate, artReviewV3, Archivdateien,
+Archiv-Baseline (nur ergänzen), eingefrorenen Fixtures oder bestehenden
+Browserreferenzen. config/generation.json bleibt unverändert, bis der
+Betreiber selbst über die Oberfläche speichert. Kein Worker-Deployment, keine
+Cloud-Prüfung, keine Secrets und keine externe Einrichtung ohne eigene
+Freigabe. Zeigt ein Tageswerk einen Fehler: nichts löschen, nichts neu
+erzeugen, gemeinsam entscheiden. Kein Abschluss (P9). Kein Löschen von Werken
+ohne ausdrücklichen Auftrag. Neue Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archivcommits nur per Fast-forward bzw. Rebase übernehmen, nie
+überschreiben. Fetch, Pull, Commit und Push erst nach Rückfrage; ein Push auf
+main ist eine Veröffentlichung und löst auch den Tageslauf aus. Kleine,
+thematisch getrennte Commits vorschlagen. Kein manueller Workflowstart, kein
+Deployment, keine Secrets. Worker, Secrets und SQLite-Sitzungen erhalten;
+keine Cookie-/Token-/Liveworker-Logeinsicht. Lokale Tests
+isoliert/synthetisch, Workerausgaben außerhalb dist und Git.
+
+Abschließend P8-Ergebnis gemeinsam sichten, HANDOFF und NEXT-START
+nachtragen und den abgegrenzten Auftrag für P9 formulieren.
+```
+
+## Historische Startprompts – Stand vor EP-01 P8 (16.11.2026)
+
+# Vorheriger Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
+
+## Abschlussstand vom 16.11.2026
+
+Die Schritte 1 bis 7 dieses Startprompts sind erledigt:
 
 - **Schritt 6 erledigt (16.11.):** Lauf 43818820488 hat Gen. 13 „Azurkante /
   Wellenschweben“ archiviert (`a7992e9`; Generator 0.3.0, Schema 3,
@@ -13,18 +93,8 @@ sind der Rest von Schritt 7 und der Abschluss. Beim Fortsetzen gilt:
   43840321968 erfolgreich. Detailansicht auf der Live-Website geprüft.
   Einzelheiten im HANDOFF-Nachtrag 16.11.
 - **Renderer 2 und Schema 3 sind seit dem 16.11. eingefroren.**
-- **Offen aus Schritt 7:** `tests/archive-baseline.test.tsx` und
-  `tests/browser/archive-baseline.spec.ts` rendern fest mit Renderer 1 und
-  brauchen den Dispatch, bevor das Werk vom 16.11. in die Baseline kommt;
-  bestehende Einträge und Bilder dabei nicht verändern. `activation.test.ts`
-  ist erledigt (Basis ist der Archivstand vor dem Wechsel). Danach der
-  Auftrag für P8.
-- **Lokal kann ein Doku-Commit ungepusht sein** („docs: record the first run
-  of generator 0.3.0“): bei der Sichtung prüfen und mit dem nächsten Commit
-  pushen, nicht allein.
-- **Vorhersage des Planers** für den 17.11. steht nicht fest; bei der
-  Sichtung den Lauf zum 17.11. prüfen (zweites Werk im Schema 3, Eltern
-  15.11. und 16.11.).
+- **Schritt 7 erledigt (16.11.):** Archiv-Baseline und ihre Browserprüfung
+  rendern über den Dispatch; das Werk vom 16.11. ist in der Baseline.
 
 Älterer Stand vom 15.11.2026:
 
