@@ -1,5 +1,78 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 16.11.2026, erster Lauf mit Generator 0.3.0 belegt (Schritt 6), roter Build behoben
+
+Anlass: Der Betreiber meldete am 16.11. gegen 10:15 Berlin einen
+fehlgeschlagenen Build. Lokal lag `8d84720` (Doku-Commit, ungepusht),
+Remote-main stand auf dem Archivcommit `a7992e9`. Auf Betreiberfreigabe Fetch
+und Rebase des Doku-Commits (jetzt `c3a3573`).
+
+- **Tageslauf 16.11.:** Schedule-Lauf 43818820488, gestartet 07:44 Berlin auf
+  `056a873`. Der Archivschritt war erfolgreich: Archivcommit `a7992e9` um
+  07:46 mit genau einer neuen Werkdatei und `index.json`
+  (`git diff --name-status`: `A public/artworks/2026/2026-11-16.json`,
+  `M public/artworks/index.json`). Der Lauf endete trotzdem mit Status
+  **failure**, weil das anschließende `npm run check` scheiterte (siehe
+  unten); deshalb kein Deployment.
+- **Werk:** Gen. 13 „Azurkante / Wellenschweben“, wie vorhergesagt. Schema 3,
+  Generator 0.3.0, Renderer 2, Lexikon 0.2.0, `traceable`,
+  `settingsRevision` 6 wie `config/generation.json`; Snapshot gleich
+  Standardprofil mit dem gespeicherten Modus (nachgerechnet); `parentIds`
+  14.11. und 15.11. (beide Schema 2, Generator 0.2.0); kein Nachholwerk;
+  geplant 01:17, erstellt 07:46 Berlin. `novelty`: Abstandsversion 1,
+  Abstand 0,373411, Mindestabstand erreicht. Seed
+  `evolvera:0.3.0:2026-11-16:settings-54909d5c…`. 38 Elemente in zwei
+  Ebenen; Titelfragmente „Azur“ (14.11.) und „kante“ (15.11.). SHA-256 der
+  Werkdatei `aa24c73f728e993f8845fac93f78c1d5dfb99fe724bf063d16814f2d5ed350fc`
+  (21 589 Bytes); die Live-Datei hat denselben Hash.
+- **Alte Bytes:** Alle zwölf älteren Werkdateien stimmen mit den SHA-256 im
+  Manifest der Archiv-Baseline überein; Baseline-Test und Baseline-Bilder in
+  CI grün.
+- **Ursache des roten Builds:** Zwei Tests nahmen noch an, dass im Archiv nur
+  Schema 1 und 2 liegen: `tests/activation.test.ts` las das echte Archiv mit
+  `readWorks`, `tests/artwork-v3.test.tsx` prüfte jedes Archivwerk mit
+  `artworkSchema`. Generator, Werk und Datenprüfung waren fehlerfrei. Die
+  Schedule-Läufe 43823062507 (08:19) und 43828373095 (09:04) scheiterten
+  deshalb schon am `npm test` vor dem Archivschritt und schrieben nichts.
+  Der Aktivierungsplan hatte die Umstellung vorgesehen, aber erst für „nach
+  dem ersten neuen Werk“; dass der erste Lauf dadurch rot wird, war nicht
+  bedacht.
+- **Behebung (`320e567`):** Der Aktivierungstest startet vom Archivstand vor
+  dem Wechsel (nur Werke von Generator 0.2.0, Index bytegleich mit dem vom
+  15.11. neu gebaut) und behält dafür `readWorks`; abweichend vom Plan nicht
+  `readArchive`, weil die Tests den Wechsel an einem eigenen Datum simulieren
+  und eine Basis ohne Schema 3 brauchen. Der Schematest verlangt, dass jedes
+  Archivwerk in genau einer der beiden Schemafamilien gültig ist. Kein
+  Produktivcode, kein Werk, kein Workflow geändert.
+- **Prüfungen lokal am 16.11.2026** (mit dem Werk vom 16.11.):
+  `npm run check` erfolgreich mit **414 Tests**, Datenprüfung mit 13 Werken;
+  `CI=true npm run test:browser` **176 bestanden**, sechs bestehende Skips;
+  `npm run worker:test-runtime` erfolgreich; Trockenlauf: nichts fällig,
+  13 Werke. Zusätzlich `readArchive` über das echte Archiv (Belege, Digest
+  und Abstand mit voller Historie): erfolgreich.
+- **Push am 16.11.2026, vom Betreiber freigegeben:** `c3a3573` und `320e567`
+  um 10:30 Berlin als Fast-forward auf `a7992e9`. CI 43840321851 und Pages
+  43840321968 (Build und Deploy) erfolgreich; Datenprüfung des Pages-Laufs:
+  „13 offizielle Werke, konsistenter Index“. Kein neues Werk; Remote-main
+  auf `320e567`. Das Werk war damit von 07:46 bis etwa 10:38 Berlin
+  archiviert, aber nicht auf der Website.
+- **Live-Website** (16.11., nach dem Deployment, Chromium 1280 px):
+  `#/werk/2026-11-16` zeigt das Werk über Renderer 2, ohne Konsolenfehler und
+  ohne `svg`/`canvas`/`img`. Herkunft: Eltern A (Gen. 11 „Azurschweben“) und
+  B (Gen. 12 „Leuchtkante“) mit Hinweis auf Schema 2, acht Belege (sechs von
+  A zu Maßen und Lage, zwei von B zur Füllfarbe), Versuch 1 von 16.
+  Rahmenbedingungen: Standardprofil, Revision 6, Abstand 0,373. Die
+  Startseite zeigt das Werk. Die künstlerische Sichtung durch den Betreiber
+  steht aus.
+- **Eingefroren:** Mit diesem Werk sind Renderer 2 und Schema 3 eingefroren
+  (`AGENTS.md`).
+- **Nicht geprüft:** Firefox, Safari, Mobilgerät und 320 px auf der
+  Live-Website.
+- **Offen:** Rest von Schritt 7 (Archiv-Baseline und ihre Browserprüfung auf
+  den Dispatch umstellen, dann um das Werk vom 16.11. ergänzen) und der
+  Auftrag für P8. Bis dahin ist das Werk vom 16.11. nicht durch die Baseline
+  geschützt.
+
 ## Nachtrag – 15.11.2026, Tageslauf 15.11. auf dem aktivierten Stand belegt, Baseline ergänzt
 
 Sichtung um 14:03 Berlin: lokal `b649471` (Doku-Commit zum Aktivierungs-Push,

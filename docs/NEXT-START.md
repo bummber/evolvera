@@ -1,9 +1,32 @@
 # Aktueller Startprompt – EP-01: Veröffentlichung des P7-Stands und Aktivierung von Generator 0.3.0
 
-## Zwischenstand vom 15.11.2026 – zuerst lesen
+## Zwischenstand vom 16.11.2026 – zuerst lesen
 
-Der Startprompt unten ist in Arbeit: Schritte 1 bis 5 sind erledigt, offen
-sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
+Der Startprompt unten ist in Arbeit: Schritte 1 bis 6 sind erledigt, offen
+sind der Rest von Schritt 7 und der Abschluss. Beim Fortsetzen gilt:
+
+- **Schritt 6 erledigt (16.11.):** Lauf 43818820488 hat Gen. 13 „Azurkante /
+  Wellenschweben“ archiviert (`a7992e9`; Generator 0.3.0, Schema 3,
+  Renderer 2, Eltern 14.11. und 15.11.), wie vorhergesagt. Der Lauf und zwei
+  weitere waren rot, weil zwei Tests Schema 3 im Archiv noch ablehnten;
+  behoben mit `320e567`, gepusht um 10:30 Berlin, CI 43840321851 und Pages
+  43840321968 erfolgreich. Detailansicht auf der Live-Website geprüft.
+  Einzelheiten im HANDOFF-Nachtrag 16.11.
+- **Renderer 2 und Schema 3 sind seit dem 16.11. eingefroren.**
+- **Offen aus Schritt 7:** `tests/archive-baseline.test.tsx` und
+  `tests/browser/archive-baseline.spec.ts` rendern fest mit Renderer 1 und
+  brauchen den Dispatch, bevor das Werk vom 16.11. in die Baseline kommt;
+  bestehende Einträge und Bilder dabei nicht verändern. `activation.test.ts`
+  ist erledigt (Basis ist der Archivstand vor dem Wechsel). Danach der
+  Auftrag für P8.
+- **Lokal kann ein Doku-Commit ungepusht sein** („docs: record the first run
+  of generator 0.3.0“): bei der Sichtung prüfen und mit dem nächsten Commit
+  pushen, nicht allein.
+- **Vorhersage des Planers** für den 17.11. steht nicht fest; bei der
+  Sichtung den Lauf zum 17.11. prüfen (zweites Werk im Schema 3, Eltern
+  15.11. und 16.11.).
+
+Älterer Stand vom 15.11.2026:
 
 - **Aktivierung veröffentlicht (Push 2, 14.11.2026, 20:49 Berlin):**
   `a910f0d` (Baseline bis 14.11.), `8fac841` (Doku) und `9136f5e`
@@ -21,19 +44,7 @@ sind die Schritte 6 und 7 und der Abschluss. Beim Fortsetzen gilt:
 - **Veröffentlicht am 15.11., 14:11 Berlin:** `a405b35`, `93f8578` (Baseline
   bis 15.11.) und `056a873`; CI 43717698985 und Pages 43717699134
   erfolgreich, kein neues Werk.
-- **Lokal kann ein Doku-Commit ungepusht sein** („docs: record the push of
-  2026-11-15“): bei der Sichtung prüfen und mit dem nächsten Commit pushen,
-  nicht allein. Ein Push löst den Tageslauf aus, deshalb nur pushen, wenn
-  nichts fällig ist.
-- **Vorhersage des Planers:** 16.11. Gen. 13 „Azurkante / Wellenschweben“
-  (Generator 0.3.0, Schema 3, Renderer 2, Eltern 14.11. und 15.11.).
-- **Ab dem 16.11. nach dem Tageslauf:** Schritt 6 (ersten Lauf mit Generator
-  0.3.0 nach der Liste im Aktivierungsplan belegen, auch Detailansicht auf
-  der Live-Website), dann Schritt 7 und der Auftrag für P8. Das Werk im
-  Schema 3 kommt erst nach Schritt 7 in die Baseline. Zeigt es einen Fehler:
-  nichts löschen, nichts neu erzeugen, gemeinsam entscheiden.
-- **Offen ohne Termin:** Firefox-Prüfung; Live-Website am 14.11. und
-  15.11. nicht aufgerufen.
+- **Offen ohne Termin:** Firefox-Prüfung.
 - `PRD_1_2.md` und `docs/extensions/EP02-umsetzungsplan.md` sind
   unversionierte Dateien des Betreibers und bleiben liegen.
 
