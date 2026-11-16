@@ -83,8 +83,18 @@ und Rebase des Doku-Commits (jetzt `c3a3573`).
   **416 Tests** (414 + 2 für die Baseline), Datenprüfung mit 13 Werken;
   `CI=true npm run test:browser` **178 bestanden** (176 + 2), sechs
   bestehende Skips; `npm run worker:test-runtime` erfolgreich.
-- **Offen:** Push der Commits zu Schritt 6 und 7 (nur nach Freigabe); danach
-  der Auftrag für P8 (formuliert in `docs/NEXT-START.md`).
+- **Zweiter Push am 16.11.2026, vom Betreiber freigegeben:** drei Commits
+  `6414b3f` (Doku Schritt 6), `35ddab4` (Baseline über den Dispatch, Werk
+  vom 16.11.) und `eaa1136` (Doku Schritt 7, Auftrag P8), gepusht um 11:19
+  Berlin als Fast-forward auf `320e567`; vorher war nichts fällig und kein
+  Lauf aktiv. CI 43847758531 und Pages 43847758630 (Build und Deploy)
+  erfolgreich: 416 Tests, 178 Browsertests, Datenprüfung mit 13 Werken. Die
+  zwei neuen Bilder `archive-2026-11-16.png` und das Markup bestehen auf dem
+  Linux-Runner. Kein neues Werk; Remote-main auf `eaa1136`.
+- **Offen:** künstlerische Sichtung des Werks vom 16.11. durch den
+  Betreiber; Sichtung des Laufs zum 17.11. (zweites Werk im Schema 3, erster
+  Schedule-Lauf auf diesem Stand); danach der Auftrag für P8 (in
+  `docs/NEXT-START.md`, vom Betreiber am 16.11. gelesen).
 
 ## Nachtrag – 15.11.2026, Tageslauf 15.11. auf dem aktivierten Stand belegt, Baseline ergänzt
 

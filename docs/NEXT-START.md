@@ -14,8 +14,11 @@ sind veröffentlicht. Generator 0.3.0 ist seit Werkdatum 16.11.2026 aktiv:
 Lauf 43818820488 hat Gen. 13 „Azurkante / Wellenschweben“ archiviert
 (a7992e9; Schema 3, Renderer 2, Eltern 14.11. und 15.11.), der Beleg steht im
 HANDOFF-Nachtrag 16.11. Renderer 2 und Schema 3 sind seitdem eingefroren. Die
-Archiv-Baseline rendert über den Dispatch und reicht bis zum 16.11. Ein
-danach angelegter Commit kann noch ungepusht sein: bei der Sichtung prüfen.
+Archiv-Baseline rendert über den Dispatch und reicht bis zum 16.11.; das ist
+mit eaa1136 veröffentlicht (CI 43847758531 und Pages 43847758630
+erfolgreich). Ein danach angelegter Doku-Commit („docs: record the second
+push of 2026-11-16“) kann noch ungepusht sein: bei der Sichtung prüfen und
+mit dem nächsten Commit pushen, nicht allein.
 Seitdem schreibt nur der Tageslauf auf main: dessen Archivcommits nur per
 Fast-forward bzw. Rebase übernehmen. Bei der Sichtung die Läufe ab 17.11.
 prüfen (weitere Werke im Schema 3; ab 18.11. haben beide Eltern Schema 3) und
