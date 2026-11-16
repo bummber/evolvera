@@ -25,6 +25,13 @@ prüfen (weitere Werke im Schema 3; ab 18.11. haben beide Eltern Schema 3) und
 einen roten Lauf zuerst klären. Offen: Firefox-Prüfung; Serienneustart mit
 Löschung aller Werke (zurückgestellt, kein Auftrag, nichts löschen).
 
+Betreiberwunsch vom 16.11.2026: Das Werk vom 16.11. wirkt sehr voll (38
+Elemente; eine Vorausberechnung ergab für 17.–21.11. sogar 52–66). Der
+Betreiber möchte die Zahl der Objekte verringern können. Der Schalter dafür
+existiert im Profil schon (composition.density: sparse / varied / dense,
+dazu composition.maxLayers), ist aber erst mit P8 einstellbar. Am Generator
+wird dafür nichts geändert.
+
 Ich beauftrage jetzt ausschließlich das Arbeitspaket P8 (Betreiberoberfläche)
 aus dem Umsetzungsplan.
 1. Archiv-Baseline um die seit 17.11. archivierten Werke ergänzen (Befehl im
@@ -34,7 +41,10 @@ aus dem Umsetzungsplan.
    Betrieb (erst liest der veröffentlichte Stand Schema 2, dann schreibt der
    Worker es), welche Schlüssel schreibbar sind, Aufbau der Seite und der
    Vorschau, zusätzlicher Vite-Einstieg und Auslieferung als Worker-Asset,
-   nötige CSP-Änderung, Teilung in Unterpakete und Pushes.
+   nötige CSP-Änderung, Teilung in Unterpakete und Pushes. Im Bauplan auch
+   belegen, wie stark „Dichte: sparsam“ und eine kleinere Ebenenzahl die
+   Elementzahl tatsächlich senken, auch bei vererbten Ebenen (Simulation im
+   Speicher über mindestens 30 Tage, Vergleich mit dem Standardprofil).
 3. Worker: Validierung mit dem geteilten Regelmodul aus
    src/art/schema/config.ts, nur freigegebene Schlüssel schreibbar, revision
    erhöhen, konfliktfestes Schreiben wie bisher (A-28); unmögliche
@@ -42,10 +52,14 @@ aus dem Umsetzungsplan.
 4. Oberfläche: eine Seite mit sieben aufklappbaren Bereichen (Evolution,
    Formen, Oberfläche, Farbe, Komposition, Bewegung, Experimente), ab 320 px,
    Touch-Flächen ab 44 px, ein Erklärsatz je Schalter; Schnellprofile
-   „Standard“, „Ruhig“, „Wild“ (Betreiberentscheidung 8).
+   „Standard“, „Ruhig“, „Wild“ (Betreiberentscheidung 8). Im Bereich
+   Komposition die Dichte (sparsam / wechselnd / dicht) und die höchste
+   Ebenenzahl gut auffindbar anbieten; der Erklärsatz nennt die Wirkung auf
+   die Zahl der Formen.
 5. Vorschau im Browser mit derselben Generator- und Rendererbibliothek: 6–9
    Probewerke, zwei Probe-Eltern mit mindestens einem Kind, „Neu würfeln“;
-   keine Dateien, IDs oder Commits (A-33).
+   keine Dateien, IDs oder Commits (A-33). Die Vorschau zeigt je Probewerk
+   die Zahl der Elemente, damit die Wirkung der Dichte sichtbar wird.
 6. Änderungszusammenfassung gegenüber der gespeicherten Revision, Warnung bei
    vielfaltverringernden Kombinationen; Erfolg erst nach bestätigter
    Speicherung anzeigen.
