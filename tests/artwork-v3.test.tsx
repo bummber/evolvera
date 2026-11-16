@@ -47,10 +47,16 @@ describe('Werkschema 3 (EP-01)', () => {
     const works = storedWorks();
     expect(works.length).toBeGreaterThanOrEqual(47);
     for (const work of works) {
-      const parsed = artworkSchema.parse(work);
-      expect(parsed).toEqual(work);
       expect(anyArtworkSchema.parse(work)).toEqual(work);
-      expect(artworkV3Schema.safeParse(work).success).toBe(false);
+      // Since 2026-11-16 the archive also holds works of schema 3; each
+      // work is valid in exactly one of the two schema families.
+      if ((work as { schemaVersion?: unknown }).schemaVersion === 3) {
+        expect(artworkV3Schema.parse(work)).toEqual(work);
+        expect(artworkSchema.safeParse(work).success).toBe(false);
+      } else {
+        expect(artworkSchema.parse(work)).toEqual(work);
+        expect(artworkV3Schema.safeParse(work).success).toBe(false);
+      }
     }
   });
 

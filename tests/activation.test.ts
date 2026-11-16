@@ -15,7 +15,12 @@ import generationRecord from '../config/generation.json';
 import releaseRecord from '../config/release.json';
 import type { ArtworkV3 } from '../src/art/schema/artwork-v3';
 import { defaultProfile } from '../src/art/schema/profile';
-import { indexPath, readArchive, readWorks } from '../src/automation/archive';
+import {
+  indexPath,
+  indexText,
+  readArchive,
+  readWorks,
+} from '../src/automation/archive';
 import {
   canonicalHistory,
   git,
@@ -32,15 +37,24 @@ import {
 // change date is 2026-11-16; the tests pass their own date (or `null`) so
 // they do not depend on it. Real archive bytes are only read; all writes
 // happen in isolated temporary repositories with a local bare remote.
+//
+// The starting point is the real archive as it was before the change: only
+// the works of generator 0.2.0. Works archived since then with generator
+// 0.3.0 are left out here; the data validation checks them with
+// `readArchive`.
 
 const archive = new Map<string, string>();
-for (const file of readdirSync('public/artworks', { recursive: true }))
-  if (String(file).endsWith('.json'))
+for (const file of readdirSync('public/artworks', { recursive: true })) {
+  const id = /(\d{4}-\d{2}-\d{2})\.json$/.exec(String(file))?.[1];
+  if (id && generatorVersionFor(id) === '0.2.0')
     archive.set(
       `public/artworks/${String(file)}`,
       readFileSync(`public/artworks/${String(file)}`, 'utf8'),
     );
+}
 const oldWorks = readWorks(archive, generationRecord.seriesStartDate);
+// The index of that state, in the exact bytes the daily run wrote.
+archive.set(indexPath, indexText(oldWorks));
 const lastOld = oldWorks.at(-1)!.id;
 const day = (id: string, offset: number) => {
   const date = new Date(`${id}T12:00:00Z`);
