@@ -10,9 +10,16 @@ const manifest = JSON.parse(
     new URL('../fixtures/archive-baseline/manifest.json', import.meta.url),
     'utf8',
   ),
-) as { works: { id: string; title: string }[] };
+) as { works: { id: string; title: string; path: string }[] };
+// The renderer version each work stores (1, or 2 for works of schema 3).
+const rendererOf = (path: string) =>
+  (
+    JSON.parse(
+      readFileSync(new URL(`../../${path}`, import.meta.url), 'utf8'),
+    ) as { rendererVersion: string }
+  ).rendererVersion;
 
-for (const { id, title } of manifest.works) {
+for (const { id, title, path } of manifest.works) {
   test(`Archivwerk ${id} bleibt im Bild unverändert`, async ({
     page,
   }, testInfo) => {
@@ -21,7 +28,7 @@ for (const { id, title } of manifest.works) {
     const detail = page.locator('.work-detail');
     await expect(detail.getByRole('heading', { level: 1 })).toHaveText(title);
     const work = detail.locator('.art-stage [data-renderer]');
-    await expect(work).toHaveAttribute('data-renderer', '1');
+    await expect(work).toHaveAttribute('data-renderer', rendererOf(path));
     await expect(work).toHaveAttribute('data-state', 'rest');
     // Fix only the capture geometry so shell typography, layout and scroll
     // position stay out of the artwork comparison. The frame keeps its own

@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-15",
+  "frozenThrough": "2026-11-16",
   "works": [
     {
       "id": "2026-11-04",
@@ -96,6 +96,14 @@
       "path": "public/artworks/2026/2026-11-15.json",
       "sha256": "05de2a4a61e8eb260f7765921a515c516d4f94ae457ba5e5f87d04cad616e8af",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-15.txt"
+    },
+    {
+      "id": "2026-11-16",
+      "generation": 13,
+      "title": "Azurkante / Wellenschweben",
+      "path": "public/artworks/2026/2026-11-16.json",
+      "sha256": "aa24c73f728e993f8845fac93f78c1d5dfb99fe724bf063d16814f2d5ed350fc",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-16.txt"
     }
   ]
 }

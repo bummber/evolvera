@@ -9,7 +9,8 @@ import {
 } from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { ArtRenderer } from '../src/art/renderer/ArtRenderer';
+import { ArtDispatch } from '../src/art/renderer/ArtDispatch';
+import type { RenderSource } from '../src/art/renderer/ArtRenderer';
 
 // EP-01 A-36: frozen regression baseline for archived works.
 //
@@ -54,14 +55,11 @@ const render = (file: string) => {
     id: string;
     generation: number;
     title: string;
-    rendererVersion: string;
-    dna: unknown;
-    description: string;
-  };
+  } & RenderSource;
   // The test runner derives the CSS module suffix from the checkout path, so
   // only the class names are compared. Attribute values are HTML-escaped,
   // which keeps this pattern from matching inside a description.
-  const markup = renderToStaticMarkup(<ArtRenderer source={work} />).replace(
+  const markup = renderToStaticMarkup(<ArtDispatch source={work} />).replace(
     /class="([^"]*)"/g,
     (_, names: string) =>
       `class="${names.replace(/_([\w-]+)_[0-9a-f]{6}(?= |$)/g, '$1')}"`,
@@ -119,8 +117,10 @@ describe('Archiv-Baseline (EP-01 A-36)', () => {
   it.each(manifest.works)(
     'stellt $id unverändert dar (serialisierte Renderer-Ausgabe)',
     ({ path, markup }) => {
-      const rendered = render(path).markup;
-      expect(rendered).toContain('data-renderer="1"');
+      // Each work is drawn by the renderer version it stores (1 or 2).
+      const { work, markup: rendered } = render(path);
+      expect(['1', '2']).toContain(work.rendererVersion);
+      expect(rendered).toContain(`data-renderer="${work.rendererVersion}"`);
       expect(rendered).toBe(readFileSync(markup, 'utf8'));
     },
   );
