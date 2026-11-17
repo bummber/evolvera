@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Nachtrag – 17.11.2026, EP-01 P8 begonnen: Baseline ergänzt, Bauplan freigegeben, P8a lokal umgesetzt
+## Nachtrag – 17.11.2026, EP-01 P8 umgesetzt: Baseline, Bauplan, P8a veröffentlicht, Einstellungsseite und Worker-API committet
 
 Auftrag: P8 „Betreiberoberfläche“ nach `docs/NEXT-START.md`. Der Betreiber
 hat die Werke vom 16.11. und 17.11. künstlerisch gesichtet, Fetch und
@@ -99,12 +99,73 @@ Empfehlungen freigegeben („Setze deine Empfehlungen um“).
     Datenprüfung, Trockenlauf, `npm run check` (428) und Browserprüfung (180)
     grün; der nächste Lauf (18.11.) übernimmt Profil und Revision 7.
     `npm run worker:test-runtime` nicht nötig (Worker unverändert).
-- **Push 1 vom Betreiber freigegeben (17.11., 18:55 Berlin):** `edf0a6a`,
-  `c63430a`, `71bdcb0` und der Doku-Commit als Fast-forward auf `18172b0`.
-  Ergebnis von CI und Pages siehe Sichtung; danach den Tageslauf zum 18.11.
-  grün belegen (`config/generation.json` bleibt Schema 1).
-- **Offen:** P8b (Worker-API) und P8c (Oberfläche, Vorschau), dann
-  gemeinsame Sichtung und Push 2.
+- **Push 1 vom Betreiber freigegeben und um 21:04 Berlin ausgeführt:**
+  `edf0a6a`, `c63430a`, `71bdcb0` und `3c0d709` (Doku) als Fast-forward auf
+  `18172b0`; vorher kein Lauf aktiv. CI 44165366329 und Pages 44165366325
+  erfolgreich, kein neues Werk; Remote-main auf `3c0d709`. Die Bilder
+  `archive-2026-11-17.png` bestehen damit auf dem Linux-Runner.
+  `config/generation.json` bleibt Schema 1. Offen: der Tageslauf zum 18.11.
+  auf diesem Stand.
+- **P8b, Worker-API (`00aeb98`, zusammen mit P8c):**
+  - `GET /api/settings` (Revision, Regelversion, Modus mit effektivem
+    Profil, CSRF-Token der Sitzung) und `POST /api/settings` (JSON bis
+    8 KiB, nur exakte Origin, CSRF, strikte Schlüssel). Schreibbar sind nur
+    `inheritanceMode` und die sieben Profilgruppen, vollständig; die
+    Prüfung läuft über `writableSettingsSchema` mit `settingsIssues` vor
+    jedem Git-Zugriff (422 mit Meldung, A-32). Startdatum, Generierung und
+    Zeitzone übernimmt der Worker aus dem gespeicherten Stand. Geschrieben
+    wird Schema 2 mit `revision + 1` über `configV2Schema`, nur bei
+    Änderung, mit SHA (409 bei Konflikt), Nachlesen des Commits und
+    Commit-Nachricht „Update future generation settings“ (A-28).
+  - Das Modusformular (`POST /settings/mode`, `saveMode`) ist entfernt;
+    `GET /settings` liefert mit Sitzung eine Seitenhülle ohne Inline-Code
+    mit CSP `default-src 'none'; script-src 'self'; style-src 'self';
+connect-src 'self'; form-action 'self'; frame-ancestors 'none';
+base-uri 'none'`. Abmelden bleibt ein natives Formular.
+  - Dateien der Seite nur `/assets/admin.js` und `/assets/admin.css` über
+    `ASSETS` (`wrangler.jsonc`: `assets` mit `run_worker_first`).
+- **P8c, Oberfläche und Vorschau (`00aeb98`):**
+  - Eigener Vite-Einstieg `vite.admin.config.ts` → `.admin-build/`
+    (gitignored, nicht in `dist`), Teil von `npm run build`.
+    `src/admin/`: eine Seite, sieben aufklappbare Bereiche (Komposition
+    zuerst und offen, dann Evolution, Formen, Oberfläche, Farbe, Bewegung,
+    Experimente), ein Erklärsatz je Schalter, Schnellprofile Standard,
+    Ruhig, Wild; Regelverstöße live mit derselben Meldung wie der Worker,
+    Hinweise zur Vielfalt, Änderungszusammenfassung gegenüber der
+    gespeicherten Revision, Erfolg erst nach bestätigtem Commit, Konflikt
+    mit Link zum Neuladen. zod läuft ohne eval (`jitless`).
+  - Vorschau: `createPreviewChainV3` mit 8 Probewerken (zwei Ursprünge,
+    sechs Kinder), Renderer über `ArtDispatch`, Elementzahl je Probewerk,
+    Ø mit Vergleich zum Standardprofil bei gleichen Würfeln, „Neu
+    würfeln“; nichts wird gespeichert (A-33).
+  - Reine Hilfsfunktionen in `src/operator/profile-form.ts` (Schnellprofile,
+    Warnungen, Änderungen). Lokale Sichtung: `npm run admin:review` (ohne
+    Anmeldung, Speichern gesperrt, Stand aus `config/generation.json`).
+  - Tests: `tests/operator.test.ts` auf die API umgestellt (Seitenhülle und
+    CSP, Dateien, Lesen von Schema 1/2, Schreiben als Schema 2 mit fester
+    Schlüsselreihenfolge, keine Änderung ohne Commit, 422 ohne Git-Zugriff,
+    fremde Schlüssel, Origin, CSRF, Größe, 409, unbestätigter Commit,
+    Abmelden); `tests/runtime/worker.ts` prüft in `workerd` Seitenhülle, API
+    ohne Sitzung, Regelablehnung, fremde Origin und Schema 2;
+    `tests/profile-form.test.ts`; `tests/browser/operator-forms.spec.ts`
+    durchläuft Anmeldung, Bereiche, Vorschau, Regelverstoß, Schnellprofil,
+    Warnung, Speichern, Konflikt einer veralteten Seite, Tastaturweg, 320 px
+    (kein Querscrollen, Touch-Flächen ab 44 px), abgelaufene Sitzung sowie
+    keine CSP- oder Skriptfehler.
+  - **Prüfungen lokal:** `npm run check` erfolgreich mit **444 Tests**;
+    `CI=true npm run test:browser` **180 bestanden**, sechs bestehende
+    Skips; `npm run worker:test-runtime` erfolgreich. Bildschirmfotos der
+    lokalen Sichtung (Desktop und 320 px) ohne Seitenfehler.
+- **Gemeinsame Sichtung (17.11., abends):** Bildschirmfotos der lokalen
+  Sichtung (Desktop mit Schnellprofil „Ruhig“, 320 px) vorgelegt; der
+  Betreiber hat mit „Mach weiter“ ohne Änderungswunsch fortgesetzt. Ein
+  gemeinsamer Commit für Seite und API, weil das Modusformular entfällt und
+  ein getrennter Zwischenstand im Browsertest rot wäre.
+- **Offen:** Push 2 (`00aeb98` und Doku) nach Rückfrage; Tageslauf zum 18.11.
+  auf dem P8a-Stand belegen; Worker-Deployment mit eigener Freigabe (bis
+  dahin läuft live das alte Modusformular, `config/generation.json` bleibt
+  Schema 1); danach das erste Speichern durch den Betreiber und P9. Auftrag
+  in `docs/NEXT-START.md`.
 
 ## Nachtrag – 16.11.2026, erster Lauf mit Generator 0.3.0 belegt, roter Build behoben, Baseline für Schema 3 (Schritte 6 und 7)
 

@@ -1,11 +1,86 @@
-# Aktueller Startprompt – EP-01: P8 Betreiberoberfläche
+# Aktueller Startprompt – EP-01: Inbetriebnahme der Einstellungsseite und P9 Abschluss
 
-**Stand 17.11.2026:** Schritte 1 und 2 erledigt (Baseline bis 17.11.,
-Bauplan mit Simulation vom Betreiber freigegeben). P8a umgesetzt: Alle Leser
-verstehen Schema 2, Regelversion 2 lehnt `traceable` mit einer Ebene ab,
-`config/generation.json` steht in `.prettierignore`. Weiter mit P8b
-(Worker-API) und P8c (Oberfläche und Vorschau) nach dem Bauplan; Einzelheiten
-und offener Push im HANDOFF-Nachtrag 17.11. Der Prompt unten gilt weiter.
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, neuesten HANDOFF, diesen Startprompt,
+docs/extensions/EP01-umsetzungsplan.md (Abschnitte P8, P9 und 7),
+workers/admin/README.md, docs/runbook.md und docs/operator-setup.md lesen.
+Dann /sichtung ausführen: rein lesend Git-Zustand, Remote, Berliner Zeit,
+Tagesläufe und Archiv prüfen und gemeinsam sichten.
+
+Stand: EP-01 P0 bis P8 umgesetzt. P8a ist mit Push 1 veröffentlicht
+(3c0d709 am 17.11.2026; CI 44165366329 und Pages 44165366325 grün): Alle
+Leser verstehen Konfigurationsschema 2, die Profilregeln Version 2 lehnen
+traceable mit einer Ebene ab, config/generation.json steht in
+.prettierignore. Einstellungsseite und Worker-API (00aeb98) und der
+Doku-Commit dazu sind mit Push 2 veröffentlicht oder noch ungepusht: bei der
+Sichtung prüfen. Der Live-Worker zeigt noch das alte Modusformular;
+config/generation.json ist Schema 1, Revision 6. Bekanntes Restrisiko:
+Generator 0.3.0 findet bei seltenen Profilen kein Werk (HANDOFF 17.11.); dann
+stockt die Serie, bis sich eine Einstellung ändert. In dem Fall nichts
+löschen, nichts neu erzeugen, gemeinsam entscheiden. Offen bleiben die
+Firefox-/Safari-Prüfung und der zurückgestellte Serienneustart (kein
+Auftrag, nichts löschen).
+
+Ich beauftrage jetzt die Inbetriebnahme der Einstellungsseite (Rest von P8)
+und das Arbeitspaket P9 (Abschluss) aus dem Umsetzungsplan.
+1. Archiv-Baseline um die seit 18.11. archivierten Werke ergänzen (Befehl im
+   Kopf von tests/archive-baseline.test.tsx); Bestehendes nicht verändern.
+   Den Tageslauf zum 18.11. als ersten Lauf auf dem P8a-Stand belegen.
+2. Falls Push 2 noch aussteht: nach Rückfrage pushen, CI und Pages belegen.
+3. Worker-Deployment vorbereiten und mir zeigen: npm run build:admin, dann
+   Deployment aus workers/admin; was sich live ändert (Modusformular
+   entfällt, Einstellungsseite und /api/settings kommen, Seitendateien als
+   Worker-Assets). Deployment erst nach meiner ausdrücklichen Freigabe.
+   Secrets und SQLite-Sitzungen bleiben erhalten; keine Cookie-, Token- oder
+   Liveworker-Logeinsicht.
+4. Nach dem Deployment gemeinsam live prüfen: Anmeldung, Seite lädt ohne
+   CSP-Fehler, Vorschau, Abmelden. Das erste Speichern mache ich selbst.
+   Danach den Commit „Update future generation settings“ belegen (Schema 2,
+   revision + 1, Startdatum, Generierung und Zeitzone unverändert) und den
+   nächsten Tageslauf (übernimmt Profil und Revision, kein Archivwerk
+   ändert sich).
+5. P9: README.md, docs/architecture.md, docs/runbook.md (u. a. Build der
+   Seite vor jedem Deployment, Vorgehen bei einem Lauf ohne Werk), HANDOFF
+   und NEXT-START auf den neuen Stand bringen; Restgrenzen ehrlich
+   festhalten (verzögerte Wirkung der Dichte, Generatorrisiko, ungeprüfte
+   Browser).
+6. npm run check, npm run test:browser und npm run worker:test-runtime
+   ausführen und ehrlich berichten.
+7. Gemeinsame Sichtung; danach EP-01 abschließen oder Restpunkte benennen.
+
+Grenzen: Keine Änderung an Generator 0.2.0 und 0.3.0, Abstandsmaß,
+Titelgenerator, ArtV1, ArtRenderer.tsx, Renderer 2, artwork.ts,
+artwork-v3.ts, generatorChangeDate, artReviewV3, Archivdateien,
+Archiv-Baseline (nur ergänzen), eingefrorenen Fixtures oder bestehenden
+Browserreferenzen. config/generation.json ändert nur der Betreiber über die
+Einstellungsseite. Keine Secrets und keine externe Einrichtung ohne eigene
+Freigabe. Zeigt ein Tageswerk einen Fehler: nichts löschen, nichts neu
+erzeugen, gemeinsam entscheiden. Kein Löschen von Werken ohne ausdrücklichen
+Auftrag. Neue Abhängigkeiten nur nach Rückfrage.
+
+Remote-Archiv- und Einstellungscommits nur per Fast-forward bzw. Rebase
+übernehmen, nie überschreiben. Fetch, Pull, Commit und Push erst nach
+Rückfrage; ein Push auf main ist eine Veröffentlichung und löst auch den
+Tageslauf aus. Kleine, thematisch getrennte Commits vorschlagen. Kein
+manueller Workflowstart. Lokale Tests isoliert/synthetisch, Workerausgaben
+außerhalb dist und Git.
+```
+
+## Historische Startprompts – Stand vor der Inbetriebnahme der Einstellungsseite (17.11.2026)
+
+# Vorheriger Startprompt – EP-01: P8 Betreiberoberfläche
+
+## Abschlussstand vom 17.11.2026
+
+- **Schritte 1 bis 9 erledigt:** Baseline bis 17.11. (`edf0a6a`); Bauplan mit
+  Simulation freigegeben; P8a (`c63430a`, `71bdcb0`) mit Push 1
+  veröffentlicht (`3c0d709`, CI und Pages grün); Einstellungsseite und
+  Worker-API (`00aeb98`) mit allen Prüfungen grün; Oberfläche gemeinsam
+  gesichtet. Einzelheiten im HANDOFF-Nachtrag 17.11.
+- **Offen geblieben:** Push 2, Worker-Deployment, erstes Speichern durch den
+  Betreiber; im neuen Startprompt oben.
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
