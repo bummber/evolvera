@@ -14,6 +14,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import generationRecord from '../config/generation.json';
 import releaseRecord from '../config/release.json';
 import type { ArtworkV3 } from '../src/art/schema/artwork-v3';
+import { readGenerationConfig } from '../src/art/schema/config';
 import { defaultProfile } from '../src/art/schema/profile';
 import {
   indexPath,
@@ -43,6 +44,19 @@ import {
 // 0.3.0 are left out here; the data validation checks them with
 // `readArchive`.
 
+// Since EP-01 P8 the operator may save configuration schema 2 with another
+// profile. Generator 0.2.0 only knows schema 1, so these tests use the core
+// of the published record as schema 1 and stay independent of that profile.
+const published = readGenerationConfig(generationRecord);
+const settingsV1 = {
+  schemaVersion: 1,
+  revision: published.revision,
+  seriesStartDate: published.seriesStartDate,
+  generationEnabled: published.generationEnabled,
+  timezone: published.timezone,
+  inheritanceMode: published.inheritanceMode,
+} as const;
+
 const archive = new Map<string, string>();
 for (const file of readdirSync('public/artworks', { recursive: true })) {
   const id = /(\d{4}-\d{2}-\d{2})\.json$/.exec(String(file))?.[1];
@@ -52,7 +66,7 @@ for (const file of readdirSync('public/artworks', { recursive: true })) {
       readFileSync(`public/artworks/${String(file)}`, 'utf8'),
     );
 }
-const oldWorks = readWorks(archive, generationRecord.seriesStartDate);
+const oldWorks = readWorks(archive, settingsV1.seriesStartDate);
 // The index of that state, in the exact bytes the daily run wrote.
 archive.set(indexPath, indexText(oldWorks));
 const lastOld = oldWorks.at(-1)!.id;
@@ -81,14 +95,14 @@ const reviewed = {
   },
 };
 const input = (runDay: string, release: unknown = reviewed) => ({
-  settings: generationRecord,
+  settings: settingsV1,
   release,
   current: archive,
   canonical: archive,
   runStartedAt: at(runDay),
 });
 const parse = (plan: { files: ReadonlyMap<string, string> }) =>
-  readArchive(plan.files, generationRecord.seriesStartDate);
+  readArchive(plan.files, settingsV1.seriesStartDate);
 const expectOldBytes = (files: ReadonlyMap<string, string>) => {
   for (const [file, text] of archive)
     if (file !== indexPath) expect(sha(files.get(file)!)).toBe(sha(text));
@@ -126,9 +140,9 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
     }
     expectOldBytes(plan.files);
     // Same result as the reader of the running series: nothing of schema 3.
-    expect(
-      readWorks(plan.files, generationRecord.seriesStartDate),
-    ).toHaveLength(works.length);
+    expect(readWorks(plan.files, settingsV1.seriesStartDate)).toHaveLength(
+      works.length,
+    );
   });
 
   it('wechselt genau am Datum auf Generator 0.3.0, Schema 3 und Renderer 2', () => {
@@ -158,10 +172,10 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
       );
       // Standard profile from the schema 1 configuration, bound to its revision.
       expect(work.settings).toEqual({
-        inheritanceMode: generationRecord.inheritanceMode,
+        inheritanceMode: settingsV1.inheritanceMode,
         ...defaultProfile,
       });
-      expect(work.settingsRevision).toBe(generationRecord.revision);
+      expect(work.settingsRevision).toBe(settingsV1.revision);
       expect(work.novelty.distance).not.toBeNull();
     }
     // Generations continue; the first new works have parents of schema 2.
@@ -201,7 +215,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
       expect(plan.added).toHaveLength(1);
       files = new Map(plan.files);
     }
-    const daily = readArchive(files, generationRecord.seriesStartDate);
+    const daily = readArchive(files, settingsV1.seriesStartDate);
     expect(daily.map((work) => work.id)).toEqual(late.map((work) => work.id));
     daily.forEach((work, index) => {
       const other = late[index]!;
@@ -261,7 +275,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
 
   it('reicht höchstens 30 Werke als geordneten Historienkontext weiter', () => {
     const settings = {
-      ...generationRecord,
+      ...settingsV1,
       seriesStartDate: '2000-01-01',
     };
     const runDay = '2000-02-05';
@@ -311,7 +325,7 @@ describe('Generatorwechsel in isolierten Git-Repositories', () => {
     git(root, ['config', 'user.name', 'Test']);
     git(root, ['config', 'user.email', 'test@example.invalid']);
     git(root, ['remote', 'add', 'origin', remote]);
-    write(root, 'config/generation.json', JSON.stringify(generationRecord));
+    write(root, 'config/generation.json', JSON.stringify(settingsV1));
     write(root, 'config/release.json', JSON.stringify(reviewed));
     for (const [file, text] of archive) write(root, file, text);
     git(root, ['add', '.']);
@@ -356,7 +370,7 @@ describe('Generatorwechsel in isolierten Git-Repositories', () => {
         expect(git(root, ['show', `${second}:${file}`])).toBe(text);
     const works = readArchive(
       canonicalHistory(root, second),
-      generationRecord.seriesStartDate,
+      settingsV1.seriesStartDate,
     );
     expect(works.slice(-6).map((work) => work.generatorVersion)).toEqual([
       '0.2.0',

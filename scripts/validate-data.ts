@@ -1,13 +1,13 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
-import { configSchema } from '../src/art/schema/config';
+import { readGenerationConfig } from '../src/art/schema/config';
 import { releaseSchema, assertSeriesGate } from '../src/automation/release';
 import { readArchive, indexText, indexPath } from '../src/automation/archive';
 import { canonicalHistory, git } from '../src/automation/git';
 import { operatorSchema } from '../src/operator/access';
 const readJson = async (file: string) =>
   JSON.parse(await readFile(file, 'utf8')) as unknown;
-const settings = configSchema.parse(await readJson('config/generation.json'));
+const settings = readGenerationConfig(await readJson('config/generation.json'));
 const release = releaseSchema.parse(await readJson('config/release.json'));
 operatorSchema.parse(await readJson('config/operator.json'));
 assertSeriesGate(settings, release);

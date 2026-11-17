@@ -1,8 +1,9 @@
 import rawConfig from '../../config/generation.json';
-import { configSchema } from '../art/schema/config';
+import { configSchema, readGenerationConfig } from '../art/schema/config';
 import type { GenerationSnapshot } from '../art/generator/contracts';
 
-export const initialSettings = Object.freeze(configSchema.parse(rawConfig));
+/** Published configuration, schema 1 or 2, with its effective profile. */
+export const initialSettings = readGenerationConfig(rawConfig);
 
 /** Pure boundary helper; it does not acquire a lock, refresh Git or start a run. */
 export function snapshotSettings(input: unknown): GenerationSnapshot {

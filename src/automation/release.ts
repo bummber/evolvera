@@ -37,7 +37,10 @@ export const releaseSchema = z.strictObject({
     .optional(),
 });
 export type Release = z.infer<typeof releaseSchema>;
-export function assertSeriesGate(config: GenerationConfig, input: unknown) {
+export function assertSeriesGate(
+  config: Pick<GenerationConfig, 'generationEnabled' | 'seriesStartDate'>,
+  input: unknown,
+) {
   const release = releaseSchema.parse(input);
   const approved =
     release.artReview.status === 'approved' &&

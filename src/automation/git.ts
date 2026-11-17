@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { isWorkPath, indexPath } from './archive';
 import { prepareRun } from './plan';
-import { configSchema } from '../art/schema/config';
+import { readGenerationConfig } from '../art/schema/config';
 
 export function git(
   root: string,
@@ -186,7 +186,8 @@ export function publishPlan(
         throw new Error(
           'Parallele Code-/Archivänderung: kontrolliert stoppen.',
         );
-      const config = configSchema.parse(
+      // The parallel change may be of schema 1 or 2; the run keeps its snapshot.
+      const config = readGenerationConfig(
         JSON.parse(git(root, ['show', `${fresh}:config/generation.json`])),
       );
       if (

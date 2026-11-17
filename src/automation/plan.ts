@@ -1,8 +1,4 @@
-import {
-  configSchema,
-  instantSchema,
-  readGenerationConfig,
-} from '../art/schema/config';
+import { instantSchema, readGenerationConfig } from '../art/schema/config';
 import type { Artwork } from '../art/schema/artwork';
 import type { AnyArtwork } from '../art/schema/artwork-v3';
 import { snapshotSettings } from '../operator/settings';
@@ -44,6 +40,15 @@ function readSeries(
   return works;
 }
 
+/** Works before the generator change only exist with configuration schema 1. */
+function legacyOnly<T>(settings: T | null): T {
+  if (!settings)
+    throw new Error(
+      'Werke vor dem Generatorwechsel entstehen nur mit Konfigurationsschema 1.',
+    );
+  return settings;
+}
+
 /** No I/O. Historical bytes come from the first archived Git version, never regeneration. */
 export function prepareRun(
   input: {
@@ -61,7 +66,12 @@ export function prepareRun(
     options.generatorChangeDate === undefined
       ? generatorChangeDate
       : options.generatorChangeDate;
-  const settings = snapshotSettings(configSchema.parse(input.settings));
+  // The immutable snapshot of this run, read once before any generation:
+  // configuration schema 1 or 2 with its complete effective profile.
+  const settings = readGenerationConfig(input.settings);
+  // Generator 0.2.0 records the strict configuration of schema 1 in its works.
+  const legacySettings =
+    settings.schemaVersion === 1 ? snapshotSettings(input.settings) : null;
   const release = assertSeriesGate(settings, input.release);
   const runStartedAt = instantSchema.parse(input.runStartedAt);
   const files = new Map(input.canonical);
@@ -109,9 +119,7 @@ export function prepareRun(
                 // profile of the configuration (schema 1: standard profile).
                 settings: {
                   inheritanceMode: settings.inheritanceMode,
-                  ...structuredClone(
-                    readGenerationConfig(input.settings).profile,
-                  ),
+                  ...structuredClone(settings.profile),
                 },
                 settingsRevision: settings.revision,
                 parents,
@@ -124,7 +132,7 @@ export function prepareRun(
           : generateArtwork(
               {
                 ...request,
-                settings,
+                settings: legacyOnly(legacySettings),
                 // Before the change date every work is of schema 1 or 2.
                 parents: parents as Artwork[],
               },

@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import settings from '../../config/generation.json' with { type: 'json' };
-import { configSchema, modeLabels } from '../../src/art/schema/config';
+import { modeLabels, readGenerationConfig } from '../../src/art/schema/config';
 
 test('Overlay hält Fokus und Hintergrund fest und schließt per Escape, Ziel und Schließen', async ({
   page,
@@ -36,7 +36,7 @@ test('Overlay hält Fokus und Hintergrund fest und schließt per Escape, Ziel un
   expect(await page.evaluate(() => scrollY)).toBe(scroll);
   await expect(
     details.getByText(
-      modeLabels[configSchema.parse(settings).inheritanceMode],
+      modeLabels[readGenerationConfig(settings).inheritanceMode],
       { exact: true },
     ),
   ).toBeVisible();
