@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import {
-  addProfileIssues,
+  addSettingsIssues,
   defaultProfile,
   profileSchema,
   withProfileDefaults,
@@ -36,8 +36,9 @@ export const configSchema = z
 export type GenerationConfig = z.infer<typeof configSchema>;
 export type InheritanceMode = z.infer<typeof modeSchema>;
 
-// EP-01: schema 2 adds the generation profile. Schema 1 stays the strict
-// contract of the running series; nothing writes schema 2 yet.
+// EP-01: schema 2 adds the generation profile and is checked with the
+// compatibility rules of version 2. Schema 1 stays valid and strict; only
+// the operator worker writes schema 2, always complete.
 export const configV2Schema = z
   .strictObject({
     schemaVersion: z.literal(2),
@@ -56,7 +57,7 @@ export const configV2Schema = z
           'Aktive Generierung benötigt ein ausdrücklich freigegebenes Startdatum.',
         path: ['seriesStartDate'],
       });
-    addProfileIssues(value, ctx);
+    addSettingsIssues(value, ctx);
   });
 
 export type EffectiveGenerationConfig = Readonly<

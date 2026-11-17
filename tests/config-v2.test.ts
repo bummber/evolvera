@@ -10,8 +10,10 @@ import {
   defaultProfile,
   profileIssues,
   profileRulesVersion,
+  settingsIssues,
   validProfileSchema,
 } from '../src/art/schema/profile';
+import { settingsSnapshotSchema } from '../src/art/schema/preview-v3';
 
 const core = {
   revision: 7,
@@ -32,14 +34,25 @@ const messages = (input: unknown) => {
 };
 
 describe('Konfigurationsschema 2 und gemeinsamer Leser (EP-01 A-32, A-37)', () => {
-  it('liest die veröffentlichte Konfiguration im Schema 1 als Standardprofil', () => {
+  it('liest die veröffentlichte Konfiguration in Schema 1 oder 2', () => {
     const stored = JSON.parse(
       readFileSync('config/generation.json', 'utf8'),
-    ) as unknown;
-    const strict = configSchema.parse(stored);
-    expect(strict.schemaVersion).toBe(1);
+    ) as { schemaVersion?: unknown };
+    const config = readGenerationConfig(stored);
+    if (stored.schemaVersion === 1)
+      // Schema 1 yields the standard profile.
+      expect(config).toEqual({
+        ...configSchema.parse(stored),
+        profile: defaultProfile,
+      });
+    // The worker writes schema 2 always complete.
+    else expect(configV2Schema.parse(stored)).toEqual(stored);
+  });
+
+  it('liest Schema 1 als Standardprofil', () => {
+    const stored = { schemaVersion: 1, ...core };
     expect(readGenerationConfig(stored)).toEqual({
-      ...strict,
+      ...stored,
       profile: defaultProfile,
     });
   });
@@ -132,8 +145,57 @@ describe('Konfigurationsschema 2 und gemeinsamer Leser (EP-01 A-32, A-37)', () =
         palette: { strategies: ['free', 'free'] },
       }),
     ).toEqual(['Jede Palettenstrategie darf nur einmal genannt werden.']);
-    expect(profileRulesVersion).toBe(1);
+    expect(profileRulesVersion).toBe(2);
     expect(profileIssues(defaultProfile)).toEqual([]);
+  });
+
+  it('lehnt in Regelversion 2 eine einzige Ebene bei nachvollziehbarer Vererbung ab (A-32)', () => {
+    const oneLayer = { composition: { maxLayers: 1 } };
+    expect(messages({ schemaVersion: 2, ...core, ...oneLayer })).toEqual([
+      'Nachvollziehbare Vererbung braucht mindestens 2 Ebenen. Mit nur einer Ebene findet der Generator nicht immer ein gültiges Werk, und der Tageslauf bliebe ohne Werk.',
+    ]);
+    const traceable = { inheritanceMode: 'traceable' as const };
+    expect(
+      settingsIssues({ ...traceable, ...defaultProfile }).map(
+        (issue) => issue.rule,
+      ),
+    ).toEqual([]);
+    expect(
+      settingsIssues({
+        ...traceable,
+        ...defaultProfile,
+        composition: { ...defaultProfile.composition, maxLayers: 1 },
+      }).map((issue) => issue.path),
+    ).toEqual([['composition', 'maxLayers']]);
+    // `free` keeps one layer; two layers stay possible in both modes.
+    for (const [inheritanceMode, maxLayers] of [
+      ['free', 1],
+      ['free', 2],
+      ['traceable', 2],
+    ] as const)
+      expect(
+        readGenerationConfig({
+          schemaVersion: 2,
+          ...core,
+          inheritanceMode,
+          composition: { maxLayers },
+        }).profile.composition.maxLayers,
+      ).toBe(maxLayers);
+  });
+
+  it('lässt archivierte Snapshots unter Regelversion 1 gültig', () => {
+    // Works store no rules version; the stricter configuration rules never
+    // invalidate a snapshot of schema 3 afterwards.
+    const snapshot = {
+      inheritanceMode: 'traceable',
+      ...defaultProfile,
+      composition: { ...defaultProfile.composition, maxLayers: 1 },
+    };
+    expect(settingsSnapshotSchema.safeParse(snapshot).success).toBe(true);
+    expect(
+      configV2Schema.safeParse({ schemaVersion: 2, ...core, ...snapshot })
+        .success,
+    ).toBe(false);
   });
 
   it('lässt ein einzelnes verbleibendes Merkmal je Mindestregel zu', () => {

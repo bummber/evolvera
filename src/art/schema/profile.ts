@@ -4,8 +4,14 @@ import { z } from 'zod';
 // Shared by configuration, artwork snapshots and (later) generator, worker and
 // operator form, so that all of them apply the same rules.
 
-/** Version of the compatibility rules in `profileIssues`. */
-export const profileRulesVersion = 1;
+/**
+ * Version of the compatibility rules that a configuration must satisfy
+ * (`settingsIssues`). Version 1 (P1) had only the minimum selections of
+ * `profileIssues`; version 2 (P8) adds the rules that depend on the mode.
+ * Artworks store no rules version: their snapshots stay valid under the
+ * rules of version 1 they were made with.
+ */
+export const profileRulesVersion = 2;
 
 export const frequencySchema = z.enum([
   'off',
@@ -126,9 +132,8 @@ export type ProfileIssue = {
 };
 
 /**
- * Compatibility rules, version 1: only the two mandatory minimum selections.
- * Further exclusions need a new `profileRulesVersion` once renderer 2 and
- * generator 0.3.0 show which combinations are really impossible.
+ * Compatibility rules of version 1: only the two mandatory minimum
+ * selections. Artwork snapshots of schema 3 keep being validated with them.
  */
 export function profileIssues(profile: Profile): ProfileIssue[] {
   const issues: ProfileIssue[] = [];
@@ -169,7 +174,47 @@ export function addProfileIssues(
     });
 }
 
-/** Complete profile that also satisfies the compatibility rules. */
+/**
+ * Compatibility rules of version 2 for a configuration: version 1 plus the
+ * rules that depend on the mode. Found by an in-memory simulation of
+ * generator 0.3.0 over every switch at its extremes, random combinations,
+ * both modes and many chains (P8). Only the combination below failed
+ * repeatedly; a single other failure stayed an isolated case.
+ */
+export function settingsIssues(
+  settings: Profile & { inheritanceMode: 'traceable' | 'free' },
+): ProfileIssue[] {
+  const issues = profileIssues(settings);
+  // With one layer, `traceable` always inherits that layer. A feature drawn
+  // for the work must still occur, and sometimes none of the deterministic
+  // attempts can place it: the daily run would end without a work.
+  if (
+    settings.inheritanceMode === 'traceable' &&
+    settings.composition.maxLayers < 2
+  )
+    issues.push({
+      rule: 'traceable.max-layers.min-two',
+      path: ['composition', 'maxLayers'],
+      message:
+        'Nachvollziehbare Vererbung braucht mindestens 2 Ebenen. Mit nur einer Ebene findet der Generator nicht immer ein gültiges Werk, und der Tageslauf bliebe ohne Werk.',
+    });
+  return issues;
+}
+
+export function addSettingsIssues(
+  settings: Profile & { inheritanceMode: 'traceable' | 'free' },
+  ctx: z.RefinementCtx,
+  prefix: (string | number)[] = [],
+) {
+  for (const issue of settingsIssues(settings))
+    ctx.addIssue({
+      code: 'custom',
+      message: issue.message,
+      path: [...prefix, ...issue.path],
+    });
+}
+
+/** Complete profile that also satisfies the compatibility rules of version 1. */
 export const validProfileSchema = profileSchema.superRefine((profile, ctx) =>
   addProfileIssues(profile, ctx),
 );
