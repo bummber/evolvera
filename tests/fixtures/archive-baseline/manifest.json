@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-16",
+  "frozenThrough": "2026-11-17",
   "works": [
     {
       "id": "2026-11-04",
@@ -104,6 +104,14 @@
       "path": "public/artworks/2026/2026-11-16.json",
       "sha256": "aa24c73f728e993f8845fac93f78c1d5dfb99fe724bf063d16814f2d5ed350fc",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-16.txt"
+    },
+    {
+      "id": "2026-11-17",
+      "generation": 14,
+      "title": "Zinnoberschweben im Morgen",
+      "path": "public/artworks/2026/2026-11-17.json",
+      "sha256": "a53bac27b6ff4325c6aa249714ddb56bbeb56b13b958abf5b684b45bbf8bb1af",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-17.txt"
     }
   ]
 }
