@@ -7,6 +7,13 @@
   "preview_urls": false,
   "observability": { "enabled": false },
   "vars": { "ENABLED": "false", "ADMIN_ORIGIN": "" },
+  // Operator page (EP-01 P8), built by `npm run build:admin`. The worker
+  // runs first for every request and serves only the two named files.
+  "assets": {
+    "directory": "../../.admin-build",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+  },
   "durable_objects": {
     "bindings": [{ "name": "SESSIONS", "class_name": "Sessions" }],
   },

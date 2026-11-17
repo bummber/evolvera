@@ -1,0 +1,188 @@
+/* Operator page (EP-01 P8). System fonts only: the page's CSP has no font-src. */
+:root {
+  --paper: #eeeae2;
+  --ink: #181919;
+  --accent: #c83920;
+  --muted: #55524c;
+  color-scheme: light;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font:
+    16px/1.6 system-ui,
+    -apple-system,
+    'Segoe UI',
+    Arial,
+    sans-serif;
+}
+main {
+  max-width: 760px;
+  margin: auto;
+  padding: 32px 16px 48px;
+}
+.eyebrow {
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+h1 {
+  font-size: clamp(2rem, 8vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin: 8px 0 24px;
+}
+h2 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  margin: 32px 0 8px;
+}
+h3 {
+  font-size: 1rem;
+  margin: 16px 0 4px;
+}
+p,
+li,
+legend,
+label {
+  overflow-wrap: anywhere;
+}
+a {
+  color: inherit;
+}
+a,
+button,
+summary,
+label {
+  min-height: 44px;
+}
+a {
+  display: inline-flex;
+  align-items: center;
+}
+button {
+  font: inherit;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 16px;
+  margin: 8px 8px 8px 0;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+button.primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+details {
+  border-top: 1px solid var(--ink);
+}
+details:last-of-type {
+  border-bottom: 1px solid var(--ink);
+}
+summary {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  padding: 8px 0;
+}
+.field {
+  border: 0;
+  margin: 0 0 24px;
+  padding: 0;
+  min-width: 0;
+}
+.field > label,
+legend {
+  font-weight: 700;
+  padding: 0;
+}
+.help {
+  color: var(--muted);
+  margin: 0 0 8px;
+  max-width: 62ch;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.choice,
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--muted);
+  cursor: pointer;
+  min-width: 44px;
+}
+.field > .check {
+  border: 0;
+  padding: 0;
+  font-weight: 700;
+}
+.choice:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+input[type='radio'],
+input[type='checkbox'] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+input[type='number'] {
+  font: inherit;
+  min-height: 44px;
+  width: 7em;
+  padding: 8px;
+  border: 1px solid var(--ink);
+  background: #fff;
+}
+.notice,
+.issues,
+.warnings,
+.review {
+  border-top: 2px solid var(--accent);
+  padding: 12px 0;
+}
+.issues p {
+  font-weight: 700;
+}
+.summary ul {
+  padding-left: 20px;
+}
+.probes {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+.probes p {
+  font-size: 0.875rem;
+  margin: 6px 0 0;
+}
+.mean {
+  font-weight: 700;
+}
+nav a {
+  margin-right: 16px;
+}

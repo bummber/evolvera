@@ -9,9 +9,11 @@ import type { Env } from '../../workers/admin';
 
 test.use({ ignoreHTTPSErrors: true }); // Ephemeral local test certificate only.
 
-test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare bleiben sicher', async ({
+test('Synthetischer Login, Einstellungsseite, Konflikt und Widerruf bleiben sicher', async ({
   page,
 }) => {
+  // Builds 8 preview works per change in the browser.
+  test.setTimeout(180_000);
   // Use the installed TypeScript loader for the Worker's existing JSON imports.
   const { createWorker, recordCall, MemoryNamespace, readyPolicy } =
     (await tsImport(
@@ -45,8 +47,19 @@ test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare b
     GITHUB_APP_ID: '55',
     GITHUB_INSTALLATION_ID: '7',
     GITHUB_PRIVATE_KEY_PKCS8: `-----BEGIN PRIVATE KEY-----\n${pem}\n-----END PRIVATE KEY-----`,
+    // The built operator page (`npm run build:admin`), as Worker assets.
+    ASSETS: {
+      fetch: async (request: Request) => {
+        const name = new URL(request.url).pathname.replace(/^\/assets\//, '');
+        if (!/^admin\.(js|css)$/.test(name))
+          return new Response(null, { status: 404 });
+        return new Response(
+          await readFile(path.join('.admin-build', 'assets', name)),
+        );
+      },
+    },
   };
-  let config = {
+  let config: Record<string, unknown> = {
     schemaVersion: 1,
     revision: 1,
     seriesStartDate: null,
@@ -206,6 +219,16 @@ test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare b
     if (![origin, providerOrigin].includes(new URL(request.url()).origin))
       external.push(new URL(request.url()).origin);
   });
+  const problems: string[] = [];
+  page.on('console', (message) => {
+    // HTTP errors of expected 401/409 answers are no script or CSP problem.
+    if (
+      message.type() === 'error' &&
+      !message.text().startsWith('Failed to load resource')
+    )
+      problems.push(message.text());
+  });
+  page.on('pageerror', (error) => problems.push(error.message));
   async function syntheticLogin() {
     await page.goto(origin + '/settings');
     await page.getByRole('link', { name: 'Mit GitHub anmelden' }).click();
@@ -223,6 +246,9 @@ test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare b
       .click();
     const response = await page.goto(origin + '/settings');
     expect(response?.headers()['referrer-policy']).toBe('no-referrer');
+    expect(response?.headers()['content-security-policy']).toContain(
+      "script-src 'self'",
+    );
     await expect(page.getByRole('button', { name: 'Abmelden' })).toBeVisible();
     const cookies = await page.context().cookies(origin);
     expect(
@@ -243,6 +269,11 @@ test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare b
     if (post.origin === 'null') expect(post.site).toBe('same-origin');
     expect(post.referrer).toBeUndefined();
   }
+  const choose = (target: typeof page, group: string, option: string) =>
+    target
+      .getByRole('group', { name: group })
+      .getByRole('radio', { name: option })
+      .check();
   try {
     const oldKey = await syntheticLogin();
     await page.getByRole('button', { name: 'Abmelden' }).click();
@@ -255,47 +286,162 @@ test('Synthetischer Top-Level-Login, Widerruf und veraltete Betreiberformulare b
       await recordCall(namespace, oldKey, { operation: 'read' }),
     ).toBeNull();
     await page.reload();
-    await expect(
-      page.getByRole('button', { name: 'Modus speichern' }),
-    ).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Speichern' })).toHaveCount(
+      0,
+    );
     expect(writes).toBe(0);
 
     const currentKey = await syntheticLogin();
+    // Seven sections in a fixed order; composition first and open.
+    await expect(page.locator('summary')).toHaveText([
+      'Komposition',
+      'Evolution',
+      'Formen',
+      'Oberfläche',
+      'Farbe',
+      'Bewegung',
+      'Experimente',
+    ]);
+    await expect(page.locator('details').first()).toHaveAttribute('open', '');
+    await expect(page.getByRole('group', { name: 'Dichte' })).toContainText(
+      'Sparsam baut neue Ebenen mit weniger Formen',
+    );
+    // Preview: 8 probes with their element counts, two origins.
+    const probes = page.locator('.probes li');
+    await expect(probes).toHaveCount(8, { timeout: 60_000 });
+    await expect(probes.nth(0)).toContainText(
+      /Probe 1 · Ursprung · \d+ Formen/,
+    );
+    await expect(probes.nth(2)).toContainText(
+      /Probe 3 · Kind von Probe 1 und 2 · \d+ Formen/,
+    );
+    await expect(probes.first().locator('[data-renderer="2"]')).toHaveCount(1);
+    const firstRound = await probes.allTextContents();
+    await page.getByRole('button', { name: 'Neu würfeln' }).click();
+    await expect(probes).toHaveCount(8, { timeout: 60_000 });
+    await expect
+      .poll(async () => JSON.stringify(await probes.allTextContents()), {
+        timeout: 60_000,
+      })
+      .not.toBe(JSON.stringify(firstRound));
+    await expect(page.getByText('Keine Änderungen.')).toBeVisible();
+    await expect(
+      page.getByRole('button', { name: 'Speichern' }),
+    ).toBeDisabled();
+
     const stale = await page.context().newPage();
     await stale.goto(origin + '/settings');
-    await page.getByLabel('Vererbungsmodus').selectOption('free');
-    await page.getByRole('button', { name: 'Modus speichern' }).click();
-    await expect(page.getByRole('status')).toContainText('In Git gespeichert.');
-    expect(config.inheritanceMode).toBe('free');
-    expect(config.revision).toBe(2);
-    await stale.getByRole('button', { name: 'Modus speichern' }).click();
+    await expect(stale.getByRole('button', { name: 'Abmelden' })).toBeVisible();
+
+    // A rule violation is explained and blocks saving (A-32).
+    await choose(page, 'Höchste Ebenenzahl', '1 Ebene');
+    await expect(page.getByRole('alert')).toContainText(
+      'Nachvollziehbare Vererbung braucht mindestens 2 Ebenen.',
+    );
     await expect(
-      stale.getByRole('heading', { name: 'Speicherkonflikt.' }),
-    ).toBeVisible();
+      page.getByRole('button', { name: 'Speichern' }),
+    ).toBeDisabled();
+    await choose(page, 'Höchste Ebenenzahl', '3 Ebenen');
+    // Quick profile, change summary and diversity warning.
+    await page.getByRole('button', { name: 'Ruhig' }).click();
+    const summary = page.locator('.summary');
+    await expect(summary).toContainText('Dichte: Wechselnd → Sparsam');
+    await expect(summary).toContainText('Mutationsstärke: Mittel → Ruhig');
+    await page.getByText('Farbe', { exact: true }).click();
+    for (const name of ['komplementär', 'monochrom', 'frei'])
+      await page.getByRole('checkbox', { name }).uncheck();
+    await expect(summary).toContainText('Nur eine Palettenstrategie');
+    await page.getByRole('checkbox', { name: 'frei' }).check();
+    await expect(summary).not.toContainText('Nur eine Palettenstrategie');
+    expect(writes).toBe(0);
+    await page.getByRole('button', { name: 'Speichern' }).click();
+    await expect(
+      page.getByRole('status').filter({ hasText: 'Revision 2' }),
+    ).toContainText('In Git gespeichert und bestätigt (Revision 2)');
     expect(writes).toBe(1);
-    expect(config.inheritanceMode).toBe('free');
+    expect(config).toMatchObject({
+      schemaVersion: 2,
+      revision: 2,
+      seriesStartDate: null,
+      generationEnabled: false,
+      inheritanceMode: 'traceable',
+      composition: { density: 'sparse', maxLayers: 3 },
+      palette: { strategies: ['harmonic', 'free'], contrast: 'low' },
+    });
+    await expect(page.getByText('Keine Änderungen.')).toBeVisible();
+
+    // The stale page still holds revision 1: conflict, nothing overwritten.
+    await choose(stale, 'Dichte', 'Dicht');
+    await stale.getByRole('button', { name: 'Speichern' }).click();
+    await expect(stale.getByRole('alert')).toContainText('Speicherkonflikt');
+    expect(writes).toBe(1);
     await stale.getByRole('link', { name: 'Einstellungen neu laden' }).click();
-    await expect(stale.locator('main')).toContainText('Revision 2');
+    await expect(stale.getByText('Gespeicherte Revision 2.')).toBeVisible();
     await stale.close();
-    await page.getByLabel('Vererbungsmodus').selectOption('traceable');
-    await page.getByRole('button', { name: 'Modus speichern' }).click();
-    await expect(page.getByRole('status')).toContainText('In Git gespeichert.');
-    expect(config.inheritanceMode).toBe('traceable');
-    expect(config.revision).toBe(3);
-    expect(config.generationEnabled).toBe(false);
-    expect(config.seriesStartDate).toBeNull();
+
+    // Keyboard path: sections open with Enter, radios move with arrows,
+    // the form saves with Enter on the button.
+    await page.locator('body').focus();
+    let found = false;
+    for (let step = 0; step < 60 && !found; step++) {
+      await page.keyboard.press('Tab');
+      found = await page.evaluate(
+        () => document.activeElement?.textContent === 'Evolution',
+      );
+    }
+    expect(found).toBe(true);
+    await page.keyboard.press('Enter');
+    await expect(page.locator('details').nth(1)).toHaveAttribute('open', '');
+    await page
+      .getByRole('group', { name: 'Vererbungsmodus' })
+      .getByRole('radio', { name: 'Nachvollziehbar' })
+      .focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(
+      page.getByRole('radio', { name: 'Frei', exact: true }),
+    ).toBeChecked();
+    await expect(summary).toContainText(
+      'Vererbungsmodus: Nachvollziehbar → Frei',
+    );
+    await page.getByRole('button', { name: 'Speichern' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(
+      page.getByRole('status').filter({ hasText: 'Revision 3' }),
+    ).toBeVisible();
+    expect(config.inheritanceMode).toBe('free');
     expect(writes).toBe(2);
-    expect(posts).toHaveLength(4);
-    for (const post of posts) expectSafePost(post);
+
+    // 320 px: no horizontal scrolling, touch targets of at least 44 px.
+    await page.setViewportSize({ width: 320, height: 900 });
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth),
+    ).toBeLessThanOrEqual(320);
+    for (const target of await page
+      .locator('summary, button, .choice, .check, input[type="number"]')
+      .all())
+      if (await target.isVisible()) {
+        const box = (await target.boundingBox())!;
+        expect(box.height).toBeGreaterThanOrEqual(44);
+        expect(box.width).toBeGreaterThanOrEqual(44);
+      }
+
+    // An expired session saves nothing and says so.
     const store = namespace.stores.get(currentKey)!;
     const session = await store.get<{ expires: number }>('record');
     await store.put('record', { ...session, expires: Date.now() - 1 });
-    await page.getByRole('button', { name: 'Modus speichern' }).click();
-    await expect(
-      page.getByRole('link', { name: 'Mit GitHub anmelden' }),
-    ).toBeVisible();
+    await choose(page, 'Dichte', 'Dicht');
+    await page.getByRole('button', { name: 'Speichern' }).click();
+    await expect(page.getByRole('status')).toContainText(
+      'Die Sitzung ist abgelaufen oder beendet. Es wurde nichts gespeichert.',
+    );
     expect(writes).toBe(2);
     expect(config.revision).toBe(3);
+    for (const post of posts) expectSafePost(post);
+    expect(
+      posts.filter((post) => post.origin === origin).length,
+    ).toBeGreaterThanOrEqual(3);
+    // CSP without inline code or eval: no violation and no script error.
+    expect(problems).toEqual([]);
     expect(external).toEqual([]);
   } finally {
     globalThis.fetch = originalFetch;

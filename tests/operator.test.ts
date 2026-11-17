@@ -5,6 +5,7 @@ import { readyPolicy } from './fixtures/legal';
 import type { Env } from '../workers/admin';
 import { MemoryNamespace } from './fixtures/session-memory';
 import { appJwt, base64url } from '../workers/admin/github';
+import { defaultProfile } from '../src/art/schema/profile';
 const config = {
   schemaVersion: 1,
   revision: 1,
@@ -19,8 +20,9 @@ let env: Env,
   namespace: MemoryNamespace,
   privatePem: string,
   publicKey: CryptoKey;
-let saved = structuredClone(config),
+let saved: unknown = structuredClone(config),
   putCount = 0,
+  lastMessage = '',
   identity = 123,
   conflict = false,
   verifyFails = false;
@@ -55,6 +57,7 @@ beforeEach(() => {
   };
   saved = structuredClone(config);
   putCount = 0;
+  lastMessage = '';
   identity = 123;
   conflict = false;
   verifyFails = false;
@@ -95,6 +98,7 @@ beforeEach(() => {
         const body = JSON.parse(String(init.body));
         expect(body.sha).toBe('a'.repeat(40));
         expect(body.branch).toBe('main');
+        lastMessage = body.message;
         saved = JSON.parse(
           Buffer.from(body.content, 'base64').toString('utf8'),
         );
@@ -157,14 +161,46 @@ async function login() {
   return { cookie, response, start };
 }
 async function settings(cookie: string) {
-  const response = await worker.fetch(request('/settings', cookie), env);
+  const response = await worker.fetch(request('/api/settings', cookie), env);
   expect(response.status).toBe(200);
   const text = await response.text();
-  return {
-    text,
-    csrf: text.match(/name="csrf" value="([A-Za-z0-9_-]+)"/)![1]!,
+  const data = JSON.parse(text) as {
+    revision: number;
+    schemaVersion: number;
+    rulesVersion: number;
+    settings: Record<string, unknown>;
+    csrf: string;
   };
+  return { text, data, csrf: data.csrf };
 }
+/** Complete writable settings: the mode and every profile group. */
+const standard = { inheritanceMode: 'traceable', ...defaultProfile };
+const sparse = {
+  ...standard,
+  composition: { ...defaultProfile.composition, density: 'sparse' },
+};
+const save = (
+  cookie: string,
+  body: unknown,
+  headers: Record<string, string> = {},
+) =>
+  worker.fetch(
+    new Request(origin + '/api/settings', {
+      method: 'POST',
+      body: typeof body === 'string' ? body : JSON.stringify(body),
+      headers: {
+        Cookie: cookie,
+        Origin: origin,
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+    }),
+    env,
+  );
+const contentReads = () =>
+  (fetch as ReturnType<typeof vi.fn>).mock.calls.filter(([url]) =>
+    String(url).includes('/contents/config/generation.json'),
+  ).length;
 it('bleibt ohne Einrichtung gesperrt und zeigt keine Scheinspeicherung', async () => {
   const response = await worker.fetch(request('/settings'), {
     ...env,
@@ -266,84 +302,215 @@ it('weist abgelaufene Logintransaktionen und Sitzungen ab', async () => {
   const response = await worker.fetch(request('/settings', cookie), env);
   expect(await response.text()).toContain('Mit GitHub anmelden');
 });
-it('speichert ausschließlich Modus und Revision, prüft den Commit und bestätigt erst danach', async () => {
+it('liefert die Seite nur mit Sitzung, ohne Inline-Code und mit strenger CSP', async () => {
+  const anonymous = await worker.fetch(request('/settings'), env);
+  expect(await anonymous.text()).toContain('Mit GitHub anmelden');
+  const { cookie } = await login();
+  const response = await worker.fetch(request('/settings', cookie), env);
+  expect(response.status).toBe(200);
+  const csp = response.headers.get('Content-Security-Policy')!;
+  expect(csp).toBe(
+    "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+  );
+  const text = await response.text();
+  expect(text).toContain('<script type="module" src="/assets/admin.js">');
+  expect(text).toContain('<link rel="stylesheet" href="/assets/admin.css">');
+  expect(text).not.toMatch(/<style|style=|nonce|csrf/);
+  expect(response.headers.get('Access-Control-Allow-Origin')).toBeNull();
+});
+it('liefert nur die gebauten Seitendateien aus und sonst nichts', async () => {
+  const served: string[] = [];
+  env.ASSETS = {
+    fetch: async (input: Request) => {
+      served.push(new URL(input.url).pathname);
+      return new Response('export {};', { status: 200 });
+    },
+  };
+  const script = await worker.fetch(request('/assets/admin.js'), env);
+  expect(script.status).toBe(200);
+  expect(script.headers.get('Content-Type')).toBe(
+    'text/javascript; charset=utf-8',
+  );
+  expect(script.headers.get('X-Content-Type-Options')).toBe('nosniff');
+  expect(await script.text()).toBe('export {};');
+  const { cookie } = await login();
+  expect(
+    (await worker.fetch(request('/assets/other.js', cookie), env)).status,
+  ).toBe(404);
+  expect(served).toEqual(['/assets/admin.js']);
+  delete env.ASSETS;
+  expect((await worker.fetch(request('/assets/admin.css'), env)).status).toBe(
+    404,
+  );
+});
+it('liest Schema 1 als Standardprofil und Schema 2 vollständig', async () => {
+  const { cookie } = await login();
+  const first = await settings(cookie);
+  expect(first.data).toMatchObject({
+    schemaVersion: 1,
+    revision: 1,
+    rulesVersion: 2,
+    settings: standard,
+  });
+  saved = {
+    ...config,
+    schemaVersion: 2,
+    revision: 4,
+    ...structuredClone(sparse),
+  };
+  const second = await settings(cookie);
+  expect(second.data).toMatchObject({
+    schemaVersion: 2,
+    revision: 4,
+    settings: sparse,
+  });
+});
+it('speichert Modus und vollständiges Profil als Schema 2, prüft den Commit und bestätigt erst danach', async () => {
   const { cookie } = await login();
   const { csrf } = await settings(cookie);
-  const response = await worker.fetch(
-    request(
-      '/settings/mode',
-      cookie,
-      new URLSearchParams({ csrf, revision: '1', mode: 'free' }),
-    ),
-    env,
-  );
+  const response = await save(cookie, { csrf, revision: 1, settings: sparse });
   expect(response.status).toBe(200);
-  expect(await response.text()).toContain(
-    'In Git gespeichert. Ab dem nächsten',
+  expect(await response.json()).toMatchObject({
+    changed: true,
+    schemaVersion: 2,
+    revision: 2,
+    settings: sparse,
+  });
+  // Start date, generation switch and time zone stay exactly as stored.
+  expect(saved).toEqual({
+    schemaVersion: 2,
+    revision: 2,
+    seriesStartDate: null,
+    generationEnabled: false,
+    timezone: 'Europe/Berlin',
+    ...sparse,
+  });
+  expect(Object.keys(saved as object)).toEqual([
+    'schemaVersion',
+    'revision',
+    'seriesStartDate',
+    'generationEnabled',
+    'timezone',
+    'inheritanceMode',
+    'variation',
+    'features',
+    'palette',
+    'families',
+    'composition',
+    'motion',
+    'experimental',
+  ]);
+  expect(putCount).toBe(1);
+  expect(lastMessage).toBe('Update future generation settings');
+});
+it('schreibt ohne Änderung nichts und erhöht die Revision nicht', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const response = await save(cookie, {
+    csrf,
+    revision: 1,
+    settings: standard,
+  });
+  expect(response.status).toBe(200);
+  expect(await response.json()).toMatchObject({ changed: false, revision: 1 });
+  expect(putCount).toBe(0);
+  expect(saved).toEqual(config);
+});
+it('lehnt unmögliche Kombinationen verständlich ab, ohne Git zu lesen (A-32)', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const reads = contentReads();
+  const oneLayer = await save(cookie, {
+    csrf,
+    revision: 1,
+    settings: {
+      ...standard,
+      composition: { ...defaultProfile.composition, maxLayers: 1 },
+    },
+  });
+  expect(oneLayer.status).toBe(422);
+  expect(await oneLayer.json()).toEqual({
+    error: 'Einstellungen abgelehnt.',
+    issues: [
+      {
+        path: 'composition.maxLayers',
+        message:
+          'Nachvollziehbare Vererbung braucht mindestens 2 Ebenen. Mit nur einer Ebene findet der Generator nicht immer ein gültiges Werk, und der Tageslauf bliebe ohne Werk.',
+      },
+    ],
+  });
+  const noFamily = await save(cookie, {
+    csrf,
+    revision: 1,
+    settings: {
+      ...standard,
+      families: Object.fromEntries(
+        Object.keys(defaultProfile.families).map((name) => [name, false]),
+      ),
+    },
+  });
+  expect(noFamily.status).toBe(422);
+  expect(JSON.stringify(await noFamily.json())).toContain(
+    'Mindestens eine Kompositionsfamilie muss aktiv bleiben.',
   );
-  expect(saved).toEqual({ ...config, inheritanceMode: 'free', revision: 2 });
+  expect(contentReads()).toBe(reads);
+  expect(putCount).toBe(0);
+  // In the mode `free`, one layer stays possible.
+  const free = await save(cookie, {
+    csrf,
+    revision: 1,
+    settings: {
+      ...standard,
+      inheritanceMode: 'free',
+      composition: { ...defaultProfile.composition, maxLayers: 1 },
+    },
+  });
+  expect(free.status).toBe(200);
   expect(putCount).toBe(1);
 });
-it('schreibt ohne Betreiber-Sitzung, CSRF oder exakte Origin nicht', async () => {
-  expect(
-    (
-      await worker.fetch(
-        request(
-          '/settings/mode',
-          '',
-          new URLSearchParams({ mode: 'free', revision: '1', csrf: 'fake' }),
-        ),
-        env,
-      )
-    ).status,
-  ).toBe(401);
+it.each([
+  {
+    label: 'Startdatum',
+    settings: { ...standard, seriesStartDate: '2026-11-18' },
+  },
+  { label: 'Generierung', settings: { ...standard, generationEnabled: false } },
+  { label: 'Revision', settings: { ...standard, revision: 9 } },
+  { label: 'fehlende Gruppe', settings: { inheritanceMode: 'traceable' } },
+  {
+    label: 'unbekannter Wert',
+    settings: {
+      ...standard,
+      features: { ...defaultProfile.features, gradients: 'sometimes' },
+    },
+  },
+  {
+    label: 'unbekannter Schlüssel',
+    settings: {
+      ...standard,
+      features: { ...defaultProfile.features, glitter: 'normal' },
+    },
+  },
+])(
+  'schreibt nur Modus und Profil: $label wird abgewiesen',
+  async ({ settings: body }) => {
+    const { cookie } = await login();
+    const { csrf } = await settings(cookie);
+    const response = await save(cookie, { csrf, revision: 1, settings: body });
+    expect(response.status).toBe(400);
+    expect(putCount).toBe(0);
+  },
+);
+it('erlaubt weder fremde Schreibpfade noch zusätzliche Anfragefelder', async () => {
   const { cookie } = await login();
   const { csrf } = await settings(cookie);
   expect(
     (
-      await worker.fetch(
-        request(
-          '/settings/mode',
-          cookie,
-          new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
-          'https://attacker.test',
-        ),
-        env,
-      )
-    ).status,
-  ).toBe(403);
-  expect(
-    (
-      await worker.fetch(
-        request(
-          '/settings/mode',
-          cookie,
-          new URLSearchParams({ csrf: 'fake', mode: 'free', revision: '1' }),
-        ),
-        env,
-      )
-    ).status,
-  ).toBe(403);
-  expect(putCount).toBe(0);
-});
-it('erlaubt weder fremde Schreibpfade noch zusätzliche Konfigurationsfelder', async () => {
-  const { cookie } = await login();
-  const { csrf } = await settings(cookie);
-  expect(
-    (
-      await worker.fetch(
-        request(
-          '/settings/mode',
-          cookie,
-          new URLSearchParams({
-            csrf,
-            mode: 'free',
-            revision: '1',
-            generationEnabled: 'true',
-          }),
-        ),
-        env,
-      )
+      await save(cookie, {
+        csrf,
+        revision: 1,
+        settings: sparse,
+        path: 'public/artworks/index.json',
+      })
     ).status,
   ).toBe(400);
   expect(
@@ -358,86 +525,6 @@ it('erlaubt weder fremde Schreibpfade noch zusätzliche Konfigurationsfelder', a
       )
     ).status,
   ).toBe(404);
-  expect(putCount).toBe(0);
-});
-it('verweigert veraltete Revisionen und Git-Konflikte ohne blindes Wiederholen', async () => {
-  const { cookie } = await login();
-  const { csrf } = await settings(cookie);
-  expect(
-    (
-      await worker.fetch(
-        request(
-          '/settings/mode',
-          cookie,
-          new URLSearchParams({ csrf, mode: 'free', revision: '2' }),
-        ),
-        env,
-      )
-    ).status,
-  ).toBe(409);
-  expect(putCount).toBe(0);
-  conflict = true;
-  const response = await worker.fetch(
-    request(
-      '/settings/mode',
-      cookie,
-      new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
-    ),
-    env,
-  );
-  expect(response.status).toBe(409);
-  expect(await response.text()).toContain('Speicherkonflikt');
-  expect(putCount).toBe(1);
-  expect(saved).toEqual(config);
-});
-it('speichert einen Formularstand einmal und zeigt bei erneutem Absenden einen Konflikt', async () => {
-  const { cookie } = await login();
-  const { csrf } = await settings(cookie);
-  const submit = () =>
-    worker.fetch(
-      request(
-        '/settings/mode',
-        cookie,
-        new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
-      ),
-      env,
-    );
-  const first = await submit();
-  expect(first.status).toBe(200);
-  expect(await first.text()).toContain('In Git gespeichert.');
-  expect(putCount).toBe(1);
-  const repeated = await submit();
-  expect(repeated.status).toBe(409);
-  expect(await repeated.text()).toContain('Speicherkonflikt.');
-  expect(putCount).toBe(1);
-  expect(saved).toEqual({ ...config, inheritanceMode: 'free', revision: 2 });
-  const reloaded = await settings(cookie);
-  expect(reloaded.text).toContain('Revision 2');
-});
-it('meldet bei unbestätigtem Commit keinen Speichererfolg', async () => {
-  const { cookie } = await login();
-  const { csrf } = await settings(cookie);
-  verifyFails = true;
-  const response = await worker.fetch(
-    request(
-      '/settings/mode',
-      cookie,
-      new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
-    ),
-    env,
-  );
-  expect(response.status).toBe(502);
-  expect(await response.text()).not.toContain('In Git gespeichert.');
-});
-it('beendet die Sitzung serverseitig; alte Cookies können danach nicht speichern', async () => {
-  const { cookie } = await login();
-  const { csrf } = await settings(cookie);
-  const response = await worker.fetch(
-    request('/logout', cookie, new URLSearchParams({ csrf })),
-    env,
-  );
-  expect(response.status).toBe(303);
-  expect(response.headers.get('Set-Cookie')).toContain('Max-Age=0');
   expect(
     (
       await worker.fetch(
@@ -449,10 +536,103 @@ it('beendet die Sitzung serverseitig; alte Cookies können danach nicht speicher
         env,
       )
     ).status,
+  ).toBe(404);
+  expect(putCount).toBe(0);
+});
+it('schreibt ohne Sitzung, CSRF, exakte Origin oder JSON nicht', async () => {
+  const anonymous = await save('', {
+    csrf: 'fake',
+    revision: 1,
+    settings: sparse,
+  });
+  expect(anonymous.status).toBe(401);
+  expect(await anonymous.json()).toEqual({ error: 'Nicht angemeldet.' });
+  expect((await worker.fetch(request('/api/settings'), env)).status).toBe(401);
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const body = { csrf, revision: 1, settings: sparse };
+  for (const headers of [
+    { Origin: 'https://attacker.test' } as Record<string, string>,
+    { Origin: 'null' },
+    {
+      Origin: 'null',
+      'Sec-Fetch-Site': 'same-origin',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Dest': 'document',
+    },
+  ])
+    expect((await save(cookie, body, headers)).status).toBe(403);
+  const withoutOrigin = new Request(origin + '/api/settings', {
+    method: 'POST',
+    body: JSON.stringify(body),
+    headers: { Cookie: cookie, 'Content-Type': 'application/json' },
+  });
+  expect((await worker.fetch(withoutOrigin, env)).status).toBe(403);
+  expect((await save(cookie, { ...body, csrf: 'fake' })).status).toBe(403);
+  expect(
+    (
+      await save(cookie, JSON.stringify(body), {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      })
+    ).status,
+  ).toBe(415);
+  expect((await save(cookie, '{"csrf":')).status).toBe(400);
+  expect(
+    (await save(cookie, { ...body, padding: 'x'.repeat(9000) })).status,
+  ).toBe(413);
+  expect(putCount).toBe(0);
+});
+it('verweigert veraltete Revisionen und Git-Konflikte ohne blindes Wiederholen', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const stale = await save(cookie, { csrf, revision: 2, settings: sparse });
+  expect(stale.status).toBe(409);
+  expect((await stale.json()).error).toContain('Speicherkonflikt');
+  expect(putCount).toBe(0);
+  conflict = true;
+  const response = await save(cookie, { csrf, revision: 1, settings: sparse });
+  expect(response.status).toBe(409);
+  expect(putCount).toBe(1);
+  expect(saved).toEqual(config);
+});
+it('speichert einen Stand einmal und meldet bei erneutem Absenden einen Konflikt', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const body = { csrf, revision: 1, settings: sparse };
+  expect((await save(cookie, body)).status).toBe(200);
+  expect(putCount).toBe(1);
+  expect((await save(cookie, body)).status).toBe(409);
+  expect(putCount).toBe(1);
+  expect((await settings(cookie)).data).toMatchObject({
+    revision: 2,
+    settings: sparse,
+  });
+});
+it('meldet bei unbestätigtem Commit keinen Speichererfolg', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  verifyFails = true;
+  const response = await save(cookie, { csrf, revision: 1, settings: sparse });
+  expect(response.status).toBe(502);
+  expect(await response.json()).toEqual({
+    error: 'Vorgang nicht bestätigt. Es wird kein Erfolg behauptet.',
+  });
+});
+it('beendet die Sitzung serverseitig; alte Cookies können danach nicht speichern', async () => {
+  const { cookie } = await login();
+  const { csrf } = await settings(cookie);
+  const response = await worker.fetch(
+    request('/logout', cookie, new URLSearchParams({ csrf })),
+    env,
+  );
+  expect(response.status).toBe(303);
+  expect(response.headers.get('Set-Cookie')).toContain('Max-Age=0');
+  expect(
+    (await save(cookie, { csrf, revision: 1, settings: sparse })).status,
   ).toBe(401);
   expect(putCount).toBe(0);
 });
-it('akzeptiert native no-referrer-Formulare nur mit Same-Origin-Navigationsnachweis und CSRF', async () => {
+it('akzeptiert das native no-referrer-Abmeldeformular nur mit Same-Origin-Navigationsnachweis und CSRF', async () => {
   const { cookie } = await login();
   const { csrf } = await settings(cookie);
   function nativeForm(path: string, body: URLSearchParams) {
@@ -462,22 +642,12 @@ it('akzeptiert native no-referrer-Formulare nur mit Same-Origin-Navigationsnachw
     value.headers.set('Sec-Fetch-Dest', 'document');
     return value;
   }
-  const savedResponse = await worker.fetch(
-    nativeForm(
-      '/settings/mode',
-      new URLSearchParams({ csrf, mode: 'free', revision: '1' }),
-    ),
-    env,
-  );
-  expect(savedResponse.status).toBe(200);
-  expect(saved).toEqual({ ...config, inheritanceMode: 'free', revision: 2 });
-  expect(putCount).toBe(1);
   const invalidCsrf = await worker.fetch(
     nativeForm('/logout', new URLSearchParams({ csrf: 'wrong' })),
     env,
   );
   expect(invalidCsrf.status).toBe(403);
-  expect((await settings(cookie)).text).toContain('Kommende Werke.');
+  expect((await settings(cookie)).data.revision).toBe(1);
   const logout = await worker.fetch(
     nativeForm('/logout', new URLSearchParams({ csrf })),
     env,
@@ -487,18 +657,7 @@ it('akzeptiert native no-referrer-Formulare nur mit Same-Origin-Navigationsnachw
   expect(
     await (await worker.fetch(request('/settings', cookie), env)).text(),
   ).toContain('Mit GitHub anmelden');
-  expect(
-    (
-      await worker.fetch(
-        nativeForm(
-          '/settings/mode',
-          new URLSearchParams({ csrf, mode: 'free', revision: '2' }),
-        ),
-        env,
-      )
-    ).status,
-  ).toBe(401);
-  expect(putCount).toBe(1);
+  expect(putCount).toBe(0);
 });
 it.each([
   { origin: 'null' },
@@ -521,18 +680,19 @@ it.each([
     dest: 'document',
   },
 ])(
-  'verweigert unsichere Formularherkunft $origin/$site/$mode/$dest vor Widerruf und Git-Schreiben',
+  'verweigert unsichere Herkunft $origin/$site/$mode/$dest vor Widerruf und Git-Schreiben',
   async ({ origin: requestOrigin, site, mode, dest }) => {
     const { cookie } = await login();
     const { csrf } = await settings(cookie);
-    for (const path of ['/logout', '/settings/mode']) {
-      const value = request(
-        path,
-        cookie,
-        new URLSearchParams(
-          path === '/logout' ? { csrf } : { csrf, mode: 'free', revision: '1' },
-        ),
-      );
+    const requests = [
+      request('/logout', cookie, new URLSearchParams({ csrf })),
+      new Request(origin + '/api/settings', {
+        method: 'POST',
+        body: JSON.stringify({ csrf, revision: 1, settings: sparse }),
+        headers: { Cookie: cookie, 'Content-Type': 'application/json' },
+      }),
+    ];
+    for (const value of requests) {
       value.headers.delete('Origin');
       for (const [key, header] of Object.entries({
         Origin: requestOrigin,
@@ -544,7 +704,7 @@ it.each([
       expect((await worker.fetch(value, env)).status).toBe(403);
     }
     expect(putCount).toBe(0);
-    expect((await settings(cookie)).text).toContain('Kommende Werke.');
+    expect((await settings(cookie)).data.revision).toBe(1);
   },
 );
 it('signiert kurzlebige App-JWTs korrekt und liefert Schutzheader ohne CORS-Freigabe', async () => {

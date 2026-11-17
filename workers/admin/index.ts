@@ -1,13 +1,14 @@
 import './validation';
 import { z } from 'zod';
-import { modeLabels } from '../../src/art/schema/config';
-import type { GenerationConfig } from '../../src/art/schema/config';
+import type { EffectiveGenerationConfig } from '../../src/art/schema/config';
+import { profileRulesVersion } from '../../src/art/schema/profile';
 import {
   challenge,
   GitHubFailure,
   randomToken,
   readConfig,
-  saveMode,
+  saveSettings,
+  SettingsRejected,
   userIdentity,
 } from './github';
 import type { GitHubEnv } from './github';
@@ -18,17 +19,15 @@ import {
   operatorPrivacy,
   operatorPrivacySchema,
 } from '../../src/site/operator-privacy';
-import {
-  escapeHtml as escape,
-  legalPage,
-  workerPublicationIssues,
-} from './legal';
+import { legalPage, workerPublicationIssues } from './legal';
 import type { PrivacyPolicy } from './legal';
 export { Sessions } from './store';
 export type Env = GitHubEnv & {
   ENABLED: string;
   OWNER_ID: string;
   SESSIONS: SessionNamespace;
+  /** Built operator page (`.admin-build`, EP-01 P8); absent in some tests. */
+  ASSETS?: { fetch(request: Request): Promise<Response> };
 };
 const id = z.string().regex(/^[1-9]\d*$/);
 const origin = z
@@ -98,16 +97,41 @@ function html(body: string, status = 200, setCookie?: string) {
     { status, headers: result },
   );
 }
-function settingsPage(config: GenerationConfig, csrf: string, message = '') {
-  return `<h1>Kommende Werke.</h1>${message ? `<p class="notice" role="status">${escape(message)}</p>` : ''}<p>Gespeicherter Modus: <strong>${escape(modeLabels[config.inheritanceMode])}</strong> · Revision ${config.revision}</p><p>Änderungen wirken ab dem nächsten noch nicht begonnenen Generierungslauf. Bestehende Werke und bereits laufende Generierungen bleiben erhalten.</p><form action="/settings/mode" method="post"><input type="hidden" name="csrf" value="${escape(csrf)}"><input type="hidden" name="revision" value="${config.revision}"><label for="mode">Vererbungsmodus</label><select name="mode" id="mode"><option value="traceable" ${config.inheritanceMode === 'traceable' ? 'selected' : ''}>Nachvollziehbare Vererbung</option><option value="free" ${config.inheritanceMode === 'free' ? 'selected' : ''}>Maximale Freiheit</option></select><br><button>Modus speichern</button></form><form action="/logout" method="post"><input type="hidden" name="csrf" value="${escape(csrf)}"><button>Abmelden</button></form>`;
+/** Files of the operator page; served without session, they hold no secrets. */
+const assetFiles = new Map([
+  ['/assets/admin.js', 'text/javascript; charset=utf-8'],
+  ['/assets/admin.css', 'text/css; charset=utf-8'],
+]);
+/** Page shell of the operator page, only for a valid session. No inline code. */
+function shell() {
+  return new Response(
+    '<!doctype html><html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Evolvera · Betreiber</title><link rel="stylesheet" href="/assets/admin.css"><div id="root"></div><noscript><p>Die Einstellungen brauchen JavaScript.</p></noscript><script type="module" src="/assets/admin.js"></script></html>',
+    {
+      headers: headers({
+        'Content-Type': 'text/html; charset=utf-8',
+        'Content-Security-Policy':
+          "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'none'",
+      }),
+    },
+  );
 }
-async function form(request: Request) {
-  if (
-    !request.headers
-      .get('Content-Type')
-      ?.startsWith('application/x-www-form-urlencoded')
-  )
-    throw new GitHubFailure(415);
+const json = (body: unknown, status = 200) =>
+  Response.json(body, {
+    status,
+    headers: headers({
+      'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
+    }),
+  });
+/** What the operator page reads: stored revision, mode and effective profile. */
+function settingsView(config: EffectiveGenerationConfig) {
+  return {
+    schemaVersion: config.schemaVersion,
+    revision: config.revision,
+    rulesVersion: profileRulesVersion,
+    settings: { inheritanceMode: config.inheritanceMode, ...config.profile },
+  };
+}
+async function readBody(request: Request, limit: number) {
   const reader = request.body?.getReader();
   if (!reader) throw new GitHubFailure(400);
   const parts: Uint8Array[] = [];
@@ -116,7 +140,7 @@ async function form(request: Request) {
     const chunk = await reader.read();
     if (chunk.done) break;
     length += chunk.value.length;
-    if (length > 4096) {
+    if (length > limit) {
       await reader.cancel();
       throw new GitHubFailure(413);
     }
@@ -128,9 +152,21 @@ async function form(request: Request) {
     bytes.set(part, offset);
     offset += part.length;
   }
-  return new URLSearchParams(
-    new TextDecoder('utf-8', { fatal: true }).decode(bytes),
-  );
+  return new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+}
+const settingsRequest = z.strictObject({
+  csrf: z.string().max(64),
+  revision: z.number().int().positive(),
+  settings: z.unknown(),
+});
+async function form(request: Request) {
+  if (
+    !request.headers
+      .get('Content-Type')
+      ?.startsWith('application/x-www-form-urlencoded')
+  )
+    throw new GitHubFailure(415);
+  return new URLSearchParams(await readBody(request, 4096));
 }
 async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
   const ready =
@@ -163,6 +199,18 @@ async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
     );
   if (url.origin !== env.ADMIN_ORIGIN)
     return html('<h1>Ungültige Adresse.</h1>', 400);
+  const asset = assetFiles.get(url.pathname);
+  if (asset && ['GET', 'HEAD'].includes(request.method)) {
+    const file = env.ASSETS
+      ? await env.ASSETS.fetch(
+          new Request(url.href, { method: request.method }),
+        )
+      : null;
+    if (!file?.ok) return html('<h1>Seite nicht gefunden.</h1>', 404);
+    return new Response(request.method === 'HEAD' ? null : file.body, {
+      headers: headers({ 'Content-Type': asset, 'Cache-Control': 'no-cache' }),
+    });
+  }
   if (request.method === 'GET' && url.pathname === '/login') {
     const key = randomToken(),
       state = randomToken(),
@@ -232,20 +280,38 @@ async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
     parsed?.success && parsed.data.ownerId === env.OWNER_ID
       ? parsed.data
       : null;
+  if (!session && url.pathname.startsWith('/api/'))
+    return json({ error: 'Nicht angemeldet.' }, 401);
   if (!session)
     return html(
-      '<h1>Nur für den Betreiber.</h1><p>Die Galerie ist frei zugänglich. Hier meldest du dich mit deinem GitHub-Konto für die Moduswahl an.</p><p><a href="/login">Mit GitHub anmelden</a></p>',
+      '<h1>Nur für den Betreiber.</h1><p>Die Galerie ist frei zugänglich. Hier meldest du dich mit deinem GitHub-Konto für die Einstellungen kommender Werke an.</p><p><a href="/login">Mit GitHub anmelden</a></p>',
       request.method === 'GET' ? 200 : 401,
     );
   if (
     request.method === 'GET' &&
     (url.pathname === '/settings' || url.pathname === '/')
   )
-    return html(settingsPage(await readConfig(env), session.csrf));
-  if (
-    request.method === 'POST' &&
-    ['/settings/mode', '/logout'].includes(url.pathname)
-  ) {
+    return shell();
+  if (request.method === 'GET' && url.pathname === '/api/settings')
+    return json({ ...settingsView(await readConfig(env)), csrf: session.csrf });
+  if (request.method === 'POST' && url.pathname === '/api/settings') {
+    // Script requests of the operator page always send their exact origin.
+    if (request.headers.get('Origin') !== env.ADMIN_ORIGIN)
+      throw new GitHubFailure(403);
+    if (!request.headers.get('Content-Type')?.startsWith('application/json'))
+      throw new GitHubFailure(415);
+    let body: z.infer<typeof settingsRequest>;
+    try {
+      body = settingsRequest.parse(JSON.parse(await readBody(request, 8192)));
+    } catch (error) {
+      if (error instanceof GitHubFailure) throw error;
+      throw new GitHubFailure(400);
+    }
+    if (body.csrf !== session.csrf) throw new GitHubFailure(403);
+    const result = await saveSettings(env, body.revision, body.settings);
+    return json({ ...settingsView(result.config), changed: result.changed });
+  }
+  if (request.method === 'POST' && url.pathname === '/logout') {
     const requestOrigin = request.headers.get('Origin');
     // Native POST forms under no-referrer send Origin:null (Fetch Standard).
     // Accept only top-level form navigation proven same-origin by browser-owned
@@ -260,28 +326,10 @@ async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
     const body = await form(request);
     if (body.getAll('csrf').length !== 1 || body.get('csrf') !== session.csrf)
       throw new GitHubFailure(403);
-    if (url.pathname === '/logout') {
-      if ([...body.keys()].some((name) => name !== 'csrf'))
-        throw new GitHubFailure(400);
-      await recordCall(env.SESSIONS, key!, { operation: 'revoke' });
-      return redirect('/settings', cookie(sessionCookie, '', 0));
-    }
-    if (
-      body.getAll('mode').length !== 1 ||
-      body.getAll('revision').length !== 1 ||
-      [...body.keys()].some(
-        (name) => !['csrf', 'mode', 'revision'].includes(name),
-      )
-    )
+    if ([...body.keys()].some((name) => name !== 'csrf'))
       throw new GitHubFailure(400);
-    const config = await saveMode(env, body.get('mode'), body.get('revision'));
-    return html(
-      settingsPage(
-        config,
-        session.csrf,
-        'In Git gespeichert. Ab dem nächsten noch nicht begonnenen Generierungslauf.',
-      ),
-    );
+    await recordCall(env.SESSIONS, key!, { operation: 'revoke' });
+    return redirect('/settings', cookie(sessionCookie, '', 0));
   }
   return html('<h1>Seite nicht gefunden.</h1>', 404);
 }
@@ -295,12 +343,24 @@ export function createWorker(input: PrivacyPolicy) {
       try {
         return await handle(request, env, policy);
       } catch (error) {
+        if (error instanceof SettingsRejected)
+          return json({ error: error.message, issues: error.issues }, 422);
         const status =
           error instanceof GitHubFailure
             ? [400, 401, 403, 409, 413, 415].includes(error.status)
               ? error.status
               : 502
             : 503;
+        if (new URL(request.url).pathname.startsWith('/api/'))
+          return json(
+            {
+              error:
+                status === 409
+                  ? 'Speicherkonflikt: Der Git-Stand wurde zwischenzeitlich geändert. Fremde Änderungen wurden nicht überschrieben.'
+                  : 'Vorgang nicht bestätigt. Es wird kein Erfolg behauptet.',
+            },
+            status,
+          );
         return html(
           `<h1>${status === 409 ? 'Speicherkonflikt.' : 'Vorgang nicht bestätigt.'}</h1><p>${status === 409 ? 'Der Git-Stand wurde zwischenzeitlich geändert. Bitte die Einstellungen frisch laden; fremde Änderungen wurden nicht überschrieben.' : 'Anmeldung oder Speicherung konnte nicht sicher abgeschlossen werden. Es wird kein Erfolg behauptet.'}</p><a href="/settings">Einstellungen neu laden</a>`,
           status,

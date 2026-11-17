@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { configSchema, modeSchema } from '../../src/art/schema/config';
+import {
+  configV2Schema,
+  modeSchema,
+  readGenerationConfig,
+} from '../../src/art/schema/config';
+import { addSettingsIssues, profileSchema } from '../../src/art/schema/profile';
 export type GitHubEnv = {
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
@@ -135,44 +140,84 @@ async function readAt(token: string, ref: string) {
   const bytes = Uint8Array.from(atob(data.content.replace(/\s/g, '')), (char) =>
     char.charCodeAt(0),
   );
-  return {
-    sha: data.sha,
-    config: configSchema.parse(
-      JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)),
-    ),
-  };
+  const stored = JSON.parse(
+    new TextDecoder('utf-8', { fatal: true }).decode(bytes),
+  ) as unknown;
+  // Configuration schema 1 or 2; schema 1 yields the standard profile.
+  return { sha: data.sha, stored, config: readGenerationConfig(stored) };
 }
 export async function readConfig(env: GitHubEnv) {
   return (await readAt(await installationToken(env), 'main')).config;
 }
-export async function saveMode(
+
+/**
+ * What the operator may write (EP-01 P8): the mode and the complete profile,
+ * checked with the compatibility rules of the shared module. Start date,
+ * generation switch and time zone are not part of it and stay as stored.
+ */
+export const writableSettingsSchema = z
+  .strictObject({ inheritanceMode: modeSchema, ...profileSchema.shape })
+  .superRefine((settings, ctx) => addSettingsIssues(settings, ctx));
+export type WritableSettings = z.infer<typeof writableSettingsSchema>;
+
+export type SettingsIssue = { path: string; message: string };
+/** A request the rules reject; nothing was read from or written to Git. */
+export class SettingsRejected extends Error {
+  constructor(public issues: SettingsIssue[]) {
+    super('Einstellungen abgelehnt.');
+  }
+}
+/** Rule violations carry their own German message; any other issue is malformed input. */
+export function checkSettings(input: unknown): WritableSettings {
+  const result = writableSettingsSchema.safeParse(input);
+  if (result.success) return result.data;
+  if (result.error.issues.some((issue) => issue.code !== 'custom'))
+    throw new GitHubFailure(400);
+  throw new SettingsRejected(
+    result.error.issues.map((issue) => ({
+      path: issue.path.join('.'),
+      message: issue.message,
+    })),
+  );
+}
+
+export async function saveSettings(
   env: GitHubEnv,
-  mode: unknown,
   revision: unknown,
+  input: unknown,
 ) {
-  const nextMode = modeSchema.parse(mode);
-  const expected = z.coerce.number().int().positive().parse(revision);
+  const expected = z.number().int().positive().parse(revision);
+  const settings = checkSettings(input);
   const token = await installationToken(env);
   const before = await readAt(token, 'main');
   if (before.config.revision !== expected) throw new GitHubFailure(409);
-  if (before.config.inheritanceMode === nextMode) return before.config;
-  const next = {
-    ...before.config,
-    inheritanceMode: nextMode,
+  const current = writableSettingsSchema.parse({
+    inheritanceMode: before.config.inheritanceMode,
+    ...before.config.profile,
+  });
+  // Nothing to change: no commit and no new revision (and so no new seeds).
+  if (JSON.stringify(current) === JSON.stringify(settings))
+    return { config: before.config, changed: false };
+  const next = configV2Schema.parse({
+    schemaVersion: 2,
     revision: expected + 1,
-  };
+    seriesStartDate: before.config.seriesStartDate,
+    generationEnabled: before.config.generationEnabled,
+    timezone: before.config.timezone,
+    ...settings,
+  });
   const saved = z
     .object({ commit: z.object({ sha: z.string().regex(/^[a-f0-9]{40}$/) }) })
     .parse(
       await github(`${repo}/contents/config/generation.json`, token, 'PUT', {
-        message: 'Update future inheritance mode',
+        message: 'Update future generation settings',
         branch: 'main',
         sha: before.sha,
         content: encodeContent(next),
       }),
     );
   const verified = await readAt(token, saved.commit.sha);
-  if (JSON.stringify(verified.config) !== JSON.stringify(next))
+  if (JSON.stringify(verified.stored) !== JSON.stringify(next))
     throw new GitHubFailure(502);
-  return verified.config;
+  return { config: verified.config, changed: true };
 }

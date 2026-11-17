@@ -61,10 +61,15 @@ try {
     browserFormLogout: true,
     unsafeFormRejected: true,
     legalWithoutSession: true,
+    settingsPage: true,
+    settingsApiClosed: true,
+    impossibleRejected: true,
+    foreignOriginRejected: true,
+    schema2Readable: true,
     privacyGateClosed: true,
   });
   console.log(
-    'Lokaler workerd-/SQLite-Durable-Object-Test erfolgreich: sichere Deaktivierung, atomarer Callback, isolierte Sitzungen, absoluter Ablauf von Login/Sitzung, Widerruf, öffentliche Rechtstexte und Datenschutzgate.',
+    'Lokaler workerd-/SQLite-Durable-Object-Test erfolgreich: sichere Deaktivierung, atomarer Callback, isolierte Sitzungen, absoluter Ablauf von Login/Sitzung, Widerruf, öffentliche Rechtstexte, Datenschutzgate, Einstellungsseite und Regelprüfung für Schema 2.',
   );
 } finally {
   child.kill('SIGTERM');

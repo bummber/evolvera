@@ -4,6 +4,8 @@ import type { Env } from '../../workers/admin';
 import { recordCall, Sessions } from '../../workers/admin/store';
 import type { SessionNamespace } from '../../workers/admin/store';
 import { readyPolicy } from '../fixtures/legal';
+import { readGenerationConfig } from '../../src/art/schema/config';
+import { defaultProfile } from '../../src/art/schema/profile';
 export { Sessions };
 z.config({ jitless: true });
 /** Local test entry only; not referenced by the deployable Worker configuration. */
@@ -147,6 +149,56 @@ export default {
           'Sec-Fetch-Dest': 'document',
         },
       });
+    // EP-01 P8: page shell, settings API and the shared rules in workerd.
+    // Only requests that end before any GitHub call; no network.
+    const sessionCookie = `__Host-evolvera-session=${browserSession}`;
+    const shell = await ready.fetch(
+      new Request(readyPolicy.review.adminOrigin + '/settings', {
+        headers: { Cookie: sessionCookie },
+      }),
+      draftEnv,
+    );
+    const shellText = await shell.text();
+    const anonymousApi = await ready.fetch(
+      new Request(readyPolicy.review.adminOrigin + '/api/settings'),
+      draftEnv,
+    );
+    const save = (body: unknown, origin = readyPolicy.review.adminOrigin) =>
+      ready.fetch(
+        new Request(readyPolicy.review.adminOrigin + '/api/settings', {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            Cookie: sessionCookie,
+            Origin: origin,
+            'Content-Type': 'application/json',
+          },
+        }),
+        draftEnv,
+      );
+    const oneLayer = {
+      inheritanceMode: 'traceable',
+      ...defaultProfile,
+      composition: { ...defaultProfile.composition, maxLayers: 1 },
+    };
+    const rejected = await save({ csrf, revision: 1, settings: oneLayer });
+    const rejectedBody = (await rejected.json()) as {
+      issues: { path: string }[];
+    };
+    const foreign = await save(
+      { csrf, revision: 1, settings: oneLayer },
+      'https://attacker.test',
+    );
+    const schema2 = readGenerationConfig({
+      schemaVersion: 2,
+      revision: 7,
+      seriesStartDate: '2026-11-04',
+      generationEnabled: true,
+      timezone: 'Europe/Berlin',
+      inheritanceMode: 'traceable',
+      ...defaultProfile,
+      composition: { ...defaultProfile.composition, density: 'sparse' },
+    });
     const unsafeLogout = await ready.fetch(
       logoutRequest('cross-site'),
       draftEnv,
@@ -186,6 +238,19 @@ export default {
         privacyText.includes('Testperson Beispiel') &&
         privacyText.includes('__Host-evolvera-login') &&
         imprint.status === 200,
+      settingsPage:
+        shell.status === 200 &&
+        shell.headers
+          .get('Content-Security-Policy')
+          ?.includes("script-src 'self'") === true &&
+        shellText.includes('/assets/admin.js') &&
+        !shellText.includes('<style'),
+      settingsApiClosed: anonymousApi.status === 401,
+      impossibleRejected:
+        rejected.status === 422 &&
+        rejectedBody.issues[0]?.path === 'composition.maxLayers',
+      foreignOriginRejected: foreign.status === 403,
+      schema2Readable: schema2.profile.composition.density === 'sparse',
       privacyGateClosed:
         loginAttempt.status === 503 &&
         loginAttempt.headers.get('Set-Cookie') === null,

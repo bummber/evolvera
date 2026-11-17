@@ -8,6 +8,7 @@ export default tseslint.config(
     ignores: [
       'dist/**',
       '.worker-build/**',
+      '.admin-build/**',
       '**/.wrangler/**',
       'node_modules/**',
       'coverage/**',
