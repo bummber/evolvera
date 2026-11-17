@@ -1,5 +1,12 @@
 # Aktueller Startprompt – EP-01: P8 Betreiberoberfläche
 
+**Stand 17.11.2026:** Schritte 1 und 2 erledigt (Baseline bis 17.11.,
+Bauplan mit Simulation vom Betreiber freigegeben). P8a umgesetzt: Alle Leser
+verstehen Schema 2, Regelversion 2 lehnt `traceable` mit einer Ebene ab,
+`config/generation.json` steht in `.prettierignore`. Weiter mit P8b
+(Worker-API) und P8c (Oberfläche und Vorschau) nach dem Bauplan; Einzelheiten
+und offener Push im HANDOFF-Nachtrag 17.11. Der Prompt unten gilt weiter.
+
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
 mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,

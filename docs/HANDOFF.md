@@ -1,5 +1,111 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 17.11.2026, EP-01 P8 begonnen: Baseline ergänzt, Bauplan freigegeben, P8a lokal umgesetzt
+
+Auftrag: P8 „Betreiberoberfläche“ nach `docs/NEXT-START.md`. Der Betreiber
+hat die Werke vom 16.11. und 17.11. künstlerisch gesichtet, Fetch und
+Fast-forward auf `18172b0` freigegeben und danach den Bauplan mit allen
+Empfehlungen freigegeben („Setze deine Empfehlungen um“).
+
+- **Dritter Push vom 16.11.:** `f8c918c` und `4972741` um 14:11 Berlin; CI
+  43873390147 und Pages 43873390125 erfolgreich.
+- **Tageslauf 17.11.:** Schedule-Lauf 44043585588 auf `4972741`, gestartet
+  09:04 Berlin, erfolgreich bis zum Deployment (09:13). Archivcommit
+  `18172b0` um 09:07. Werk Gen. 14 „Zinnoberschweben im Morgen“: Schema 3,
+  `traceable`, Revision 6, Eltern 15.11. und 16.11., kein Nachholwerk,
+  66 Elemente in drei Ebenen (Hintergrund von Elternteil B, Struktur und
+  Akzent neu), Abstand 0,2025. SHA-256
+  `a53bac27b6ff4325c6aa249714ddb56bbeb56b13b958abf5b684b45bbf8bb1af`, gleich
+  der Remote-Datei.
+- **Schritt 1 (`edf0a6a`):** Archiv-Baseline um das Werk vom 17.11. ergänzt
+  (Manifest, `markup/2026-11-17.txt`, zwei Bilder `archive-2026-11-17.png`,
+  `frozenThrough` 17.11.). Vorher alle 29 bestehenden Baseline-Tests grün;
+  13 alte Einträge und 26 Bilder unverändert. Die Bilder stammen von macOS und
+  sind auf dem Linux-Runner erst nach dem nächsten Push bestätigt.
+- **Schritt 2, Simulation zur Dichte (nur im Speicher, Generator 0.3.0
+  unverändert):** Kontrolle: Das Werk vom 17.11. aus dem Stand bis 16.11.
+  nachgerechnet ergibt dieselbe DNA und denselben Titel. Ergebnis über 35
+  Tage im Modus `traceable`, Ø Elemente: echter Start ab 18.11. (6 Verläufe)
+  Standard 38,6, sparsam 34,8 (−10 %), höchstens 2 Ebenen 36,1, höchstens
+  1 Ebene 49,7 (+29 %), sparsam + 2 Ebenen 32,9, dicht 45,1; synthetische
+  Ketten (8) Standard 30,3, sparsam 21,6 (−29 %), 2 Ebenen 32,4, 1 Ebene
+  33,6. Eine zweite Matrix (8 Ketten × 30 Tage) ergab sparsam −14 %,
+  2 Ebenen −20 %: Die Streuung zwischen Seeds ist groß. Belastbar ist nur:
+  „sparsam“ senkt die Zahl der Formen, aber verzögert, weil im Modus
+  `traceable` rund 70 % der Ebenen vererbt werden und vererbte Ebenen alle
+  Formen behalten; die Ebenenzahl ist kein verlässlicher Hebel. Vorhersage
+  für 18.–21.11. mit dem echten Stand: 58, 58, 64, 52 Elemente. Stärker
+  wirken nur eine eingeschränkte Familienwahl (nur Farbfeld oder nur
+  organisch Ø rund 17) und alle Merkmale aus (Ø 17). Ein Ausdünnen
+  vererbter Ebenen bräuchte einen neuen Generator (nicht P8).
+- **Fehlerbild des Generators (gefunden in der Simulation):** Ein für das
+  Werk gezogenes Merkmal (z. B. Verlauf, Muster, generative Form) muss im
+  Kind vorkommen; alle 16 Versuche teilen dieselbe Ziehung. Kann das Kind es
+  nicht unterbringen, endet der Lauf mit „Kein gültiges Werk nach den
+  deterministischen Versuchen“ (diagnostiziert in einer instrumentierten
+  Kopie außerhalb des Projekts: Ausstieg an der Merkmalsprüfung von
+  `composeChild`). Mit nur einer Ebene ist diese im Modus `traceable` immer
+  vererbt; dort trat das in 4 von 16 Ketten auf. In einer Zufallsprüfung mit
+  250 gemischten Profil/Modus-Paaren (rund 10 000 Werke) gab es genau einen
+  weiteren Fall: `traceable`, 2 Ebenen, nur Mosaik, dicht, generative Formen
+  „oft“. Gezielte Messung mit je 60 Ketten × 30 Tagen: Standard (beide
+  Modi), 2 Ebenen, nur Mosaik (auch mit 2 Ebenen), generative Formen
+  „immer“, „Ruhig“ und „Wild“ (beide Modi) ohne Fehlschlag; 1 Ebene im
+  Modus `traceable` erneut 1 von 60, im Modus `free` 0 von 60. Insgesamt
+  scheiterte nur `traceable` mit einer Ebene wiederholt (rund 5 Fälle in
+  etwa 3 000 Werken); der Mosaik-Fall blieb vereinzelt. Restrisiko für
+  andere Profile ist nicht null, aber nicht messbar erhöht.
+  Folge im Betrieb: Derselbe Tag scheitert bei jedem Versuch gleich, die
+  Serie stockt, bis sich die Einstellungen ändern (neue Revision, neuer
+  Seed). Nichts löschen, nichts neu erzeugen; gemeinsam entscheiden.
+- **Bauplan freigegeben**, Unterpakete P8a (Leser und Regeln, Push 1), P8b
+  (Worker-API), P8c (Oberfläche und Vorschau, danach Sichtung und Push 2);
+  Worker-Deployment mit eigener Freigabe danach. Schnellprofile: „Ruhig“
+  (Mutation ruhig, sparsam, Kontrast niedrig, Bewegung dezent, Animation und
+  Muster selten; in der Matrix `traceable` Ø 23,2 statt 35,3) und „Wild“
+  (Mutation wild, dicht, Kontrast hoch, Bewegung stark, Sprünge an,
+  Animation und Muster oft, Effekte, Kurven und generative Formen normal;
+  Ø 36,3). Beide ohne Fehlschlag simuliert.
+- **P8a umgesetzt (`c63430a` Regelversion 2, `71bdcb0` Leser für Schema 2):**
+  - Alle Leser verstehen Schema 1 und 2 über `readGenerationConfig`:
+    `prepareRun` (liest den Snapshot einmal vor jeder Generierung; vorher
+    las der Pfad von Generator 0.3.0 die Eingabe je Werk neu), der
+    Konfliktversuch in `publishPlan`, `scripts/validate-data.ts`, die
+    Galerieseite (`initialSettings`). Werke vor dem Generatorwechsel
+    entstehen nur mit Schema 1 (verständlicher Abbruch statt falsch
+    beschrifteter Snapshot). `assertSeriesGate` braucht nur noch
+    Startdatum und Generierung.
+  - Regelversion 2 (`settingsIssues` in `src/art/schema/profile.ts`,
+    angewandt von `configV2Schema`): `traceable` mit höchstens einer Ebene
+    wird mit verständlicher Meldung abgelehnt (A-32). Werke speichern keine
+    Regelversion; Snapshots im Schema 3 werden weiter mit Version 1 geprüft
+    (`profileIssues`), archivierte Werke bleiben gültig.
+  - `config/generation.json` steht in `.prettierignore`: Ein vom Worker
+    geschriebenes Schema 2 (Listen über mehrere Zeilen) hätte sonst
+    `format:check` und damit den Tageslauf rot gemacht. Gefunden in einer
+    isolierten Kopie.
+  - Tests: `tests/config-run.test.ts` (Schema 2 mit Standardprofil bytegleich
+    zu Schema 1, Profil und Revision in jedem Werk, Snapshot im Nachhollauf,
+    kein Archivwerk ändert sich, unmögliche Kombination stoppt vor jedem
+    Werk, paralleles Speichern von Schema 2 während des Laufs in isolierten
+    Repositories); `tests/config-v2.test.ts` um Regelversion 2 ergänzt;
+    `tests/activation.test.ts` nutzt den Kern der veröffentlichten
+    Konfiguration als Schema 1 und hängt nicht mehr vom gespeicherten Profil
+    ab.
+  - **Prüfungen lokal:** `npm run check` erfolgreich mit **428 Tests**,
+    Datenprüfung mit 14 Werken; `CI=true npm run test:browser` **180
+    bestanden**, sechs bestehende Skips. Zusätzlich in einer isolierten Kopie
+    mit einer committeten Schema-2-Konfiguration („Ruhig“, Revision 7):
+    Datenprüfung, Trockenlauf, `npm run check` (428) und Browserprüfung (180)
+    grün; der nächste Lauf (18.11.) übernimmt Profil und Revision 7.
+    `npm run worker:test-runtime` nicht nötig (Worker unverändert).
+- **Push 1 vom Betreiber freigegeben (17.11., 18:55 Berlin):** `edf0a6a`,
+  `c63430a`, `71bdcb0` und der Doku-Commit als Fast-forward auf `18172b0`.
+  Ergebnis von CI und Pages siehe Sichtung; danach den Tageslauf zum 18.11.
+  grün belegen (`config/generation.json` bleibt Schema 1).
+- **Offen:** P8b (Worker-API) und P8c (Oberfläche, Vorschau), dann
+  gemeinsame Sichtung und Push 2.
+
 ## Nachtrag – 16.11.2026, erster Lauf mit Generator 0.3.0 belegt, roter Build behoben, Baseline für Schema 3 (Schritte 6 und 7)
 
 Anlass: Der Betreiber meldete am 16.11. gegen 10:15 Berlin einen
