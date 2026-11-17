@@ -13,10 +13,12 @@ Stand: EP-01 P0 bis P8 umgesetzt. P8a ist mit Push 1 veröffentlicht
 (3c0d709 am 17.11.2026; CI 44165366329 und Pages 44165366325 grün): Alle
 Leser verstehen Konfigurationsschema 2, die Profilregeln Version 2 lehnen
 traceable mit einer Ebene ab, config/generation.json steht in
-.prettierignore. Einstellungsseite und Worker-API (00aeb98) und der
-Doku-Commit dazu sind mit Push 2 veröffentlicht oder noch ungepusht: bei der
-Sichtung prüfen. Der Live-Worker zeigt noch das alte Modusformular;
-config/generation.json ist Schema 1, Revision 6. Bekanntes Restrisiko:
+.prettierignore. Einstellungsseite und Worker-API sind mit Push 2
+veröffentlicht (ddb8f2e am 17.11.2026; CI 44169156988 und Pages 44169157269
+grün). Ein danach angelegter Doku-Commit („docs: record push 2 of
+2026-11-17“) kann noch ungepusht sein: bei der Sichtung prüfen und mit dem
+nächsten Commit pushen, nicht allein. Der Live-Worker zeigt noch das alte
+Modusformular; config/generation.json ist Schema 1, Revision 6. Bekanntes Restrisiko:
 Generator 0.3.0 findet bei seltenen Profilen kein Werk (HANDOFF 17.11.); dann
 stockt die Serie, bis sich eine Einstellung ändert. In dem Fall nichts
 löschen, nichts neu erzeugen, gemeinsam entscheiden. Offen bleiben die
@@ -28,27 +30,26 @@ und das Arbeitspaket P9 (Abschluss) aus dem Umsetzungsplan.
 1. Archiv-Baseline um die seit 18.11. archivierten Werke ergänzen (Befehl im
    Kopf von tests/archive-baseline.test.tsx); Bestehendes nicht verändern.
    Den Tageslauf zum 18.11. als ersten Lauf auf dem P8a-Stand belegen.
-2. Falls Push 2 noch aussteht: nach Rückfrage pushen, CI und Pages belegen.
-3. Worker-Deployment vorbereiten und mir zeigen: npm run build:admin, dann
+2. Worker-Deployment vorbereiten und mir zeigen: npm run build:admin, dann
    Deployment aus workers/admin; was sich live ändert (Modusformular
    entfällt, Einstellungsseite und /api/settings kommen, Seitendateien als
    Worker-Assets). Deployment erst nach meiner ausdrücklichen Freigabe.
    Secrets und SQLite-Sitzungen bleiben erhalten; keine Cookie-, Token- oder
    Liveworker-Logeinsicht.
-4. Nach dem Deployment gemeinsam live prüfen: Anmeldung, Seite lädt ohne
+3. Nach dem Deployment gemeinsam live prüfen: Anmeldung, Seite lädt ohne
    CSP-Fehler, Vorschau, Abmelden. Das erste Speichern mache ich selbst.
    Danach den Commit „Update future generation settings“ belegen (Schema 2,
    revision + 1, Startdatum, Generierung und Zeitzone unverändert) und den
    nächsten Tageslauf (übernimmt Profil und Revision, kein Archivwerk
    ändert sich).
-5. P9: README.md, docs/architecture.md, docs/runbook.md (u. a. Build der
+4. P9: README.md, docs/architecture.md, docs/runbook.md (u. a. Build der
    Seite vor jedem Deployment, Vorgehen bei einem Lauf ohne Werk), HANDOFF
    und NEXT-START auf den neuen Stand bringen; Restgrenzen ehrlich
    festhalten (verzögerte Wirkung der Dichte, Generatorrisiko, ungeprüfte
    Browser).
-6. npm run check, npm run test:browser und npm run worker:test-runtime
+5. npm run check, npm run test:browser und npm run worker:test-runtime
    ausführen und ehrlich berichten.
-7. Gemeinsame Sichtung; danach EP-01 abschließen oder Restpunkte benennen.
+6. Gemeinsame Sichtung; danach EP-01 abschließen oder Restpunkte benennen.
 
 Grenzen: Keine Änderung an Generator 0.2.0 und 0.3.0, Abstandsmaß,
 Titelgenerator, ArtV1, ArtRenderer.tsx, Renderer 2, artwork.ts,
@@ -79,8 +80,9 @@ außerhalb dist und Git.
   veröffentlicht (`3c0d709`, CI und Pages grün); Einstellungsseite und
   Worker-API (`00aeb98`) mit allen Prüfungen grün; Oberfläche gemeinsam
   gesichtet. Einzelheiten im HANDOFF-Nachtrag 17.11.
-- **Offen geblieben:** Push 2, Worker-Deployment, erstes Speichern durch den
-  Betreiber; im neuen Startprompt oben.
+- **Offen geblieben:** Worker-Deployment und erstes Speichern durch den
+  Betreiber; im neuen Startprompt oben. Push 2 am 17.11. um 21:25 (`ddb8f2e`,
+  CI und Pages grün).
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
@@ -773,7 +775,7 @@ Musterbogen) aus dem Umsetzungsplan.
 5. Lastgrenzen messen und festlegen (Startwerte im Plan); Wertebereiche in
    artwork-v3.ts dürfen dabei noch angepasst werden, weil noch kein Werk im
    Schema 3 archiviert ist.
-6. npm run check und npm run test:browser ausführen und ehrlich berichten.
+5. npm run check und npm run test:browser ausführen und ehrlich berichten.
 7. Sichtung 1 mit dem Betreiber: Formen- und Oberflächenkatalog.
 
 Grenzen P2: Keine Änderung an Generator, Titelgenerator, ArtV1, artwork.ts,
@@ -848,7 +850,7 @@ Umsetzungsplan.
 5. Tests: Schema 1 ohne neue Schlüssel wird verarbeitet; alle Archivwerke und
    Fixtures validieren unverändert; unmögliche Profile werden mit
    verständlicher Meldung abgelehnt (A-32, A-37); Archiv-Baseline bleibt grün.
-6. npm run check, npm run test:browser und wegen der vom Worker gelesenen
+5. npm run check, npm run test:browser und wegen der vom Worker gelesenen
    Konfiguration npm run worker:test-runtime ausführen und ehrlich berichten.
 
 Grenzen P1: config/generation.json bleibt Schema 1 und unverändert; der Worker

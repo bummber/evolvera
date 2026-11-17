@@ -161,11 +161,17 @@ base-uri 'none'`. Abmelden bleibt ein natives Formular.
   Betreiber hat mit „Mach weiter“ ohne Änderungswunsch fortgesetzt. Ein
   gemeinsamer Commit für Seite und API, weil das Modusformular entfällt und
   ein getrennter Zwischenstand im Browsertest rot wäre.
-- **Offen:** Push 2 (`00aeb98` und Doku) nach Rückfrage; Tageslauf zum 18.11.
-  auf dem P8a-Stand belegen; Worker-Deployment mit eigener Freigabe (bis
-  dahin läuft live das alte Modusformular, `config/generation.json` bleibt
-  Schema 1); danach das erste Speichern durch den Betreiber und P9. Auftrag
-  in `docs/NEXT-START.md`.
+- **Push 2 vom Betreiber freigegeben und um 21:25 Berlin ausgeführt:**
+  `00aeb98` und `ddb8f2e` (Doku, Auftrag für P9) als Fast-forward auf
+  `3c0d709`; vorher kein Lauf aktiv. CI 44169156988 und Pages 44169157269
+  erfolgreich (auch Bau der Einstellungsseite und Browserablauf auf dem
+  Linux-Runner), kein neues Werk; Remote-main auf `ddb8f2e`. Dieser Eintrag
+  steht in einem danach angelegten Doku-Commit, der noch ungepusht sein kann.
+- **Offen:** Tageslauf zum 18.11. auf diesem Stand belegen;
+  Worker-Deployment mit eigener Freigabe (bis dahin zeigt der Live-Worker das
+  alte Modusformular, `config/generation.json` bleibt Schema 1); danach das
+  erste Speichern durch den Betreiber und P9. Auftrag in
+  `docs/NEXT-START.md`.
 
 ## Nachtrag – 16.11.2026, erster Lauf mit Generator 0.3.0 belegt, roter Build behoben, Baseline für Schema 3 (Schritte 6 und 7)
 
