@@ -20,12 +20,21 @@ export function lexiconVersionFor(id: string) {
 // and must lie after the last archived work. Set on 2026-11-13: works dated
 // from 2026-11-16 use generator 0.3.0; earlier works keep generator 0.2.0.
 export const generatorChangeDate: string | null = '2026-11-16';
+// Operator decision of 2026-11-18: the series restarts on 2026-11-19 with
+// generator 0.4.0 (single inherited properties instead of whole layers).
+// Every work of the new series is made by it; there is no transition.
+export const generatorV4Date = '2026-11-19';
 export function generatorVersionFor(
   id: string,
   changeDate: string | null = generatorChangeDate,
+  /** Tests only: another restart date for generator 0.4.0, or none. */
+  v4Date: string | null = generatorV4Date,
 ) {
   workDateSchema.parse(id);
   if (changeDate !== null) workDateSchema.parse(changeDate);
+  if (v4Date !== null) workDateSchema.parse(v4Date);
+  if (changeDate !== null && v4Date !== null && id >= v4Date)
+    return '0.4.0' as const;
   return changeDate !== null && id >= changeDate
     ? ('0.3.0' as const)
     : ('0.2.0' as const);

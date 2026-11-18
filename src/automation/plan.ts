@@ -4,11 +4,15 @@ import type { AnyArtwork } from '../art/schema/artwork-v3';
 import { snapshotSettings } from '../operator/settings';
 import { generateArtwork } from '../art/generator/evolve';
 import { MAX_NOVELTY_WINDOW } from '../art/generator/v3/distance';
-import { generateArtworkV3 } from '../art/generator/v3/evolve';
+import {
+  generateArtworkV3,
+  generateArtworkV4,
+} from '../art/generator/v3/evolve';
 import {
   addDay,
   cycleDate,
   generatorChangeDate,
+  generatorV4Date,
   generatorVersionFor,
   lexiconVersionFor,
   scheduledFor,
@@ -22,21 +26,25 @@ import { indexPath, indexText, readArchive, workPath } from './archive';
 
 /**
  * Reads the archive and checks that each work was made by the generator of
- * its work date: schema 3 exactly from the dated generator change on (EP-01).
- * Without a change date no schema 3 work is accepted at all.
+ * its work date: schema 3 exactly from the dated generator change on (EP-01),
+ * generator 0.4.0 from the restart on. Without a change date no schema 3
+ * work is accepted at all.
  */
 function readSeries(
   files: ReadonlyMap<string, string>,
   start: string | null,
   changeDate: string | null,
+  v4Date: string | null,
 ) {
   const works = readArchive(files, start);
-  for (const work of works)
+  for (const work of works) {
+    const expected = generatorVersionFor(work.id, changeDate, v4Date);
     if (
-      (work.schemaVersion === 3) !==
-      (generatorVersionFor(work.id, changeDate) === '0.3.0')
+      (work.schemaVersion === 3) !== (expected !== '0.2.0') ||
+      (work.schemaVersion === 3 && work.generatorVersion !== expected)
     )
       throw new Error('Archivwerk passt nicht zum datierten Generatorwechsel.');
+  }
   return works;
 }
 
@@ -59,13 +67,20 @@ export function prepareRun(
     runStartedAt: string;
   },
   clock: () => string,
-  /** Tests only: another change date than the published one. */
-  options: { generatorChangeDate?: string | null } = {},
+  /** Tests only: other change dates than the published ones. */
+  options: {
+    generatorChangeDate?: string | null;
+    generatorV4Date?: string | null;
+  } = {},
 ) {
   const changeDate =
     options.generatorChangeDate === undefined
       ? generatorChangeDate
       : options.generatorChangeDate;
+  const v4Date =
+    options.generatorV4Date === undefined
+      ? generatorV4Date
+      : options.generatorV4Date;
   // The immutable snapshot of this run, read once before any generation:
   // configuration schema 1 or 2 with its complete effective profile.
   const settings = readGenerationConfig(input.settings);
@@ -79,6 +94,7 @@ export function prepareRun(
     files,
     settings.seriesStartDate,
     changeDate,
+    v4Date,
   );
   const restored = [...files]
     .filter(([path, text]) => input.current.get(path) !== text)
@@ -98,7 +114,7 @@ export function prepareRun(
           'Serienbudget erreicht; manuelle Erweiterung erforderlich.',
         );
       assertTitleGate(release, lexiconVersionFor(next));
-      const generatorVersion = generatorVersionFor(next, changeDate);
+      const generatorVersion = generatorVersionFor(next, changeDate, v4Date);
       assertGeneratorGate(release, generatorVersion);
       const request = {
         generation: works.length + 1,
@@ -110,9 +126,11 @@ export function prepareRun(
         lexiconVersion: lexiconVersionFor(next),
       };
       const parents = works.length < 2 ? [] : works.slice(-2);
+      const generateV3 =
+        generatorVersion === '0.4.0' ? generateArtworkV4 : generateArtworkV3;
       const work =
-        generatorVersion === '0.3.0'
-          ? generateArtworkV3(
+        generatorVersion !== '0.2.0'
+          ? generateV3(
               {
                 ...request,
                 // Complete effective settings of this run: the mode and the
@@ -145,7 +163,7 @@ export function prepareRun(
       next = addDay(next);
     }
   }
-  readSeries(files, settings.seriesStartDate, changeDate);
+  readSeries(files, settings.seriesStartDate, changeDate, v4Date);
   const expectedIndex = indexText(works);
   let previousIndex = input.current.get(indexPath);
   try {

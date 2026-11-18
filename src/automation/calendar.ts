@@ -3,6 +3,7 @@ export {
   addDay,
   cycleDate,
   generatorChangeDate,
+  generatorV4Date,
   generatorVersionFor,
   lexiconVersionFor,
   scheduledFor,

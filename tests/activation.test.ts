@@ -114,8 +114,8 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
     expect(generatorVersionFor('2026-11-15')).toBe('0.2.0');
     expect(generatorVersionFor('2026-11-16')).toBe('0.3.0');
     expect(generatorVersionFor('2099-01-01', null)).toBe('0.2.0');
-    expect(generatorVersionFor(change, change)).toBe('0.3.0');
-    expect(generatorVersionFor(day(change, -1), change)).toBe('0.2.0');
+    expect(generatorVersionFor(change, change, null)).toBe('0.3.0');
+    expect(generatorVersionFor(day(change, -1), change, null)).toBe('0.2.0');
     // The real release record carries the review of 2026-11-12.
     expect(recordedReview).toMatchObject({
       generatorVersion: '0.3.0',
@@ -128,6 +128,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
   it('erzeugt ohne Wechseldatum weiter mit Generator 0.2.0 und lässt alte Bytes unberührt', () => {
     const runDay = day(lastOld, 6);
     const plan = prepareRun(input(runDay, unreviewed), clock(runDay), {
+      generatorV4Date: null,
       generatorChangeDate: null,
     });
     const works = parse(plan);
@@ -148,6 +149,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
   it('wechselt genau am Datum auf Generator 0.3.0, Schema 3 und Renderer 2', () => {
     const runDay = day(change, 2);
     const plan = prepareRun(input(runDay), clock(runDay), {
+      generatorV4Date: null,
       generatorChangeDate: change,
     });
     const works = parse(plan);
@@ -189,7 +191,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
     const without = prepareRun(
       input(day(change, -1), unreviewed),
       clock(runDay),
-      { generatorChangeDate: null },
+      { generatorV4Date: null, generatorChangeDate: null },
     );
     for (const work of added.slice(0, 3)) {
       const file = `public/artworks/${work.id.slice(0, 4)}/${work.id}.json`;
@@ -202,7 +204,10 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
   it('holt über das Wechseldatum hinweg dieselben Werke nach wie pünktliche Tagesläufe', () => {
     const runDay = day(change, 2);
     const late = parse(
-      prepareRun(input(runDay), clock(runDay), { generatorChangeDate: change }),
+      prepareRun(input(runDay), clock(runDay), {
+        generatorV4Date: null,
+        generatorChangeDate: change,
+      }),
     );
     let files = new Map(archive);
     for (let offset = 1; offset <= 6; offset++) {
@@ -210,7 +215,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
       const plan = prepareRun(
         { ...input(today), current: files, canonical: files },
         clock(today),
-        { generatorChangeDate: change },
+        { generatorV4Date: null, generatorChangeDate: change },
       );
       expect(plan.added).toHaveLength(1);
       files = new Map(plan.files);
@@ -236,6 +241,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
   it('stoppt ohne dokumentierte Kunstabnahme vor dem ersten Werk von Generator 0.3.0', () => {
     expect(() =>
       prepareRun(input(change, unreviewed), clock(change), {
+        generatorV4Date: null,
         generatorChangeDate: change,
       }),
     ).toThrow(/Kunstabnahme für Generator 0\.3\.0/);
@@ -243,6 +249,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
     const before = day(change, -1);
     expect(
       prepareRun(input(before, unreviewed), clock(before), {
+        generatorV4Date: null,
         generatorChangeDate: change,
       }).added,
     ).toHaveLength(3);
@@ -251,6 +258,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
   it('lehnt Werke ab, die nicht zum Wechseldatum passen', () => {
     const runDay = day(change, 1);
     const plan = prepareRun(input(runDay), clock(runDay), {
+      generatorV4Date: null,
       generatorChangeDate: change,
     });
     const next = day(runDay, 1);
@@ -258,7 +266,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
       prepareRun(
         { ...input(next), current: plan.files, canonical: plan.files },
         clock(next),
-        { generatorChangeDate: generatorChange },
+        { generatorV4Date: null, generatorChangeDate: generatorChange },
       );
     expect(rerun(change).added).toHaveLength(1);
     // Schema 3 in the archive without a change date, or with a later one.
@@ -268,6 +276,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
     expect(() => rerun(day(change, -1))).toThrow(/Generatorwechsel/);
     expect(() =>
       prepareRun(input(runDay), clock(runDay), {
+        generatorV4Date: null,
         generatorChangeDate: lastOld,
       }),
     ).toThrow(/Generatorwechsel/);
@@ -288,7 +297,7 @@ describe('Datierter Generatorwechsel im Tageslauf', () => {
         runStartedAt: `${runDay}T08:00:00+01:00`,
       },
       clock(runDay),
-      { generatorChangeDate: '2000-01-01' },
+      { generatorV4Date: null, generatorChangeDate: '2000-01-01' },
     );
     // 36 works; the strict reader recomputes digest and distance of every
     // work from the 30 works before it.
@@ -340,7 +349,7 @@ describe('Generatorwechsel in isolierten Git-Repositories', () => {
 
   it('archiviert vor und nach dem Wechseldatum, ohne ein altes Werk zu berühren', () => {
     const { root, base } = repo();
-    const options = { generatorChangeDate: change };
+    const options = { generatorV4Date: null, generatorChangeDate: change };
     const before = blobs(root, base);
     // Run on the last day before the change: generator 0.2.0 only.
     const eve = day(change, -1);
