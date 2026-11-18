@@ -12,7 +12,12 @@ import { describe, expect, it } from 'vitest';
 import { ArtDispatch } from '../src/art/renderer/ArtDispatch';
 import type { RenderSource } from '../src/art/renderer/ArtRenderer';
 
-// EP-01 A-36: frozen regression baseline for archived works.
+// EP-01 A-36: regression baseline for archived works.
+//
+// Test phase (operator decision of 2026-11-18): works may be deleted, for
+// example for a restart of the series. Entries and reference files of
+// deleted works are removed together with them; the baseline then starts
+// empty and is extended again from the first work of the new series.
 //
 // Listed works must keep their exact bytes and their exact renderer output.
 // Works the daily workflow archives later are tolerated as long as they are
@@ -96,11 +101,10 @@ const manifest = readManifest();
 
 describe('Archiv-Baseline (EP-01 A-36)', () => {
   it('enthält die eingefrorenen Werke lückenlos und aufsteigend', () => {
-    expect(manifest.works.length).toBeGreaterThanOrEqual(7);
     const ids = manifest.works.map((entry) => entry.id);
     expect(ids).toEqual([...ids].sort());
     expect(new Set(ids).size).toBe(ids.length);
-    expect(manifest.frozenThrough).toBe(ids.at(-1));
+    expect(manifest.frozenThrough).toBe(ids.at(-1) ?? '');
     for (const entry of manifest.works)
       expect(entry.path).toBe(
         `${archiveDir}/${entry.id.slice(0, 4)}/${entry.id}.json`,

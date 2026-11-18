@@ -22,10 +22,14 @@ import {
 
 const storedWorks = () => {
   const archive = (
-    readdirSync('public/artworks', { recursive: true }) as string[]
+    readdirSync('tests/fixtures/legacy-archive', {
+      recursive: true,
+    }) as string[]
   )
     .filter((file) => /\d{4}-\d{2}-\d{2}\.json$/.test(file))
-    .map((file) => JSON.parse(readFileSync(`public/artworks/${file}`, 'utf8')));
+    .map((file) =>
+      JSON.parse(readFileSync(`tests/fixtures/legacy-archive/${file}`, 'utf8')),
+    );
   const chains = ['phase-2', 'phase-3'].flatMap((name) =>
     (
       JSON.parse(readFileSync(`fixtures/preview/${name}.json`, 'utf8')) as {
@@ -43,7 +47,7 @@ const messages = (input: unknown) => {
 };
 
 describe('Werkschema 3 (EP-01)', () => {
-  it('lässt alle Archivwerke und Testwerke unverändert gültig', () => {
+  it('lässt alle früheren Archivwerke und Testwerke unverändert gültig', () => {
     const works = storedWorks();
     expect(works.length).toBeGreaterThanOrEqual(47);
     for (const work of works) {

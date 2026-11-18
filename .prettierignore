@@ -18,3 +18,5 @@ PRD_1_2.md
 .worker-build
 .admin-build
 **/.wrangler
+# Former archive works (2026-11-04 to 2026-11-18), kept as exact test data.
+tests/fixtures/legacy-archive/**/*.json

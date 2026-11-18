@@ -51,19 +51,22 @@ const published = readGenerationConfig(generationRecord);
 const settingsV1 = {
   schemaVersion: 1,
   revision: published.revision,
-  seriesStartDate: published.seriesStartDate,
+  // The former series start; the series restarted on 2026-11-19.
+  seriesStartDate: '2026-11-04',
   generationEnabled: published.generationEnabled,
   timezone: published.timezone,
   inheritanceMode: published.inheritanceMode,
 } as const;
 
+// The former archive (deleted for the restart) is kept as exact test data.
+const legacy = 'tests/fixtures/legacy-archive';
 const archive = new Map<string, string>();
-for (const file of readdirSync('public/artworks', { recursive: true })) {
+for (const file of readdirSync(legacy, { recursive: true })) {
   const id = /(\d{4}-\d{2}-\d{2})\.json$/.exec(String(file))?.[1];
   if (id && generatorVersionFor(id) === '0.2.0')
     archive.set(
       `public/artworks/${String(file)}`,
-      readFileSync(`public/artworks/${String(file)}`, 'utf8'),
+      readFileSync(`${legacy}/${String(file)}`, 'utf8'),
     );
 }
 const oldWorks = readWorks(archive, settingsV1.seriesStartDate);
