@@ -17,7 +17,7 @@ language: "de-DE"
 **Zielplattform:** Öffentliche, mobile-first Webanwendung  
 **Leitprinzip:** Täglich generierte Kunst. Zwei Vorgänger. Ein neuer, unvorhersehbarer Nachfolger.
 
-> **Kurzbeschreibung:** Evolvera erschafft jeden Tag automatisch ein neues abstraktes Kunstwerk – ausschließlich aus HTML-Elementen und CSS, ohne Fotos, Bilddateien, Canvas oder Bildgenerierungs-KI. Am ersten Serientag entsteht ein unabhängiges Ursprungswerk, am zweiten Serientag ein zweites. Ab dem dritten Werk kombiniert und mutiert ein Algorithmus die Eigenschaften der beiden unmittelbar vorherigen Werke. Jede Generation erhält einen erfundenen, poetischen Titel und wird dauerhaft als strukturierte Daten archiviert. Besuchende können das Tageswerk sehen, im Archiv stöbern und dessen Herkunft nachvollziehen.
+> **Kurzbeschreibung:** Evolvera erschafft jeden Tag automatisch ein neues abstraktes Kunstwerk – ausschließlich aus HTML-Elementen und CSS, ohne Fotos, Bilddateien, Canvas oder Bildgenerierungs-KI. Am ersten Serientag entsteht ein unabhängiges Ursprungswerk, am zweiten Serientag ein zweites. Ab dem dritten Werk kombiniert und mutiert ein Algorithmus die Eigenschaften der beiden unmittelbar vorherigen Werke. Jede Generation erhält einen erfundenen, poetischen Titel und wird als strukturierte Daten archiviert. Besuchende können das Tageswerk sehen, im Archiv stöbern und dessen Herkunft nachvollziehen.
 
 ---
 
@@ -37,8 +37,8 @@ Diese Version ersetzt die fachliche Ausgangsversion 1.0. Die folgenden Produkten
 | Einstellungen | Nur der Betreiber darf den Modus unter „Einstellungen“ ändern. Er bleibt bis zur nächsten Änderung aktiv und wirkt ab dem nächsten noch nicht begonnenen Generierungslauf. |
 | Zugang | Anmeldung mit dem vorhandenen GitHub-Konto des Betreibers; keine Besucheranmeldung und kein zusätzliches Evolvera-Passwort. |
 | Betreiberfunktion | Cloudflare Workers im kostenlosen Tarif ergänzt GitHub Pages. Galerie, Archiv und tägliche Generierung bleiben bei GitHub. |
-| Historische Werke | Komposition, Farben und Bewegungsregeln bleiben dauerhaft erhalten; kleinere Browserunterschiede sind möglich. |
-| Archivfehler | Historische Daten aus Git wiederherstellen, niemals neu auswürfeln. Bei nicht sicher behebbaren Schäden Generierung und defekte Veröffentlichung stoppen; die letzte funktionierende Website bleibt erreichbar. |
+| Historische Werke | Komposition, Farben und Bewegungsregeln bleiben erhalten, solange das Werk archiviert ist; kleinere Browserunterschiede sind möglich. In der Testphase darf der Betreiber Werke ausdrücklich löschen (Änderung vom 18.11.2026). |
+| Archivfehler | Veränderte historische Daten aus Git wiederherstellen, niemals neu auswürfeln. Bewusst gelöschte Werke werden nicht zurückgeholt. Bei nicht sicher behebbaren Schäden Generierung und defekte Veröffentlichung stoppen; die letzte funktionierende Website bleibt erreichbar. |
 | Kunstabnahme | Vor Serienstart 30–50 getrennte Testwerke einschließlich Beispielketten beider Modi gemeinsam durchsehen. Die offizielle Serie beginnt erst nach ausdrücklicher Abnahme. |
 | Galerie | Echte HTML-/CSS-Vorschauen in einem reproduzierbaren, gut sichtbaren Ruhezustand; Animation nur im geöffneten Hauptwerk. |
 | Navigation | Heute, Galerie, Evolution, Über Evolvera und Einstellungen. Ein Werk kann in bis zu zwei Folgegenerationen Elternteil sein. |
@@ -59,7 +59,7 @@ Es geht **nicht** um technisch perfekte Bilder, Fotorealismus, KI-Bildgeneratore
 ### 1.1 Produktversprechen
 
 - Jeden Tag ein neues, eindeutiges Kunstwerk, geplant ab **01:17 Uhr in der Zeitzone `Europe/Berlin`**.
-- Jedes Werk wird mit seinem Titel, Erstellungsdatum, gestalterischen Eigenschaften und seiner Abstammung dauerhaft gespeichert.
+- Jedes Werk wird mit seinem Titel, Erstellungsdatum, gestalterischen Eigenschaften und seiner Abstammung gespeichert.
 - Eine kleine, ästhetische und schnelle Website, die auf Smartphones hervorragend funktioniert.
 - Keine laufenden Kosten für Bildgenerierungsdienste und für die erste Version **möglichst 0 € Hostingkosten**.
 - Ein technischer Unterbau, der später andere Inhalte und neue Funktionen aufnehmen kann.
@@ -110,7 +110,7 @@ Es geht **nicht** um technisch perfekte Bilder, Fotorealismus, KI-Bildgeneratore
 | F-05 | Zwei Vererbungsmodi | Zufällige Mischung und Mutation ohne feste Prozentquote. Im nachvollziehbaren Modus muss jeder Elternteil gestalterisch beitragen; im freien Modus ist ein vollständiger Bruch erlaubt. |
 | F-06 | Rein CSS/HTML | Kunstobjekte bestehen ausschließlich aus HTML-Elementen, CSS-Regeln, CSS-Verläufen, Maskierungen/Transformationen und ggf. CSS-Animationen. |
 | F-07 | Poetische Fantasietitel | Jeder Generation wird ein algorithmisch erzeugter, ungewöhnlicher Titel zugewiesen. |
-| F-08 | Archiv | Jede Generation wird dauerhaft, unveränderlich und datiert als Datei im Repository gespeichert. |
+| F-08 | Archiv | Jede Generation wird unveränderlich und datiert als Datei im Repository gespeichert. In der Testphase darf der Betreiber Werke ausdrücklich löschen, auch alle für einen Serienneustart (Änderung vom 18.11.2026). |
 | F-09 | Galerie | Alle bisherigen Werke sind chronologisch durchsuchbar bzw. blätterbar, mit einzelnen Detailansichten. |
 | F-10 | Evolution ansehen | Detailansicht zeigt die Elternwerke (falls vorhanden) und die wichtigsten Mutations-/Vererbungsinformationen. |
 | F-11 | Animationen | Der Generator kann statische, dezente oder dynamische CSS-Kunstwerke erzeugen. |
@@ -472,7 +472,7 @@ Die JSON-Beispieldaten zeigen eine mögliche spätere Beispielkette; sie legen w
 - Werkdaten werden vor Commit, Build und Anzeige anhand eines Schemas validiert.
 - Bestehende Archive bleiben nutzbar, wenn neue Kompositionsfamilien hinzugefügt werden.
 - Vorschau- und Testdaten liegen getrennt vom kanonischen Archiv, beispielsweise unter `fixtures/preview/`; sie dürfen weder den offiziellen Index noch die Generationsnummern oder Elternzuordnung beeinflussen.
-- Ein fehlender Index kann aus validen Werkdateien rekonstruiert werden. Bereits archivierte, jetzt fehlende oder beschädigte Werkdateien werden dagegen aus Git wiederhergestellt, nicht neu generiert. Das gilt auch für gelöschte Dateien am Serienende: Vor einer Nachholung anhand der verfügbaren Git-Historie feststellen, ob das Werk bereits existierte. Der Workflow benötigt dafür die relevante vollständige Historie. Die wiederhergestellten Daten müssen exakt dem intakten gespeicherten Stand entsprechen.
+- Ein fehlender Index kann aus validen Werkdateien rekonstruiert werden. Vorhandene, aber veränderte Werkdateien werden dagegen aus Git wiederhergestellt, nicht neu generiert; die wiederhergestellten Daten müssen exakt dem archivierten Stand entsprechen. Der Workflow benötigt dafür die relevante vollständige Historie. Bewusst gelöschte Werkdateien werden nicht zurückgeholt (Änderung vom 18.11.2026); fehlt das letzte Werk, ist sein Tag wieder fällig.
 
 ### 8.4 Globale Generierungseinstellungen
 
@@ -622,7 +622,7 @@ on:
 1. Workflow startet automatisch oder manuell und erhält den gemeinsamen exklusiven Generator-/Publish-Bereich.
 2. Einen frischen Repositorystand laden, Einstellungen validieren und Modus/Revision für diesen Lauf einfrieren. Bei deaktivierter offizieller Generierung keine neuen Werke erzeugen; ein Testdeployment der leeren Galerie bleibt möglich.
 3. Zeitzone `Europe/Berlin` auswerten. Nur bereits fällige Werkdaten ab Serienstart berücksichtigen; das heutige Werk vor 01:17 Uhr nicht vorziehen. Bereits fällige ältere Tage können auch vor 01:17 Uhr nachgeholt werden.
-4. Archiv vollständig validieren und für fehlende Dateien prüfen, ob sie bereits in Git archiviert waren. Bei historischen Lücken, beschädigten Daten oder unerwarteten Elternbeziehungen zunächst Wiederherstellung aus Git versuchen; gelingt das nicht sicher, Lauf beenden. Nur noch nie archivierte fällige Tage sind Nachholbedarf; gelöschte historische Dateien am Serienende sind Archivschäden.
+4. Archiv vollständig validieren. Veränderte vorhandene Werke zunächst exakt aus Git wiederherstellen; bei Lücken mitten in der Kette, nicht sicher behebbaren Schäden oder unerwarteten Elternbeziehungen Lauf beenden. Fällige Tage nach dem letzten vorhandenen Werk sind Nachholbedarf; bewusst gelöschte Werke werden nicht zurückgeholt.
 5. Fällige fehlende Tage chronologisch erzeugen: Generationen 1 und 2 unabhängig; danach bei jedem Werk die zwei unmittelbar vorhergehenden Generationen als Eltern verwenden. Den eingefrorenen Modus beachten.
 6. Bereits vorhandene kanonische Werkdateien unverändert lassen (Idempotenz). Historische Daten nicht aus heutigen Regeln neu erzeugen.
 7. Neue Dateien und Index zunächst vorbereiten, alle Schemas, Abstammung, Modusbeiträge und relevante Tests prüfen. Erst einen vollständig validen Stand archivieren. Eine fehlgeschlagene Vorbereitung darf keinen halben Nachholstand committen.
@@ -644,7 +644,7 @@ on:
 - Nach einem Fehler im Deployment bleibt die archivierte Generierung intakt und die Veröffentlichung ist erneut ausführbar.
 - Manuelle Läufe dürfen bestehende Werke nicht stillschweigend neu auswürfeln.
 - Für gezielte lokale Testdaten sind ausdrücklich markierte **Preview-/Dry-Run-Optionen** vorgesehen.
-- Falls am Ende der intakten Serie mehrere noch nie archivierte Tage fehlen, werden **alle fälligen Tage in der richtigen Reihenfolge nachgeholt**, anstatt die Abstammungskette zu unterbrechen. Bereits archivierte, jetzt fehlende Dateien erfordern Wiederherstellung statt Neugenerierung, auch am Serienende.
+- Falls am Ende der intakten Serie mehrere noch nie archivierte Tage fehlen, werden **alle fälligen Tage in der richtigen Reihenfolge nachgeholt**, anstatt die Abstammungskette zu unterbrechen.
 
 ### 10.6 Betriebshinweise
 
@@ -714,7 +714,7 @@ GitHub dokumentiert, dass geplante Workflows in öffentlichen Repositories nach 
 | A-20 | Ein gespeicherter Modus bleibt über Browser-/Sitzungswechsel aktiv. Der nächste noch nicht gestartete Lauf nutzt ihn; ein bereits laufender Lauf behält seinen Snapshot. Modus/Revision sind im Werk archiviert. |
 | A-21 | Fehlgeschlagenes oder kollidierendes Speichern zeigt einen Fehler und überschreibt keine fremden Änderungen. Moduswechsel verändert weder alte Werke noch Serienstart oder Archiv. |
 | A-22 | Galerie-, Eltern- und Nachfolgerkacheln sind reproduzierbar statisch und sichtbar; Animation läuft ausschließlich im geöffneten Hauptwerk gemäß Wiedergabepräferenz. |
-| A-23 | Beschädigte oder gelöschte historische Daten werden exakt aus Git wiederhergestellt, auch am Serienende. Ist das nicht sicher möglich, stoppt die Generierung ohne Neuauswürfelung und die letzte funktionierende Website bleibt bestehen. |
+| A-23 | Veränderte historische Daten werden exakt aus Git wiederhergestellt; bewusst gelöschte Werke nicht. Ist das nicht sicher möglich, stoppt die Generierung ohne Neuauswürfelung und die letzte funktionierende Website bleibt bestehen. |
 | A-24 | Vor offizieller Serienfreigabe liegen 30–50 getrennte Testwerke mit Beispielketten beider Modi und ausdrückliche Kunstabnahme durch den Betreiber vor. |
 | A-25 | „Über Evolvera“ gehört zum Release; „Einstellungen“ ist über die Navigation erreichbar. Anmeldung und Speichern funktionieren auch bei blockierten Drittanbieter-Cookies; Abmelden beendet die Sitzung. |
 | A-26 | Browserprüfung unter der Projektbasis `/evolvera/` deckt Direktlinks, JSON-Datenpfade, mobile Bedienung, Fehl-/Leerzustände sowie verzögertes Tageswerk mit wahrheitsgetreuem Datum ab. |
@@ -854,7 +854,7 @@ Die folgenden technischen und gestalterischen Details darf Codex im Rahmen diese
 
 Diese Schritte blockieren den lokalen Start von Phase 0 nicht. Es sind keine bereits vorhandenen Zugangsdaten oder eingerichteten Integrationen zu unterstellen.
 
-**Bereits entschieden:** Evolvera als Arbeitstitel, mobile first, kostenloser Betrieb als Ziel, HTML-/CSS-Kunst, zwei Ursprungswerke an zwei Tagen, anschließend zwei unmittelbare Eltern, beide Vererbungsmodi mit nachvollziehbarem Standard, geschützte GitHub-Betreiberanmeldung unter Einstellungen, Cloudflare Workers als Ergänzung, täglicher Termin 01:17 Europe/Berlin, ehrliche Nachholung, dauerhaftes Archiv, stabile historische Gestaltung, statische Galerie, Evolution, Über-Seite, Animationen, Fantasietitel und Kunstabnahme mit 30–50 Testwerken vor Serienstart.
+**Bereits entschieden:** Evolvera als Arbeitstitel, mobile first, kostenloser Betrieb als Ziel, HTML-/CSS-Kunst, zwei Ursprungswerke an zwei Tagen, anschließend zwei unmittelbare Eltern, beide Vererbungsmodi mit nachvollziehbarem Standard, geschützte GitHub-Betreiberanmeldung unter Einstellungen, Cloudflare Workers als Ergänzung, täglicher Termin 01:17 Europe/Berlin, ehrliche Nachholung, Archiv (in der Testphase löschbar), stabile historische Gestaltung, statische Galerie, Evolution, Über-Seite, Animationen, Fantasietitel und Kunstabnahme mit 30–50 Testwerken vor Serienstart.
 
 ---
 

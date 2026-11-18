@@ -35,13 +35,20 @@ Die verbindlichen Projektregeln stehen in AGENTS.md und gelten vollständig:
 - Basispfad ist `/evolvera/` mit `HashRouter`. Öffentliche Datenpfade immer über
   `dataPath` / `import.meta.env.BASE_URL`, nie root-relativ (`/artworks/...`).
 - `public/artworks/**/*.json` sind kanonische Archivbytes: nicht von Hand ändern,
-  nicht formatieren, nicht neu erzeugen. Dasselbe gilt für die gespeicherte
-  Vorschau-DNA in `fixtures/preview/`; `tests/browser/references/` nicht
-  automatisch aktualisieren.
+  nicht formatieren, nicht neu erzeugen. Löschen nur auf ausdrücklichen
+  Betreiberauftrag (Testphase); der Tageslauf holt gelöschte Werke nicht zurück,
+  eine Lücke mitten in der Kette stoppt ihn. Dasselbe Änderungsverbot gilt für
+  die gespeicherte Vorschau-DNA in `fixtures/preview/` und die früheren
+  Archivwerke in `tests/fixtures/legacy-archive/`; `tests/browser/references/`
+  nicht automatisch aktualisieren.
 - Neue Darstellungsregeln brauchen eine neue Rendererversion; `ArtV1` bleibt
   unverändert. Der Generator bleibt frei von React- und Browser-Abhängigkeiten.
+- Generator 0.4.0 (Vererbung einzelner Eigenschaften) liegt in
+  `src/art/generator/v3/traits.ts`; 0.3.0 (`inherit.ts`) bleibt für seine
+  gespeicherten Fixtures unverändert. Abnahmewerke von 0.4.0:
+  `fixtures/preview/review-v4.json` (`tsx scripts/acceptance-fixtures-v4.ts`).
 - Zeitlogik der Serie liegt datiert in `src/series/calendar.ts` (vor 06.11.2026
-  04:00, danach 01:17 Europe/Berlin). Bestehende Werke behalten ihre alten Termine.
+  04:00, danach 01:17 Europe/Berlin; ab 19.11.2026 Generator 0.4.0).
   Dort steht auch der datierte Wechsel des Titel-Lexikons (0.1.0 → 0.2.0); der
   Algorithmus 0.1.0 in `src/art/titles/generate.ts` bleibt unverändert erhalten.
 - `work/`, `.worker-build/`, `.dev.vars` und `.wrangler/` sind gitignored und

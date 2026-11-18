@@ -125,13 +125,20 @@ Beide Ursprungswerke bleiben unabhängig; danach gelten weiterhin genau die beid
 unmittelbaren Vorgängergenerationen als Eltern. `free` verlangt keine Mindestübernahme.
 Mutationsstärke verschiebt Verteilungen, garantiert aber weder Stilbruch noch Nähe.
 
+Änderung vom 18.11.2026 (Betreiberentscheidung, Generator 0.4.0): Ein Kind übernimmt
+einzelne Eigenschaften statt ganzer Ebenen, je Elternteil höchstens drei – eine Farbe,
+eine Form oder die Familie einer Ebene. `traceable` verlangt mindestens eine
+Eigenschaft von jedem Elternteil, `free` keine; die Obergrenze gilt in beiden Modi.
+Alles andere entsteht neu. Jede Übernahme bleibt sichtbar und belegt.
+
 ## 6. Künstlerische Bausteine und Renderer
 
 Familien: geometrische Konstellation, Farbfeld/Minimalismus, Mosaik/Raster,
 organische Verläufe, generative Strukturen, chaotische Überlagerung. Bewegung ist ein
 eigenes Gen, keine neue Familie. Bis zu drei Ebenen (Hintergrund, Struktur, Akzent)
 besitzen jeweils eine Familie und eine feste Reihenfolge. Ebenen dürfen vererbt oder
-neu aufgebaut werden; kein bloßes Überlagern der vollständigen Elternwerke.
+neu aufgebaut werden; kein bloßes Überlagern der vollständigen Elternwerke. Seit
+Generator 0.4.0 wird von einer Ebene nur noch ihre Familie vererbt, nicht ihre Formen.
 
 Pflichtumfang des Pakets:
 
