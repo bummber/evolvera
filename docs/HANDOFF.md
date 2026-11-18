@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Nachtrag – 18.11.2026, Neustart mit Generator 0.4.0 abgenommen und zum Push freigegeben
+## Nachtrag – 18.11.2026, Neustart mit Generator 0.4.0 abgenommen und veröffentlicht
 
 Auftrag des Betreibers (18.11.): Die Vererbung soll nur einzelne Eigenschaften
 der beiden letzten Vorfahren weitergeben, nicht Elemente aller Vorgänger. Dazu:
@@ -52,7 +52,13 @@ Monat, Favoritengalerie (Werk und direkte Eltern vom Löschen ausgenommen).
   gebunden. Probelauf auf HEAD für den 19.11. 01:17 (nur im Speicher):
   Generation 1 „Falterkristall im Zwischenraum“, Generator 0.4.0,
   72 Elemente (Ursprungswerk; seine Fülle kommt aus der Dichte `varied`).
-- **Offen:** Push belegen, ersten Tageslauf am 19.11. sichten. Nicht geprüft:
+- **Push:** Nach Fetch ohne neue Remote-Commits am 18.11. um 10:53 Berlin
+  als Fast-forward `e89e80c..387e3af` (11 Commits). CI 44280212199 und Pages
+  44280212170 erfolgreich (Build mit Archiv-Lauf, `npm run check`,
+  Worker-Test und Browsertests auf dem Linux-Runner); Deployment 11:00 Berlin.
+  Live geprüft: `artworks/index.json` leer, `artworks/2026/2026-11-18.json`
+  liefert 404. Lokale Vorschau danach beendet.
+- **Offen:** Ersten Tageslauf am 19.11. belegen und sichten. Nicht geprüft:
   Firefox/Safari. Die zurückgestellte EP-01-Inbetriebnahme (Worker-Deployment,
   P9) ruht; deren Grenzen „nichts löschen“ gelten nicht mehr.
 
