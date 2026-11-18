@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Nachtrag – 18.11.2026, Neustart mit Generator 0.4.0 vorbereitet (nicht gepusht)
+## Nachtrag – 18.11.2026, Neustart mit Generator 0.4.0 abgenommen und zum Push freigegeben
 
 Auftrag des Betreibers (18.11.): Die Vererbung soll nur einzelne Eigenschaften
 der beiden letzten Vorfahren weitergeben, nicht Elemente aller Vorgänger. Dazu:
@@ -46,9 +46,14 @@ Monat, Favoritengalerie (Werk und direkte Eltern vom Löschen ausgenommen).
 - **Prüfungen:** `npm run check` grün (429 Tests vor dem Fix, Datenprüfung 0
   Werke, alle Abnahmewerke reproduziert), `npm run test:browser` 152 bestanden,
   6 planmäßig übersprungen. Nach dem Galerie-Fix erneut geprüft (siehe unten).
-- **Offen:** Abnahme der 40 Werke durch den Betreiber, dann `artReviewV4`
-  eintragen, prüfen und nach Freigabe pushen. Nicht geprüft: Firefox/Safari,
-  Linux-Runner. Die zurückgestellte EP-01-Inbetriebnahme (Worker-Deployment,
+- **Abnahme:** Der Betreiber hat die 40 Werke am 18.11. abgenommen („Die
+  Werke sind so abgenommen“) und den Push freigegeben. `artReviewV4` ist in
+  `config/release.json` eingetragen und per Test an die SHA-256 der Fixture
+  gebunden. Probelauf auf HEAD für den 19.11. 01:17 (nur im Speicher):
+  Generation 1 „Falterkristall im Zwischenraum“, Generator 0.4.0,
+  72 Elemente (Ursprungswerk; seine Fülle kommt aus der Dichte `varied`).
+- **Offen:** Push belegen, ersten Tageslauf am 19.11. sichten. Nicht geprüft:
+  Firefox/Safari. Die zurückgestellte EP-01-Inbetriebnahme (Worker-Deployment,
   P9) ruht; deren Grenzen „nichts löschen“ gelten nicht mehr.
 
 ## Nachtrag – 17.11.2026, EP-01 P8 umgesetzt: Baseline, Bauplan, P8a veröffentlicht, Einstellungsseite und Worker-API committet
