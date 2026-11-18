@@ -5,7 +5,7 @@ import { previewChainV3Schema, type PreviewChainV3 } from '../schema/chains-v3';
 import type { SettingsSnapshot } from '../schema/preview-v3';
 import { defaultProfile, type Profile } from '../schema/profile';
 import { MAX_NOVELTY_WINDOW } from './v3/distance';
-import { generateArtworkV3 } from './v3/evolve';
+import { generateArtworkV3, generateArtworkV4 } from './v3/evolve';
 import { validateEvolutionV3 } from './v3/provenance';
 
 // Preview chains of generator 0.3.0 (EP-01, P4). Simulation only: the dates
@@ -27,6 +27,8 @@ export function createPreviewChainV3(options: {
   prefix?: string;
   profile?: Profile;
   legacyParents?: readonly Artwork[];
+  /** Generator of the new works; 0.3.0 unless stated. */
+  generator?: '0.3.0' | '0.4.0';
 }): PreviewChainV3 {
   const {
     key,
@@ -58,7 +60,9 @@ export function createPreviewChainV3(options: {
       Date.parse(scheduledFor) + 1000,
     ).toISOString();
     const generatedAt = new Date(Date.parse(scheduledFor) + 2000).toISOString();
-    const work = generateArtworkV3(
+    const generate =
+      options.generator === '0.4.0' ? generateArtworkV4 : generateArtworkV3;
+    const work = generate(
       {
         generation,
         workDate,

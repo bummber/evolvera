@@ -330,6 +330,20 @@ export const evidenceV3Schema = z.strictObject({
  * parent with fills of the other, or colours of both. */
 const heritage = z.enum(['new', 'parentA', 'parentB', 'mixed']);
 const drawn = z.boolean();
+/** Feature groups drawn for the parts built anew. */
+const featureDraws = z.strictObject({
+  gradients: drawn,
+  patterns: drawn,
+  masks: drawn,
+  blendModes: drawn,
+  blurShadow: drawn,
+  lines: drawn,
+  curves: drawn,
+  generativeShapes: drawn,
+  animation: drawn,
+  symmetry: drawn,
+});
+const anchorKind = z.enum(['natural', 'promoted', 'moved', 'added']);
 /**
  * Decisions of generator 0.3.0 that the DNA alone does not name (EP-01, P4).
  * A summary for the provenance view, not a replayable recipe: the work is
@@ -345,22 +359,49 @@ export const recipeV3Schema = z.strictObject({
     accent: heritage.optional(),
   }),
   mutationJump: z.boolean(),
-  /** Feature groups drawn for the parts built anew. */
-  features: z.strictObject({
-    gradients: drawn,
-    patterns: drawn,
-    masks: drawn,
-    blendModes: drawn,
-    blurShadow: drawn,
-    lines: drawn,
-    curves: drawn,
-    generativeShapes: drawn,
-    animation: drawn,
-    symmetry: drawn,
-  }),
-  anchor: z.enum(['natural', 'promoted', 'moved', 'added']),
+  features: featureDraws,
+  anchor: anchorKind,
 });
 export type RecipeV3 = z.infer<typeof recipeV3Schema>;
+
+/** At most this many properties come from each parent (generator 0.4.0). */
+export const MAX_INHERITED_PER_PARENT = 3;
+export const inheritedPropertyNames = ['color', 'form', 'family'] as const;
+/**
+ * Generator 0.4.0 inherits single properties instead of whole layers: a
+ * colour, a form or the family of a layer, at most three per parent. All
+ * other parts of the work are built anew.
+ */
+export const recipeV4Schema = z.strictObject({
+  retry: z.number().int().min(0).max(15),
+  inherited: z
+    .array(
+      z.strictObject({
+        parent: z.enum(['parentA', 'parentB']),
+        property: z.enum(inheritedPropertyNames),
+      }),
+    )
+    .max(2 * MAX_INHERITED_PER_PARENT),
+  mutationJump: z.boolean(),
+  features: featureDraws,
+  anchor: anchorKind,
+});
+export type RecipeV4 = z.infer<typeof recipeV4Schema>;
+
+/** Which inherited property a decision of generator 0.4.0 proves. */
+export function provedProperty(
+  path: string,
+): { property: (typeof inheritedPropertyNames)[number]; at: string } | null {
+  const family = /^layers\.(background|structure|accent)\.family$/.exec(path);
+  if (family) return { property: 'family', at: path };
+  const element = /^(elements\.(?:0|[1-9]\d*))\.(.+)$/.exec(path);
+  if (!element) return null;
+  if (element[2] === 'fill.color')
+    return { property: 'color', at: element[1]! };
+  if (/^(kind|width|height|x|y)$/.test(element[2]!))
+    return { property: 'form', at: element[1]! };
+  return null;
+}
 
 export function readTraitV3(
   dna: DnaV3,
@@ -386,7 +427,7 @@ export function readTraitV3(
 export const artworkV3Schema = z
   .strictObject({
     schemaVersion: z.literal(3),
-    generatorVersion: z.literal('0.3.0'),
+    generatorVersion: z.enum(['0.3.0', '0.4.0']),
     rendererVersion: z.literal('2'),
     lexiconVersion: version,
     id: workDateSchema,
@@ -432,7 +473,7 @@ export const artworkV3Schema = z
       type: z.enum(['origin', 'hybrid']),
       evaluatedParentIds: z.array(workDateSchema).max(2),
       decisions: z.array(evidenceV3Schema).max(240),
-      recipe: recipeV3Schema,
+      recipe: z.union([recipeV3Schema, recipeV4Schema]),
     }),
   })
   .superRefine((work, ctx) => {
@@ -460,17 +501,58 @@ export const artworkV3Schema = z
     if (origin && work.evolution.decisions.length > 0)
       fail('Ursprungswerke haben keine Vererbungsbelege.');
     const { recipe } = work.evolution;
-    if (
-      layerNames.some((name) => !recipe.layers[name] !== !work.dna.layers[name])
-    )
-      fail('Rezept und DNA nennen unterschiedliche Ebenen.');
-    if (
-      origin &&
-      (recipe.palette !== 'new' ||
-        recipe.mutationJump ||
-        layerNames.some((name) => (recipe.layers[name] ?? 'new') !== 'new'))
-    )
-      fail('Ursprungswerke entstehen vollständig neu.');
+    if ('inherited' in recipe !== (work.generatorVersion === '0.4.0'))
+      fail('Rezept passt nicht zur Generatorversion.');
+    if ('layers' in recipe) {
+      if (
+        layerNames.some(
+          (name) => !recipe.layers[name] !== !work.dna.layers[name],
+        )
+      )
+        fail('Rezept und DNA nennen unterschiedliche Ebenen.');
+      if (
+        origin &&
+        (recipe.palette !== 'new' ||
+          recipe.mutationJump ||
+          layerNames.some((name) => (recipe.layers[name] ?? 'new') !== 'new'))
+      )
+        fail('Ursprungswerke entstehen vollständig neu.');
+    } else {
+      if (origin && (recipe.inherited.length > 0 || recipe.mutationJump))
+        fail('Ursprungswerke entstehen vollständig neu.');
+      (['parentA', 'parentB'] as const).forEach((parent, position) => {
+        const named = recipe.inherited.filter(
+          (entry) => entry.parent === parent,
+        );
+        if (named.length > MAX_INHERITED_PER_PARENT)
+          fail('Höchstens drei vererbte Eigenschaften je Elternteil.');
+        if (!origin && work.inheritanceMode === 'traceable' && !named.length)
+          fail(
+            'Nachvollziehbare Vererbung braucht Eigenschaften beider Eltern.',
+          );
+        // Every named property is proven by decisions of this parent, and
+        // the decisions prove nothing beyond the named properties.
+        const proved = new Map<string, Set<string>>();
+        for (const decision of work.evolution.decisions) {
+          if (decision.parentId !== work.parentIds[position]) continue;
+          const found = provedProperty(decision.target.path);
+          if (!found || decision.operation.kind === 'constrained') {
+            fail('Beleg nennt keine vererbbare Eigenschaft.');
+            continue;
+          }
+          proved.set(
+            found.property,
+            (proved.get(found.property) ?? new Set()).add(found.at),
+          );
+        }
+        for (const property of inheritedPropertyNames)
+          if (
+            named.filter((entry) => entry.property === property).length !==
+            (proved.get(property)?.size ?? 0)
+          )
+            fail('Rezept und Belege nennen unterschiedliche Eigenschaften.');
+      });
+    }
     for (const decision of work.evolution.decisions) {
       if (!work.parentIds.includes(decision.parentId))
         fail('Beleg verweist auf ein fremdes Elternwerk.');

@@ -41,7 +41,7 @@ export function bounds(element: Element): Box {
   };
 }
 /** Separating axis test of two oriented boxes; touching is no overlap. */
-function overlaps(a: Box, b: Box) {
+export function overlaps(a: Box, b: Box) {
   const axes = [a.turn, a.turn + Math.PI / 2, b.turn, b.turn + Math.PI / 2];
   const reach = (box: Box, axis: number) =>
     box.halfWidth * Math.abs(Math.cos(axis - box.turn)) +
@@ -128,6 +128,29 @@ export function isAnchor(dna: DnaV3, index: number): boolean {
   return (
     weakestContrast(fillColors(element.fill), box, dna, index) >=
     ANCHOR_MIN_CONTRAST
+  );
+}
+/**
+ * Generator 0.4.0: a form of any kind that lies uncovered and reads against
+ * what lies below. Proves that an inherited layer family shows in the work.
+ */
+export function showsForm(dna: DnaV3, index: number): boolean {
+  const element = dna.elements[index];
+  if (!element || element.opacity < ANCHOR_MIN_OPACITY) return false;
+  const box = bounds(element);
+  if (
+    dna.elements.slice(index + 1).some((later) => overlaps(bounds(later), box))
+  )
+    return false;
+  return (
+    weakestContrast(fillColors(element.fill), box, dna, index) >=
+    ANCHOR_MIN_CONTRAST
+  );
+}
+/** Generator 0.4.0: at least one form of the layer shows in the work. */
+export function layerShows(dna: DnaV3, name: Element['layer']): boolean {
+  return dna.elements.some(
+    (element, index) => element.layer === name && showsForm(dna, index),
   );
 }
 /** Index of the first visible anchor, or -1. */

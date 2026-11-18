@@ -33,6 +33,8 @@ function Evidence({ work }: { work: ArtworkV3 }) {
     (decision) => decision.operation.kind !== 'constrained',
   );
   const converted = decisions.length - contributions.length;
+  // Stored chains of generator 0.3.0 only; they name layers and palette.
+  if (!('layers' in recipe)) return null;
   const layers = (['background', 'structure', 'accent'] as const)
     .filter((name) => recipe.layers[name])
     .map(

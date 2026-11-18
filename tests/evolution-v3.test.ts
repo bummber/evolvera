@@ -22,11 +22,15 @@ import {
   loadLimitsV3,
   type AnyArtwork,
   type ArtworkV3,
+  type RecipeV3,
 } from '../src/art/schema/artwork-v3';
 import { chainCollectionV3Schema } from '../src/art/schema/chains-v3';
 import type { SettingsSnapshot } from '../src/art/schema/preview-v3';
 import { defaultProfile, type Profile } from '../src/art/schema/profile';
 import { generateTitle } from '../src/art/titles/generate';
+
+/** Works of generator 0.3.0 name layers and palette in their recipe. */
+const recipeOf = (work: ArtworkV3) => work.evolution.recipe as RecipeV3;
 
 const stored = chainCollectionV3Schema.parse(
   JSON.parse(readFileSync('fixtures/preview/ep01-chains.json', 'utf8')),
@@ -170,8 +174,8 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
           expect(
             isAnchor(work.dna, Number(decision.target.path.split('.')[1])),
           ).toBe(true);
-        heritages.add(work.evolution.recipe.palette);
-        for (const heritage of Object.values(work.evolution.recipe.layers))
+        heritages.add(recipeOf(work).palette);
+        for (const heritage of Object.values(recipeOf(work).layers))
           heritages.add(heritage);
       }
     }
@@ -198,7 +202,7 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
       for (const work of chain.works.slice(2)) {
         if (contributions(work).length) withEvidence++;
         else without++;
-        const { recipe } = work.evolution;
+        const recipe = recipeOf(work);
         if (
           recipe.palette === 'new' &&
           Object.values(recipe.layers).every((heritage) => heritage === 'new')
@@ -294,7 +298,7 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
     expect(work.title).toBe(title.title);
     expect(work.titleDna.parentFragments).toEqual(title.parentFragments);
     expect(traceable.works[0]!.evolution.type).toBe('origin');
-    expect(traceable.works[0]!.evolution.recipe.palette).toBe('new');
+    expect(recipeOf(traceable.works[0]!).palette).toBe('new');
   });
 
   it('verwirft fehlende, vertauschte und falsche Eltern', () => {
@@ -538,7 +542,7 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
               .flatMap((parent) => parent.dna.elements)
               .map((e) => `${e.x}:${e.y}:${e.width}:${e.height}`),
           );
-          const inheritedLayers = Object.entries(work.evolution.recipe.layers)
+          const inheritedLayers = Object.entries(recipeOf(work).layers)
             .filter(([, heritage]) => heritage !== 'new')
             .map(([name]) => name);
           for (const e of work.dna.elements) {
@@ -566,7 +570,7 @@ describe('Generator 0.3.0: Evolution und Belege', { timeout: 120_000 }, () => {
         }).works)
           if (work.evolution.recipe.mutationJump) {
             count++;
-            expect(work.evolution.recipe.palette).toBe('new');
+            expect(recipeOf(work).palette).toBe('new');
           }
       return count;
     };

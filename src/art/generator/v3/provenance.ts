@@ -4,7 +4,7 @@ import {
   type AnyArtwork,
   type ArtworkV3,
 } from '../../schema/artwork-v3';
-import { featuresOf, findAnchor, isAnchor } from './checks';
+import { featuresOf, findAnchor, isAnchor, layerShows } from './checks';
 import {
   assertHistory,
   contextDigest,
@@ -23,6 +23,7 @@ import { canonicalJson, sha256 } from './sha256';
 // the frozen settings were kept.
 
 const elementTarget = /^elements\.(0|[1-9]\d*)\./;
+const familyTarget = /^layers\.(background|structure|accent)\.family$/;
 
 /**
  * With `history` (the ordered works right before this one) the similarity
@@ -80,9 +81,16 @@ export function validateEvolutionV3(
         fail('Umwandlung beruft sich auf eine Regel, die nicht gilt.');
       continue;
     }
-    // Copies and offsets claim a contribution: only on a visible form.
+    // Copies and offsets claim a contribution: only on a visible form, or
+    // (generator 0.4.0) as the family of a layer that shows in the work.
+    const family = familyTarget.exec(target.path);
     const match = elementTarget.exec(target.path);
-    if (!match || !isAnchor(dna, Number(match[1])))
+    if (
+      family
+        ? work.generatorVersion !== '0.4.0' ||
+          !layerShows(dna, family[1] as 'background' | 'structure' | 'accent')
+        : !match || !isAnchor(dna, Number(match[1]))
+    )
       fail('Belegtes Merkmal ist nicht nachweisbar sichtbar.');
     contributions.add(decision.parentId);
   }

@@ -84,6 +84,22 @@ function ruleLabel(rule: string) {
     return `weil die Familie „${familyLabels[key] ?? key}“ nicht aktiv ist`;
   return `nach der Regel ${rule}`;
 }
+const propertyLabels = { color: 'Farbe', form: 'Form', family: 'Familie' };
+/** Generator 0.4.0: single properties per parent instead of whole layers. */
+function inheritedSummary(
+  inherited: readonly {
+    parent: 'parentA' | 'parentB';
+    property: keyof typeof propertyLabels;
+  }[],
+) {
+  const parts = (['parentA', 'parentB'] as const).map((parent) => {
+    const named = inherited
+      .filter((entry) => entry.parent === parent)
+      .map((entry) => propertyLabels[entry.property]);
+    return `Elternteil ${parent === 'parentA' ? 'A' : 'B'}: ${named.length ? named.join(', ') : 'nichts'}`;
+  });
+  return `Übernommene Eigenschaften – ${parts.join(' · ')}. Alles andere wurde neu aufgebaut.`;
+}
 const anchorLabels = {
   natural: 'war schon vorhanden',
   promoted: 'wurde nach vorn geholt',
@@ -166,9 +182,12 @@ export function WorkProvenanceV3({
     conversions.set(key, [...(conversions.get(key) ?? []), decision]);
   }
   const legacy = parents.filter((parent) => parent.schemaVersion !== 3);
-  const layers = (Object.keys(layerLabels) as LayerName[]).filter(
-    (name) => recipe.layers[name],
-  );
+  const layers =
+    'layers' in recipe
+      ? (Object.keys(layerLabels) as LayerName[]).filter(
+          (name) => recipe.layers[name],
+        )
+      : [];
   return (
     <section className="work-provenance" aria-labelledby="provenance-heading">
       <h2 id="provenance-heading">Was weiterlebt.</h2>
@@ -283,12 +302,14 @@ export function WorkProvenanceV3({
         <p>
           {work.generation < 3
             ? 'Alle Ebenen und die Palette wurden neu aufgebaut.'
-            : `${layers
-                .map(
-                  (name) =>
-                    `${layerLabels[name]}: ${heritageLabels[recipe.layers[name]!]}`,
-                )
-                .join(' · ')}. Palette: ${heritageLabels[recipe.palette]}.`}
+            : 'inherited' in recipe
+              ? inheritedSummary(recipe.inherited)
+              : `${layers
+                  .map(
+                    (name) =>
+                      `${layerLabels[name]}: ${heritageLabels[recipe.layers[name]!]}`,
+                  )
+                  .join(' · ')}. Palette: ${heritageLabels[recipe.palette]}.`}
           {recipe.mutationJump ? ' Mit Mutationssprung.' : ''}
         </p>
         <p>
