@@ -1,5 +1,56 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 18.11.2026, Neustart mit Generator 0.4.0 vorbereitet (nicht gepusht)
+
+Auftrag des Betreibers (18.11.): Die Vererbung soll nur einzelne Eigenschaften
+der beiden letzten Vorfahren weitergeben, nicht Elemente aller Vorgänger. Dazu:
+je Elternteil höchstens drei Eigenschaften, die Familie einer Ebene zählt, auch
+`free` begrenzt. Testphase: Werke dürfen gelöscht werden, „nie löschen“-Grenzen
+entfallen, kein sanfter Übergang. Neustart ab 19.11., leichte Abnahme, Fetch
+freigegeben. Geplant ohne Auftrag: Serienneustart nach einem Wert von einem
+Monat, Favoritengalerie (Werk und direkte Eltern vom Löschen ausgenommen).
+
+- **Befund vorher:** Generator 0.3.0 nutzte nur die zwei direkten Eltern, erbte
+  aber ganze Ebenen mit allen Formen (`traceable` rund 80 % je Ebene). Vererbte
+  Ebenen lebten in Simulationen im Schnitt 6,8, höchstens 25 Generationen; das
+  verlängerte volle Phasen. Das Werk vom 17.11. war dagegen voll durch Neuaufbau.
+- **Git:** Fetch; Remote-Archivcommit `e89e80c` (Werk 18.11.) übernommen, der
+  lokale Doku-Commit per Rebase darauf gesetzt (`0504c65`).
+- **Generator 0.4.0** (`src/art/generator/v3/traits.ts`): Je Elternteil 0–3
+  (`free`) bzw. 1–3 (`traceable`) Eigenschaften: Farbe, Form oder Familie;
+  der Rest entsteht wie ein Ursprungswerk. Jede Eigenschaft ist belegt und
+  sichtbar (Form und Farbe als Sichtbarkeitsanker, Familie über eine unverdeckte
+  lesbare Form ihrer Ebene). Liest sich eine geerbte Farbe nirgends, räumt ein
+  Fenster bis zu acht neue Formen weg (nie geerbte). Schema 3 additiv erweitert
+  (`recipeV4Schema`), Renderer 2 unverändert, 0.3.0 und seine Fixtures
+  unverändert.
+- **Simulation:** 3.520 Werke in Standard-, Ruhig-, Wild- und Reduziert-Profil,
+  beide Modi: keine Kette ohne Werk, höchster Versuch 11 von 16. Ø Elemente
+  Standard `traceable` 29,3, `free` 28,4 (unabhängige Ursprünge ≈ 29;
+  0.3.0 `traceable` 33,6 mit Kettenstreuung 23–54).
+- **Leichte Abnahme:** `fixtures/preview/review-v4.json`, je Modus 20 Werke im
+  Standardprofil, SHA-256
+  `2d2f8a7651706d7e54f61ba488adc5bfe761842cd7f668d66e9981cb77cb40e1`;
+  in der Galerie als „Abnahme 0.4.0 · …“. `artReviewV4` in
+  `config/release.json` fehlt bis zur Freigabe; ohne sie stoppt der Tageslauf
+  für 0.4.0 sicher.
+- **Löschen:** Der Tageslauf holt gelöschte Werke nicht mehr aus Git zurück;
+  veränderte vorhandene Werke weiterhin exakt; Lücke mitten in der Kette stoppt.
+- **Neustart:** Werke 04.–18.11. aus `public/artworks` entfernt, als Testdaten
+  nach `tests/fixtures/legacy-archive/` verschoben; Index leer;
+  `config/generation.json` Revision 7, Start 19.11.2026; Archiv-Baseline leer
+  (14 Markup-Dateien und 28 Bilder entfernt). `generatorV4Date` 19.11.
+- **Regeln:** `AGENTS.md`, `CLAUDE.md`, `docs/PRD.md`, `PRD-EP01.md` angepasst.
+- **Commits (lokal):** `e11c41f`, `5dd73f6`, `901b222`, `df059f1`, `346961c`,
+  `a940028`, `e0cc96d` und dieser Doku-Commit.
+- **Prüfungen:** `npm run check` grün (429 Tests vor dem Fix, Datenprüfung 0
+  Werke, alle Abnahmewerke reproduziert), `npm run test:browser` 152 bestanden,
+  6 planmäßig übersprungen. Nach dem Galerie-Fix erneut geprüft (siehe unten).
+- **Offen:** Abnahme der 40 Werke durch den Betreiber, dann `artReviewV4`
+  eintragen, prüfen und nach Freigabe pushen. Nicht geprüft: Firefox/Safari,
+  Linux-Runner. Die zurückgestellte EP-01-Inbetriebnahme (Worker-Deployment,
+  P9) ruht; deren Grenzen „nichts löschen“ gelten nicht mehr.
+
 ## Nachtrag – 17.11.2026, EP-01 P8 umgesetzt: Baseline, Bauplan, P8a veröffentlicht, Einstellungsseite und Worker-API committet
 
 Auftrag: P8 „Betreiberoberfläche“ nach `docs/NEXT-START.md`. Der Betreiber

@@ -1,4 +1,34 @@
-# Aktueller Startprompt – EP-01: Inbetriebnahme der Einstellungsseite und P9 Abschluss
+# Aktueller Startprompt – Neustart mit Generator 0.4.0: Abnahme und Push
+
+```text
+Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
+mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
+CLAUDE.md, den neuesten HANDOFF (18.11.2026) und diesen Startprompt lesen,
+dann /sichtung ausführen.
+
+Stand: Generator 0.4.0 (Vererbung einzelner Eigenschaften, höchstens drei je
+Elternteil) ist lokal committet, ebenso der Neustart der Serie ab 19.11.2026
+(Archiv leer, Revision 7) und die Regeln für das Löschen in der Testphase.
+Die leichte Abnahme (je Modus 20 Werke, fixtures/preview/review-v4.json) liegt
+dem Betreiber vor; artReviewV4 in config/release.json fehlt bis zur Freigabe.
+
+1. Nach der Freigabe artReviewV4 eintragen (generatorVersion 0.4.0,
+   rendererVersion 2, approvedOn, workCount 40, Aussage des Betreibers,
+   SHA-256 der Fixture), npm run check und npm run test:browser ausführen.
+2. Push nur nach Rückfrage. Der Push veröffentlicht das leere Archiv; der
+   Tageslauf am 19.11. um 01:17 erzeugt Generation 1. Ohne artReviewV4 stoppt
+   er sicher, ein späterer Lauf holt die fälligen Tage nach.
+3. Danach den ersten Lauf belegen und gemeinsam sichten.
+
+Später, jeweils mit eigenem Auftrag: Rest von EP-01 (Worker-Deployment der
+Einstellungsseite, P9), Serienneustart nach einem Wert von einem Monat,
+Favoritengalerie (Werk und direkte Eltern vom Löschen ausgenommen).
+```
+
+## Historischer Startprompt – EP-01: Inbetriebnahme der Einstellungsseite und P9 Abschluss (ruht seit 18.11.2026)
+
+Hinweis: Die Grenzen „nichts löschen“ und „keine Änderung an Generator 0.3.0“
+dieses Prompts sind durch die Betreiberentscheidung vom 18.11.2026 überholt.
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
