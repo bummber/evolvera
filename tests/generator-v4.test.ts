@@ -1,4 +1,5 @@
 // @vitest-environment node
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import releaseRecord from '../config/release.json';
@@ -109,6 +110,20 @@ describe('Generator 0.4.0: Vererbung einzelner Eigenschaften', () => {
         expect(layerShows(work.dna, match[1] as 'background')).toBe(true);
       }
     expect(families).toBeGreaterThan(0);
+  });
+
+  it('ist im veröffentlichten Stand abgenommen und an die Abnahmewerke gebunden', () => {
+    expect(releaseRecord.artReviewV4).toMatchObject({
+      generatorVersion: '0.4.0',
+      rendererVersion: '2',
+      approvedOn: '2026-11-18',
+      workCount: 40,
+    });
+    expect(releaseRecord.artReviewV4.fixtureSha256.standard).toBe(
+      createHash('sha256')
+        .update(readFileSync('fixtures/preview/review-v4.json'))
+        .digest('hex'),
+    );
   });
 
   it('reproduziert die Abnahmewerke deterministisch', () => {

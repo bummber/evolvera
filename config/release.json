@@ -29,5 +29,15 @@
       "standard": "2d4e5f3eb7c43606edb054f5622e8462b305f61c6949941c20fec38b4f206784",
       "profiles": "e5aa7862d852a3571eae6037e0029b58bf5e36728e611bb6578fd07295f7ad7d"
     }
+  },
+  "artReviewV4": {
+    "generatorVersion": "0.4.0",
+    "rendererVersion": "2",
+    "approvedOn": "2026-11-18",
+    "workCount": 40,
+    "statement": "Die Werke sind so abgenommen",
+    "fixtureSha256": {
+      "standard": "2d2f8a7651706d7e54f61ba488adc5bfe761842cd7f668d66e9981cb77cb40e1"
+    }
   }
 }

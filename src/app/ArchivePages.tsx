@@ -229,7 +229,7 @@ function CollectionBar({ source }: { source: CollectionKey }) {
             ? 'Gespeicherte Werke der offiziellen Serie.'
             : 'Die offizielle Serie hat noch nicht begonnen.'
           : ep01Info[source]?.v4
-            ? `Abnahmewerke von Generator 0.4.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Je Elternteil höchstens drei übernommene Eigenschaften; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
+            ? `Abnahmewerke von Generator 0.4.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Je Elternteil höchstens drei übernommene Eigenschaften. Am 18.11.2026 abgenommen; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
             : ep01Info[source]?.review
               ? `Abnahmewerke von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Am 12.11.2026 abgenommen; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
               : ep01Info[source]
@@ -1120,7 +1120,7 @@ function WorkPresentation({
       {reader.key !== 'official' && (
         <p className="atelier-notice">
           {ep01Info[reader.key]?.v4 ? (
-            'Abnahmewerk von Generator 0.4.0 aus einer getrennten Kette. Die Daten sind simuliert; nicht Teil des offiziellen Archivs.'
+            'Abnahmewerk von Generator 0.4.0 aus einer getrennten Kette. Die Daten sind simuliert. Am 18.11.2026 abgenommen; nicht Teil des offiziellen Archivs.'
           ) : ep01Info[reader.key]?.review ? (
             'Abnahmewerk von Generator 0.3.0 aus einer getrennten Kette. Die Daten sind simuliert. Am 12.11.2026 abgenommen; nicht Teil des offiziellen Archivs.'
           ) : ep01Info[reader.key] ? (
