@@ -131,7 +131,14 @@ export async function openCollection(
     signal?.throwIfAborted();
     return previewReader(key);
   }
-  if ((acceptanceCollections as readonly string[]).includes(key)) {
+  if (
+    (
+      [
+        ...acceptanceCollections,
+        ...acceptanceCollectionsV4,
+      ] as readonly string[]
+    ).includes(key)
+  ) {
     const { acceptanceReader } = await import('../preview/acceptance');
     signal?.throwIfAborted();
     return acceptanceReader(key as AcceptanceCollection);

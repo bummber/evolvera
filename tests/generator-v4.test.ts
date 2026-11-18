@@ -17,7 +17,11 @@ import {
 import { acceptanceCollectionV4Schema } from '../src/art/schema/chains-v3';
 import { readArchive } from '../src/automation/archive';
 import { prepareRun } from '../src/automation/plan';
-import { acceptanceCollectionsV4, collectionKey } from '../src/archive/reader';
+import {
+  acceptanceCollectionsV4,
+  collectionKey,
+  openCollection,
+} from '../src/archive/reader';
 import { acceptanceWorks } from '../src/preview/acceptance';
 import { generatorV4Date, generatorVersionFor } from '../src/series/calendar';
 
@@ -235,6 +239,12 @@ describe('Abnahmesammlungen von Generator 0.4.0', () => {
       expect(collectionKey(new URLSearchParams(`sammlung=${key}`))).toBe(key);
       const works = await acceptanceWorks(key);
       expect(works).toHaveLength(20);
+      // The gallery opens the collection through the shared reader.
+      const reader = await openCollection(key);
+      expect(reader.index.works).toHaveLength(20);
+      expect((await reader.read(works.at(-1)!.id)).generatorVersion).toBe(
+        '0.4.0',
+      );
     }
   });
 });
