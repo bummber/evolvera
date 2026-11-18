@@ -4,7 +4,11 @@ import type { PreviewChainV3 } from '../schema/chains-v3';
 import { defaultProfile, type Profile } from '../schema/profile';
 import { validatePreviewChainV3 } from './preview-chain-v3';
 import { MAX_NOVELTY_WINDOW } from './v3/distance';
-import { generateArtworkV3, type NoveltyTuning } from './v3/evolve';
+import {
+  generateArtworkV3,
+  generateArtworkV4,
+  type NoveltyTuning,
+} from './v3/evolve';
 import { featureNames } from './v3/kit';
 
 // EP-01 P7: the works shown to the operator for the art review of generator
@@ -79,7 +83,13 @@ export function createAcceptanceChain(
   spec: AcceptanceSpec,
   tuning?: NoveltyTuning,
   observe?: (generation: number, distance: number | null) => void,
+  /** Generator 0.4.0 for its own light review (operator, 2026-11-18). */
+  generator: '0.3.0' | '0.4.0' = '0.3.0',
 ): PreviewChainV3 {
+  const generate =
+    generator === '0.4.0' ? generateArtworkV4 : generateArtworkV3;
+  const prefix =
+    generator === '0.4.0' ? 'evolvera:v4:review' : 'evolvera:ep01:review';
   const works: ArtworkV3[] = [];
   const simulationStart = '2000-01-01';
   let workDate = simulationStart;
@@ -88,7 +98,7 @@ export function createAcceptanceChain(
     const at = (offset: number) =>
       new Date(Date.parse(planned) + offset).toISOString();
     works.push(
-      generateArtworkV3(
+      generate(
         {
           generation,
           workDate,
@@ -101,7 +111,7 @@ export function createAcceptanceChain(
           settingsRevision: 1,
           parents: generation <= 2 ? [] : works.slice(-2),
           history: works.slice(-MAX_NOVELTY_WINDOW),
-          seed: `evolvera:ep01:review:${spec.key}:${generation}`,
+          seed: `${prefix}:${spec.key}:${generation}`,
           usedTitles: works.map((work) => work.title),
         },
         () => at(2000),

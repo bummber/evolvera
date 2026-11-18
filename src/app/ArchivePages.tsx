@@ -6,6 +6,7 @@ import {
   berlinCycleDate,
   collectionKey,
   acceptanceCollections,
+  acceptanceCollectionsV4,
   collectionLink,
   ep01Collections,
   loadWorkContext,
@@ -110,9 +111,28 @@ function Failure({ work = false }: { work?: boolean }) {
 const ep01Info: Partial<
   Record<
     CollectionKey,
-    { option: string; count: number; eyebrow: string; review?: true }
+    {
+      option: string;
+      count: number;
+      eyebrow: string;
+      review?: true;
+      /** Light review of generator 0.4.0, presented on 2026-11-18. */
+      v4?: true;
+    }
   >
 > = {
+  'abnahme-v4-traceable': {
+    option: 'Abnahme 0.4.0 · Nachvollziehbare Vererbung',
+    count: 20,
+    eyebrow: 'Abnahmewerke · Standardprofil · zwanzig Generationen',
+    v4: true,
+  },
+  'abnahme-v4-free': {
+    option: 'Abnahme 0.4.0 · Maximale Freiheit',
+    count: 20,
+    eyebrow: 'Abnahmewerke · Standardprofil · zwanzig Generationen',
+    v4: true,
+  },
   // EP-01 P7: the works of the art review of generator 0.3.0 (approved).
   'abnahme-traceable': {
     option: 'Abnahme 0.3.0 · Nachvollziehbare Vererbung',
@@ -196,7 +216,7 @@ function CollectionBar({ source }: { source: CollectionKey }) {
               {ep01Info[key]!.option}
             </option>
           ))}
-          {acceptanceCollections.map((key) => (
+          {[...acceptanceCollectionsV4, ...acceptanceCollections].map((key) => (
             <option key={key} value={key}>
               {ep01Info[key]!.option}
             </option>
@@ -208,11 +228,13 @@ function CollectionBar({ source }: { source: CollectionKey }) {
           ? initialSettings.generationEnabled
             ? 'Gespeicherte Werke der offiziellen Serie.'
             : 'Die offizielle Serie hat noch nicht begonnen.'
-          : ep01Info[source]?.review
-            ? `Abnahmewerke von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Am 12.11.2026 abgenommen; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
-            : ep01Info[source]
-              ? `Probekette von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Keine offizielle Serie und keine Kunstabnahme. Die Auswahl ändert keine Einstellung.`
-              : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
+          : ep01Info[source]?.v4
+            ? `Abnahmewerke von Generator 0.4.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Je Elternteil höchstens drei übernommene Eigenschaften; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
+            : ep01Info[source]?.review
+              ? `Abnahmewerke von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Am 12.11.2026 abgenommen; keine offizielle Serie. Die Auswahl ändert keine Einstellung.`
+              : ep01Info[source]
+                ? `Probekette von Generator 0.3.0 · ${ep01Info[source].count} Werke · simulierte Daten im Januar 2000. Keine offizielle Serie und keine Kunstabnahme. Die Auswahl ändert keine Einstellung.`
+                : 'Testsammlung · 20 Werke · simulierte Daten im Januar 2000. Keine offizielle Serie. Die Auswahl ändert keine Einstellung.'}
       </p>
       <Link to="/kunstpruefung">Zur gemeinsamen Kunstsichtung ↗</Link>
     </section>
@@ -1097,7 +1119,9 @@ function WorkPresentation({
       {todayLabel && !initialSettings.generationEnabled && <SeriesInfo />}
       {reader.key !== 'official' && (
         <p className="atelier-notice">
-          {ep01Info[reader.key]?.review ? (
+          {ep01Info[reader.key]?.v4 ? (
+            'Abnahmewerk von Generator 0.4.0 aus einer getrennten Kette. Die Daten sind simuliert; nicht Teil des offiziellen Archivs.'
+          ) : ep01Info[reader.key]?.review ? (
             'Abnahmewerk von Generator 0.3.0 aus einer getrennten Kette. Die Daten sind simuliert. Am 12.11.2026 abgenommen; nicht Teil des offiziellen Archivs.'
           ) : ep01Info[reader.key] ? (
             'Probewerk von Generator 0.3.0 aus einer getrennten Probekette. Die Daten sind simuliert. Keine Kunstabnahme; nicht Teil des offiziellen Archivs.'

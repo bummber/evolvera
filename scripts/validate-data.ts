@@ -40,6 +40,16 @@ if (release.artReviewV3)
         'Abgenommene Werke von Generator 0.3.0 wurden verändert. Neue Abnahme erforderlich.',
       );
   }
+// Light review of generator 0.4.0 (operator decision of 2026-11-18).
+if (release.artReviewV4) {
+  const digest = createHash('sha256')
+    .update(await readFile('fixtures/preview/review-v4.json'))
+    .digest('hex');
+  if (digest !== release.artReviewV4.fixtureSha256.standard)
+    throw new Error(
+      'Abgenommene Werke von Generator 0.4.0 wurden verändert. Neue Abnahme erforderlich.',
+    );
+}
 const files = new Map<string, string>();
 for (const file of await readdir('public/artworks', { recursive: true })) {
   if (file.endsWith('.json'))

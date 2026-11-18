@@ -1,5 +1,8 @@
 import type { AnyArtwork } from '../art/schema/artwork-v3';
-import { acceptanceCollectionV3Schema } from '../art/schema/chains-v3';
+import {
+  acceptanceCollectionV3Schema,
+  acceptanceCollectionV4Schema,
+} from '../art/schema/chains-v3';
 import { createReader } from '../archive/reader';
 import type { AcceptanceCollection } from '../archive/reader';
 
@@ -31,15 +34,26 @@ const sources: Record<
     load: () => import('../../fixtures/preview/ep01-review-profiles.json'),
     chain: 'reduced',
   },
+  'abnahme-v4-traceable': {
+    load: () => import('../../fixtures/preview/review-v4.json'),
+    chain: 'traceable',
+  },
+  'abnahme-v4-free': {
+    load: () => import('../../fixtures/preview/review-v4.json'),
+    chain: 'free',
+  },
 };
 
 export async function acceptanceWorks(
   key: AcceptanceCollection,
 ): Promise<readonly AnyArtwork[]> {
   const { load, chain } = sources[key];
-  const found = acceptanceCollectionV3Schema
-    .parse((await load()).default)
-    .chains.find((candidate) => candidate.key === chain);
+  const raw = (await load()).default;
+  const found = (
+    key.startsWith('abnahme-v4-')
+      ? acceptanceCollectionV4Schema.parse(raw)
+      : acceptanceCollectionV3Schema.parse(raw)
+  ).chains.find((candidate) => candidate.key === chain);
   if (!found) throw new Error(`Abnahmekette ${chain} fehlt.`);
   return found.works;
 }

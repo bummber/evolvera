@@ -41,3 +41,20 @@ export const acceptanceCollectionV3Schema = z.strictObject({
   profiles: z.enum(['standard', 'deviating']),
   chains: z.array(previewChainV3Schema).min(1).max(4),
 });
+
+// Light review of generator 0.4.0 (operator, 2026-11-18): one chain of 20
+// works per inheritance mode in the standard profile.
+export const acceptanceCollectionV4Schema = z.strictObject({
+  schemaVersion: z.literal(1),
+  purpose: z.literal('v4-acceptance-preview-only'),
+  profiles: z.literal('standard'),
+  chains: z
+    .array(
+      previewChainV3Schema.refine(
+        (chain) =>
+          chain.works.every((work) => work.generatorVersion === '0.4.0'),
+        'Abnahmeketten von Generator 0.4.0 enthalten nur dessen Werke.',
+      ),
+    )
+    .length(2),
+});

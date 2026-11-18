@@ -25,7 +25,14 @@ export const acceptanceCollections = [
   'abnahme-wild',
   'abnahme-reduziert',
 ] as const;
-export type AcceptanceCollection = (typeof acceptanceCollections)[number];
+// Light review of generator 0.4.0 (operator decision of 2026-11-18).
+export const acceptanceCollectionsV4 = [
+  'abnahme-v4-traceable',
+  'abnahme-v4-free',
+] as const;
+export type AcceptanceCollection =
+  | (typeof acceptanceCollections)[number]
+  | (typeof acceptanceCollectionsV4)[number];
 export type CollectionKey =
   'official' | 'traceable' | 'free' | Ep01Collection | AcceptanceCollection;
 const previewKeys: readonly string[] = [
@@ -33,6 +40,7 @@ const previewKeys: readonly string[] = [
   'free',
   ...ep01Collections,
   ...acceptanceCollections,
+  ...acceptanceCollectionsV4,
 ];
 export type ArchiveReader = {
   key: CollectionKey;

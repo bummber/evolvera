@@ -35,6 +35,18 @@ export const releaseSchema = z.strictObject({
       fixtureSha256: z.strictObject({ standard: digest, profiles: digest }),
     })
     .optional(),
+  // Operator decision of 2026-11-18: a light review of generator 0.4.0, one
+  // chain of 20 works per inheritance mode in the standard profile.
+  artReviewV4: z
+    .strictObject({
+      generatorVersion: z.literal('0.4.0'),
+      rendererVersion: z.literal('2'),
+      approvedOn: z.iso.date(),
+      workCount: z.number().int().min(20).max(50),
+      statement: z.string().min(1).max(1000),
+      fixtureSha256: z.strictObject({ standard: digest }),
+    })
+    .optional(),
 });
 export type Release = z.infer<typeof releaseSchema>;
 export function assertSeriesGate(
@@ -63,14 +75,15 @@ export function assertTitleGate(release: Release, lexiconVersion: string) {
       `Dokumentierte Titelabnahme für Lexikon ${lexiconVersion} fehlt.`,
     );
 }
-/** Generator 0.2.0 is covered by the art review; 0.3.0 needs its own. */
+/** Generator 0.2.0 is covered by the art review; 0.3.0 and 0.4.0 need their own. */
 export function assertGeneratorGate(
   release: Release,
   generatorVersion: string,
 ) {
   if (
     generatorVersion !== release.artReview.generatorVersion &&
-    release.artReviewV3?.generatorVersion !== generatorVersion
+    release.artReviewV3?.generatorVersion !== generatorVersion &&
+    release.artReviewV4?.generatorVersion !== generatorVersion
   )
     throw new Error(
       `Dokumentierte Kunstabnahme für Generator ${generatorVersion} fehlt.`,
