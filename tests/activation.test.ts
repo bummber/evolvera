@@ -391,26 +391,17 @@ describe('Generatorwechsel in isolierten Git-Repositories', () => {
       options,
     );
     expect(again.changes.size).toBe(0);
-    // A deleted schema 3 work comes back from its first Git bytes.
+    // Test phase (operator, 2026-11-18): a deliberately deleted work is not
+    // brought back from Git. As the last day it is due again.
     const lost = `public/artworks/${runDay.slice(0, 4)}/${runDay}.json`;
-    const original = git(root, ['show', `${second}:${lost}`]);
     git(root, ['fetch', 'origin', 'main']);
     git(root, ['reset', '--hard', second]);
     git(root, ['rm', '-q', lost]);
-    git(root, ['commit', '-m', 'Test damage']);
-    const damaged = git(root, ['rev-parse', 'HEAD']).trim();
-    const repair = planAt(
-      root,
-      damaged,
-      at(runDay),
-      () => {
-        throw new Error('Keine Neuerzeugung');
-      },
-      options,
-    );
-    expect(repair.restored).toEqual([lost]);
-    expect(repair.added).toEqual([]);
-    expect(repair.files.get(lost)).toBe(original);
+    git(root, ['commit', '-m', 'Delete the last work']);
+    const deleted = git(root, ['rev-parse', 'HEAD']).trim();
+    const rerun = planAt(root, deleted, at(runDay), clock(runDay), options);
+    expect(rerun.restored).toEqual([]);
+    expect(rerun.added).toEqual([lost]);
     // Many real git processes: exceeded the default 5 s on the CI runner.
   }, 120_000);
 });

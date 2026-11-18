@@ -51,29 +51,32 @@ export function archiveAt(root: string, revision: string) {
   }
   return files;
 }
+/**
+ * Canonical bytes of every work the revision still holds: the version it was
+ * archived with, at its latest addition. Works deleted on purpose (test
+ * phase, operator decision of 2026-11-18) are not brought back; works that
+ * are present must not have changed since they were archived.
+ */
 export function canonicalHistory(root: string, revision: string) {
   if (git(root, ['rev-parse', '--is-shallow-repository']).trim() !== 'false')
     throw new Error('Vollständige Git-Historie erforderlich.');
   const files = new Map<string, string>();
-  const paths = new Set(
-    git(root, [
-      'log',
-      revision,
-      '--format=',
-      '--name-only',
-      '--',
-      'public/artworks',
-    ])
-      .split('\n')
-      .filter(Boolean),
-  );
+  const paths = git(root, [
+    'ls-tree',
+    '-r',
+    '--name-only',
+    revision,
+    '--',
+    'public/artworks',
+  ])
+    .split('\n')
+    .filter(Boolean);
   for (const file of paths) {
     if (file === indexPath) continue;
     if (!isWorkPath(file))
       throw new Error('Unbekannter historischer Archivpfad.');
-    const first = git(root, [
+    const added = git(root, [
       'log',
-      '--reverse',
       '--diff-filter=A',
       '--format=%H',
       revision,
@@ -82,11 +85,11 @@ export function canonicalHistory(root: string, revision: string) {
     ])
       .trim()
       .split('\n')[0];
-    if (!first) throw new Error('Keine sichere erste Archivversion.');
-    const entry = git(root, ['ls-tree', first, '--', file]);
+    if (!added) throw new Error('Keine sichere Archivversion.');
+    const entry = git(root, ['ls-tree', added, '--', file]);
     if (!entry.startsWith('100644 blob '))
       throw new Error('Unsichere historische Archivdatei.');
-    files.set(file, git(root, ['show', `${first}:${file}`]));
+    files.set(file, git(root, ['show', `${added}:${file}`]));
   }
   return files;
 }

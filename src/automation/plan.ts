@@ -49,7 +49,7 @@ function legacyOnly<T>(settings: T | null): T {
   return settings;
 }
 
-/** No I/O. Historical bytes come from the first archived Git version, never regeneration. */
+/** No I/O. Bytes of present works come from their archived Git version, never regeneration; deleted works stay deleted. */
 export function prepareRun(
   input: {
     settings: unknown;

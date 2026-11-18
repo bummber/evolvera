@@ -22,7 +22,7 @@ import {
   planAt,
   publishPlan,
 } from '../src/automation/git';
-import { indexPath, indexText, readWorks } from '../src/automation/archive';
+import { indexPath, readWorks } from '../src/automation/archive';
 const settings = {
   schemaVersion: 1,
   revision: 1,
@@ -357,28 +357,42 @@ describe('Echte isolierte lokale Git-Repositories ohne GitHub-Zugriff', () => {
       '2000-01-03',
     );
   });
-  it('behebt einen später gelöschten letzten Tag anhand seiner ersten Git-Bytes', () => {
+  // Test phase (operator, 2026-11-18): works may be deleted on purpose.
+  it('holt einen bewusst gelöschten letzten Tag nicht aus Git zurück', () => {
     const { root, base } = repo();
     const plan = planAt(root, base, start.runStartedAt, clock);
     const committed = commitPlan(root, base, plan.changes);
     git(root, ['checkout', '--detach', committed]);
     const deleted = plan.added[2]!;
     git(root, ['rm', deleted]);
-    git(root, ['commit', '-m', 'Simulated archive damage']);
-    const repaired = planAt(
+    git(root, ['commit', '-m', 'Delete the last work']);
+    const rerun = planAt(
       root,
       git(root, ['rev-parse', 'HEAD']).trim(),
       start.runStartedAt,
-      () => {
-        throw new Error('Nicht neu würfeln');
-      },
+      clock,
     );
-    expect(repaired.restored).toEqual([deleted]);
-    expect(repaired.changes.get(deleted)).toBe(plan.files.get(deleted));
-    expect(repaired.added).toHaveLength(0);
-    expect(indexText(readWorks(plan.files, settings.seriesStartDate))).toBe(
-      plan.files.get(indexPath),
-    );
+    expect(rerun.restored).toEqual([]);
+    // The day is due again and made anew from the same inputs.
+    expect(rerun.added).toEqual([deleted]);
+    expect(rerun.files.get(deleted)).toBe(plan.files.get(deleted));
+  });
+
+  it('stoppt bei einer Lücke mitten in der Kette', () => {
+    const { root, base } = repo();
+    const plan = planAt(root, base, start.runStartedAt, clock);
+    const committed = commitPlan(root, base, plan.changes);
+    git(root, ['checkout', '--detach', committed]);
+    git(root, ['rm', plan.added[1]!]);
+    git(root, ['commit', '-m', 'Delete a middle work']);
+    expect(() =>
+      planAt(
+        root,
+        git(root, ['rev-parse', 'HEAD']).trim(),
+        start.runStartedAt,
+        clock,
+      ),
+    ).toThrow(/Generationenlücken/);
   });
 });
 
