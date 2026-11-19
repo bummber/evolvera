@@ -1,6 +1,7 @@
 // @vitest-environment node
 import { describe, expect, it } from 'vitest';
 import { sections } from '../src/admin/fields';
+import { PREVIEW_GENERATOR } from '../src/admin/Preview';
 import {
   defaultProfile,
   profileSchema,
@@ -13,6 +14,7 @@ import {
   type Settings,
 } from '../src/operator/profile-form';
 import { writableSettingsSchema } from '../workers/admin/github';
+import { generatorVersionFor } from '../src/series/calendar';
 
 // EP-01 P8: pure helpers of the operator page.
 
@@ -57,7 +59,12 @@ describe('Betreiberseite: Schalter, Schnellprofile und Hinweise', () => {
       (field) => field.path === 'composition.density',
     )!;
     expect(density.help).toContain('weniger Formen');
-    expect(density.help).toContain('Vererbte Ebenen behalten ihre Formen');
+    expect(density.help).toContain('ab dem nächsten Werk');
+  });
+
+  it('rechnet die Vorschau mit dem Generator der laufenden Serie', () => {
+    // The latest dated generator change decides which generator new works use.
+    expect(PREVIEW_GENERATOR).toBe(generatorVersionFor('2099-12-31'));
   });
 
   it('hat drei vollständige, regelkonforme Schnellprofile', () => {

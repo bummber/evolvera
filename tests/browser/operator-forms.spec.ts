@@ -304,7 +304,7 @@ test('Synthetischer Login, Einstellungsseite, Konflikt und Widerruf bleiben sich
     ]);
     await expect(page.locator('details').first()).toHaveAttribute('open', '');
     await expect(page.getByRole('group', { name: 'Dichte' })).toContainText(
-      'Sparsam baut neue Ebenen mit weniger Formen',
+      'Sparsam baut Werke mit weniger Formen',
     );
     // Preview: 8 probes with their element counts, two origins.
     const probes = page.locator('.probes li');

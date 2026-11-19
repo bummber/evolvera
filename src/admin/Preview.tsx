@@ -10,6 +10,8 @@ import type { Settings } from '../operator/profile-form';
 // the works live in this component's memory and are shown as "Probe n".
 
 const LENGTH = 8;
+/** The generator the series uses for new works (restart of 2026-11-19). */
+export const PREVIEW_GENERATOR = '0.4.0';
 type Probe = { work: ArtworkV3; parents: number[] };
 type Result = { request: string } & (
   | { kind: 'ready'; probes: Probe[]; mean: number; standard: number | null }
@@ -24,6 +26,7 @@ function chain(key: string, settings: Settings) {
     length: LENGTH,
     prefix: 'evolvera:operator-preview',
     profile,
+    generator: PREVIEW_GENERATOR,
   }).works;
 }
 /** Chain keys allow letters only: 1 → a, 26 → z, 27 → aa. */
@@ -95,8 +98,9 @@ export function Preview({
       <h2 id="preview-title">Vorschau</h2>
       <p className="help">
         {LENGTH} Probewerke mit den Einstellungen oben: zwei unabhängige
-        Ursprünge und ihre Nachkommen. Keine Vorhersage der Serie: Im Archiv
-        bleiben vererbte Formen länger erhalten. Nichts davon wird gespeichert.
+        Ursprünge und ihre Nachkommen. Keine Vorhersage der Serie: Die Würfel
+        sind andere, die Vorschau zeigt nur die Wirkung der Einstellungen.
+        Nichts davon wird gespeichert.
       </p>
       <button type="button" onClick={() => setRound(round + 1)}>
         Neu würfeln
