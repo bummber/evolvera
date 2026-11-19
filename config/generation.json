@@ -1,8 +1,51 @@
 {
-  "schemaVersion": 1,
-  "revision": 7,
+  "schemaVersion": 2,
+  "revision": 8,
   "seriesStartDate": "2026-11-19",
   "generationEnabled": true,
   "timezone": "Europe/Berlin",
-  "inheritanceMode": "traceable"
+  "inheritanceMode": "traceable",
+  "variation": {
+    "mutationStrength": "calm",
+    "noveltyWindow": 7
+  },
+  "features": {
+    "gradients": "normal",
+    "patterns": "rare",
+    "masks": "rare",
+    "blendModes": "rare",
+    "blurShadow": "rare",
+    "lines": "normal",
+    "curves": "rare",
+    "generativeShapes": "rare",
+    "animation": "rare"
+  },
+  "palette": {
+    "strategies": [
+      "harmonic",
+      "complementary",
+      "monochrome",
+      "free"
+    ],
+    "contrast": "low"
+  },
+  "families": {
+    "geometric": true,
+    "color-field": true,
+    "mosaic": true,
+    "organic": true,
+    "generative": true,
+    "chaotic": true
+  },
+  "composition": {
+    "maxLayers": 3,
+    "symmetry": "normal",
+    "density": "sparse"
+  },
+  "motion": {
+    "intensity": "subtle"
+  },
+  "experimental": {
+    "mutationJumps": false
+  }
 }
