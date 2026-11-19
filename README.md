@@ -1,21 +1,24 @@
 # Evolvera
 
 Öffentliche Galerie: https://bummber.github.io/evolvera/
-Die offizielle Kunstserie läuft seit dem 04.11.2026 mit einem Werk pro Tag.
-Die 40 Testwerke sind davon getrennt zugänglich.
+Die offizielle Kunstserie entsteht mit einem Werk pro Tag; sie ist am 19.11.2026
+mit Generator 0.4.0 neu gestartet. Die Testwerke sind davon getrennt zugänglich.
 
 Vor Website-Veröffentlichungen: `#/impressum` und `#/datenschutz` sowie die öffentlichen
 Betreiberangaben in `config/legal.json` prüfen und `npm run check:publication`
 ausführen. Die Angaben und das erste Pages-Testdeployment wurden am 02.11.2026
 ausdrücklich freigegeben; Durchführung und Ergebnis siehe [Vorbereitung](docs/publication-preparation.md).
 
-Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand 10.11.2026: Serie
-aktiv, sieben offizielle Werke (04.11.–10.11.2026), tägliche Archivierung und
-Veröffentlichung über GitHub Actions.**
+Eine wachsende Galerie für reine HTML-/CSS-Kunst. **Stand 19.11.2026: Serie am
+19.11.2026 neu gestartet (Generator 0.4.0, Schema 3, Renderer 2), ein offizielles
+Werk, tägliche Archivierung und Veröffentlichung über GitHub Actions.** Testphase:
+Werke dürfen auf ausdrücklichen Betreiberauftrag gelöscht werden; die Werke vom
+04.–18.11.2026 liegen als Testdaten unter `tests/fixtures/legacy-archive/`.
 Das abgenommene Werkbuch entwickelt Designrichtung A (experimentelles Kunstmagazin) weiter.
 Galerie, Werkdetails und Herkunftsvergleich sind umgesetzt. Die getrennte Kunstsichtung
 enthält 40 abgenommene Testwerke in zwei Zwanzigerketten mit beiden Modi und poetischen Titeln.
-Betreiberanmeldung und Modusspeicherung sind eingerichtet und nachgewiesen.
+Betreiberanmeldung und Einstellungsseite (Modus und Generationsprofil) sind
+eingerichtet und nachgewiesen.
 
 Fachliche Quelle ist [docs/PRD.md](docs/PRD.md), Version 1.1. Die unverändert erhaltene
 `Evolvera_PRD_v1.0.md` ist historisch. Aktueller Stand und Wiedereinstieg:
@@ -90,10 +93,10 @@ npm run generate:daily -- --dry-run
 npm run preview
 ```
 
-`check` umfasst Format, ESLint, Typprüfung, 190 Tests, Config-/Archiv-/Fixtureprüfung
-und Build nach `dist/` sowie Worker-Dry-Run ohne Deployment. Es enthält weder
-`test:browser` noch `worker:test-runtime`. Die 78 Browserfälle (72 bestanden, sechs
-bewusste Doppelaufruf-Skips; Stand 10.11.2026) starten den lokalen Produktionspreview
+`check` umfasst Format, ESLint, Typprüfung, 433 Tests, Config-/Archiv-/Fixtureprüfung
+und Build nach `dist/` und `.admin-build/` sowie Worker-Dry-Run ohne Deployment. Es
+enthält weder `test:browser` noch `worker:test-runtime`. Die 160 Browserfälle (154
+bestanden, sechs bewusste Doppelaufruf-Skips; Stand 19.11.2026) starten den lokalen Produktionspreview
 selbst und prüfen Desktop sowie 320px Mobilbreite mit gepinntem Chromium. Sie testen
 den gebauten Stand in `dist/`, also vorher bauen.
 Unter Linux für einen frischen Runner: `npx playwright install --with-deps chromium`.
@@ -134,19 +137,21 @@ einer vorhandenen Referenzdatei. Normale Entwicklung nutzt die reine Prüfung.
 
 - `src/app`, `src/styles`: Shell, Hash-Routen, Galerie, Werkansichten und getrennte Kunstsichtung.
 - `src/art/schema`: Werk-, DNA-, Herkunfts-, Konfigurations- und Previewverträge.
-- `src/art/generator`: PRNG, drei Previewfamilien und Evolutionskern 0.2.0 mit Rezeptreplay.
-- `src/art/renderer`: V1 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
+- `src/art/generator`: PRNG, Previewfamilien, Evolutionskern 0.2.0 und Generatoren 0.3.0 (ganze Ebenen) und 0.4.0 (einzelne Eigenschaften, `v3/traits.ts`) mit Rezeptreplay.
+- `src/art/renderer`: Renderer 1 und 2 mit isolierten CSS-Modulen, fester 1000er-Fläche und Ruhezustand.
 - `src/art/titles`: deterministischer Titelgenerator mit Lexikon 0.1.0 (Elternfragmente) und 0.2.0 (ganze Elternbausteine, ab Werkdatum 14.11.2026).
 - `src/archive`: validierter lesender Zugriff pro Seite/Werk, begrenzter Cache; kein Archivschreiber.
-- `src/operator`, `workers/admin`: Snapshot-Helfer und geschützte Betreiberfunktion (Cloudflare Worker).
-- `src/series`: datierte Kalenderregeln für Tagesgrenze und Lexikonwechsel.
+- `src/operator`, `workers/admin`: Snapshot-Helfer, Profilregeln und geschützte Betreiberfunktion (Cloudflare Worker).
+- `src/admin`: Einstellungsseite, als Worker-Asset gebaut (`npm run build:admin`), nicht in `dist`.
+- `src/series`: datierte Kalenderregeln für Tagesgrenze, Lexikon- und Generatorwechsel.
 - `src/automation`: Tagesplanung, Nachholung, Historienprüfung und Git-Archivierung.
 - `src/preview`: validierte feste Testsammlung, verzögert geladen.
 - `fixtures/preview`: gespeicherte Vorschau-DNA, getrennt vom offiziellen Archiv.
 - `public/artworks`: kanonisches offizielles Archiv, eine JSON-Datei pro Werk plus Index; wird vom Tageslauf geschrieben.
 
 Kunst ausschließlich HTML/CSS, ohne SVG, Canvas, WebGL oder Bilddateien.
-Bestehende Werke werden nie still neu gewürfelt, überschrieben oder migriert.
+Bestehende Werke werden nie still neu gewürfelt, überschrieben oder migriert;
+gelöscht werden sie nur auf ausdrücklichen Betreiberauftrag (Testphase).
 Darstellung liest Endparameter; Generatorupdates ändern kein Archiv. Beschädigte
 historische Daten später exakt aus Git wiederherstellen, bei Unsicherheit stoppen.
 Historische Renderer erhalten; neue Darstellungsregeln brauchen eine neue Version.
@@ -154,14 +159,16 @@ Weitere Architekturentscheidungen: [docs/architecture.md](docs/architecture.md).
 
 ## Serienbetrieb und externe Einrichtung
 
-`config/generation.json`: Startdatum `2026-11-04`, Generierung `true`, Modus
-`traceable` (Nachvollziehbare Vererbung), Revision 6. `free` heißt Maximale Freiheit.
-Nur der Betreiber speichert den Modus über die geschützte Betreiberseite; Änderungen
-wirken erst auf den nächsten noch nicht begonnenen Lauf, niemals auf archivierte Werke.
-`config/release.json` enthält die Kunstabnahme der 40 Testwerke (28.10.2026, Lexikon
-0.1.0), `seriesAuthorized: true` und die Titelabnahme für Lexikon 0.2.0 (10.11.2026).
-Ohne Kunstabnahme und Serienfreigabe erzeugt der Tagesplaner kein Werk, ohne
-Titelabnahme keines mit Lexikon 0.2.0.
+`config/generation.json` (Schema 2): Startdatum `2026-11-19`, Generierung `true`, Modus
+`traceable` (Nachvollziehbare Vererbung), Profil „Ruhig“, Revision 8. `free` heißt
+Maximale Freiheit. Nur der Betreiber speichert Modus und Profil über die geschützte
+Einstellungsseite; Änderungen wirken erst auf den nächsten noch nicht begonnenen
+Lauf, niemals auf archivierte Werke.
+`config/release.json` enthält `seriesAuthorized: true`, die Kunstabnahmen der
+Generatoren 0.2.0 (`artReview`), 0.3.0 (`artReviewV3`) und 0.4.0 (`artReviewV4`,
+18.11.2026) sowie die Titelabnahme für Lexikon 0.2.0. Ohne passende Abnahme und
+Serienfreigabe erzeugt der Tagesplaner kein Werk. Den Generator wählt der Kalender
+nach Werkdatum; ab 19.11.2026 gilt 0.4.0.
 
 Der Workflow `pages.yml` archiviert fällige Werke, prüft, baut und veröffentlicht in
 einem Lauf. Er ist an `PAGES_DEPLOYMENT_ENABLED=true`, `EVOLVERA_AUTOMATION_ENABLED=true`,
@@ -202,8 +209,8 @@ lokalem workerd/SQLite, einschließlich getrennten Objekten und absolutem Ablauf
 Login/Sitzung, ausschließlich mit Testdaten. Keine echten Secrets nötig.
 
 `npm run generate:daily -- --dry-run` liest den gesicherten Git-Commit und vollständige
-Historie, plant im Speicher und schreibt nichts. Am 10.11.2026 meldete er sieben Werke,
-Revision 6 und nichts Fälliges. `--apply` ist dem GitHub-Workflow vorbehalten; kein
+Historie, plant im Speicher und schreibt nichts. Am 19.11.2026 meldete er ein Werk,
+Revision 7 und nichts Fälliges. `--apply` ist dem GitHub-Workflow vorbehalten; kein
 lokaler Betriebsstart. Daten und Renderer werden nie still neu gewürfelt oder
 überschrieben. Vorgehen bei Fehlern: [Runbook](docs/runbook.md).
 
@@ -211,9 +218,11 @@ lokaler Betriebsstart. Daten und Renderer werden nie still neu gewürfelt oder
 
 Stand und Wiedereinstieg stehen in [docs/HANDOFF.md](docs/HANDOFF.md) und
 [docs/NEXT-START.md](docs/NEXT-START.md); zu Beginn zuerst nur lesend prüfen.
-Als Nächstes ist der erste Lauf mit Lexikon 0.2.0 für Werkdatum 14.11.2026 zu belegen.
+Mit der am 19.11.2026 deployten Einstellungsseite sind die Arbeitspakete von EP-01
+umgesetzt. Als Nächstes sind die Tagesläufe ab 20.11. (erstes Werk mit Profil „Ruhig“, Revision 8)
+und ab Generation 3 die Vererbung an echten Werken zu belegen; danach folgt die
+Favoritengalerie (Optionen vorab).
 
-Offen bleiben die Verspätung der geplanten Läufe, eine vollständige Geräte-/WCAG-/
-Sitzungsabnahme und GPU-/FPS-Profiling. Phase 5 ist nicht begonnen. Eine spätere
-weitere Serie mit mehr Varianz, Verläufen, Linien und Kurven bleibt ein
-[gesonderter Folgeauftrag](docs/future-series.md).
+Offen bleiben die Verspätung der geplanten Läufe, eine Firefox-/Safari-Prüfung der
+Einstellungsseite, eine vollständige Geräte-/WCAG-/Sitzungsabnahme und
+GPU-/FPS-Profiling.

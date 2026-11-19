@@ -1,8 +1,9 @@
 # Architektur – aktueller Stand und Betriebsentwurf
 
-Stand: 10.11.2026 (Serie aktiv, Betrieb veröffentlicht). Fachliche Quelle: [PRD v1.1](PRD.md).
-Den aktuellen Betriebsstand beschreibt die [Ergänzung Betrieb](#ergänzung-betrieb--stand-10112026)
-am Ende. Die Abschnitte davor sind Entwurf und historische Zwischenstände der Phasen 0 bis 4;
+Stand: 19.11.2026 (Serie am 19.11. mit Generator 0.4.0 neu gestartet, Einstellungsseite
+live). Fachliche Quelle: [PRD v1.1](PRD.md) mit EP-01. Den aktuellen Betriebsstand beschreibt
+die [Ergänzung Betrieb vom 19.11.2026](#ergänzung-betrieb--stand-19112026) am Ende; die
+Ergänzung vom 10.11.2026 davor ist historisch. Die Abschnitte davor sind Entwurf und historische Zwischenstände der Phasen 0 bis 4;
 Aussagen wie „noch nicht eingerichtet“ oder „deaktiviert“ gelten dort für den jeweiligen Zeitpunkt.
 
 ## Lokale Entscheidungen
@@ -378,3 +379,40 @@ Kunstabnahme nur mit passender `titleReview` und stoppt sonst vor der Erzeugung.
 Der erste Vererbungsnachweis der echten Serie liegt mit Generation 3 vom 06.11.2026
 vor. Tatsächliche Läufe, Prüfungen und offene Punkte stehen in [HANDOFF](HANDOFF.md)
 und [Runbook](runbook.md).
+
+## Ergänzung Betrieb – Stand 19.11.2026
+
+**Konfiguration.** `config/generation.json` hat Schema 2: Modus plus vollständiges
+Generationsprofil (`variation`, `features`, `palette`, `families`, `composition`,
+`motion`, `experimental`). Ein gemeinsamer Parser liest Schema 1 und 2 und liefert immer
+das effektive Profil (Schema 1 ergibt das Standardprofil). Die Profilregeln (Version 2,
+`src/art/schema/profile.ts`) teilen Generator, Worker und Einstellungsseite; sie lehnen
+unter anderem `traceable` mit nur einer Ebene ab. Der Tageslauf übernimmt beim Start einen
+Snapshot von Modus, Profil und Revision; der Seed jedes Werks ist an den Digest dieses
+Snapshots gebunden (`boundSeed`), jede gespeicherte Änderung ergibt also andere Werke.
+
+**Generatoren.** `generatorVersionFor` in `src/series/calendar.ts` wählt nach Werkdatum:
+0.2.0 bis 15.11., 0.3.0 ab 16.11. (`generatorChangeDate`), 0.4.0 ab dem Neustart am
+19.11. (`generatorV4Date`). 0.4.0 (`src/art/generator/v3/traits.ts`) vererbt je Elternteil
+höchstens drei einzelne Eigenschaften (Farbe, Form oder Familie einer Ebene), `traceable`
+mindestens eine von jedem Elternteil, `free` auch keine; alles andere entsteht neu. Das
+Rezept speichert die vererbten Eigenschaften (`recipeV4Schema`, Schema 3 additiv). 0.2.0
+und 0.3.0 bleiben für ihre Fixtures und Testdaten unverändert. Jede Generatorversion
+braucht vor dem Einsatz eine eigene Abnahme in `config/release.json`.
+
+**Einstellungsseite.** Der Worker `evolvera-admin` liefert unter `/settings` nur mit
+gültiger Sitzung eine Seitenhülle ohne Inline-Code aus; die Seite selbst
+(`src/admin`, gebaut von `npm run build:admin` nach `.admin-build/`) kommt als
+Worker-Asset (`ASSETS`, `run_worker_first`) aus derselben Origin unter strikter CSP.
+`GET /api/settings` liefert Revision, Regelversion und effektives Profil,
+`POST /api/settings` prüft mit den Profilregeln vor jedem Git-Zugriff und schreibt
+über die GitHub App konfliktfest als Schema 2 mit `revision + 1`; Startdatum,
+Generierungsschalter und Zeitzone sind nicht schreibbar. Der Commit „Update future
+generation settings“ löst wie jeder Push auf `main` den Pages-Workflow aus. Die
+Vorschau der Seite rechnet im Browser mit Generator 0.4.0 (`PREVIEW_GENERATOR`, per
+Test an den neuesten datierten Generator gebunden) und schreibt nichts.
+
+**Testphase.** Werke dürfen auf ausdrücklichen Betreiberauftrag gelöscht werden. Der
+Tageslauf holt gelöschte Werke nicht aus Git zurück, stellt veränderte vorhandene Werke
+weiterhin exakt wieder her und stoppt bei einer Lücke mitten in der Kette. Die
+Archiv-Baseline (A-36) wird mit den Werken zusammen entfernt und sonst nur ergänzt.

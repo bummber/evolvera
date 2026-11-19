@@ -1,5 +1,78 @@
 # Betrieb und spätere Einrichtung
 
+## Aktuell – 19.11.2026, Einstellungsseite live und Serie mit Generator 0.4.0
+
+Die Serie ist am 19.11.2026 mit Generator 0.4.0 neu gestartet (Generation 1
+„Falterkristall im Zwischenraum“). Seit 14:30 Berlin liefert der Worker
+`evolvera-admin` die Einstellungsseite aus (Version
+`6b7e4354-d8b4-4307-b922-24421ef6c20c`); der Betreiber hat um 14:40 das Profil
+„Ruhig“ gespeichert (`8381a8c`, Schema 2, Revision 8). Die folgenden Abschnitte ab
+05.11.2026 sind historische Stände.
+
+### Einstellungen ändern
+
+- Nur der Betreiber, nur über `/settings` der Betreiberseite. Speichern schreibt
+  `config/generation.json` als Schema 2 mit `revision + 1` und nur bei einer Änderung;
+  der Commit „Update future generation settings“ kommt von der GitHub App.
+- Die Änderung wirkt ab dem nächsten noch nicht begonnenen Lauf. Der Commit selbst löst
+  den Pages-Workflow aus; dieser Lauf archiviert fällige Tage bereits mit dem neuen Stand.
+- Danach lesend belegen: Diff nur in `config/generation.json`, Startdatum, Generierung
+  und Zeitzone unverändert, Läufe grün, kein Archivwerk verändert.
+- Wirkung im Generator 0.4.0 (Simulation im Speicher, 720 Werke je Variante): Dichte
+  „sparsam“ etwa 20 % weniger, „dicht“ etwa 15–20 % mehr Formen, ohne Verzögerung;
+  2 statt 3 Ebenen etwa 8 % weniger. Im Modus `free` erbt etwa jedes 14. Kind nichts.
+
+### Worker-Deployment
+
+Nur mit eigener Betreiberfreigabe und vom committeten, gepushten Stand.
+
+1. Token: account-owned API token, Scope „Specified Workers → `evolvera-admin`“,
+   Rolle **Editor**, kurzes Ablaufdatum. Mit den zuvor gewählten Rollen (zunächst nur
+   Lesen) scheiterte der Upload der Seitendateien am 19.11. an `assets-upload-session`
+   mit „No access to the specified resource“, ohne Änderung am Live-Stand. Ablage in
+   `~/.evolvera-operator-setup/cloudflare-auth.json` (0700/0600), Werte nie anzeigen.
+2. Lesend vorprüfen (nur GET): Token aktiv und Ablaufdatum, Live-Version, Bindings,
+   nichtgeheime Variablen gleich der Vorlage (nur Gleichheit ausgeben).
+3. `npm run build:admin` (oder `npm run check`) auf dem committeten Stand. Die ignorierte
+   Vorlage `work/operator-deploy/wrangler.jsonc` braucht seit P8 den `assets`-Block
+   wie in `workers/admin/wrangler.jsonc`, mit Verzeichnis `../../.admin-build`
+   (relativ zur Vorlage), Binding `ASSETS` und `run_worker_first: true`; ohne ihn
+   fehlen die Seitendateien.
+4. `wrangler deploy --config work/operator-deploy/wrangler.jsonc` mit Token und
+   Account nur als Prozessumgebung, `WRANGLER_WRITE_LOGS=false`,
+   `WRANGLER_SEND_METRICS=false`, ohne `--secrets-file`: vorhandene Secrets und der
+   SQLite-Speicher bleiben, die Variablen kommen aus der Vorlage (vorher auf Gleichheit
+   geprüft). Rohausgaben nicht weitergeben (sie enthalten Variablenwerte).
+5. Lesend nachprüfen: neue Version mit 100 %, Bindings einschließlich `ASSETS`,
+   `/health`, `/privacy`, `/imprint` HTTP 200 ohne Cookies, `/settings` ohne Sitzung
+   zeigt die Anmeldung, `/api/settings` ohne Sitzung 401, `/assets/admin.js` gleich dem
+   lokalen Build. Danach Live-Prüfung durch den Betreiber (Anmeldung, Vorschau,
+   Abmelden), Token widerrufen oder ablaufen lassen.
+6. Rückfall: Die Vorgängerversion `08317969-9743-4a86-84c2-a57afd3b7e75` bleibt bei
+   Cloudflare erhalten; ein Rollback ist ebenfalls freigabepflichtig.
+
+### Lauf ohne Werk
+
+Findet der Generator in allen 16 deterministischen Versuchen kein gültiges Werk, endet
+der Lauf mit „Tageslauf sicher gestoppt“ und ohne Archivcommit. Die Nachholläufe um
+01:47 und 02:23 scheitern gleich, weil Seed und Einstellungen gleich bleiben.
+
+- Nichts von Hand erzeugen, löschen oder per Workflow starten; Log und Ursache gemeinsam
+  sichten.
+- Ausweg ist eine Änderung der Einstellungen durch den Betreiber: Die neue Revision
+  ergibt einen neuen Seed. Der vom Einstellungscommit ausgelöste Lauf holt den Tag nach
+  (`isCatchUp` ist `true`, wenn er nach 01:17 des Folgetags beginnt).
+- Bisheriges Risiko: Generator 0.3.0 scheiterte selten bei `traceable` mit einer Ebene
+  (inzwischen von den Profilregeln abgelehnt). Für 0.4.0 fand die Simulation vom
+  18.11.2026 (3.520 Werke, Profile Standard, Ruhig, Wild, Reduziert, beide Modi) keinen
+  Fall; höchster Versuch 11 von 16. Das Restrisiko ist nicht null.
+
+### Offene Grenzen
+
+Einstellungsseite nicht in Firefox und Safari geprüft; die Wirkung der Dichte ist für
+0.4.0 nur simuliert, nicht an echten Werken gemessen; geplante Läufe starten weiter
+sechs bis sieben Stunden nach 01:17.
+
 ## Aktuell – 05.11.2026, Zeitumstellung veröffentlicht
 
 Freigegeben und mit **c858113** regulär veröffentlicht; HEAD/main und origin/main

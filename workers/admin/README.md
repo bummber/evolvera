@@ -1,4 +1,14 @@
-# Betreiberfunktion – lokal implementiert, extern deaktiviert
+# Betreiberfunktion
+
+Stand 19.11.2026: Live unter `https://evolvera-admin.alexander-brocker.workers.dev`
+seit 03.11.2026; die Einstellungsseite (EP-01 P8) ist seit 19.11.2026 deployt
+(Version `6b7e4354-d8b4-4307-b922-24421ef6c20c`). Vorgehen, Tokenrolle und Prüfungen
+eines Deployments: [Runbook](../../docs/runbook.md#worker-deployment). Im Repository
+bleibt `wrangler.jsonc` der sicher deaktivierte Standard (`ENABLED=false`); deployt
+wird mit der ignorierten Vorlage `work/operator-deploy/wrangler.jsonc`, die den
+`assets`-Block enthalten muss.
+
+Die folgenden Absätze beschreiben den Einrichtungsstand vom 03.11.2026:
 
 GitHub-App-Login mit PKCE/State und numerischer Betreiber-ID, SQLite-Durable-Object-
 Sitzungen, CSRF/Origin, Logout und bedingte Git-Modusänderung implementiert. Keine
@@ -47,4 +57,5 @@ Modus und Generationsprofil aus:
   Anmeldung mit dem Stand aus `config/generation.json`; Speichern ist dort
   gesperrt.
 
-Ein Deployment dieses Stands braucht eine eigene Freigabe.
+Am 19.11.2026 mit Freigabe des Betreibers deployt; jedes weitere Deployment braucht
+eine eigene Freigabe.

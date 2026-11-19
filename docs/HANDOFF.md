@@ -1,5 +1,83 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 19.11.2026, erster Lauf mit Generator 0.4.0 belegt, Einstellungsseite live (EP-01 P8 und P9)
+
+Sichtung um 13:19 Berlin: lokal `10c4d12` (Doku-Commit vom 18.11., ungepusht),
+Remote-main `6b49734` mit dem Archivcommit des Tageslaufs. Auf Betreiberfreigabe
+Fetch und Rebase des Doku-Commits (jetzt `6398aa0`). Danach Auftrag: Reihenfolge der
+Pakete A (Rest von EP-01), B (Favoritengalerie), C (Serienneustart nach einem Monat).
+
+- **Tageslauf 19.11.:** Schedule-Lauf 44480933708, gestartet 08:36 Berlin auf
+  `387e3af`, Build und Deploy erfolgreich; Archivcommit `6b49734` um 08:39 mit genau
+  der Werkdatei und `index.json`: Generation 1 „Falterkristall im Zwischenraum“,
+  72 Elemente in 3 Ebenen, Generator 0.4.0, Renderer 2, Lexikon 0.2.0, `traceable`,
+  Revision 7, Ursprungswerk ohne Eltern, `isCatchUp: false`. Titel und Elementzahl wie
+  im Probelauf vom 18.11. Die Schedule-Läufe 44483773735 (08:58) und 44491609517
+  (09:54) liefen erfolgreich ohne Archivcommit. Live liefert der Index das Werk.
+- **Determinismus:** `planAt` im Speicher auf `387e3af` mit den Zeitstempeln des Laufs
+  erzeugt Werkdatei (33.483 Zeichen) und `index.json` bytegleich zum Archiv; mit Start
+  01:17 ist alles außer den beiden Zeitstempeln gleich. Trockenlauf auf HEAD: 0 neu,
+  0 wiederhergestellt, 1 Werk, Revision 7.
+- **Archiv-Baseline (`90628d7`):** Vorher Baseline-Test mit leerem Manifest grün,
+  danach 5 Tests; Manifest (SHA-256 `ea3a0bac…556f`, `frozenThrough` 19.11.),
+  `markup/2026-11-19.txt` (Renderer 2) und zwei Bilder `archive-2026-11-19.png` (macOS).
+  Der Linux-Runner hat beide Bilder im Pages-Lauf 44532338762 bestätigt.
+- **Befund und Fix (`c3fdbab`):** Die Vorschau der Einstellungsseite rechnete noch mit
+  Generator 0.3.0. Jetzt 0.4.0 (`PREVIEW_GENERATOR`, per Test an den neuesten datierten
+  Generator gebunden). Die Hilfetexte zu Dichte, Ebenenzahl, Vererbungsmodus und
+  Vorschau beschrieben die Ebenenvererbung von 0.3.0 und sind an 0.4.0 angepasst.
+  Belege (Simulation im Speicher, Generator 0.4.0, 24 Ketten × 30 Generationen je
+  Variante, Ø Elemente Generation 9–30): `traceable` wechselnd 29,8, sparsam 22,9,
+  dicht 34,4; `free` 28,9, 21,9, 34,7. Die Wirkung zeigt sich schon bei den Ursprüngen,
+  keine Verzögerung wie bei 0.3.0. Im Modus `free` erben 6,7–7,6 % der Kinder nichts.
+  Höchste Ebenenzahl: `traceable` 3 → 30,0, 2 → 27,7; `free` 3 → 29,0, 2 → 26,5,
+  1 → 22,3. Generator 0.4.0, `review-v4.json` und `artReviewV4` unverändert.
+- **Push:** Nach Fetch ohne neue Remote-Commits um 14:19 Berlin als Fast-forward
+  `6b49734..c3fdbab` (`6398aa0`, `90628d7`, `c3fdbab`). CI 44532339016 und Pages
+  44532338762 erfolgreich, kein neues Werk.
+- **Worker-Deployment (Freigabe des Betreibers):** Neuer account-owned Token, nur für
+  `evolvera-admin`, gültig bis 20.11.2026 23:59:59 MEZ, abgelegt in
+  `~/.evolvera-operator-setup/cloudflare-auth.json`; Werte nie angezeigt. Lesend
+  vorgeprüft: Live-Version `08317969…` vom 03.11., Bindings, Variablen gleich der
+  Vorlage. Die ignorierte Vorlage `work/operator-deploy/wrangler.jsonc` hatte keinen
+  `assets`-Block; ergänzt (Sicherung außerhalb des Projekts), Dry-Run mit synthetischen
+  Secrets erfolgreich. Zwei Versuche scheiterten an `assets-upload-session` („No access
+  to the specified resource“), zuerst mit Leserolle, dann mit der danach gewählten
+  Rolle; live jeweils unverändert. Mit Rolle **Editor** um 14:30 Berlin deployt:
+  Version `6b7e4354-d8b4-4307-b922-24421ef6c20c`, Deployment
+  `05ce00c4-3010-41d7-8b49-df46085bb2c0`, 100 %. Lesend nachgeprüft: Bindings
+  einschließlich `ASSETS`, beide Secrets, `SESSIONS`, Laufzeitdatum 2026-10-28,
+  Logpush und Observability aus, Variablen gleich; `/health`, `/privacy`, `/imprint`
+  HTTP 200 ohne Cookies, `/settings` ohne Sitzung zeigt die Anmeldung, `/api/settings`
+  ohne Sitzung 401, `/assets/admin.js` gleich dem lokalen Build. Wrangler-Ausgaben
+  danach gelöscht.
+- **Live-Prüfung des Betreibers:** Anmeldung, Vorschau, Speichern und Abmelden
+  funktionieren; die CSP-Konsole wurde nicht gesondert gemeldet. Der Cloudflare-Token
+  ist danach vom Betreiber entfernt (bestätigt am 19.11.).
+- **Erstes Speichern:** `8381a8c` um 14:40 Berlin („Update future generation
+  settings“, `evolvera-betreiber-bummber[bot]`), nur `config/generation.json`:
+  Schema 2, Revision 8, Startdatum 19.11., Generierung, Zeitzone und `traceable`
+  unverändert. Das Profil entspricht genau dem Schnellprofil „Ruhig“ (Mutation ruhig,
+  Muster und Animation selten, Kontrast niedrig, Dichte sparsam, Bewegung dezent);
+  Profilregeln ohne Befund. Ausgelöste Läufe: CI 44535788389 und Pages 44535788402
+  erfolgreich (Build und Deploy), kein neues Werk; Remote-main auf `8381a8c`.
+- **Probelauf 20.11. (nur im Speicher, auf `8381a8c` nach Fetch und Fast-forward):**
+  Generation 2 „Traumfieber im Stillstand“, Generator 0.4.0, Revision 8, `traceable`,
+  zweites Ursprungswerk ohne Eltern, 47 Elemente in 3 Ebenen (Hintergrund generative
+  Struktur, Struktur geometrische Konstellation, Akzent Mosaik), statisch. Mit Start
+  01:17 und 08:40 bis auf die Zeitstempel gleich. Gilt nur bei unveränderten
+  Einstellungen.
+- **P9:** `README.md`, `docs/architecture.md` (Ergänzung Betrieb 19.11.),
+  `docs/runbook.md` (Einstellungen ändern, Worker-Deployment, Lauf ohne Werk, offene
+  Grenzen), `workers/admin/README.md`, dieser Nachtrag und `NEXT-START`.
+- **Prüfungen:** Vor dem Fix `npm run check` 432 Tests und `npm run test:browser` 154
+  bestanden, 6 übersprungen. Nach dem Fix `npm run check` 433 Tests,
+  `npm run test:browser` 154/6 und `npm run worker:test-runtime` grün.
+- **Offen:** Tageslauf 20.11. (Generation 2, erstes Werk mit Profil „Ruhig“ und
+  Revision 8) belegen; ab Generation 3 (21.11.) die Vererbung an echten Werken prüfen.
+  Nicht geprüft: Einstellungsseite in Firefox/Safari. Nächstes Paket B
+  (Favoritengalerie), zuerst Optionen; danach C (Serienneustart nach einem Monat).
+
 ## Nachtrag – 18.11.2026, Neustart mit Generator 0.4.0 abgenommen und veröffentlicht
 
 Auftrag des Betreibers (18.11.): Die Vererbung soll nur einzelne Eigenschaften
