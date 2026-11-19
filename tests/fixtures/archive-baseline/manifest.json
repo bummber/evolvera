@@ -1,4 +1,13 @@
 {
-  "frozenThrough": "",
-  "works": []
+  "frozenThrough": "2026-11-19",
+  "works": [
+    {
+      "id": "2026-11-19",
+      "generation": 1,
+      "title": "Falterkristall im Zwischenraum",
+      "path": "public/artworks/2026/2026-11-19.json",
+      "sha256": "ea3a0bac3eb56bec0ad1561e6329da6b9d3724eeb211eb1175a4d226cbb9556f",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-19.txt"
+    }
+  ]
 }
