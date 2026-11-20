@@ -2,9 +2,10 @@ import { test, expect } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import type { Page } from '@playwright/test';
 
-// Package B: the public favourites gallery. The copies come from the reviewed
-// chain of generator 0.4.0 (series start 2000-01-01) through request routing;
-// the real repository holds no favourite yet.
+// Package B: the public favourites gallery. Every test routes its own index, so
+// the result never depends on the favourites the operator marks in the real
+// repository. The copies come from the reviewed chain of generator 0.4.0
+// (series start 2000-01-01).
 type Work = { id: string; generation: number; title: string };
 const chain = (
   JSON.parse(
@@ -47,6 +48,9 @@ async function stubFavorites(page: Page, broken?: string) {
 test('Favoriten sind erreichbar und zeigen ohne Auswahl einen leeren Zustand', async ({
   page,
 }) => {
+  await page.route('**/evolvera/favorites/index.json', (route) =>
+    route.fulfill({ json: { schemaVersion: 1, favorites: [] } }),
+  );
   await page.goto('./#/favoriten');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Favoriten');
   await expect(
