@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-19",
+  "frozenThrough": "2026-11-20",
   "works": [
     {
       "id": "2026-11-19",
@@ -8,6 +8,14 @@
       "path": "public/artworks/2026/2026-11-19.json",
       "sha256": "ea3a0bac3eb56bec0ad1561e6329da6b9d3724eeb211eb1175a4d226cbb9556f",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-19.txt"
+    },
+    {
+      "id": "2026-11-20",
+      "generation": 2,
+      "title": "Traumfieber im Stillstand",
+      "path": "public/artworks/2026/2026-11-20.json",
+      "sha256": "e0fe0572bb0799726738e0f8f9297ba09fa8d62c4fe9a624a7dad7c75137f4da",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-20.txt"
     }
   ]
 }
