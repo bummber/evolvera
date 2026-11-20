@@ -53,7 +53,7 @@ export async function appJwt(env: GitHubEnv) {
   );
   return `${message}.${base64url(new Uint8Array(await crypto.subtle.sign('RSASSA-PKCS1-v1_5', key, new TextEncoder().encode(message))))}`;
 }
-async function github(
+export async function github(
   url: string,
   token: string,
   method = 'GET',
@@ -110,8 +110,8 @@ export async function userIdentity(
   // User token is used once for identity, never stored or sent to the browser.
   return String(user.id);
 }
-const repo = 'https://api.github.com/repos/bummber/evolvera';
-async function installationToken(env: GitHubEnv) {
+export const repo = 'https://api.github.com/repos/bummber/evolvera';
+export async function installationToken(env: GitHubEnv) {
   const jwt = await appJwt(env);
   const installation = z
     .object({ id: z.number().int().positive().safe() })
@@ -133,7 +133,7 @@ const contents = z.object({
   size: z.number().max(10000),
   content: z.string().max(16000),
 });
-async function readAt(token: string, ref: string) {
+export async function readAt(token: string, ref: string) {
   const data = contents.parse(
     await github(`${repo}/contents/config/generation.json?ref=${ref}`, token),
   );

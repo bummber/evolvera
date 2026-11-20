@@ -340,17 +340,25 @@ function SaveStatus({ status }: { status: Status }) {
   return null;
 }
 
-function Page({
+export function Page({
   children,
   review = false,
+  title = 'Kommende Werke.',
 }: {
   children: React.ReactNode;
   review?: boolean;
+  title?: string;
 }) {
   return (
     <main>
       <p className="eyebrow">EVOLVERA / BETREIBER</p>
-      <h1>Kommende Werke.</h1>
+      {!review && (
+        <nav aria-label="Betreiberbereich" className="areas">
+          <a href="/settings">Einstellungen</a>
+          <a href="/favorites">Favoriten</a>
+        </nav>
+      )}
+      <h1>{title}</h1>
       {review && (
         <p className="review" role="note">
           Lokale Sichtung ohne Anmeldung: Es wird nichts gespeichert. Gezeigt

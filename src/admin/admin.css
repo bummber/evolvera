@@ -186,3 +186,27 @@ input[type='number'] {
 nav a {
   margin-right: 16px;
 }
+/* Package B: favourites of the operator. */
+.areas {
+  display: flex;
+  flex-wrap: wrap;
+}
+.works {
+  list-style: none;
+  padding: 0;
+}
+.works > li {
+  border-top: 1px solid var(--ink);
+  padding: 8px 0;
+}
+.work {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin: 0;
+}
+.work span {
+  color: var(--muted);
+  font-size: 0.875rem;
+}

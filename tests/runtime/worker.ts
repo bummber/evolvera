@@ -163,6 +163,34 @@ export default {
       new Request(readyPolicy.review.adminOrigin + '/api/settings'),
       draftEnv,
     );
+    // Package B: favourites page and API behind the same session rules.
+    const favoritesShell = await ready.fetch(
+      new Request(readyPolicy.review.adminOrigin + '/favorites', {
+        headers: { Cookie: sessionCookie },
+      }),
+      draftEnv,
+    );
+    const anonymousFavorites = await ready.fetch(
+      new Request(readyPolicy.review.adminOrigin + '/api/favorites'),
+      draftEnv,
+    );
+    const foreignFavorite = await ready.fetch(
+      new Request(readyPolicy.review.adminOrigin + '/api/favorites', {
+        method: 'POST',
+        body: JSON.stringify({
+          csrf,
+          action: 'add',
+          series: '2026-11-19',
+          id: '2026-11-21',
+        }),
+        headers: {
+          Cookie: sessionCookie,
+          Origin: 'https://attacker.test',
+          'Content-Type': 'application/json',
+        },
+      }),
+      draftEnv,
+    );
     const save = (body: unknown, origin = readyPolicy.review.adminOrigin) =>
       ready.fetch(
         new Request(readyPolicy.review.adminOrigin + '/api/settings', {
@@ -246,6 +274,10 @@ export default {
         shellText.includes('/assets/admin.js') &&
         !shellText.includes('<style'),
       settingsApiClosed: anonymousApi.status === 401,
+      favoritesClosed:
+        favoritesShell.status === 200 &&
+        anonymousFavorites.status === 401 &&
+        foreignFavorite.status === 403,
       impossibleRejected:
         rejected.status === 422 &&
         rejectedBody.issues[0]?.path === 'composition.maxLayers',

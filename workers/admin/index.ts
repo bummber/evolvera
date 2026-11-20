@@ -12,6 +12,7 @@ import {
   userIdentity,
 } from './github';
 import type { GitHubEnv } from './github';
+import { changeFavorite, favoriteRequest, readFavorites } from './favorites';
 import { loginRecord, recordCall, sessionRecord } from './store';
 import type { SessionNamespace } from './store';
 import { legalDetails, legalSchema } from '../../src/site/legal';
@@ -159,6 +160,25 @@ const settingsRequest = z.strictObject({
   revision: z.number().int().positive(),
   settings: z.unknown(),
 });
+/** JSON request of the operator page: exact origin, JSON type, size limit. */
+async function scriptRequest<T>(
+  request: Request,
+  env: Env,
+  schema: z.ZodType<T>,
+  limit: number,
+) {
+  // Script requests of the operator page always send their exact origin.
+  if (request.headers.get('Origin') !== env.ADMIN_ORIGIN)
+    throw new GitHubFailure(403);
+  if (!request.headers.get('Content-Type')?.startsWith('application/json'))
+    throw new GitHubFailure(415);
+  try {
+    return schema.parse(JSON.parse(await readBody(request, limit)));
+  } catch (error) {
+    if (error instanceof GitHubFailure) throw error;
+    throw new GitHubFailure(400);
+  }
+}
 async function form(request: Request) {
   if (
     !request.headers
@@ -289,27 +309,30 @@ async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
     );
   if (
     request.method === 'GET' &&
-    (url.pathname === '/settings' || url.pathname === '/')
+    ['/settings', '/', '/favorites'].includes(url.pathname)
   )
     return shell();
   if (request.method === 'GET' && url.pathname === '/api/settings')
     return json({ ...settingsView(await readConfig(env)), csrf: session.csrf });
   if (request.method === 'POST' && url.pathname === '/api/settings') {
-    // Script requests of the operator page always send their exact origin.
-    if (request.headers.get('Origin') !== env.ADMIN_ORIGIN)
-      throw new GitHubFailure(403);
-    if (!request.headers.get('Content-Type')?.startsWith('application/json'))
-      throw new GitHubFailure(415);
-    let body: z.infer<typeof settingsRequest>;
-    try {
-      body = settingsRequest.parse(JSON.parse(await readBody(request, 8192)));
-    } catch (error) {
-      if (error instanceof GitHubFailure) throw error;
-      throw new GitHubFailure(400);
-    }
+    const body = await scriptRequest(request, env, settingsRequest, 8192);
     if (body.csrf !== session.csrf) throw new GitHubFailure(403);
     const result = await saveSettings(env, body.revision, body.settings);
     return json({ ...settingsView(result.config), changed: result.changed });
+  }
+  // Package B: only the signed-in operator marks or removes favourites.
+  if (request.method === 'GET' && url.pathname === '/api/favorites')
+    return json({ ...(await readFavorites(env)), csrf: session.csrf });
+  if (request.method === 'POST' && url.pathname === '/api/favorites') {
+    const { csrf, ...change } = await scriptRequest(
+      request,
+      env,
+      favoriteRequest,
+      4096,
+    );
+    if (csrf !== session.csrf) throw new GitHubFailure(403);
+    const result = await changeFavorite(env, change);
+    return json({ ...result.view, changed: result.changed });
   }
   if (request.method === 'POST' && url.pathname === '/logout') {
     const requestOrigin = request.headers.get('Origin');
