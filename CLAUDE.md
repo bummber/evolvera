@@ -41,6 +41,10 @@ Die verbindlichen Projektregeln stehen in AGENTS.md und gelten vollständig:
   die gespeicherte Vorschau-DNA in `fixtures/preview/` und die früheren
   Archivwerke in `tests/fixtures/legacy-archive/`; `tests/browser/references/`
   nicht automatisch aktualisieren.
+- `public/favorites/**` (Paket B) sind byte-gleiche Kopien archivierter Werke, die
+  nur der Betreiber-Worker schreibt: nicht von Hand ändern, formatieren oder beim
+  Löschen bzw. Neustart der Serie mitlöschen. `npm run validate:data` prüft sie
+  gegen Git.
 - Neue Darstellungsregeln brauchen eine neue Rendererversion; `ArtV1` bleibt
   unverändert. Der Generator bleibt frei von React- und Browser-Abhängigkeiten.
 - Generator 0.4.0 (Vererbung einzelner Eigenschaften) liegt in

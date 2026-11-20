@@ -13,9 +13,11 @@
 - Testphase (Betreiberentscheidung vom 18.11.2026): Werke dürfen auf
   ausdrücklichen Betreiberauftrag gelöscht werden, auch alle auf einmal für einen
   Serienneustart. Es gibt keine Regel mehr, dass Werke nie gelöscht werden dürfen;
-  der Tageslauf holt gelöschte Werke nicht aus Git zurück. Geplant (noch ohne
-  Auftrag): Serienneustart nach einem einstellbaren Wert von einem Monat und eine
-  Favoritengalerie, deren Werke samt direkten Eltern vom Löschen ausgenommen sind.
+  der Tageslauf holt gelöschte Werke nicht aus Git zurück. Favoritengalerie
+  (Paket B, 20.11.2026): Nur der Betreiber markiert in seinem Bereich; Werk und
+  direkte Eltern liegen als Kopie unter `public/favorites/` und sind vom Löschen der
+  Serie ausgenommen. Geplant (noch ohne Auftrag): Serienneustart nach einem
+  einstellbaren Wert von einem Monat (Paket C).
 - Neustart am 19.11.2026 mit Generator 0.4.0, Schema 3 und Renderer 2
   (`generatorV4Date` in `src/series/calendar.ts`, Abnahme als `artReviewV4` in
   `config/release.json`). Vererbung nach Eigenschaften statt ganzer Ebenen: je

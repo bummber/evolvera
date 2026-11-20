@@ -22,6 +22,28 @@ Die Serie ist am 19.11.2026 mit Generator 0.4.0 neu gestartet (Generation 1
   „sparsam“ etwa 20 % weniger, „dicht“ etwa 15–20 % mehr Formen, ohne Verzögerung;
   2 statt 3 Ebenen etwa 8 % weniger. Im Modus `free` erbt etwa jedes 14. Kind nichts.
 
+### Favoriten markieren und entfernen (Paket B, ab 20.11.2026)
+
+Live erst nach dem nächsten freigegebenen Worker-Deployment; bis dahin kennt die
+Betreiberseite keine Favoriten.
+
+- Nur der Betreiber, nur über `/favorites` der Betreiberseite. Markierbar sind Werke
+  der laufenden Serie. Ein Commit „Update favourite works“ der GitHub App legt das Werk
+  und seine direkten Eltern als `public/favorites/<Serienstart>/<Werk-ID>.json` an
+  (dieselben Git-Blobs wie im Archiv, also byte-gleich) und schreibt
+  `public/favorites/index.json`. Der Ref wird nur vorwärts bewegt; ein paralleler
+  Commit ergibt einen Konflikt (409) statt einer Überschreibung.
+- Entfernen braucht eine Bestätigung und löscht nur Kopien, die kein anderer Favorit
+  mehr braucht. Das Archiv der Serie bleibt bei beidem unverändert.
+- Der Commit löst den Pages-Workflow aus; `#/favoriten` zeigt danach den neuen Stand.
+  Ein Tageslauf, dessen Push mit einem Favoritencommit kollidiert, übernimmt ihn beim
+  einen Wiederholungsversuch (wie einen Einstellungscommit).
+- `npm run validate:data` prüft jede Kopie gegen Git: committet, seit dem Hinzufügen
+  unverändert und byte-gleich mit dem archivierten Werk in demselben Commit; Index und
+  Kopien passen genau zueinander. `public/favorites/**` nie von Hand ändern, formatieren
+  oder beim Löschen der Serie mitlöschen.
+- Danach lesend belegen: Diff nur unter `public/favorites/`, Läufe grün.
+
 ### Worker-Deployment
 
 Nur mit eigener Betreiberfreigabe und vom committeten, gepushten Stand.
@@ -45,9 +67,10 @@ Nur mit eigener Betreiberfreigabe und vom committeten, gepushten Stand.
    geprüft). Rohausgaben nicht weitergeben (sie enthalten Variablenwerte).
 5. Lesend nachprüfen: neue Version mit 100 %, Bindings einschließlich `ASSETS`,
    `/health`, `/privacy`, `/imprint` HTTP 200 ohne Cookies, `/settings` ohne Sitzung
-   zeigt die Anmeldung, `/api/settings` ohne Sitzung 401, `/assets/admin.js` gleich dem
-   lokalen Build. Danach Live-Prüfung durch den Betreiber (Anmeldung, Vorschau,
-   Abmelden), Token widerrufen oder ablaufen lassen.
+   zeigt die Anmeldung, `/api/settings` und `/api/favorites` ohne Sitzung 401,
+   `/assets/admin.js` gleich dem lokalen Build. Danach Live-Prüfung durch den Betreiber
+   (Anmeldung, Vorschau, Abmelden; seit Paket B auch `/favorites`), Token widerrufen
+   oder ablaufen lassen.
 6. Rückfall: Die Vorgängerversion `08317969-9743-4a86-84c2-a57afd3b7e75` bleibt bei
    Cloudflare erhalten; ein Rollback ist ebenfalls freigabepflichtig.
 

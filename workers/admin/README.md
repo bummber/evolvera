@@ -59,3 +59,21 @@ Modus und Generationsprofil aus:
 
 Am 19.11.2026 mit Freigabe des Betreibers deployt; jedes weitere Deployment braucht
 eine eigene Freigabe.
+
+## Favoriten (Paket B, 20.11.2026)
+
+- `GET /favorites` gibt mit gültiger Sitzung dieselbe Seitenhülle aus; die Seite
+  zeigt dann die Favoriten und die Werke der laufenden Serie.
+- `GET /api/favorites` liefert Serienstart, Archivindex der laufenden Serie,
+  `public/favorites/index.json` und das CSRF-Token der Sitzung.
+- `POST /api/favorites` nimmt JSON bis 4 KiB mit genau `csrf`, `action`
+  (`add` oder `remove`), `series` und `id` an, nur mit exakter Origin. `add`
+  gilt nur für archivierte Werke der laufenden Serie und prüft Generation und
+  Eltern des Werks. Geschrieben wird ein Commit über die Git-Data-API: Bäume
+  verweisen für die Kopien auf die Blobs der Archivwerke, der Index wird neu
+  geschrieben, der Ref nur per Fast-forward bewegt (sonst 409). Ohne Änderung
+  entsteht kein Commit. Danach wird der Index am neuen Commit nachgelesen.
+- Gemeinsame Regeln in `src/archive/favorites.ts`; Prüfung gegen Git in
+  `src/automation/favorites.ts` (Teil von `npm run validate:data`).
+
+Noch nicht deployt; das Deployment braucht eine eigene Freigabe.

@@ -416,3 +416,31 @@ Test an den neuesten datierten Generator gebunden) und schreibt nichts.
 Tageslauf holt gelöschte Werke nicht aus Git zurück, stellt veränderte vorhandene Werke
 weiterhin exakt wieder her und stoppt bei einer Lücke mitten in der Kette. Die
 Archiv-Baseline (A-36) wird mit den Werken zusammen entfernt und sonst nur ergänzt.
+
+## Ergänzung – Favoritengalerie (Paket B), Stand 20.11.2026
+
+Betreiberentscheidung vom 20.11.2026: Option A (Kopie beim Markieren), Schreibweg 1
+(der Worker committet direkt), mit Entfernen; markieren darf nur der Betreiber in
+seinem Bereich.
+
+**Daten.** `public/favorites/index.json` (Schema 1) listet je Favorit Serienstart,
+Werk-ID, Generation und Titel, neueste Serie und neuestes Werk zuerst. Jeder Favorit
+und seine direkten Eltern liegen als byte-gleiche Kopie unter
+`public/favorites/<Serienstart>/<Werk-ID>.json`, außerhalb des Serienarchivs. Löschen
+oder Neustart der Serie (Paket C) betreffen nur `public/artworks`; die Galerie liest nur
+die Kopien und bleibt vollständig. Eltern ergeben sich in der lückenlosen Serie aus
+Serienstart und Datum (ab Generation 3 die beiden Vortage) und werden gegen die
+gespeicherten `parentIds` geprüft. Gemeinsame Regeln: `src/archive/favorites.ts`.
+
+**Schreiben.** Nur der Worker (`workers/admin/favorites.ts`) schreibt: ein Commit über
+die Git-Data-API, dessen Baum für die Kopien die Blobs der Archivwerke wiederverwendet,
+Ref-Update nur als Fast-forward, danach Nachlesen. Der Tageslauf toleriert bei seinem
+einen Wiederholungsversuch neben `config/generation.json` auch Änderungen unter
+`public/favorites/`; jede andere parallele Änderung stoppt ihn weiterhin.
+
+**Prüfen.** `npm run validate:data` (`src/automation/favorites.ts`): nur erlaubte
+Pfade, kanonischer Index, Kopien genau passend zum Index, jede Kopie committet, seit
+dem Hinzufügen unverändert und byte-gleich mit dem Archivwerk in demselben Commit.
+
+**Anzeige.** `#/favoriten` (Navigation nach „Evolution“) zeigt je Favorit das Werk
+groß und seine Eltern als Kacheln im Ruhezustand, ohne Verweis ins Serienarchiv.

@@ -219,9 +219,12 @@ lokaler Betriebsstart. Daten und Renderer werden nie still neu gewürfelt oder
 Stand und Wiedereinstieg stehen in [docs/HANDOFF.md](docs/HANDOFF.md) und
 [docs/NEXT-START.md](docs/NEXT-START.md); zu Beginn zuerst nur lesend prüfen.
 Mit der am 19.11.2026 deployten Einstellungsseite sind die Arbeitspakete von EP-01
-umgesetzt. Als Nächstes sind die Tagesläufe ab 20.11. (erstes Werk mit Profil „Ruhig“, Revision 8)
-und ab Generation 3 die Vererbung an echten Werken zu belegen; danach folgt die
-Favoritengalerie (Optionen vorab).
+umgesetzt. Am 20.11. ist die Favoritengalerie (Paket B) umgesetzt: Der Betreiber
+markiert Werke unter `/favorites` seines Bereichs, `#/favoriten` zeigt sie mit ihren
+direkten Eltern ([Architektur](docs/architecture.md)); live erst nach dem nächsten
+freigegebenen Worker-Deployment. Als Nächstes sind ab Generation 3 die Vererbung an
+echten Werken zu belegen und Paket C (Serienneustart nach einem Monat) vorzubereiten,
+zuerst mit Optionen.
 
 Offen bleiben die Verspätung der geplanten Läufe, eine Firefox-/Safari-Prüfung der
 Einstellungsseite, eine vollständige Geräte-/WCAG-/Sitzungsabnahme und

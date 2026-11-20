@@ -1,5 +1,71 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 20.11.2026, Tageslauf 20.11. belegt, Baseline ergänzt, Paket B (Favoritengalerie) umgesetzt
+
+Sichtung um 14:02 Berlin: lokal `b13727b` (Doku-Commit vom 19.11., ungepusht),
+Remote-main `cc1a8ae` mit dem Archivcommit des Tageslaufs. Auf Betreiberfreigabe Fetch
+und Rebase des Doku-Commits (jetzt `e7a052b`). `PRD_1_2.md` und
+`docs/extensions/EP02-umsetzungsplan.md` bleiben unversioniert liegen (Betreiber).
+
+- **Tageslauf 20.11.:** Schedule-Lauf 44695094031, gestartet 08:27 Berlin auf
+  `8381a8c`, Build und Deploy erfolgreich; Archivcommit `cc1a8ae` um 08:30 mit genau
+  der Werkdatei und `index.json`: Generation 2 „Traumfieber im Stillstand“,
+  47 Elemente in 3 Ebenen (Hintergrund generative Struktur 14, Struktur geometrische
+  Konstellation 6, Akzent Mosaik 27), statisch, Generator 0.4.0, Renderer 2, Lexikon
+  0.2.0, `traceable`, Revision 8 (Profil „Ruhig“), zweites Ursprungswerk ohne Eltern,
+  `isCatchUp: false`, Neuheitsabstand 0,652. Wie im Probelauf vom 19.11. Die Läufe
+  44697584115 (08:47) und 44704551726 (09:41) liefen erfolgreich ohne Archivcommit.
+  Alle drei starteten wie am 19.11. rund sieben Stunden nach der geplanten Zeit.
+- **Determinismus:** `planAt` im Speicher auf `8381a8c` mit den Zeitstempeln des Laufs
+  erzeugt Werkdatei und `index.json` bytegleich zum Archiv; mit Start 01:17 ist alles
+  außer den Zeitstempeln gleich. Trockenlauf auf HEAD: 0 neu, 0 wiederhergestellt,
+  2 Werke, Revision 8.
+- **Archiv-Baseline (`a49217b`):** Vorher Baseline-Test mit 5 Tests grün, danach 7;
+  Manifest um den 20.11. ergänzt (SHA-256 `e0fe0572…f4da`, `frozenThrough` 20.11.),
+  `markup/2026-11-20.txt` und zwei Bilder `archive-2026-11-20.png` (macOS). Bestehende
+  Einträge und Bilder unverändert.
+- **Push:** Nach erneutem Fetch ohne neue Remote-Commits um 15:10 Berlin als
+  Fast-forward `cc1a8ae..a49217b` (`e7a052b`, `a49217b`). CI 44750848170 und Pages
+  44750848242 erfolgreich; der Linux-Runner hat die neuen Bilder bestätigt; kein neues
+  Werk.
+- **Probelauf 21.11. (nur im Speicher, auf HEAD):** Generation 3 „Samtflechten /
+  Leuchtfieber“, Eltern 19.11. und 20.11., `traceable`, Revision 8, 56 Elemente in
+  2 Ebenen (Hintergrund chaotische Überlagerung 6, Struktur generative Struktur 50),
+  statisch. Geerbt vom 19.11. eine Farbe, vom 20.11. die Familie und eine Farbe. Mit
+  Start 01:17 und 08:30 bis auf die Zeitstempel gleich; gilt nur bei unveränderten
+  Einstellungen.
+- **Paket B, Entscheidungen des Betreibers (20.11.):** Option A (Kopie beim Markieren,
+  außerhalb des Serienarchivs), Schreibweg 1 (der Worker committet direkt), mit
+  Entfernen; nur der Betreiber markiert, in seinem Bereich. Angenommen und nicht
+  widersprochen: mehrere Favoriten, Galerie öffentlich unter `#/favoriten`, Eltern der
+  Eltern ohne Verweis. Es gilt die Entscheidung vom 18.11. (mit Eltern), nicht die
+  Notiz vom 10.11. in `docs/future-series.md` (ohne Eltern).
+- **Umsetzung:** `src/archive/favorites.ts` (Schema des Index, Pfade, Eltern aus
+  Serienstart und Datum, benötigte Kopien), `workers/admin/favorites.ts` mit
+  `GET`/`POST /api/favorites` und Seite `/favorites` (Git-Data-API: ein Commit
+  „Update favourite works“, Kopien als dieselben Blobs, Ref nur per Fast-forward, sonst
+  409, Nachlesen des Index), `src/admin/FavoritesApp.tsx` (Markieren, Entfernen mit
+  Bestätigung, Navigation „Einstellungen · Favoriten“), öffentliche Seite
+  `#/favoriten` in `src/app/ArchivePages.tsx` (Navigation nach „Evolution“, damit die
+  mobile Schnellleiste gleich bleibt), Prüfung gegen Git in
+  `src/automation/favorites.ts` als Teil von `npm run validate:data`, leerer Index
+  `public/favorites/index.json`. Der Tageslauf toleriert bei seinem einen
+  Wiederholungsversuch auch Favoritencommits (`publishPlan`). Generator 0.4.0,
+  `review-v4.json`, `artReviewV4` und `config/generation.json` unverändert.
+- **Prüfungen:** `npm run check` grün (450 Tests in 31 Dateien, Datenprüfung
+  0 Favoriten), `npm run test:browser` 164 bestanden, 6 übersprungen,
+  `npm run worker:test-runtime` grün. Neue Tests: Datenmodell und Git-Prüfung,
+  Worker-API mit simuliertem GitHub (Refs, Commits, Bäume, Blobs), Tageslauf mit
+  parallelem Favoritencommit, Browser für `#/favoriten` (Desktop und 320 px) und die
+  Betreiberseite über HTTPS mit dem echten Worker. Sichtprüfung von `#/favoriten` mit
+  Fixture-Werken auf Desktop und 320 px.
+- **Offen:** Worker-Deployment (eigene Freigabe, Runbook, Token mit Rolle Editor),
+  danach Live-Prüfung durch den Betreiber; erst das erste Markieren legt Kopien an.
+  Nicht geprüft: die echte GitHub-API für Bäume, Commits und Ref-Update (nur
+  simuliert; die Rechte der App decken laut Contents-Berechtigung auch die
+  Git-Data-API), Firefox/Safari. Nächstes Paket C (Serienneustart nach einem Monat),
+  zuerst Optionen.
+
 ## Nachtrag – 19.11.2026, erster Lauf mit Generator 0.4.0 belegt, Einstellungsseite live (EP-01 P8 und P9)
 
 Sichtung um 13:19 Berlin: lokal `10c4d12` (Doku-Commit vom 18.11., ungepusht),
