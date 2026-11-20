@@ -11,7 +11,13 @@ const settings = JSON.parse(
   revision: number;
   generationEnabled: boolean;
   seriesStartDate: string | null;
+  restartAfterDays?: number | null;
 };
+// Package C: with restarts the configured date starts the first series only.
+const seriesStart =
+  (settings.restartAfterDays ?? null) === null
+    ? `Serienstart ${settings.seriesStartDate}`
+    : `Erster Serienstart ${settings.seriesStartDate}, Neustart alle ${settings.restartAfterDays} Tage`;
 const operator = JSON.parse(
   readFileSync(new URL('../../config/operator.json', import.meta.url), 'utf8'),
 ) as { adminOrigin: string | null };
@@ -102,9 +108,9 @@ test('Über-Kapitel behalten Hash-Routing, Direktlinks und Tastaturfokus', async
   await expect(page.locator('#about-preview')).toBeFocused();
   await expect(page.locator('#about-preview')).toContainText(
     settings.generationEnabled
-      ? `Die tägliche Generierung ist aktiviert. Serienstart ${settings.seriesStartDate}.`
+      ? `Die tägliche Generierung ist aktiviert. ${seriesStart}.`
       : settings.seriesStartDate
-        ? `Die offizielle Generierung ist pausiert. Serienstart ${settings.seriesStartDate}.`
+        ? `Die offizielle Generierung ist pausiert. ${seriesStart}.`
         : 'Die offizielle Kunstserie ist noch nicht gestartet.',
   );
   await page
@@ -136,9 +142,9 @@ test('Moduskarten zeigen den echten Stand und erlauben in der Galerie keine Änd
   );
   await expect(status).toContainText(
     settings.generationEnabled
-      ? `Aktiv · Serienstart ${settings.seriesStartDate}`
+      ? `Aktiv · ${seriesStart}`
       : settings.seriesStartDate
-        ? `Deaktiviert · Serienstart ${settings.seriesStartDate}`
+        ? `Deaktiviert · ${seriesStart}`
         : 'Deaktiviert · Startdatum offen',
   );
   const modes = page.getByRole('group', {

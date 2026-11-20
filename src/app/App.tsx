@@ -8,6 +8,12 @@ import { operatorSettings } from '../operator/access';
 import { collectionKey, collectionLink } from '../archive/reader';
 import { AboutIllustration } from './AboutIllustration';
 
+// Package C: with restarts the configured date starts the first series only.
+const seriesStart =
+  initialSettings.restartAfterDays === null
+    ? `Serienstart ${initialSettings.seriesStartDate}`
+    : `Erster Serienstart ${initialSettings.seriesStartDate}, Neustart alle ${initialSettings.restartAfterDays} Tage`;
+
 const aboutChapters = [
   ['material', 'Material'],
   ['origins', 'Ursprünge'],
@@ -207,9 +213,9 @@ function About() {
                     ? ' Die Betreiberanmeldung ist auf einer eigenen geschützten Betreiberseite eingerichtet.'
                     : ' Die Betreiberfunktion ist lokal vorbereitet; die Betreiberanmeldung ist noch nicht eingerichtet.'}{' '}
                   {initialSettings.generationEnabled
-                    ? `Die tägliche Generierung ist aktiviert. Serienstart ${initialSettings.seriesStartDate}.`
+                    ? `Die tägliche Generierung ist aktiviert. ${seriesStart}.`
                     : initialSettings.seriesStartDate
-                      ? `Die offizielle Generierung ist pausiert. Serienstart ${initialSettings.seriesStartDate}.`
+                      ? `Die offizielle Generierung ist pausiert. ${seriesStart}.`
                       : 'Die offizielle Kunstserie ist noch nicht gestartet.'}
                 </p>
                 <div className="about-actions">
@@ -256,9 +262,9 @@ function Settings() {
                 <dt>Offizielle Generierung</dt>
                 <dd>
                   {initialSettings.generationEnabled
-                    ? `Aktiv · Serienstart ${initialSettings.seriesStartDate}`
+                    ? `Aktiv · ${seriesStart}`
                     : initialSettings.seriesStartDate
-                      ? `Deaktiviert · Serienstart ${initialSettings.seriesStartDate}`
+                      ? `Deaktiviert · ${seriesStart}`
                       : 'Deaktiviert · Startdatum offen'}
                 </dd>
               </div>
