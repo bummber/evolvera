@@ -2,6 +2,11 @@
   "schemaVersion": 1,
   "works": [
     {
+      "id": "2026-11-20",
+      "generation": 2,
+      "title": "Traumfieber im Stillstand"
+    },
+    {
       "id": "2026-11-19",
       "generation": 1,
       "title": "Falterkristall im Zwischenraum"
