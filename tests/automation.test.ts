@@ -337,6 +337,39 @@ describe('Echte isolierte lokale Git-Repositories ohne GitHub-Zugriff', () => {
     expect(work.inheritanceMode).toBe('traceable');
     expect(work.settingsRevision).toBe(1);
   });
+  // Package B: the operator worker may mark a favourite during a run.
+  it('integriert einen parallelen Favoritencommit einmal, aber keinen Code daneben', () => {
+    for (const withCode of [false, true]) {
+      const { root, remote, base } = repo();
+      const plan = planAt(root, base, start.runStartedAt, clock);
+      const clone = folder();
+      git(clone, ['clone', remote, '.']);
+      git(clone, ['config', 'user.name', 'Test']);
+      git(clone, ['config', 'user.email', 'test@example.invalid']);
+      const publish = () =>
+        publishPlan(root, base, plan, () => {
+          file(clone, 'public/favorites/index.json', {
+            schemaVersion: 1,
+            favorites: [],
+          });
+          if (withCode) file(clone, 'new-code.ts', 'export const x = 1;');
+          git(clone, ['add', '.']);
+          git(clone, ['commit', '-m', 'Update favourite works']);
+          git(clone, ['push', 'origin', 'main']);
+        });
+      if (withCode) {
+        expect(publish).toThrow(/Code-/);
+        continue;
+      }
+      const committed = publish();
+      expect(
+        git(root, ['show', `${committed}:public/favorites/index.json`]),
+      ).toContain('"favorites": []');
+      expect(
+        JSON.parse(git(root, ['show', `${committed}:${indexPath}`])).works,
+      ).toHaveLength(3);
+    }
+  });
   it('stoppt bei parallelem Codecommit statt fremden Stand zu überschreiben', () => {
     const { root, remote, base } = repo();
     const plan = planAt(root, base, start.runStartedAt, clock);

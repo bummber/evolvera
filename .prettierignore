@@ -6,6 +6,9 @@ test-results
 package-lock.json
 # Canonical archive bytes are generated and validated, never reformatted.
 public/artworks/**/*.json
+# Package B: byte copies of archived works and their index, written by the
+# operator worker and validated against Git.
+public/favorites/**/*.json
 # Written by the operator worker (EP-01 P8) and validated by its schema;
 # a reformatted copy would differ from the bytes the worker verifies.
 config/generation.json

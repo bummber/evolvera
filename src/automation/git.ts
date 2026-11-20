@@ -5,6 +5,7 @@ import path from 'node:path';
 import { isWorkPath, indexPath } from './archive';
 import { prepareRun } from './plan';
 import { readGenerationConfig } from '../art/schema/config';
+import { isFavoritesPath } from '../archive/favorites';
 
 export function git(
   root: string,
@@ -156,7 +157,7 @@ export function planAt(
     options,
   );
 }
-/** Called only by the separately gated CI entrypoint. Fast-forward-only push; one config-only retry. */
+/** Called only by the separately gated CI entrypoint. Fast-forward-only push; one retry over settings or favourites commits. */
 export function publishPlan(
   root: string,
   base: string,
@@ -185,21 +186,30 @@ export function publishPlan(
         .trim()
         .split('\n')
         .filter(Boolean);
-      if (changed.length !== 1 || changed[0] !== 'config/generation.json')
+      // Only the operator worker may have written in parallel: the settings
+      // and, since package B, the favourites outside the series archive.
+      if (
+        !changed.length ||
+        changed.some(
+          (file) => file !== 'config/generation.json' && !isFavoritesPath(file),
+        )
+      )
         throw new Error(
           'Parallele Code-/Archivänderung: kontrolliert stoppen.',
         );
-      // The parallel change may be of schema 1 or 2; the run keeps its snapshot.
-      const config = readGenerationConfig(
-        JSON.parse(git(root, ['show', `${fresh}:config/generation.json`])),
-      );
-      if (
-        config.seriesStartDate !== plan.settings.seriesStartDate ||
-        config.generationEnabled !== plan.settings.generationEnabled ||
-        config.timezone !== plan.settings.timezone ||
-        config.revision <= plan.settings.revision
-      )
-        throw new Error('Unerwartete parallele Konfigurationsänderung.');
+      if (changed.includes('config/generation.json')) {
+        // The parallel change may be of schema 1 or 2; the run keeps its snapshot.
+        const config = readGenerationConfig(
+          JSON.parse(git(root, ['show', `${fresh}:config/generation.json`])),
+        );
+        if (
+          config.seriesStartDate !== plan.settings.seriesStartDate ||
+          config.generationEnabled !== plan.settings.generationEnabled ||
+          config.timezone !== plan.settings.timezone ||
+          config.revision <= plan.settings.revision
+        )
+          throw new Error('Unerwartete parallele Konfigurationsänderung.');
+      }
       parent = fresh;
     }
   }

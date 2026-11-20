@@ -1,9 +1,10 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, stat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { readGenerationConfig } from '../src/art/schema/config';
 import { releaseSchema, assertSeriesGate } from '../src/automation/release';
 import { readArchive, indexText, indexPath } from '../src/automation/archive';
 import { canonicalHistory, git } from '../src/automation/git';
+import { checkFavorites } from '../src/automation/favorites';
 import { operatorSchema } from '../src/operator/access';
 const readJson = async (file: string) =>
   JSON.parse(await readFile(file, 'utf8')) as unknown;
@@ -79,6 +80,22 @@ for (const [file, text] of canonical)
 for (const file of files.keys())
   if (file !== indexPath && !canonical.has(file))
     throw new Error('Offizielles Werk noch nicht sicher in Git archiviert.');
+// Package B: favourites are byte copies of archived works, checked against Git.
+const favoriteFiles = new Map<string, string>();
+for (const file of await readdir('public/favorites', { recursive: true }))
+  if (
+    file.endsWith('.json') &&
+    !(await stat(`public/favorites/${file}`)).isDirectory()
+  )
+    favoriteFiles.set(
+      `public/favorites/${file}`,
+      await readFile(`public/favorites/${file}`, 'utf8'),
+    );
+const favorites = checkFavorites(
+  process.cwd(),
+  git(process.cwd(), ['rev-parse', 'HEAD']).trim(),
+  favoriteFiles,
+);
 console.log(
-  `Datenprüfung erfolgreich: ${works.length} offizielle Werke, konsistenter Index; Kunstabnahme ${release.artReview.status}, Serienfreigabe ${release.seriesAuthorized}.`,
+  `Datenprüfung erfolgreich: ${works.length} offizielle Werke, konsistenter Index, ${favorites.favorites.length} Favoriten; Kunstabnahme ${release.artReview.status}, Serienfreigabe ${release.seriesAuthorized}.`,
 );
