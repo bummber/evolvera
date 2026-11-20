@@ -7,8 +7,8 @@ Die Serie ist am 19.11.2026 mit Generator 0.4.0 neu gestartet (Generation 1
 `evolvera-admin` die Einstellungsseite aus; der Betreiber hat um 14:40 das Profil
 „Ruhig“ gespeichert (`8381a8c`, Schema 2, Revision 8). Seit 20.11. 16:45 Berlin läuft
 Version `7a13badc-78ad-4a40-a351-3f97fbe8e44f` mit Favoriten (Paket B); erster Favorit
-am 20.11. (`4091b1c`). Paket C (Serienneustart) ist umgesetzt und braucht noch ein
-Worker-Deployment. Die folgenden Abschnitte ab 05.11.2026 sind historische Stände.
+am 20.11. (`4091b1c`). Paket C (Serienneustart) ist seit 20.11. 23:03 Berlin deployt
+(Version `bb8431b4-25e0-4a64-9354-3feb8685481c`). Die folgenden Abschnitte ab 05.11.2026 sind historische Stände.
 
 ### Einstellungen ändern
 
@@ -49,8 +49,8 @@ Pages.
 
 ### Serienneustart einstellen und belegen (Paket C, ab 20.11.2026)
 
-Live erst nach dem nächsten freigegebenen Worker-Deployment; bis dahin bleibt
-`config/generation.json` bei Schema 2 ohne Neustart.
+Live seit dem Worker-Deployment vom 20.11.2026 23:03 (Version `bb8431b4…`). Bis der
+Betreiber Tage speichert, bleibt `config/generation.json` bei Schema 2 ohne Neustart.
 
 - Nur der Betreiber, auf `/settings` unter „Serienneustart“: „Serie automatisch neu
   starten“ und „Neustart nach (Tagen)“, 3–365, vorbelegt 30. Die Seite zeigt den
@@ -102,8 +102,8 @@ Nur mit eigener Betreiberfreigabe und vom committeten, gepushten Stand.
    `/assets/admin.js` gleich dem lokalen Build. Danach Live-Prüfung durch den Betreiber
    (Anmeldung, Vorschau, Abmelden; seit Paket B auch `/favorites`), Token widerrufen
    oder ablaufen lassen.
-6. Rückfall: Die Vorgängerversion `6b7e4354-d8b4-4307-b922-24421ef6c20c`
-   (Einstellungsseite ohne Favoriten, davor `08317969-9743-4a86-84c2-a57afd3b7e75`)
+6. Rückfall: Die Vorgängerversion `7a13badc-78ad-4a40-a351-3f97fbe8e44f` (Favoriten
+   ohne Serienneustart, davor `6b7e4354-d8b4-4307-b922-24421ef6c20c` ohne Favoriten)
    bleibt bei Cloudflare erhalten; ein Rollback ist ebenfalls freigabepflichtig.
 
 ### Lauf ohne Werk

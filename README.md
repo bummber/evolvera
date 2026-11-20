@@ -224,8 +224,8 @@ markiert Werke unter `/favorites` seines Bereichs, `#/favoriten` zeigt sie mit i
 direkten Eltern ([Architektur](docs/architecture.md)); seit dem Worker-Deployment
 vom 20.11. live, erster Favorit ist das Werk vom 20.11. Paket C ist umgesetzt: Die
 Serie beginnt nach einer auf der Einstellungsseite gewählten Zahl von Tagen neu (erster
-Neustart bei 30 Tagen am 19.12.2026); live erst nach dem nächsten freigegebenen
-Worker-Deployment. Als Nächstes sind ab Generation 3 die Vererbung an echten Werken zu
+Neustart bei 30 Tagen am 19.12.2026); seit dem Worker-Deployment vom 20.11. abends
+einstellbar, wirksam erst mit der Einstellung des Betreibers. Als Nächstes sind ab Generation 3 die Vererbung an echten Werken zu
 belegen.
 
 Offen bleiben die Verspätung der geplanten Läufe, eine Firefox-/Safari-Prüfung der

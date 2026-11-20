@@ -2,8 +2,9 @@
 
 Stand 20.11.2026: Live unter `https://evolvera-admin.alexander-brocker.workers.dev`
 seit 03.11.2026; die Einstellungsseite (EP-01 P8) ist seit 19.11.2026 deployt, die
-Favoriten (Paket B) seit 20.11.2026 (Version `7a13badc-78ad-4a40-a351-3f97fbe8e44f`,
-davor `6b7e4354-d8b4-4307-b922-24421ef6c20c`). Vorgehen, Tokenrolle und Prüfungen
+Favoriten (Paket B) seit 20.11.2026 16:45 (`7a13badc-78ad-4a40-a351-3f97fbe8e44f`),
+der Serienneustart (Paket C) seit 20.11.2026 23:03 (Version
+`bb8431b4-25e0-4a64-9354-3feb8685481c`). Vorgehen, Tokenrolle und Prüfungen
 eines Deployments: [Runbook](../../docs/runbook.md#worker-deployment). Im Repository
 bleibt `wrangler.jsonc` der sicher deaktivierte Standard (`ENABLED=false`); deployt
 wird mit der ignorierten Vorlage `work/operator-deploy/wrangler.jsonc`, die den
@@ -92,4 +93,5 @@ eine eigene Freigabe.
 - `GET /api/favorites` nimmt den Serienstart aus dem Archiv und liefert `restart`, den
   nächsten Neustart oder `null`.
 
-Noch nicht deployt; das Deployment braucht eine eigene Freigabe.
+Am 20.11.2026 um 23:03 Berlin mit Freigabe des Betreibers deployt (Version
+`bb8431b4…`); jedes weitere Deployment braucht eine eigene Freigabe.

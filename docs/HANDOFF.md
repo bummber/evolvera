@@ -34,10 +34,22 @@
   Index enthält nur sie. Die echten Werke hängen von Revision und Läufen ab.
 - **Nicht geprüft:** der echte Neustart (erstmals am 19.12.), der Worker mit echter
   GitHub-API für die neuen Felder, Firefox/Safari.
-- **Offen:** Commit und Push (Freigabe), Worker-Deployment (eigene Freigabe, neuer
-  Token), danach stellt der Betreiber 30 Tage ein. Empfehlung: erst nach dem Lauf vom
-  21.11., weil jede Speicherung eine neue Revision und damit neue Seeds ergibt; sonst
-  gilt der Probelauf für Generation 3 nicht. Nach dem 19.12. Baseline-Einträge und
+- **Commits und Push (Freigabe des Betreibers):** `5bafbb1` (Regel, Schema 3, Lauf,
+  Validierung, Baseline), `3f042f0` (Betreiberseiten und Worker), `f329e53`
+  (Infoseite), `e44eff2` (Doku). Nach Fetch ohne neue Remote-Commits als Fast-forward
+  `dc8dd09..e44eff2` gepusht; CI 44824238324 (164 Browserfälle, 6 übersprungen) und
+  Pages 44824238085 erfolgreich.
+- **Worker-Deployment (Freigabe des Betreibers):** Neuer Token mit Ablauf 20.11.
+  23:59 Berlin; Vorprüfung nur lesend wie zuvor (live `7a13badc…`, Variablen gleich
+  der Vorlage). `npm run build:admin` auf `e44eff2`, deployt um 23:03 Berlin: Version
+  `bb8431b4-25e0-4a64-9354-3feb8685481c` mit 100 %. Nachprüfung: Bindings
+  einschließlich `ASSETS` und beider Secrets, Variablen unverändert, `/health`,
+  `/privacy`, `/imprint` 200 ohne Cookies, `/settings` und `/favorites` ohne Sitzung
+  mit Anmeldung, beide APIs 401, `admin.js` und `admin.css` byte-gleich mit dem Build.
+- **Offen:** Live-Prüfung durch den Betreiber. Er stellt auf `/settings` 30 Tage
+  ein, nach Empfehlung erst nach dem Lauf vom 21.11., weil jede Speicherung eine neue
+  Revision und damit neue Seeds ergibt; sonst gilt der Probelauf für Generation 3
+  nicht. Danach den Einstellungscommit belegen. Nach dem 19.12. Baseline-Einträge und
   Bilder der gelöschten Werke gezielt entfernen.
 
 ## Nachtrag – 20.11.2026, Tageslauf 20.11. belegt, Baseline ergänzt, Paket B (Favoritengalerie) live
