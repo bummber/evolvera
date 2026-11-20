@@ -6,11 +6,30 @@ import { validateEvolution } from '../art/generator/provenance';
 import { MAX_NOVELTY_WINDOW } from '../art/generator/v3/distance';
 import { validateEvolutionV3 } from '../art/generator/v3/provenance';
 import { addDay } from './calendar';
+import { runningSeries } from '../series/restart';
 export const workPath = (id: string) =>
   `public/artworks/${id.slice(0, 4)}/${id}.json`;
 export const indexPath = 'public/artworks/index.json';
 export const isWorkPath = (path: string) =>
   /^public\/artworks\/\d{4}\/\d{4}-\d{2}-\d{2}\.json$/.test(path);
+/**
+ * Package C: the running series starts with its first archived work (after a
+ * restart later than the configured start of the first series), or with the
+ * configured start while the archive is empty. `readArchive` then checks the
+ * gap-free chain from there.
+ */
+export function archiveStart(
+  files: ReadonlyMap<string, string>,
+  configured: string | null,
+) {
+  const ids = [...files.keys()]
+    .filter(isWorkPath)
+    .map((path) => path.slice(-15, -5));
+  const { start } = runningSeries(ids, configured);
+  if (ids.length && (configured === null || start! < configured))
+    throw new Error('Archiv beginnt vor dem Serienstart.');
+  return start;
+}
 export function readWorks(
   files: ReadonlyMap<string, string>,
   start: string | null,

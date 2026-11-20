@@ -42,6 +42,7 @@ function run() {
       generationEnabled: plan.settings.generationEnabled,
       settingsRevision: plan.settings.revision,
       added: plan.added.length,
+      removed: plan.removed.length,
       restored: plan.restored.length,
       works: plan.workCount,
     }),

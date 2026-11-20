@@ -4,7 +4,9 @@ import { readFileSync } from 'node:fs';
 // EP-01 A-36: one reference image per frozen archive work and project
 // (320 px and desktop). Works archived after `frozenThrough` have no image
 // until the baseline is extended on purpose; see tests/archive-baseline.test.tsx.
-// Never refresh existing images with --update-snapshots.
+// Never refresh existing images with --update-snapshots. Package C: works
+// of an earlier series (dated before the first work of the running series)
+// were deleted by its restart and are not opened.
 const manifest = JSON.parse(
   readFileSync(
     new URL('../fixtures/archive-baseline/manifest.json', import.meta.url),
@@ -19,7 +21,18 @@ const rendererOf = (path: string) =>
     ) as { rendererVersion: string }
   ).rendererVersion;
 
-for (const { id, title, path } of manifest.works) {
+const index = JSON.parse(
+  readFileSync(
+    new URL('../../public/artworks/index.json', import.meta.url),
+    'utf8',
+  ),
+) as { works: { id: string }[] };
+const start = index.works.map((work) => work.id).sort()[0];
+const active = manifest.works.filter(
+  ({ id }) => start !== undefined && id >= start,
+);
+
+for (const { id, title, path } of active) {
   test(`Archivwerk ${id} bleibt im Bild unverändert`, async ({
     page,
   }, testInfo) => {

@@ -54,6 +54,7 @@ describe('Konfigurationsschema 2 und gemeinsamer Leser (EP-01 A-32, A-37)', () =
     expect(readGenerationConfig(stored)).toEqual({
       ...stored,
       profile: defaultProfile,
+      restartAfterDays: null,
     });
   });
 

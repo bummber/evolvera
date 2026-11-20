@@ -2,7 +2,12 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { readGenerationConfig } from '../src/art/schema/config';
 import { releaseSchema, assertSeriesGate } from '../src/automation/release';
-import { readArchive, indexText, indexPath } from '../src/automation/archive';
+import {
+  archiveStart,
+  indexPath,
+  indexText,
+  readArchive,
+} from '../src/automation/archive';
 import { canonicalHistory, git } from '../src/automation/git';
 import { checkFavorites } from '../src/automation/favorites';
 import { operatorSchema } from '../src/operator/access';
@@ -59,7 +64,8 @@ for (const file of await readdir('public/artworks', { recursive: true })) {
       await readFile(`public/artworks/${file}`, 'utf8'),
     );
 }
-const works = readArchive(files, settings.seriesStartDate);
+// Package C: the running series starts with its first archived work.
+const works = readArchive(files, archiveStart(files, settings.seriesStartDate));
 if (
   !files.has(indexPath) ||
   JSON.stringify(JSON.parse(files.get(indexPath)!)) !==

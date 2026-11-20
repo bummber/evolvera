@@ -17,26 +17,34 @@ import {
   lexiconVersionFor,
   scheduledFor,
 } from './calendar';
+import { restartFor } from '../series/restart';
 import {
   assertGeneratorGate,
   assertSeriesGate,
   assertTitleGate,
 } from './release';
-import { indexPath, indexText, readArchive, workPath } from './archive';
+import {
+  archiveStart,
+  indexPath,
+  indexText,
+  readArchive,
+  workPath,
+} from './archive';
 
 /**
- * Reads the archive and checks that each work was made by the generator of
- * its work date: schema 3 exactly from the dated generator change on (EP-01),
- * generator 0.4.0 from the restart on. Without a change date no schema 3
- * work is accepted at all.
+ * Reads the running series and checks that each work was made by the
+ * generator of its work date: schema 3 exactly from the dated generator
+ * change on (EP-01), generator 0.4.0 from the restart on. Without a change
+ * date no schema 3 work is accepted at all. Since package C the series starts
+ * with its first archived work, never before the configured start.
  */
 function readSeries(
   files: ReadonlyMap<string, string>,
-  start: string | null,
+  configured: string | null,
   changeDate: string | null,
   v4Date: string | null,
 ) {
-  const works = readArchive(files, start);
+  const works = readArchive(files, archiveStart(files, configured));
   for (const work of works) {
     const expected = generatorVersionFor(work.id, changeDate, v4Date);
     if (
@@ -103,11 +111,30 @@ export function prepareRun(
     if (path !== indexPath && !files.has(path))
       throw new Error('Aktuelles Werk ohne sichere Git-Herkunft.');
   const added: string[] = [];
+  const removed: string[] = [];
   const lastDue = cycleDate(runStartedAt);
   if (settings.generationEnabled && settings.seriesStartDate) {
     let next = works.length
       ? addDay(works.at(-1)!.id)
       : settings.seriesStartDate;
+    // Package C: on its restart date the running series is deleted and the
+    // next one begins with generation 1 in the same archive commit.
+    const restart =
+      settings.restartAfterDays === null || next > lastDue
+        ? null
+        : restartFor(
+            works[0]?.id ?? settings.seriesStartDate,
+            next,
+            settings.restartAfterDays,
+            lastDue,
+          );
+    if (restart) {
+      for (const work of works.splice(0)) {
+        files.delete(workPath(work.id));
+        removed.push(workPath(work.id));
+      }
+      next = restart;
+    }
     while (next <= lastDue) {
       if (works.length >= 10000)
         throw new Error(
@@ -176,8 +203,18 @@ export function prepareRun(
     previousIndex = undefined;
   }
   files.set(indexPath, previousIndex ?? expectedIndex);
-  const changes = new Map(
+  // `null` deletes the file: the works of a series ended by its restart.
+  const changes = new Map<string, string | null>(
     [...files].filter(([path, text]) => input.current.get(path) !== text),
   );
-  return { settings, files, changes, added, restored, workCount: works.length };
+  for (const path of removed) changes.set(path, null);
+  return {
+    settings,
+    files,
+    changes,
+    added,
+    removed,
+    restored: restored.filter((path) => files.has(path)),
+    workCount: works.length,
+  };
 }

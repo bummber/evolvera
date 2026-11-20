@@ -97,7 +97,7 @@ export function canonicalHistory(root: string, revision: string) {
 export function commitPlan(
   root: string,
   base: string,
-  changes: ReadonlyMap<string, string>,
+  changes: ReadonlyMap<string, string | null>,
 ) {
   const folder = mkdtempSync(path.join(tmpdir(), 'evolvera-index-'));
   const env = {
@@ -112,6 +112,17 @@ export function commitPlan(
     for (const [file, text] of changes) {
       if (file !== indexPath && !isWorkPath(file))
         throw new Error('Schreibpfad außerhalb des Archivs.');
+      if (text === null) {
+        // Package C: a work of the series ended by its restart.
+        if (!isWorkPath(file)) throw new Error('Index wird nie gelöscht.');
+        git(
+          root,
+          ['update-index', '--force-remove', '--', file],
+          undefined,
+          env,
+        );
+        continue;
+      }
       const blob = sha(git(root, ['hash-object', '-w', '--stdin'], text));
       git(
         root,

@@ -40,9 +40,12 @@ export function generatorVersionFor(
     : ('0.2.0' as const);
 }
 export function addDay(id: string) {
+  return addDays(id, 1);
+}
+export function addDays(id: string, days: number) {
   workDateSchema.parse(id);
   const date = new Date(`${id}T12:00:00Z`);
-  date.setUTCDate(date.getUTCDate() + 1);
+  date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
 }
 export function berlinDateTime(value: string) {

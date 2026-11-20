@@ -19,6 +19,12 @@ import type { RenderSource } from '../src/art/renderer/ArtRenderer';
 // deleted works are removed together with them; the baseline then starts
 // empty and is extended again from the first work of the new series.
 //
+// Package C: the daily run deletes the whole series on its restart date and
+// cannot touch this baseline. Entries dated before the first work of the
+// running series therefore belong to an earlier series: their files must be
+// gone, not changed, and their entries and images are removed on purpose
+// afterwards. Only the running series is checked byte for byte.
+//
 // Listed works must keep their exact bytes and their exact renderer output.
 // Works the daily workflow archives later are tolerated as long as they are
 // dated after `frozenThrough`; they are unprotected until the baseline is
@@ -98,6 +104,15 @@ if (process.env.ARCHIVE_BASELINE_EXTEND === '1') {
 }
 
 const manifest = readManifest();
+const ids = archiveFiles()
+  .map((file) => workFile.exec(file)?.[2])
+  .filter((id): id is string => id !== undefined);
+// First work of the running series; undefined while the archive is empty.
+const start = ids.length ? ids.reduce((a, b) => (a < b ? a : b)) : undefined;
+const active = manifest.works.filter(
+  (entry) => start !== undefined && entry.id >= start,
+);
+const retired = manifest.works.filter((entry) => !active.includes(entry));
 
 describe('Archiv-Baseline (EP-01 A-36)', () => {
   it('enthält die eingefrorenen Werke lückenlos und aufsteigend', () => {
@@ -111,14 +126,21 @@ describe('Archiv-Baseline (EP-01 A-36)', () => {
       );
   });
 
-  it.each(manifest.works)(
+  it('hat die Werke früherer Serien gelöscht statt verändert', () => {
+    for (const entry of retired)
+      expect(existsSync(entry.path), `Noch vorhanden: ${entry.path}`).toBe(
+        false,
+      );
+  });
+
+  it.runIf(active.length > 0).each(active)(
     'hält $id bytegleich (SHA-256)',
     ({ path, sha256: expected }) => {
       expect(sha256(path)).toBe(expected);
     },
   );
 
-  it.each(manifest.works)(
+  it.runIf(active.length > 0).each(active)(
     'stellt $id unverändert dar (serialisierte Renderer-Ausgabe)',
     ({ path, markup }) => {
       // Each work is drawn by the renderer version it stores (1 or 2).
@@ -151,7 +173,7 @@ describe('Archiv-Baseline (EP-01 A-36)', () => {
       .filter((row) => row.id <= manifest.frozenThrough)
       .sort((a, b) => a.id.localeCompare(b.id));
     expect(frozenRows).toEqual(
-      manifest.works.map(({ id, generation, title }) => ({
+      active.map(({ id, generation, title }) => ({
         id,
         generation,
         title,
