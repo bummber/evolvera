@@ -46,6 +46,11 @@ Die verbindlichen Projektregeln stehen in AGENTS.md und gelten vollständig:
   Löschen bzw. Neustart der Serie mitlöschen. `npm run validate:data` prüft sie
   gegen Git. Tests dürfen sich nicht auf die echten Favoriten verlassen (der
   Betreiber ändert sie jederzeit), sondern geben ihre Daten selbst vor.
+- Serienneustart (Paket C): `config/generation.json` Schema 3 mit
+  `restartAfterDays`. `seriesStartDate` ist nur der Start der ersten Serie; die
+  laufende Serie beginnt mit ihrem ersten Archivwerk (`archiveStart`,
+  `src/series/restart.ts`). Am Neustarttag löscht der Tageslauf das Archiv der
+  Serie, nie `public/favorites/`.
 - Neue Darstellungsregeln brauchen eine neue Rendererversion; `ArtV1` bleibt
   unverändert. Der Generator bleibt frei von React- und Browser-Abhängigkeiten.
 - Generator 0.4.0 (Vererbung einzelner Eigenschaften) liegt in

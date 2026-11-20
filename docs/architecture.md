@@ -444,3 +444,38 @@ dem Hinzufügen unverändert und byte-gleich mit dem Archivwerk in demselben Com
 
 **Anzeige.** `#/favoriten` (Navigation nach „Evolution“) zeigt je Favorit das Werk
 groß und seine Eltern als Kacheln im Ruhezustand, ohne Verweis ins Serienarchiv.
+
+## Ergänzung – Serienneustart (Paket C), Stand 20.11.2026
+
+Betreiberentscheidung vom 20.11.2026: Option A (automatisch im Tageslauf), Einheit
+Tage, erster Neustart am 19.12.2026 (30 Tage ab dem Serienstart 19.11.), verpasste
+Läufe werden nicht nachgeholt, Titel dürfen in einer neuen Serie wiederkehren.
+
+**Daten.** `config/generation.json` Schema 3 ist Schema 2 plus `restartAfterDays`
+(3–365 oder `null`); nur der Betreiber-Worker schreibt es, immer vollständig. Schema 1
+und 2 lesen sich als `null`. `seriesStartDate` ist seitdem der Start der ersten
+Serie. Die laufende Serie beginnt mit ihrem ersten Archivwerk (`archiveStart` in
+`src/automation/archive.ts`), nie vor `seriesStartDate`; `readArchive` prüft die
+lückenlose Kette von dort. Der Tageslauf schreibt die Konfiguration nie.
+
+**Regel** (`src/series/restart.ts`, rein). Neustart = Start der laufenden Serie plus
+N Tage, frühestens das nächste Werkdatum; eine verkürzte Einstellung ersetzt also nie
+gemachte Tage, sondern beginnt mit dem nächsten Lauf. Liegt der Neustart im Lauf,
+werden ganze Serien ohne Lauf übersprungen.
+
+**Lauf.** `prepareRun` löscht am Neustarttag alle Werke der Serie aus dem Plan
+(`removed`, in `changes` als `null`) und erzeugt Generation 1 ohne Eltern und ohne
+Verlauf; `commitPlan` entfernt die Dateien mit `update-index --force-remove`. Alles
+bleibt ein Archivcommit „Archive validated daily artworks“, per Fast-forward, mit
+derselben Konflikt- und Stale-Build-Absicherung. `public/favorites/` liegt außerhalb
+des Archivs und bleibt unberührt; die gelöschten Werke bleiben in der Git-Historie.
+
+**Betreiberseite.** `/settings` zeigt „Serienneustart“ mit Tagen und dem daraus
+berechneten nächsten Neustart; `GET /api/settings` liefert dafür die laufende Serie
+(erstes und letztes Archivwerk). `/favorites` nennt den nächsten Neustart und nimmt
+den Serienstart aus dem Archiv.
+
+**Baseline.** Der Baseline-Test prüft nur die laufende Serie und verlangt, dass
+Werke früherer Serien gelöscht sind; deren Einträge und Bilder werden danach gezielt
+entfernt. Die öffentliche Infoseite nennt bei aktivem Neustart den ersten Serienstart
+und den Rhythmus.

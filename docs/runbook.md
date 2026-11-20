@@ -7,7 +7,8 @@ Die Serie ist am 19.11.2026 mit Generator 0.4.0 neu gestartet (Generation 1
 `evolvera-admin` die Einstellungsseite aus; der Betreiber hat um 14:40 das Profil
 „Ruhig“ gespeichert (`8381a8c`, Schema 2, Revision 8). Seit 20.11. 16:45 Berlin läuft
 Version `7a13badc-78ad-4a40-a351-3f97fbe8e44f` mit Favoriten (Paket B); erster Favorit
-am 20.11. (`4091b1c`). Die folgenden Abschnitte ab 05.11.2026 sind historische Stände.
+am 20.11. (`4091b1c`). Paket C (Serienneustart) ist umgesetzt und braucht noch ein
+Worker-Deployment. Die folgenden Abschnitte ab 05.11.2026 sind historische Stände.
 
 ### Einstellungen ändern
 
@@ -45,6 +46,34 @@ Pages.
   Kopien passen genau zueinander. `public/favorites/**` nie von Hand ändern, formatieren
   oder beim Löschen der Serie mitlöschen.
 - Danach lesend belegen: Diff nur unter `public/favorites/`, Läufe grün.
+
+### Serienneustart einstellen und belegen (Paket C, ab 20.11.2026)
+
+Live erst nach dem nächsten freigegebenen Worker-Deployment; bis dahin bleibt
+`config/generation.json` bei Schema 2 ohne Neustart.
+
+- Nur der Betreiber, auf `/settings` unter „Serienneustart“: „Serie automatisch neu
+  starten“ und „Neustart nach (Tagen)“, 3–365, vorbelegt 30. Die Seite zeigt den
+  nächsten Neustart. Gespeichert wird wie jede Einstellung als neue Revision
+  (Schema 3); wie jede Speicherung ändert das die Seeds der folgenden Werke.
+- Regel: Die laufende Serie beginnt mit ihrem ersten Archivwerk und endet N Tage
+  später, frühestens am nächsten Werkdatum. Mit 30 Tagen ab dem Serienstart 19.11.2026
+  ist der erste Neustart am 19.12.2026. Eine kürzere Einstellung, die schon
+  überschritten ist, startet mit dem nächsten Lauf neu.
+- Am Neustarttag löscht der Tageslauf in seinem Archivcommit alle Werke der Serie und
+  schreibt Generation 1 der neuen Serie; der Index enthält danach nur sie. Verpasste
+  Läufe werden nicht nachgeholt, ganze Serien ohne Lauf übersprungen, Titel dürfen
+  wiederkehren. `public/favorites/` bleibt unberührt; die gelöschten Werke bleiben in
+  der Git-Historie.
+- Vorher Favoriten auf `/favorites` markieren; die Seite nennt den nächsten Neustart.
+- Danach lesend belegen: Archivcommit mit den gelöschten Werkdateien der alten Serie,
+  genau einer neuen Werkdatei (Generation 1, ohne Eltern; bei Nachholung mehr) und dem
+  Index; Favoriten unverändert, CI und Pages grün.
+- Baseline: Einträge und Bilder der gelöschten Werke bleiben zunächst stehen; der Test
+  verlangt nur, dass ihre Dateien fehlen. In der nächsten Sitzung gezielt entfernen
+  (Manifest-Einträge, `markup/<id>.txt`, `tests/browser/references/*/archive-<id>.png`)
+  und um die neue Serie ergänzen, als Commit nach Rückfrage.
+- Ausschalten: Häkchen entfernen und speichern; die laufende Serie läuft weiter.
 
 ### Worker-Deployment
 

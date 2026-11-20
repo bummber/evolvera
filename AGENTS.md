@@ -16,8 +16,13 @@
   der Tageslauf holt gelöschte Werke nicht aus Git zurück. Favoritengalerie
   (Paket B, 20.11.2026): Nur der Betreiber markiert in seinem Bereich; Werk und
   direkte Eltern liegen als Kopie unter `public/favorites/` und sind vom Löschen der
-  Serie ausgenommen. Geplant (noch ohne Auftrag): Serienneustart nach einem
-  einstellbaren Wert von einem Monat (Paket C).
+  Serie ausgenommen. Serienneustart (Paket C, 20.11.2026): Der Betreiber stellt auf
+  der Einstellungsseite „Neustart nach N Tagen“ ein (3–365 oder aus,
+  Konfigurationsschema 3); diese Einstellung ist der stehende Löschauftrag. Am
+  Neustarttag löscht der Tageslauf alle Werke der laufenden Serie und erzeugt
+  Generation 1 im selben Commit; verpasste Läufe werden nicht nachgeholt, Titel
+  dürfen in einer neuen Serie wiederkehren. `seriesStartDate` ist der Start der
+  ersten Serie; die laufende Serie beginnt mit ihrem ersten Archivwerk.
 - Neustart am 19.11.2026 mit Generator 0.4.0, Schema 3 und Renderer 2
   (`generatorV4Date` in `src/series/calendar.ts`, Abnahme als `artReviewV4` in
   `config/release.json`). Vererbung nach Eigenschaften statt ganzer Ebenen: je
@@ -29,7 +34,10 @@
 - Archiv-Baseline (A-36) unter `tests/fixtures/archive-baseline/` und die
   Bilder `archive-*.png` schützen die archivierten Werke: bestehende Einträge und
   Referenzen nicht aktualisieren, nur gezielt um spätere Werke ergänzen. Wird ein
-  Werk gelöscht, werden seine Einträge und Bilder mit ihm entfernt.
+  Werk gelöscht, werden seine Einträge und Bilder mit ihm entfernt. Nach einem
+  Neustart durch den Tageslauf prüft die Baseline nur die laufende Serie und
+  verlangt, dass die Werke früherer Serien gelöscht sind; deren Einträge und Bilder
+  werden danach gezielt entfernt.
 - Im vorhandenen Projekt und mit `origin` bummber/evolvera arbeiten. Vor Änderungen
   Git-Zustand prüfen und vorhandene Arbeit erhalten. Kein Force-Push. Veröffentlichung,
   Sichtbarkeitsänderung und externe Einrichtung brauchen den passenden Betreiberauftrag.

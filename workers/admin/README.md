@@ -80,3 +80,16 @@ eine eigene Freigabe.
 Am 20.11.2026 mit Freigabe des Betreibers deployt; der erste Favorit (`4091b1c`) hat
 den Schreibweg über die echte Git-Data-API belegt. Jedes weitere Deployment braucht
 eine eigene Freigabe.
+
+## Serienneustart (Paket C, 20.11.2026)
+
+- `GET /api/settings` liefert zusätzlich `restartAfterDays` und `series` (erstes und
+  letztes Archivwerk der laufenden Serie, aus `public/artworks/index.json` am selben
+  Commit). Die Seite rechnet daraus den nächsten Neustart (`src/series/restart.ts`).
+- `POST /api/settings` nimmt optional `restartAfterDays` (ganze Zahl 3–365 oder
+  `null`) an; fehlt das Feld, bleibt der gespeicherte Wert. Gespeichert wird immer als
+  Schema 3. Eine Änderung nur der Tage ist eine eigene Revision.
+- `GET /api/favorites` nimmt den Serienstart aus dem Archiv und liefert `restart`, den
+  nächsten Neustart oder `null`.
+
+Noch nicht deployt; das Deployment braucht eine eigene Freigabe.

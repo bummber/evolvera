@@ -1,5 +1,45 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 20.11.2026 (Abend), Paket C (Serienneustart) umgesetzt
+
+- **Entscheidungen des Betreibers:** Option A (automatisch im Tageslauf), Einheit
+  Tage, erster Neustart am 19.12.2026, verpasste Läufe nicht nachholen, Titel dürfen
+  in einer neuen Serie wiederkehren. Angenommen: 3–365 Tage oder aus, vorbelegt 30.
+- **Regel:** Die laufende Serie beginnt mit ihrem ersten Archivwerk und endet N Tage
+  später, frühestens am nächsten Werkdatum. Am Neustarttag löscht der Tageslauf alle
+  Werke der Serie und erzeugt Generation 1 im selben Archivcommit; ganze Serien ohne
+  Lauf werden übersprungen. `seriesStartDate` ist nur noch der Start der ersten Serie;
+  der Tageslauf schreibt die Konfiguration nie. `public/favorites/` bleibt unberührt.
+- **Umsetzung:** `src/series/restart.ts` (reine Regel), Konfigurationsschema 3 mit
+  `restartAfterDays` in `src/art/schema/config.ts`, `archiveStart` in
+  `src/automation/archive.ts` (auch für `validate:data`), Löschen im Plan
+  (`removed`, `null` in `changes`) und in `commitPlan`, `removed` in der Ausgabe des
+  Tageslaufs. Worker: `readSettings` (Konfiguration und laufende Serie am selben
+  Commit), Speichern immer als Schema 3 mit optionalem `restartAfterDays`, Favoriten
+  mit Serienstart aus dem Archiv und nächstem Neustart. Seiten: „Serienneustart“ auf
+  `/settings` mit berechnetem nächstem Termin, Hinweis auf `/favorites`, Infoseite
+  der Galerie mit „Erster Serienstart …, Neustart alle N Tage“. Baseline prüft nur die
+  laufende Serie und verlangt, dass frühere Werke gelöscht sind. Generator 0.4.0,
+  `review-v4.json`, `artReviewV4` und `config/generation.json` unverändert.
+- **Prüfungen:** `npm run check` grün (468 Tests in 32 Dateien, Datenprüfung 2 Werke,
+  1 Favorit), `npm run test:browser` 164 bestanden, 6 übersprungen,
+  `npm run worker:test-runtime` grün. Neu: `tests/restart.test.ts` (Regel, Schema 3,
+  Läufe im Speicher mit Neustart, verpassten Läufen und verkürzter Einstellung,
+  echter Löschcommit in einem isolierten Repository, Favoritenkopie besteht danach
+  die Git-Prüfung), Worker-API für die Tage, Favoriten nach einem Neustart,
+  Browserfluss der Einstellungsseite (Häkchen, 30 Tage, „19. Dezember 2026“, Schema 3).
+- **Simulation im Speicher** mit echtem Archiv, Generator 0.4.0, Revision 9 und
+  30 Tagen: Lauf am 18.12. ergänzt 28 Werke bis Generation 30 („Veluflucht“), Lauf am
+  19.12. löscht alle 30 und erzeugt Generation 1 „Traumfalter im Zwischenraum“; der
+  Index enthält nur sie. Die echten Werke hängen von Revision und Läufen ab.
+- **Nicht geprüft:** der echte Neustart (erstmals am 19.12.), der Worker mit echter
+  GitHub-API für die neuen Felder, Firefox/Safari.
+- **Offen:** Commit und Push (Freigabe), Worker-Deployment (eigene Freigabe, neuer
+  Token), danach stellt der Betreiber 30 Tage ein. Empfehlung: erst nach dem Lauf vom
+  21.11., weil jede Speicherung eine neue Revision und damit neue Seeds ergibt; sonst
+  gilt der Probelauf für Generation 3 nicht. Nach dem 19.12. Baseline-Einträge und
+  Bilder der gelöschten Werke gezielt entfernen.
+
 ## Nachtrag – 20.11.2026, Tageslauf 20.11. belegt, Baseline ergänzt, Paket B (Favoritengalerie) live
 
 Sichtung um 14:02 Berlin: lokal `b13727b` (Doku-Commit vom 19.11., ungepusht),
