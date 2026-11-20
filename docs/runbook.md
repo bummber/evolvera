@@ -1,13 +1,13 @@
 # Betrieb und spätere Einrichtung
 
-## Aktuell – 19.11.2026, Einstellungsseite live und Serie mit Generator 0.4.0
+## Aktuell – 20.11.2026, Einstellungen und Favoriten live, Serie mit Generator 0.4.0
 
 Die Serie ist am 19.11.2026 mit Generator 0.4.0 neu gestartet (Generation 1
-„Falterkristall im Zwischenraum“). Seit 14:30 Berlin liefert der Worker
-`evolvera-admin` die Einstellungsseite aus (Version
-`6b7e4354-d8b4-4307-b922-24421ef6c20c`); der Betreiber hat um 14:40 das Profil
-„Ruhig“ gespeichert (`8381a8c`, Schema 2, Revision 8). Die folgenden Abschnitte ab
-05.11.2026 sind historische Stände.
+„Falterkristall im Zwischenraum“). Seit 19.11. 14:30 Berlin liefert der Worker
+`evolvera-admin` die Einstellungsseite aus; der Betreiber hat um 14:40 das Profil
+„Ruhig“ gespeichert (`8381a8c`, Schema 2, Revision 8). Seit 20.11. 16:45 Berlin läuft
+Version `7a13badc-78ad-4a40-a351-3f97fbe8e44f` mit Favoriten (Paket B); erster Favorit
+am 20.11. (`4091b1c`). Die folgenden Abschnitte ab 05.11.2026 sind historische Stände.
 
 ### Einstellungen ändern
 
@@ -24,8 +24,10 @@ Die Serie ist am 19.11.2026 mit Generator 0.4.0 neu gestartet (Generation 1
 
 ### Favoriten markieren und entfernen (Paket B, ab 20.11.2026)
 
-Live erst nach dem nächsten freigegebenen Worker-Deployment; bis dahin kennt die
-Betreiberseite keine Favoriten.
+Live seit dem Worker-Deployment vom 20.11.2026 (Version `7a13badc…`); erster Favorit
+am selben Tag (`4091b1c`, Werk vom 20.11.). Browsertests lesen nie die echten
+Favoriten, sondern geben ihre Daten selbst vor; sonst bricht ein Markieren CI und
+Pages.
 
 - Nur der Betreiber, nur über `/favorites` der Betreiberseite. Markierbar sind Werke
   der laufenden Serie. Ein Commit „Update favourite works“ der GitHub App legt das Werk
@@ -71,8 +73,9 @@ Nur mit eigener Betreiberfreigabe und vom committeten, gepushten Stand.
    `/assets/admin.js` gleich dem lokalen Build. Danach Live-Prüfung durch den Betreiber
    (Anmeldung, Vorschau, Abmelden; seit Paket B auch `/favorites`), Token widerrufen
    oder ablaufen lassen.
-6. Rückfall: Die Vorgängerversion `08317969-9743-4a86-84c2-a57afd3b7e75` bleibt bei
-   Cloudflare erhalten; ein Rollback ist ebenfalls freigabepflichtig.
+6. Rückfall: Die Vorgängerversion `6b7e4354-d8b4-4307-b922-24421ef6c20c`
+   (Einstellungsseite ohne Favoriten, davor `08317969-9743-4a86-84c2-a57afd3b7e75`)
+   bleibt bei Cloudflare erhalten; ein Rollback ist ebenfalls freigabepflichtig.
 
 ### Lauf ohne Werk
 

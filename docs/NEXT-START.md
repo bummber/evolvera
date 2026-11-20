@@ -9,11 +9,12 @@ Berliner Zeit, Tagesläufe und Archiv prüfen und gemeinsam sichten.
 
 Stand: Werke 19.11. (Generation 1) und 20.11. (Generation 2 „Traumfieber im
 Stillstand“) archiviert und in der Archiv-Baseline eingefroren (a49217b, CI
-44750848170 und Pages 44750848242 grün). Paket B (Favoritengalerie) ist
-umgesetzt: Option A (Kopien unter public/favorites/), der Worker committet
-direkt, Entfernen mit Bestätigung, nur der Betreiber unter /favorites. Prüfen,
-ob Commit, Push und Worker-Deployment von Paket B erfolgt sind; der Worker
-läuft sonst noch als Version 6b7e4354 ohne Favoriten.
+44750848170 und Pages 44750848242 grün). Paket B (Favoritengalerie) ist live:
+Option A (Kopien unter public/favorites/), der Worker committet direkt,
+Entfernen mit Bestätigung, nur der Betreiber unter /favorites. Worker-Version
+7a13badc; erster Favorit 20.11. (4091b1c, Kopie byte-gleich zum Archivwerk).
+Dessen CI und Pages scheiterten an einem Browsertest, der die echten Favoriten
+las; Korrektur 83b8292 am Abend des 20.11. gepusht.
 
 1. Den Tageslauf vom 21.11. (01:17) und alle seitherigen Läufe belegen:
    Lauf-ID, Archivcommit, Generation, Generator 0.4.0, Revision 8,
@@ -29,8 +30,10 @@ läuft sonst noch als Version 6b7e4354 ohne Favoriten.
 3. Vererbung an echten Werken prüfen: höchstens drei Eigenschaften je
    Elternteil, jede belegt und sichtbar, keine ganzen Ebenen. Fülle mit
    Profil „Ruhig“ beobachten.
-4. Falls Paket B deployt ist: Favoritencommits belegen (nur public/favorites/
-   geändert, Kopien byte-gleich, Läufe grün) und #/favoriten live ansehen.
+4. CI und Pages des Korrekturpushes vom 20.11. abends belegen und #/favoriten
+   live ansehen (Favorit „Traumfieber im Stillstand“). Spätere
+   Favoritencommits belegen: nur public/favorites/ geändert, Kopien byte-gleich,
+   Läufe grün. Ab Generation 3 entstehen beim Markieren auch Elternkopien.
 5. npm run check und npm run test:browser ausführen und ehrlich berichten.
 6. Paket C, Serienneustart nach einem einstellbaren Wert von einem Monat:
    zuerst 2–3 Optionen mit Empfehlung vorlegen und die Freigabe abwarten.

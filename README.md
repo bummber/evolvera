@@ -221,8 +221,8 @@ Stand und Wiedereinstieg stehen in [docs/HANDOFF.md](docs/HANDOFF.md) und
 Mit der am 19.11.2026 deployten Einstellungsseite sind die Arbeitspakete von EP-01
 umgesetzt. Am 20.11. ist die Favoritengalerie (Paket B) umgesetzt: Der Betreiber
 markiert Werke unter `/favorites` seines Bereichs, `#/favoriten` zeigt sie mit ihren
-direkten Eltern ([Architektur](docs/architecture.md)); live erst nach dem nächsten
-freigegebenen Worker-Deployment. Als Nächstes sind ab Generation 3 die Vererbung an
+direkten Eltern ([Architektur](docs/architecture.md)); seit dem Worker-Deployment
+vom 20.11. live, erster Favorit ist das Werk vom 20.11. Als Nächstes sind ab Generation 3 die Vererbung an
 echten Werken zu belegen und Paket C (Serienneustart nach einem Monat) vorzubereiten,
 zuerst mit Optionen.
 

@@ -1,8 +1,9 @@
 # Betreiberfunktion
 
-Stand 19.11.2026: Live unter `https://evolvera-admin.alexander-brocker.workers.dev`
-seit 03.11.2026; die Einstellungsseite (EP-01 P8) ist seit 19.11.2026 deployt
-(Version `6b7e4354-d8b4-4307-b922-24421ef6c20c`). Vorgehen, Tokenrolle und Prüfungen
+Stand 20.11.2026: Live unter `https://evolvera-admin.alexander-brocker.workers.dev`
+seit 03.11.2026; die Einstellungsseite (EP-01 P8) ist seit 19.11.2026 deployt, die
+Favoriten (Paket B) seit 20.11.2026 (Version `7a13badc-78ad-4a40-a351-3f97fbe8e44f`,
+davor `6b7e4354-d8b4-4307-b922-24421ef6c20c`). Vorgehen, Tokenrolle und Prüfungen
 eines Deployments: [Runbook](../../docs/runbook.md#worker-deployment). Im Repository
 bleibt `wrangler.jsonc` der sicher deaktivierte Standard (`ENABLED=false`); deployt
 wird mit der ignorierten Vorlage `work/operator-deploy/wrangler.jsonc`, die den
@@ -76,4 +77,6 @@ eine eigene Freigabe.
 - Gemeinsame Regeln in `src/archive/favorites.ts`; Prüfung gegen Git in
   `src/automation/favorites.ts` (Teil von `npm run validate:data`).
 
-Noch nicht deployt; das Deployment braucht eine eigene Freigabe.
+Am 20.11.2026 mit Freigabe des Betreibers deployt; der erste Favorit (`4091b1c`) hat
+den Schreibweg über die echte Git-Data-API belegt. Jedes weitere Deployment braucht
+eine eigene Freigabe.

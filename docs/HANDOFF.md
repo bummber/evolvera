@@ -1,6 +1,6 @@
 # Evolvera – aktueller Übergabestand
 
-## Nachtrag – 20.11.2026, Tageslauf 20.11. belegt, Baseline ergänzt, Paket B (Favoritengalerie) umgesetzt
+## Nachtrag – 20.11.2026, Tageslauf 20.11. belegt, Baseline ergänzt, Paket B (Favoritengalerie) live
 
 Sichtung um 14:02 Berlin: lokal `b13727b` (Doku-Commit vom 19.11., ungepusht),
 Remote-main `cc1a8ae` mit dem Archivcommit des Tageslaufs. Auf Betreiberfreigabe Fetch
@@ -59,12 +59,43 @@ und Rebase des Doku-Commits (jetzt `e7a052b`). `PRD_1_2.md` und
   parallelem Favoritencommit, Browser für `#/favoriten` (Desktop und 320 px) und die
   Betreiberseite über HTTPS mit dem echten Worker. Sichtprüfung von `#/favoriten` mit
   Fixture-Werken auf Desktop und 320 px.
-- **Offen:** Worker-Deployment (eigene Freigabe, Runbook, Token mit Rolle Editor),
-  danach Live-Prüfung durch den Betreiber; erst das erste Markieren legt Kopien an.
-  Nicht geprüft: die echte GitHub-API für Bäume, Commits und Ref-Update (nur
-  simuliert; die Rechte der App decken laut Contents-Berechtigung auch die
-  Git-Data-API), Firefox/Safari. Nächstes Paket C (Serienneustart nach einem Monat),
-  zuerst Optionen.
+- **Commits und Push (Freigabe des Betreibers):** `0c163c9` (Datenmodell und
+  Git-Prüfung), `7d6ae30` (Betreiber-API und Seite), `77eb77a` (öffentliche Galerie),
+  `44e2b23` (Doku). Nach Fetch ohne neue Remote-Commits um 16:37 Berlin als
+  Fast-forward `a49217b..44e2b23` gepusht; CI 44765191931 und Pages 44765192141
+  erfolgreich, `favorites/index.json` live leer.
+- **Worker-Deployment (Freigabe des Betreibers):** Neuer Token mit Rolle Editor nur
+  für `evolvera-admin`, Ablauf 21.11. 01:00 Berlin. Vorprüfung nur lesend: Token
+  aktiv, live `6b7e4354…` mit 100 %, Bindings vollständig, alle sechs Variablen gleich
+  der Vorlage. `npm run build:admin` auf `44e2b23`, Deployment nach Runbook um 16:45
+  Berlin: Version `7a13badc-78ad-4a40-a351-3f97fbe8e44f` mit 100 %, zwei
+  Seitendateien neu hochgeladen. Nachprüfung: Bindings einschließlich `ASSETS` und
+  beider Secrets, Variablen unverändert, `/health`, `/privacy`, `/imprint` 200 ohne
+  Cookies, `/settings` und `/favorites` zeigen ohne Sitzung die Anmeldung,
+  `/api/settings` und `/api/favorites` 401, `admin.js` und `admin.css` byte-gleich
+  mit dem lokalen Build. Rohausgabe von Wrangler gelöscht.
+- **Live-Test des Betreibers:** Um 18:11 Berlin das Werk vom 20.11. markiert.
+  Commit `4091b1c` „Update favourite works“ von `evolvera-betreiber-bummber[bot]`,
+  von GitHub signiert, Elternteil `44e2b23` (Fast-forward). Geändert nur
+  `public/favorites/index.json` (kanonisch, ein Eintrag „Traumfieber im Stillstand“,
+  Generation 2, Serie ab 19.11.) und neu `public/favorites/2026-11-19/2026-11-20.json`
+  mit demselben Blob `ecb378e2…` wie das Archivwerk, Modus 100644; Archiv unverändert.
+  Damit ist der Schreibweg über die echte Git-Data-API belegt. Als Ursprungswerk hat
+  der Favorit keine Eltern; Elternkopien entstehen erst bei Generation 3.
+- **Befund und Korrektur:** CI 44780838180 und Pages 44780838277 des Favoritencommits
+  scheiterten nur am Browsertest „Favoriten … zeigen ohne Auswahl einen leeren
+  Zustand“ (Desktop und Mobil), der das echte `index.json` las. Die Datenprüfung in CI
+  war erfolgreich („1 Favoriten“). Folge: `#/favoriten` blieb live leer; im Tageslauf
+  laufen die Browsertests nach dem Archivcommit, ein neues Werk wäre archiviert, aber
+  nicht veröffentlicht worden. Korrektur `83b8292`: Der Test gibt den leeren Index
+  selbst vor. Auf `4091b1c` plus Korrektur: `npm run check` grün (450 Tests,
+  Datenprüfung 1 Favorit), `npm run test:browser` 164 bestanden, 6 übersprungen;
+  `#/favoriten` im gebauten Stand mit dem echten Favoriten auf Desktop und 320 px
+  angesehen, ohne Fehler und ohne Überlauf.
+- **Offen:** CI und Pages des Pushes mit Korrektur und dieser Doku belegen und
+  `#/favoriten` live ansehen; Token läuft 21.11. 01:00 ab. Nicht geprüft:
+  Firefox/Safari. Nächstes Paket C (Serienneustart nach einem Monat), zuerst
+  Optionen.
 
 ## Nachtrag – 19.11.2026, erster Lauf mit Generator 0.4.0 belegt, Einstellungsseite live (EP-01 P8 und P9)
 
