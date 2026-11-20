@@ -1,12 +1,15 @@
 import './validation';
 import { z } from 'zod';
-import type { EffectiveGenerationConfig } from '../../src/art/schema/config';
+import {
+  restartAfterDaysSchema,
+  type EffectiveGenerationConfig,
+} from '../../src/art/schema/config';
 import { profileRulesVersion } from '../../src/art/schema/profile';
 import {
   challenge,
   GitHubFailure,
   randomToken,
-  readConfig,
+  readSettings,
   saveSettings,
   SettingsRejected,
   userIdentity,
@@ -123,13 +126,14 @@ const json = (body: unknown, status = 200) =>
       'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
     }),
   });
-/** What the operator page reads: stored revision, mode and effective profile. */
+/** What the operator page reads: stored revision, mode, effective profile and restart days. */
 function settingsView(config: EffectiveGenerationConfig) {
   return {
     schemaVersion: config.schemaVersion,
     revision: config.revision,
     rulesVersion: profileRulesVersion,
     settings: { inheritanceMode: config.inheritanceMode, ...config.profile },
+    restartAfterDays: config.restartAfterDays,
   };
 }
 async function readBody(request: Request, limit: number) {
@@ -159,6 +163,8 @@ const settingsRequest = z.strictObject({
   csrf: z.string().max(64),
   revision: z.number().int().positive(),
   settings: z.unknown(),
+  // Package C; omitted keeps the stored value.
+  restartAfterDays: restartAfterDaysSchema.optional(),
 });
 /** JSON request of the operator page: exact origin, JSON type, size limit. */
 async function scriptRequest<T>(
@@ -312,12 +318,19 @@ async function handle(request: Request, env: Env, policy: PrivacyPolicy) {
     ['/settings', '/', '/favorites'].includes(url.pathname)
   )
     return shell();
-  if (request.method === 'GET' && url.pathname === '/api/settings')
-    return json({ ...settingsView(await readConfig(env)), csrf: session.csrf });
+  if (request.method === 'GET' && url.pathname === '/api/settings') {
+    const { config, series } = await readSettings(env);
+    return json({ ...settingsView(config), series, csrf: session.csrf });
+  }
   if (request.method === 'POST' && url.pathname === '/api/settings') {
     const body = await scriptRequest(request, env, settingsRequest, 8192);
     if (body.csrf !== session.csrf) throw new GitHubFailure(403);
-    const result = await saveSettings(env, body.revision, body.settings);
+    const result = await saveSettings(
+      env,
+      body.revision,
+      body.settings,
+      body.restartAfterDays,
+    );
     return json({ ...settingsView(result.config), changed: result.changed });
   }
   // Package B: only the signed-in operator marks or removes favourites.

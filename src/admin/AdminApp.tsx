@@ -1,6 +1,13 @@
 import { useEffect, useId, useMemo, useState } from 'react';
 import { z } from 'zod';
-import { modeSchema } from '../art/schema/config';
+import {
+  modeSchema,
+  restartAfterDaysSchema,
+  restartDays,
+  workDateSchema,
+} from '../art/schema/config';
+import { addDays } from '../series/calendar';
+import { nextRestart, type RunningSeries } from '../series/restart';
 import { profileSchema, settingsIssues } from '../art/schema/profile';
 import {
   presetLabels,
@@ -21,12 +28,24 @@ const settingsSchema = z.strictObject({
   ...profileSchema.shape,
 });
 const loadedSchema = z.object({
-  schemaVersion: z.union([z.literal(1), z.literal(2)]),
+  schemaVersion: z.union([z.literal(1), z.literal(2), z.literal(3)]),
   revision: z.number().int().positive(),
   settings: settingsSchema,
+  restartAfterDays: restartAfterDaysSchema,
   csrf: z.string().min(1),
 });
-type Loaded = { revision: number; settings: Settings; csrf: string | null };
+const seriesSchema = z.object({
+  start: workDateSchema.nullable(),
+  last: workDateSchema.nullable(),
+});
+type Loaded = {
+  revision: number;
+  settings: Settings;
+  restartAfterDays: number | null;
+  /** Running series (package C); unknown in the local review. */
+  series: RunningSeries | null;
+  csrf: string | null;
+};
 type Status =
   | { kind: 'idle' }
   | { kind: 'saving' }
@@ -60,8 +79,16 @@ async function loadFromWorker(): Promise<Loaded | 'signedOut'> {
   });
   if (response.status === 401) return 'signedOut';
   if (!response.ok) throw new Error('load');
-  const data = loadedSchema.parse(await response.json());
-  return { revision: data.revision, settings: data.settings, csrf: data.csrf };
+  const data = loadedSchema
+    .extend({ series: seriesSchema })
+    .parse(await response.json());
+  return {
+    revision: data.revision,
+    settings: data.settings,
+    restartAfterDays: data.restartAfterDays,
+    series: data.series,
+    csrf: data.csrf,
+  };
 }
 
 async function loadForReview(): Promise<Loaded> {
@@ -76,13 +103,24 @@ async function loadForReview(): Promise<Loaded> {
       inheritanceMode: config.inheritanceMode,
       ...config.profile,
     }),
+    restartAfterDays: config.restartAfterDays,
+    series: null,
     csrf: null,
   };
 }
 
+const restartLabel = (days: number | null) =>
+  days === null ? 'aus' : `nach ${days} Tagen`;
+const dateLabel = (id: string) =>
+  new Intl.DateTimeFormat('de-DE', {
+    dateStyle: 'long',
+    timeZone: 'UTC',
+  }).format(new Date(`${id}T12:00:00Z`));
+
 export function AdminApp({ review }: { review: boolean }) {
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [form, setForm] = useState<Settings | null>(null);
+  const [restart, setRestart] = useState<number | null>(null);
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [loadFailed, setLoadFailed] = useState(false);
 
@@ -95,6 +133,7 @@ export function AdminApp({ review }: { review: boolean }) {
         else {
           setLoaded(result);
           setForm(result.settings);
+          setRestart(result.restartAfterDays);
         }
       })
       .catch(() => active && setLoadFailed(true));
@@ -109,8 +148,23 @@ export function AdminApp({ review }: { review: boolean }) {
     [form, issues],
   );
   const changes = useMemo(
-    () => (form && loaded ? settingsChanges(loaded.settings, form) : []),
-    [form, loaded],
+    () =>
+      form && loaded
+        ? [
+            ...settingsChanges(loaded.settings, form),
+            ...(restart === loaded.restartAfterDays
+              ? []
+              : [
+                  {
+                    path: 'restartAfterDays',
+                    label: 'Serienneustart',
+                    from: restartLabel(loaded.restartAfterDays),
+                    to: restartLabel(restart),
+                  },
+                ]),
+          ]
+        : [],
+    [form, loaded, restart],
   );
 
   if (status.kind === 'signedOut')
@@ -147,6 +201,10 @@ export function AdminApp({ review }: { review: boolean }) {
     setForm(set(form, path, value));
     if (status.kind !== 'saving') setStatus({ kind: 'idle' });
   };
+  const updateRestart = (days: number | null) => {
+    setRestart(days);
+    if (status.kind !== 'saving') setStatus({ kind: 'idle' });
+  };
   const applyPreset = (name: keyof typeof presets) => {
     setForm({
       inheritanceMode: form.inheritanceMode,
@@ -167,6 +225,7 @@ export function AdminApp({ review }: { review: boolean }) {
           csrf: loaded.csrf,
           revision: loaded.revision,
           settings: form,
+          restartAfterDays: restart,
         }),
       });
       if (response.status === 401) return setStatus({ kind: 'signedOut' });
@@ -189,8 +248,10 @@ export function AdminApp({ review }: { review: boolean }) {
         ...loaded,
         revision: body.revision,
         settings: body.settings,
+        restartAfterDays: body.restartAfterDays,
       });
       setForm(body.settings);
+      setRestart(body.restartAfterDays);
       setStatus({
         kind: 'saved',
         changed: body.changed,
@@ -228,6 +289,12 @@ export function AdminApp({ review }: { review: boolean }) {
           void save();
         }}
       >
+        <RestartControl
+          days={restart}
+          stored={loaded.restartAfterDays}
+          series={loaded.series}
+          onChange={updateRestart}
+        />
         {sections.map((section, index) => (
           <details key={section.id} open={index === 0}>
             <summary>{section.title}</summary>
@@ -338,6 +405,73 @@ function SaveStatus({ status }: { status: Status }) {
       </p>
     );
   return null;
+}
+
+// Package C: restart of the series after a number of days, or never.
+function RestartControl({
+  days,
+  stored,
+  series,
+  onChange,
+}: {
+  days: number | null;
+  stored: number | null;
+  series: RunningSeries | null;
+  onChange: (days: number | null) => void;
+}) {
+  const id = useId();
+  const next = series && nextRestart(series, days);
+  return (
+    <fieldset className="field restart" aria-describedby={`${id}-help`}>
+      <legend>Serienneustart</legend>
+      <p className="help" id={`${id}-help`}>
+        Am Neustarttag löscht der Tageslauf alle Werke der laufenden Serie und
+        beginnt eine neue mit Generation 1. Favoriten bleiben erhalten.
+        Verpasste Tage werden nicht nachgeholt.
+      </p>
+      <label className="check">
+        <input
+          type="checkbox"
+          checked={days !== null}
+          onChange={(event) =>
+            onChange(
+              event.target.checked ? (stored ?? restartDays.standard) : null,
+            )
+          }
+        />
+        Serie automatisch neu starten
+      </label>
+      {days !== null && (
+        <div className="field">
+          <label htmlFor={id}>Neustart nach (Tagen)</label>
+          <input
+            id={id}
+            type="number"
+            inputMode="numeric"
+            min={restartDays.min}
+            max={restartDays.max}
+            value={String(days)}
+            onChange={(event) => {
+              const value = Number(event.target.value);
+              if (Number.isInteger(value))
+                onChange(
+                  Math.min(restartDays.max, Math.max(restartDays.min, value)),
+                );
+            }}
+          />
+        </div>
+      )}
+      {next && (
+        <p>
+          Nächster Neustart mit dieser Einstellung:{' '}
+          <strong>{dateLabel(next)}</strong>
+          {series.last && next === addDays(series.last, 1)
+            ? ', also mit dem nächsten Tageslauf.'
+            : '.'}
+        </p>
+      )}
+    </fieldset>
+  );
 }
 
 export function Page({

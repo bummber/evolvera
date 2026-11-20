@@ -89,6 +89,16 @@ beforeEach(() => {
         });
         return Response.json({ token: 'synthetic-installation-token' });
       }
+      // Package C: the settings page also reads the running series.
+      if (url.pathname === '/repos/bummber/evolvera/git/ref/heads/main')
+        return Response.json({
+          object: { type: 'commit', sha: 'c'.repeat(40) },
+        });
+      if (
+        url.pathname ===
+        '/repos/bummber/evolvera/contents/public/artworks/index.json'
+      )
+        return Response.json({}, { status: 404 });
       expect(url.pathname).toBe(
         '/repos/bummber/evolvera/contents/config/generation.json',
       );
@@ -104,7 +114,7 @@ beforeEach(() => {
         );
         return Response.json({ commit: { sha: 'b'.repeat(40) } });
       }
-      if (verifyFails && url.searchParams.get('ref') !== 'main')
+      if (verifyFails && url.searchParams.get('ref') === 'b'.repeat(40))
         return Response.json({}, { status: 503 });
       return Response.json({
         type: 'file',
@@ -365,25 +375,28 @@ it('liest Schema 1 als Standardprofil und Schema 2 vollständig', async () => {
     settings: sparse,
   });
 });
-it('speichert Modus und vollständiges Profil als Schema 2, prüft den Commit und bestätigt erst danach', async () => {
+it('speichert Modus und vollständiges Profil als Schema 3, prüft den Commit und bestätigt erst danach', async () => {
   const { cookie } = await login();
   const { csrf } = await settings(cookie);
   const response = await save(cookie, { csrf, revision: 1, settings: sparse });
   expect(response.status).toBe(200);
   expect(await response.json()).toMatchObject({
     changed: true,
-    schemaVersion: 2,
+    schemaVersion: 3,
     revision: 2,
     settings: sparse,
+    restartAfterDays: null,
   });
-  // Start date, generation switch and time zone stay exactly as stored.
+  // Start date, generation switch and time zone stay exactly as stored;
+  // without a restart value in the request the stored one (none) is kept.
   expect(saved).toEqual({
-    schemaVersion: 2,
+    schemaVersion: 3,
     revision: 2,
     seriesStartDate: null,
     generationEnabled: false,
     timezone: 'Europe/Berlin',
     ...sparse,
+    restartAfterDays: null,
   });
   expect(Object.keys(saved as object)).toEqual([
     'schemaVersion',
@@ -399,9 +412,70 @@ it('speichert Modus und vollständiges Profil als Schema 2, prüft den Commit un
     'composition',
     'motion',
     'experimental',
+    'restartAfterDays',
   ]);
   expect(putCount).toBe(1);
   expect(lastMessage).toBe('Update future generation settings');
+});
+it('liest und speichert den Serienneustart in Tagen (Paket C)', async () => {
+  const { cookie } = await login();
+  const loaded = await settings(cookie);
+  // Without archived works the running series starts at the configured date.
+  expect(loaded.data).toMatchObject({
+    restartAfterDays: null,
+    series: { start: null, last: null },
+  });
+  for (const restartAfterDays of [2, 366, 1.5, '30']) {
+    const rejected = await save(cookie, {
+      csrf: loaded.csrf,
+      revision: 1,
+      settings: standard,
+      restartAfterDays,
+    });
+    expect(rejected.status).toBe(400);
+  }
+  expect(putCount).toBe(0);
+  // Only the restart changes: one commit with a new revision.
+  const response = await save(cookie, {
+    csrf: loaded.csrf,
+    revision: 1,
+    settings: standard,
+    restartAfterDays: 30,
+  });
+  expect(response.status).toBe(200);
+  expect(await response.json()).toMatchObject({
+    changed: true,
+    revision: 2,
+    restartAfterDays: 30,
+  });
+  expect(saved).toMatchObject({ schemaVersion: 3, restartAfterDays: 30 });
+  // The same value again writes nothing; omitting it keeps the stored value.
+  for (const body of [{ restartAfterDays: 30 }, {}]) {
+    const again = await save(cookie, {
+      csrf: loaded.csrf,
+      revision: 2,
+      settings: standard,
+      ...body,
+    });
+    expect(await again.json()).toMatchObject({
+      changed: false,
+      restartAfterDays: 30,
+    });
+  }
+  expect(putCount).toBe(1);
+  // Switching the restart off is a change of its own.
+  const off = await save(cookie, {
+    csrf: loaded.csrf,
+    revision: 2,
+    settings: standard,
+    restartAfterDays: null,
+  });
+  expect(await off.json()).toMatchObject({
+    changed: true,
+    revision: 3,
+    restartAfterDays: null,
+  });
+  expect(putCount).toBe(2);
 });
 it('schreibt ohne Änderung nichts und erhöht die Revision nicht', async () => {
   const { cookie } = await login();

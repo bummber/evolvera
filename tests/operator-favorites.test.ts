@@ -238,3 +238,36 @@ it('meldet widersprüchliche Archivdaten, statt sie zu kopieren', async () => {
   expect((await change({ action: 'add', id: '2026-11-21' })).status).toBe(502);
   expect(hub.writes).toBe(0);
 });
+
+it('nimmt nach einem Neustart den Serienstart aus dem Archiv und nennt den nächsten Neustart (Paket C)', async () => {
+  // The configured date starts the first series; the archive already holds
+  // a later series, as after an automatic restart.
+  hub = new MemoryGitHub({
+    ...seriesFiles('2026-10-20'),
+    'config/generation.json':
+      JSON.stringify({
+        schemaVersion: 3,
+        revision: 2,
+        seriesStartDate: '2026-10-20',
+        generationEnabled: true,
+        timezone: 'Europe/Berlin',
+        inheritanceMode: 'traceable',
+        restartAfterDays: 30,
+      }) + '\n',
+  });
+  const view = (await (await load()).json()) as View & { restart: string };
+  expect(view.series).toBe('2026-11-19');
+  expect(view.restart).toBe('2026-12-19');
+  const response = await change({ action: 'add', id: '2026-11-21' });
+  expect(response.status).toBe(200);
+  expect(copies()).toEqual([
+    'public/favorites/2026-11-19/2026-11-19.json',
+    'public/favorites/2026-11-19/2026-11-20.json',
+    'public/favorites/2026-11-19/2026-11-21.json',
+  ]);
+  // Without restart days there is no restart date.
+  hub = new MemoryGitHub(seriesFiles());
+  expect(((await (await load()).json()) as { restart: null }).restart).toBe(
+    null,
+  );
+});

@@ -96,6 +96,28 @@ test('Synthetischer Login, Einstellungsseite, Konflikt und Widerruf bleiben sich
     if (url.pathname.endsWith('/installation')) return Response.json({ id: 7 });
     if (url.pathname === '/app/installations/7/access_tokens')
       return Response.json({ token: 'synthetic-installation-token' });
+    // Package C: the settings page also reads the running series.
+    if (url.pathname === '/repos/bummber/evolvera/git/ref/heads/main')
+      return Response.json({ object: { type: 'commit', sha: 'c'.repeat(40) } });
+    if (
+      url.pathname ===
+      '/repos/bummber/evolvera/contents/public/artworks/index.json'
+    )
+      return Response.json({
+        type: 'file',
+        encoding: 'base64',
+        size: 200,
+        sha: 'd'.repeat(40),
+        content: Buffer.from(
+          JSON.stringify({
+            schemaVersion: 1,
+            works: [
+              { id: '2026-11-20', generation: 2, title: 'Zweites Werk' },
+              { id: '2026-11-19', generation: 1, title: 'Erstes Werk' },
+            ],
+          }),
+        ).toString('base64'),
+      });
     expect(url.pathname).toBe(
       '/repos/bummber/evolvera/contents/config/generation.json',
     );
@@ -360,8 +382,9 @@ test('Synthetischer Login, Einstellungsseite, Konflikt und Widerruf bleiben sich
     ).toContainText('In Git gespeichert und bestätigt (Revision 2)');
     expect(writes).toBe(1);
     expect(config).toMatchObject({
-      schemaVersion: 2,
+      schemaVersion: 3,
       revision: 2,
+      restartAfterDays: null,
       seriesStartDate: null,
       generationEnabled: false,
       inheritanceMode: 'traceable',
@@ -411,6 +434,32 @@ test('Synthetischer Login, Einstellungsseite, Konflikt und Widerruf bleiben sich
     expect(config.inheritanceMode).toBe('free');
     expect(writes).toBe(2);
 
+    // Package C: restart of the series after a number of days, counted from
+    // the first archived work of the running series (here 2026-11-19).
+    const restart = page.getByRole('group', { name: 'Serienneustart' });
+    const automatic = restart.getByRole('checkbox', {
+      name: 'Serie automatisch neu starten',
+    });
+    await expect(automatic).not.toBeChecked();
+    await expect(restart).not.toContainText('Nächster Neustart');
+    await automatic.check();
+    await expect(restart.getByLabel('Neustart nach (Tagen)')).toHaveValue('30');
+    await expect(restart).toContainText(
+      'Nächster Neustart mit dieser Einstellung: 19. Dezember 2026.',
+    );
+    await expect(summary).toContainText('Serienneustart: aus → nach 30 Tagen');
+    await page.getByRole('button', { name: 'Speichern' }).click();
+    await expect(
+      page.getByRole('status').filter({ hasText: 'Revision 4' }),
+    ).toBeVisible();
+    expect(config).toMatchObject({
+      schemaVersion: 3,
+      revision: 4,
+      restartAfterDays: 30,
+    });
+    expect(writes).toBe(3);
+    await expect(page.getByText('Keine Änderungen.')).toBeVisible();
+
     // 320 px: no horizontal scrolling, touch targets of at least 44 px.
     await page.setViewportSize({ width: 320, height: 900 });
     expect(
@@ -434,8 +483,8 @@ test('Synthetischer Login, Einstellungsseite, Konflikt und Widerruf bleiben sich
     await expect(page.getByRole('status')).toContainText(
       'Die Sitzung ist abgelaufen oder beendet. Es wurde nichts gespeichert.',
     );
-    expect(writes).toBe(2);
-    expect(config.revision).toBe(3);
+    expect(writes).toBe(3);
+    expect(config.revision).toBe(4);
     for (const post of posts) expectSafePost(post);
     expect(
       posts.filter((post) => post.origin === origin).length,

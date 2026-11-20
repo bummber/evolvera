@@ -13,11 +13,15 @@ import {
   workHeadSchema,
 } from '../../src/archive/favorites';
 import type { FavoritesIndex } from '../../src/archive/favorites';
+import { nextRestart, runningSeries } from '../../src/series/restart';
 import {
+  archiveWorksAt,
   github,
   GitHubFailure,
+  head,
   installationToken,
   readAt,
+  readFile,
   repo,
 } from './github';
 import type { GitHubEnv } from './github';
@@ -28,50 +32,8 @@ import type { GitHubEnv } from './github';
 // only moved forward; a parallel commit yields a conflict, never an overwrite.
 
 const sha = z.string().regex(/^[a-f0-9]{40}$/);
-const fileSchema = z.object({
-  type: z.literal('file'),
-  encoding: z.literal('base64'),
-  sha,
-  size: z.number().max(1_000_000),
-  content: z.string().max(1_400_000),
-});
-const archiveIndexSchema = z.object({
-  works: z
-    .array(
-      z.object({
-        id: workDateSchema,
-        generation: z.number().int().positive(),
-        title: z.string().min(1).max(160),
-      }),
-    )
-    .max(20000),
-});
 const workPath = (id: string) => `public/artworks/${id.slice(0, 4)}/${id}.json`;
 
-async function readFile(token: string, path: string, ref: string) {
-  try {
-    const data = fileSchema.parse(
-      await github(`${repo}/contents/${path}?ref=${ref}`, token),
-    );
-    const bytes = Uint8Array.from(
-      atob(data.content.replace(/\s/g, '')),
-      (char) => char.charCodeAt(0),
-    );
-    return {
-      sha: data.sha,
-      text: new TextDecoder('utf-8', { fatal: true }).decode(bytes),
-    };
-  } catch (error) {
-    if (error instanceof GitHubFailure && error.status === 404) return null;
-    throw error;
-  }
-}
-async function head(token: string) {
-  const ref = z
-    .object({ object: z.object({ type: z.literal('commit'), sha }) })
-    .parse(await github(`${repo}/git/ref/heads/main`, token));
-  return ref.object.sha;
-}
 async function favoritesAt(token: string, ref: string) {
   const file = await readFile(token, favoritesIndexPath, ref);
   return file
@@ -79,16 +41,22 @@ async function favoritesAt(token: string, ref: string) {
     : emptyFavorites;
 }
 async function viewAt(token: string, ref: string) {
-  const [{ config }, archive, favorites] = await Promise.all([
+  const [{ config }, works, favorites] = await Promise.all([
     readAt(token, ref),
-    readFile(token, 'public/artworks/index.json', ref),
+    archiveWorksAt(token, ref),
     favoritesAt(token, ref),
   ]);
-  const series = config.seriesStartDate;
-  const works = archive
-    ? archiveIndexSchema.parse(JSON.parse(archive.text)).works
-    : [];
-  return { series, works: series ? works : [], favorites };
+  // Package C: the running series starts with its first archived work.
+  const running = runningSeries(
+    works.map((work) => work.id),
+    config.seriesStartDate,
+  );
+  return {
+    series: running.start,
+    works: running.start ? works : [],
+    favorites,
+    restart: nextRestart(running, config.restartAfterDays),
+  };
 }
 export type FavoritesView = Awaited<ReturnType<typeof viewAt>>;
 

@@ -21,6 +21,7 @@ const viewSchema = z.object({
     }),
   ),
   favorites: favoritesIndexSchema,
+  restart: workDateSchema.nullable(),
 });
 type View = z.infer<typeof viewSchema>;
 type Status =
@@ -154,6 +155,14 @@ export function FavoritesApp({ review }: { review: boolean }) {
         Favoriten öffentlich unter{' '}
         <a href={`${gallery}/favoriten`}>Favoriten</a>.
       </p>
+      {view.restart && (
+        <p className="restart-notice">
+          Nächster Neustart der Serie:{' '}
+          <strong>{dateLabel(view.restart)}</strong>. Dann löscht der Tageslauf
+          alle Werke der laufenden Serie; was bis dahin nicht als Favorit
+          markiert ist, verschwindet aus der Galerie.
+        </p>
+      )}
       <SaveStatus status={status} />
       <section aria-labelledby="favorites-title">
         <h2 id="favorites-title">

@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import {
-  configV2Schema,
+  configV3Schema,
   modeSchema,
   readGenerationConfig,
+  workDateSchema,
 } from '../../src/art/schema/config';
 import { addSettingsIssues, profileSchema } from '../../src/art/schema/profile';
+import { runningSeries } from '../../src/series/restart';
 export type GitHubEnv = {
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
@@ -143,11 +145,74 @@ export async function readAt(token: string, ref: string) {
   const stored = JSON.parse(
     new TextDecoder('utf-8', { fatal: true }).decode(bytes),
   ) as unknown;
-  // Configuration schema 1 or 2; schema 1 yields the standard profile.
+  // Configuration schema 1, 2 or 3; schema 1 yields the standard profile.
   return { sha: data.sha, stored, config: readGenerationConfig(stored) };
 }
-export async function readConfig(env: GitHubEnv) {
-  return (await readAt(await installationToken(env), 'main')).config;
+
+const sha = z.string().regex(/^[a-f0-9]{40}$/);
+const fileSchema = z.object({
+  type: z.literal('file'),
+  encoding: z.literal('base64'),
+  sha,
+  size: z.number().max(1_000_000),
+  content: z.string().max(1_400_000),
+});
+/** A UTF-8 file at `ref`, or `null` if it does not exist there. */
+export async function readFile(token: string, path: string, ref: string) {
+  try {
+    const data = fileSchema.parse(
+      await github(`${repo}/contents/${path}?ref=${ref}`, token),
+    );
+    const bytes = Uint8Array.from(
+      atob(data.content.replace(/\s/g, '')),
+      (char) => char.charCodeAt(0),
+    );
+    return {
+      sha: data.sha,
+      text: new TextDecoder('utf-8', { fatal: true }).decode(bytes),
+    };
+  } catch (error) {
+    if (error instanceof GitHubFailure && error.status === 404) return null;
+    throw error;
+  }
+}
+export async function head(token: string) {
+  const ref = z
+    .object({ object: z.object({ type: z.literal('commit'), sha }) })
+    .parse(await github(`${repo}/git/ref/heads/main`, token));
+  return ref.object.sha;
+}
+const archiveIndexSchema = z.object({
+  works: z
+    .array(
+      z.object({
+        id: workDateSchema,
+        generation: z.number().int().positive(),
+        title: z.string().min(1).max(160),
+      }),
+    )
+    .max(20000),
+});
+/** Works of the running series at `ref`, newest first, as the archive index lists them. */
+export async function archiveWorksAt(token: string, ref: string) {
+  const file = await readFile(token, 'public/artworks/index.json', ref);
+  return file ? archiveIndexSchema.parse(JSON.parse(file.text)).works : [];
+}
+/** Configuration and running series (package C) at the current main. */
+export async function readSettings(env: GitHubEnv) {
+  const token = await installationToken(env);
+  const ref = await head(token);
+  const [{ config }, works] = await Promise.all([
+    readAt(token, ref),
+    archiveWorksAt(token, ref),
+  ]);
+  return {
+    config,
+    series: runningSeries(
+      works.map((work) => work.id),
+      config.seriesStartDate,
+    ),
+  };
 }
 
 /**
@@ -185,6 +250,8 @@ export async function saveSettings(
   env: GitHubEnv,
   revision: unknown,
   input: unknown,
+  /** Package C: days until the series restarts, `null` never; omitted keeps the stored value. */
+  restart?: number | null,
 ) {
   const expected = z.number().int().positive().parse(revision);
   const settings = checkSettings(input);
@@ -195,16 +262,22 @@ export async function saveSettings(
     inheritanceMode: before.config.inheritanceMode,
     ...before.config.profile,
   });
+  const restartAfterDays =
+    restart === undefined ? before.config.restartAfterDays : restart;
   // Nothing to change: no commit and no new revision (and so no new seeds).
-  if (JSON.stringify(current) === JSON.stringify(settings))
+  if (
+    JSON.stringify(current) === JSON.stringify(settings) &&
+    restartAfterDays === before.config.restartAfterDays
+  )
     return { config: before.config, changed: false };
-  const next = configV2Schema.parse({
-    schemaVersion: 2,
+  const next = configV3Schema.parse({
+    schemaVersion: 3,
     revision: expected + 1,
     seriesStartDate: before.config.seriesStartDate,
     generationEnabled: before.config.generationEnabled,
     timezone: before.config.timezone,
     ...settings,
+    restartAfterDays,
   });
   const saved = z
     .object({ commit: z.object({ sha: z.string().regex(/^[a-f0-9]{40}$/) }) })
