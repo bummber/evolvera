@@ -19,6 +19,8 @@ import type {
   WorkContext,
 } from '../archive/reader';
 import type { ArchiveIndex } from '../archive';
+import { loadFavorite, loadFavorites } from '../archive/favorites-reader';
+import type { Favorite } from '../archive/favorites';
 import type { AnyArtwork } from '../art/schema/artwork-v3';
 import { modeLabels, workDateSchema } from '../art/schema/config';
 import { initialSettings } from '../operator/settings';
@@ -1136,5 +1138,96 @@ function WorkPresentation({
         </p>
       )}
     </>
+  );
+}
+// Package B: the favourites gallery. It reads only the copies below
+// `favorites/`, so it stays complete after a restart of the series.
+export function FavoritesPage() {
+  const state = useResource('favorites', loadFavorites);
+  return (
+    <section className="gallery-page">
+      <header className="gallery-heading">
+        <div className="gallery-title">
+          <Heading title="Favoriten" eyebrow="Ausgewählt vom Betreiber" />
+        </div>
+        <div className="gallery-tools">
+          <p className="intro">
+            Einzelne Werke mit ihren direkten Eltern. Sie bleiben erhalten, auch
+            wenn die Serie neu beginnt.
+          </p>
+        </div>
+      </header>
+      {state.status === 'loading' ? (
+        <p role="status">Favoriten werden geladen …</p>
+      ) : state.status === 'error' ? (
+        <Failure />
+      ) : state.value.favorites.length === 0 ? (
+        <div className="empty-state empty-message">
+          <span className="empty-marker" aria-hidden="true">
+            ?
+          </span>
+          <h2>Noch keine Favoriten.</h2>
+          <p>
+            Der Betreiber wählt einzelne Werke aus. Sie erscheinen hier mit
+            ihren direkten Eltern.
+          </p>
+        </div>
+      ) : (
+        state.value.favorites.map((entry) => (
+          <FavoriteGroup key={`${entry.series}/${entry.id}`} entry={entry} />
+        ))
+      )}
+      <p className="muted">
+        Alle Kacheln zeigen gespeicherte HTML-/CSS-Kunst im festen Ruhezustand.
+      </p>
+    </section>
+  );
+}
+function FavoriteGroup({ entry }: { entry: Favorite }) {
+  const task = useCallback(
+    (signal: AbortSignal) => loadFavorite(entry, signal),
+    [entry],
+  );
+  const state = useResource(`favorite:${entry.series}/${entry.id}`, task);
+  return (
+    <section className="favorite-group" aria-label={`Favorit: ${entry.title}`}>
+      {state.status === 'loading' ? (
+        <p role="status">Werk wird geladen …</p>
+      ) : state.status === 'error' ? (
+        <Failure work />
+      ) : (
+        <div className="archive-grid">
+          {[state.value.work, ...state.value.parents].map((work, index) => (
+            <article
+              key={work.id}
+              className={`archive-card${index === 0 ? ' archive-card-featured' : ''}`}
+            >
+              <div>
+                <div className="card-art">
+                  <ArtDispatch source={work} />
+                </div>
+                <div className="card-body">
+                  <div className="card-meta">
+                    <span>
+                      {index === 0 ? 'Favorit' : 'Elternwerk'} · Generation{' '}
+                      {work.generation}
+                    </span>
+                    <time dateTime={work.id}>{dateLabel(work.id)}</time>
+                  </div>
+                  <h2>{work.title}</h2>
+                  {index === 0 && (
+                    <span className="card-mode">
+                      {state.value.parents.length
+                        ? `Serie ab ${dateLabel(entry.series)}`
+                        : `Ursprungswerk · Serie ab ${dateLabel(entry.series)}`}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
   );
 }

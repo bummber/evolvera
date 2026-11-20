@@ -12,6 +12,15 @@ describe('Archivgrenze', () => {
     );
     expect(() => dataPath('../config/generation.json')).toThrow();
     expect(() => dataPath('https://example.org')).toThrow();
+    // Package B: favourites, one folder per series start.
+    expect(dataPath('favorites/index.json')).toBe(
+      '/evolvera/favorites/index.json',
+    );
+    expect(dataPath('favorites/2026-11-19/2026-11-21.json')).toBe(
+      '/evolvera/favorites/2026-11-19/2026-11-21.json',
+    );
+    expect(() => dataPath('favorites/2026/2026-11-21.json')).toThrow();
+    expect(() => dataPath('favorites/../artworks/index.json')).toThrow();
   });
   it('liest einen validierten leeren Index ohne Testwerke', async () => {
     const fetchMock = vi.fn().mockResolvedValue({

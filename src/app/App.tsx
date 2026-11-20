@@ -22,6 +22,11 @@ function focusAboutChapter(hash: string) {
 }
 
 const ArchivePage = lazy(() => import('./ArchivePages'));
+const FavoritesPage = lazy(() =>
+  import('./ArchivePages').then((module) => ({
+    default: module.FavoritesPage,
+  })),
+);
 const ArtReview = lazy(() => import('./ArtReview'));
 const Atelier = lazy(() => import('./Atelier'));
 const EvolutionLab = lazy(() => import('./EvolutionLab'));
@@ -33,6 +38,7 @@ const navigation = [
   ['/', 'Heute'],
   ['/galerie', 'Galerie'],
   ['/evolution', 'Evolution'],
+  ['/favoriten', 'Favoriten'],
   ['/ueber', 'Über Evolvera'],
   ['/einstellungen', 'Einstellungen'],
   ['/atelier', 'Testatelier'],
@@ -599,6 +605,7 @@ export function App() {
                 }
               />
               <Route path="/galerie" element={<ArchivePage view="gallery" />} />
+              <Route path="/favoriten" element={<FavoritesPage />} />
               <Route
                 path="/evolution"
                 element={<ArchivePage view="evolution" />}

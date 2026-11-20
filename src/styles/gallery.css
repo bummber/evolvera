@@ -151,3 +151,11 @@
     aspect-ratio: 4 / 5;
   }
 }
+/* Package B: favourites gallery; cards without links, same layout. */
+.favorite-group {
+  margin-bottom: var(--section-gap);
+}
+.favorite-group .archive-card > div {
+  display: grid;
+  gap: var(--space-3);
+}

@@ -27,7 +27,13 @@ export type ArchiveIndex = z.infer<typeof archiveIndexSchema>;
 
 export function dataPath(relative: string): string {
   if (
-    !/^artworks\/(index\.json|\d{4}\/\d{4}-\d{2}-\d{2}\.json)$/.test(relative)
+    !/^artworks\/(index\.json|\d{4}\/\d{4}-\d{2}-\d{2}\.json)$/.test(
+      relative,
+    ) &&
+    // Package B: favourites, one folder per series start.
+    !/^favorites\/(index\.json|\d{4}-\d{2}-\d{2}\/\d{4}-\d{2}-\d{2}\.json)$/.test(
+      relative,
+    )
   ) {
     throw new Error('Nicht erlaubter Archivpfad.');
   }
