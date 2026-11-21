@@ -1,5 +1,74 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 21.11.2026, Tageslauf 21.11. belegt, Serienneustart eingestellt, Konfigurationstest korrigiert
+
+Sichtung um 20:08 Berlin: lokal `3b53c78` (Doku-Commit vom 20.11., ungepusht),
+Remote-main `01ab761` mit dem Archivcommit des Tageslaufs. `PRD_1_2.md` und
+`docs/extensions/EP02-umsetzungsplan.md` bleiben unversioniert liegen (Betreiber).
+
+- **Tageslauf 21.11.:** Schedule-Lauf 44879927057, gestartet 08:22 Berlin auf
+  `e44eff2`, Build und Deploy erfolgreich; Archivcommit `01ab761` um 08:24 mit genau
+  der Werkdatei und `index.json`, nichts gelöscht: Generation 3 „Samtflechten /
+  Leuchtfieber“, Eltern 19.11. und 20.11., 56 Elemente in 2 Ebenen (Hintergrund
+  chaotische Überlagerung 6, Struktur generative Struktur 50), statisch, Generator
+  0.4.0, Renderer 2, Lexikon 0.2.0, `traceable`, Revision 8, `isCatchUp: false`,
+  Neuheitsabstand 0,481. Wie im Probelauf vom 20.11. Die Läufe 44881576892 (08:43)
+  und 44884565614 (09:22) liefen erfolgreich ohne Archivcommit. Wieder rund sieben
+  Stunden nach der geplanten Zeit. Die Laufausgabe mit `removed` schreibt der
+  Workflow nur nach `$RUNNER_TEMP`, nicht ins Log; belegt über Commit und Nachbau.
+- **Determinismus:** `planAt` im Speicher auf `e44eff2` mit den Zeitstempeln des
+  Laufs erzeugt alle Werkdateien und `index.json` bytegleich zum Archiv, `removed`
+  leer; mit Start 01:17 ist alles außer den beiden Zeitstempeln gleich.
+- **Vererbung:** Vom 19.11. eine Farbe (`elements.6.fill.color` `#374563` →
+  Element 54, Kreis in der Struktur), vom 20.11. die Familie
+  (`layers.background.family` generativ → Struktur) und eine Farbe
+  (`elements.14.fill.color` `#98764a` → Element 55, Quadrat). Je Elternteil höchstens
+  drei, jede Entscheidung in `evolution.decisions` mit Quell- und Zielwert belegt;
+  kein Element des Werks gleicht einem Elternelement, die Formen der Farbträger sind
+  neu. Beide Farbträger liegen in der obersten Ebene und sind im Referenzbild deutlich
+  sichtbar.
+- **Live-Test Serienneustart:** Der Betreiber setzte um 20:17 Berlin auf `/settings`
+  das Häkchen mit 30 Tagen und speicherte; `/favorites` nennt danach den nächsten
+  Neustart. Commit `a321a89` „Update future generation settings“ von
+  `evolvera-betreiber-bummber[bot]`, von GitHub signiert, Elternteil `01ab761`;
+  geändert nur `config/generation.json`: Schema 2 → 3, Revision 8 → 9,
+  `restartAfterDays` 30; die übrigen 28 Werte (Startdatum, Generierung, Profil)
+  unverändert.
+- **Befund und Korrektur:** CI 44940108770 und Pages 44940108818 von `a321a89`
+  scheiterten an `tests/config-v2.test.ts` („liest die veröffentlichte Konfiguration
+  …“), der die echte Datei las und nur Schema 1 und 2 kannte (467 von 468 Tests grün;
+  Build, Datenprüfung und Browsertests liefen danach nicht). Pages wurde nicht
+  deployt. Ohne Korrektur wäre der Lauf vom 22.11. gestoppt, weil der Tageslauf
+  `npm test` vor der Generierung ausführt. Korrektur `6710a98`: Der Test prüft auch
+  Schema 3 streng; der Zweig für Schema 1 erwartet `restartAfterDays: null` (seit
+  Paket C falsch, aber unbenutzt). Gegenprobe mit den Dateien aus `a321a89`,
+  `e44eff2` und `59d05ed` (Schema 3, 2, 1) grün, mit unbekanntem Schlüssel rot.
+  Lehre: Tests, die echte Betreiberdaten lesen, müssen jedes speicherbare Schema
+  kennen.
+- **Prüfungen auf `6710a98`:** `npm run check` grün (468 Tests in 32 Dateien,
+  Datenprüfung 3 Werke, 1 Favorit), `npm run test:browser` 164 bestanden,
+  6 übersprungen; die Infoseite ist dort mit der echten Schema-3-Konfiguration
+  geprüft.
+- **Push (Freigabe des Betreibers):** Fetch und Rebase des Doku-Commits (jetzt
+  `e2ef41c`), um 20:26 Berlin als Fast-forward `a321a89..6710a98`. CI 44940937761
+  und Pages 44940937850 erfolgreich, kein neues Werk. Live ist `index-DBQMU-WI.js`
+  gleich dem lokalen Build und enthält `restartAfterDays:30`, woraus `#/ueber`
+  „Erster Serienstart 2026-11-19, Neustart alle 30 Tage“ zeigt.
+- **Archiv-Baseline:** Vorher 8 Baseline-Tests grün, danach 10; Manifest um den
+  21.11. ergänzt (SHA-256 `e2eab94a…3e61`, `frozenThrough` 21.11.),
+  `markup/2026-11-21.txt` und zwei Bilder `archive-2026-11-21.png` (macOS). Bestehende
+  Einträge und Bilder unverändert.
+- **Probelauf 22.11. (nur im Speicher, auf `6710a98`, Revision 9):** Generation 4
+  „Leuchtsaum“, Eltern 20.11. und 21.11., `traceable`, 16 Elemente in 3 Ebenen
+  (Hintergrund Farbfeld 1, Struktur geometrische Konstellation 7, Akzent chaotische
+  Überlagerung 8), statisch, Neuheitsabstand 0,466, nichts gelöscht. Geerbt vom 20.11.
+  eine Farbe, vom 21.11. eine Form. Mit Start 01:17 und 08:30 bis auf die
+  Zeitstempel gleich; gilt nur bei unveränderten Einstellungen.
+- **Nicht geprüft:** `#/ueber` live im Browser (nur Bundle und Browsertest),
+  Firefox/Safari, der echte Neustart (erstmals am 19.12.).
+- **Offen:** Push von Baseline und dieser Doku nach Freigabe; Läufe ab 22.11. belegen.
+  Nach dem 19.12. Baseline-Einträge und Bilder der gelöschten Werke gezielt entfernen.
+
 ## Nachtrag – 20.11.2026 (Abend), Paket C (Serienneustart) umgesetzt
 
 - **Entscheidungen des Betreibers:** Option A (automatisch im Tageslauf), Einheit
