@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-20",
+  "frozenThrough": "2026-11-21",
   "works": [
     {
       "id": "2026-11-19",
@@ -16,6 +16,14 @@
       "path": "public/artworks/2026/2026-11-20.json",
       "sha256": "e0fe0572bb0799726738e0f8f9297ba09fa8d62c4fe9a624a7dad7c75137f4da",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-20.txt"
+    },
+    {
+      "id": "2026-11-21",
+      "generation": 3,
+      "title": "Samtflechten / Leuchtfieber",
+      "path": "public/artworks/2026/2026-11-21.json",
+      "sha256": "e2eab94a69e324a7d0dace86708a0b4076bbb85e7d3a526325734beed41c3e61",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-21.txt"
     }
   ]
 }
