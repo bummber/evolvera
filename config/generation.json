@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 2,
-  "revision": 8,
+  "schemaVersion": 3,
+  "revision": 9,
   "seriesStartDate": "2026-11-19",
   "generationEnabled": true,
   "timezone": "Europe/Berlin",
@@ -47,5 +47,6 @@
   },
   "experimental": {
     "mutationJumps": false
-  }
+  },
+  "restartAfterDays": 30
 }
