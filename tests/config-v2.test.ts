@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import {
   configSchema,
   configV2Schema,
+  configV3Schema,
   readGenerationConfig,
 } from '../src/art/schema/config';
 import {
@@ -34,7 +35,9 @@ const messages = (input: unknown) => {
 };
 
 describe('Konfigurationsschema 2 und gemeinsamer Leser (EP-01 A-32, A-37)', () => {
-  it('liest die veröffentlichte Konfiguration in Schema 1 oder 2', () => {
+  it('liest die veröffentlichte Konfiguration in Schema 1, 2 oder 3', () => {
+    // The operator changes this file at any time, so the test follows
+    // whichever schema the published configuration currently has.
     const stored = JSON.parse(
       readFileSync('config/generation.json', 'utf8'),
     ) as { schemaVersion?: unknown };
@@ -44,9 +47,12 @@ describe('Konfigurationsschema 2 und gemeinsamer Leser (EP-01 A-32, A-37)', () =
       expect(config).toEqual({
         ...configSchema.parse(stored),
         profile: defaultProfile,
+        restartAfterDays: null,
       });
-    // The worker writes schema 2 always complete.
-    else expect(configV2Schema.parse(stored)).toEqual(stored);
+    // The worker writes schema 2 and 3 always complete.
+    else if (stored.schemaVersion === 2)
+      expect(configV2Schema.parse(stored)).toEqual(stored);
+    else expect(configV3Schema.parse(stored)).toEqual(stored);
   });
 
   it('liest Schema 1 als Standardprofil', () => {
