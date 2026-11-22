@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-21",
+  "frozenThrough": "2026-11-22",
   "works": [
     {
       "id": "2026-11-19",
@@ -24,6 +24,14 @@
       "path": "public/artworks/2026/2026-11-21.json",
       "sha256": "e2eab94a69e324a7d0dace86708a0b4076bbb85e7d3a526325734beed41c3e61",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-21.txt"
+    },
+    {
+      "id": "2026-11-22",
+      "generation": 4,
+      "title": "Leuchtsaum",
+      "path": "public/artworks/2026/2026-11-22.json",
+      "sha256": "d8e89ea04d30272be4c79db14f30b3b96e6aa9e13ce185247ba5ea8dfea495df",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-22.txt"
     }
   ]
 }
