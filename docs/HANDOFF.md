@@ -1,5 +1,59 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 22.11.2026, Tageslauf 22.11. belegt, Baseline ergänzt
+
+Sichtung um 12:07 Berlin: lokal `5c61cc4`, Remote-main `60d2e41` mit dem
+Archivcommit des Tageslaufs; nach Freigabe Fetch und Fast-forward auf `60d2e41`.
+Baseline und Doku vom 21.11. (`fc2553d`, `5c61cc4`) waren entgegen dem
+Nachtrag vom 21.11. schon gepusht (21.11., 20:39 Berlin; CI 44942105285 und Pages
+44942105266 erfolgreich). `PRD_1_2.md` und `docs/extensions/EP02-umsetzungsplan.md`
+bleiben unversioniert liegen (Betreiber).
+
+- **Tageslauf 22.11.:** Schedule-Lauf 44996375888, gestartet 08:02 Berlin auf
+  `5c61cc4`, Build und Deploy erfolgreich; Archivcommit `60d2e41` um 08:04
+  (Elterncommit `5c61cc4`) mit genau der Werkdatei und `index.json`, nichts
+  gelöscht, Index mit 4 Werken: Generation 4 „Leuchtsaum“, Eltern 20.11. und 21.11.,
+  16 Elemente in 3 Ebenen (Hintergrund Farbfeld 1, Struktur geometrische
+  Konstellation 7, Akzent chaotische Überlagerung 8), statisch, Generator 0.4.0,
+  Renderer 2, Lexikon 0.2.0, `traceable`, Revision 9, `isCatchUp: false`,
+  Neuheitsabstand 0,466. Wie im Probelauf vom 21.11. Die Läufe 44998520764 (08:30)
+  und 45001718748 (09:12) liefen erfolgreich ohne Archivcommit. Rund 6¾ Stunden nach
+  der geplanten Zeit. Auf Pages enthält `index.json` das Werk, die Werkdatei ist
+  bytegleich (SHA-256 `d8e89ea0…95df`).
+- **Determinismus:** `planAt` im Speicher auf `5c61cc4` mit den Zeitstempeln des
+  Laufs erzeugt Werkdatei und `index.json` bytegleich zum Archiv, `removed` und
+  `restored` leer; mit Start 01:17 unterscheiden sich nur `runStartedAt` und
+  `generatedAt`.
+- **Vererbung:** Vom 20.11. eine Farbe (`elements.14.fill.color` `#98764a` →
+  Element 15, Quadrat im Akzent), vom 21.11. eine Form (`elements.54` Kreis mit
+  Breite und Höhe 0,257166 → Element 14, Kreis im Akzent in neuer Farbe `#110403`
+  und an neuer Stelle). Je Elternteil eine Eigenschaft, `traceable` erfüllt; alle
+  vier Einträge in `evolution.decisions` stimmen mit Quell- und Zielwert der Dateien
+  überein. Kein Element gleicht einem Elternelement, keine Familie geerbt (die
+  geometrische Struktur wie beim 20.11. ist ohne Familienentscheidung neu gezogen).
+  Beide Träger liegen zuoberst im Akzent mit Deckkraft 1, überlappen sich nicht und
+  sind im Referenzbild deutlich sichtbar (Quadrat oben Mitte, dunkler Kreis oben
+  rechts).
+- **Archiv-Baseline:** Vorher 10 Baseline-Tests grün, danach 12; Manifest um den
+  22.11. ergänzt (SHA-256 `d8e89ea0…95df`, `frozenThrough` 22.11.),
+  `markup/2026-11-22.txt` und zwei Bilder `archive-2026-11-22.png` (macOS). Der erste
+  Bildlauf meldet für die fehlenden Referenzen erwartungsgemäß 2 Fehler und legt sie
+  an, der zweite 8 von 8 grün. Bestehende Einträge und Bilder unverändert.
+- **Prüfungen auf `60d2e41` mit Baseline:** `npm run check` grün (472 Tests in
+  32 Dateien, Datenprüfung 4 Werke, 1 Favorit), `npm run test:browser` 168 bestanden,
+  6 übersprungen.
+- **Probelauf 23.11. (nur im Speicher, auf `60d2e41`, Revision 9):** Generation 5
+  „Samtspur / Phosklang“, Eltern 21.11. und 22.11., `traceable`, 16 Elemente in
+  2 Ebenen (Struktur Mosaik 13, Akzent geometrisch 3), statisch, Neuheitsabstand
+  0,355 (Minimum erreicht), nichts gelöscht. Geerbt vom 21.11. eine Farbe, vom 22.11.
+  eine Farbe und die Familie (`layers.structure.family` geometrisch → Akzent). Mit
+  Start 01:17 und 08:30 bis auf die Zeitstempel gleich; gilt nur bei unveränderten
+  Einstellungen.
+- **Nicht geprüft:** die Werkseite live im Browser (nur Index und Werkdatei auf
+  Pages), Firefox/Safari, der echte Neustart (erstmals am 19.12.).
+- **Offen:** Push von Baseline und dieser Doku nach Freigabe; Läufe ab 23.11. belegen.
+  Nach dem 19.12. Baseline-Einträge und Bilder der gelöschten Werke gezielt entfernen.
+
 ## Nachtrag – 21.11.2026, Tageslauf 21.11. belegt, Serienneustart eingestellt, Konfigurationstest korrigiert
 
 Sichtung um 20:08 Berlin: lokal `3b53c78` (Doku-Commit vom 20.11., ungepusht),
