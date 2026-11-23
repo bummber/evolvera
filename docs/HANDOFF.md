@@ -1,5 +1,61 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 23.11.2026, Tageslauf 23.11. belegt, Baseline ergänzt
+
+Sichtung um 10:27 Berlin: lokal `0b45470`, Remote-main `cbb8d27` mit dem
+Archivcommit des Tageslaufs; nach Freigabe Fetch und Fast-forward auf `cbb8d27`.
+Baseline und Doku vom 22.11. (`f10acb3`, `0b45470`) waren entgegen Startprompt und
+Nachtrag vom 22.11. schon gepusht (22.11., 12:54 Berlin; CI 45019611990 und Pages
+45019612048 erfolgreich). `PRD_1_2.md` und `docs/extensions/EP02-umsetzungsplan.md`
+bleiben unversioniert liegen (Betreiber).
+
+- **Tageslauf 23.11.:** Schedule-Lauf 45134080688, gestartet 08:50 Berlin auf
+  `0b45470`, Build und Deploy erfolgreich; Archivcommit `cbb8d27` um 08:54
+  (Elterncommit `0b45470`) mit genau der Werkdatei (+511) und `index.json` (+5, −0),
+  nichts gelöscht, Index mit 5 Werken: Generation 5 „Samtspur / Phosklang“, Eltern
+  21.11. und 22.11., 16 Elemente in 2 Ebenen (Struktur Mosaik 13, Akzent
+  geometrische Konstellation 3), statisch, Generator 0.4.0, Renderer 2, Lexikon
+  0.2.0, `traceable`, Revision 9, `isCatchUp: false`, Neuheitsabstand 0,355
+  (Minimum erreicht). Wie im Probelauf vom 22.11. Die Läufe 45137488193 (09:17) und
+  45145184631 (10:14) liefen erfolgreich ohne Archivcommit. Rund 7½ Stunden nach der
+  geplanten Zeit. Auf Pages enthält `index.json` das Werk, die Werkdatei ist
+  bytegleich (SHA-256 `8d1d808e…4764`).
+- **Determinismus:** `planAt` im Speicher auf `0b45470` mit den Zeitstempeln des
+  Laufs erzeugt Werkdatei und `index.json` bytegleich zum Archiv, `removed` und
+  `restored` leer, dieselben zwei Dateien wie im Commit; mit Start 01:17
+  unterscheiden sich nur `runStartedAt` und `generatedAt`.
+- **Vererbung:** Vom 21.11. eine Farbe (`elements.8.fill.color` `#7e0054` →
+  Element 4), vom 22.11. eine Farbe (`elements.0.fill.color` `#98764a` → Element 0)
+  und die Familie (`layers.structure.family` geometrisch → Akzent). Je Elternteil
+  höchstens zwei, `traceable` erfüllt; alle drei Einträge in `evolution.decisions`
+  stimmen mit Quell- und Zielwert der Dateien überein. Kein Element gleicht einem
+  Elternelement, auch nicht in Art, Größe und Lage; die drei Akzentelemente
+  (gemustertes Rechteck, zwei Ellipsen) sind neu, also keine ganze Ebene geerbt.
+  Beide Farbträger sind Mosaikfelder (oben links, Deckkraft 0,70; zweite Reihe,
+  Deckkraft 0,75), kein Akzent überdeckt sie, im Referenzbild deutlich sichtbar.
+  Die geerbten Farben stehen in der neuen Palette und tragen daher auch die Felder 3
+  und 2 (dieses maskiert); das ist Palette, keine weitere Eigenschaft (wie 21./22.11.).
+- **Archiv-Baseline:** Vorher 12 Baseline-Tests grün, danach 14; Manifest um den
+  23.11. ergänzt (SHA-256 `8d1d808e…4764`, `frozenThrough` 23.11.),
+  `markup/2026-11-23.txt` und zwei Bilder `archive-2026-11-23.png` (macOS). Der erste
+  Bildlauf meldet für die fehlenden Referenzen erwartungsgemäß 2 Fehler und legt sie
+  an, der zweite 10 von 10 grün. Bestehende Einträge und Bilder unverändert
+  (SHA-256 der acht älteren Bilder vorher und nachher gleich).
+- **Prüfungen auf `cbb8d27` mit Baseline:** `npm run check` grün (474 Tests in
+  32 Dateien, Datenprüfung 5 Werke, 1 Favorit), `npm run test:browser` 170 bestanden,
+  6 übersprungen.
+- **Probelauf 24.11. (nur im Speicher, auf `cbb8d27`, Revision 9):** Generation 6
+  „Leuchtfaltung im Schweben“, Eltern 22.11. und 23.11., `traceable`, 39 Elemente in
+  2 Ebenen (Hintergrund geometrisch 2, Struktur chaotische Überlagerung 37), statisch,
+  Neuheitsabstand 0,471, nichts gelöscht. Geerbt vom 22.11. zwei Formen (Kreis
+  `elements.5`, Blob `elements.11`), vom 23.11. zwei Farben (`#765cea`, `#6879bd`)
+  und eine Form (Rechteck `elements.10`). Mit Start 01:17 und 08:30 bis auf die
+  Zeitstempel gleich; gilt nur bei unveränderten Einstellungen.
+- **Nicht geprüft:** die Werkseite live im Browser (nur Index und Werkdatei auf
+  Pages), Firefox/Safari, der echte Neustart (erstmals am 19.12.).
+- **Offen:** Push von Baseline und dieser Doku nach Freigabe; Läufe ab 24.11. belegen.
+  Nach dem 19.12. Baseline-Einträge und Bilder der gelöschten Werke gezielt entfernen.
+
 ## Nachtrag – 22.11.2026, Tageslauf 22.11. belegt, Baseline ergänzt
 
 Sichtung um 12:07 Berlin: lokal `5c61cc4`, Remote-main `60d2e41` mit dem
