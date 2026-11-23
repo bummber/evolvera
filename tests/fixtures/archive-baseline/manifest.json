@@ -1,5 +1,5 @@
 {
-  "frozenThrough": "2026-11-22",
+  "frozenThrough": "2026-11-23",
   "works": [
     {
       "id": "2026-11-19",
@@ -32,6 +32,14 @@
       "path": "public/artworks/2026/2026-11-22.json",
       "sha256": "d8e89ea04d30272be4c79db14f30b3b96e6aa9e13ce185247ba5ea8dfea495df",
       "markup": "tests/fixtures/archive-baseline/markup/2026-11-22.txt"
+    },
+    {
+      "id": "2026-11-23",
+      "generation": 5,
+      "title": "Samtspur / Phosklang",
+      "path": "public/artworks/2026/2026-11-23.json",
+      "sha256": "8d1d808e24b71102afa2083c63d2d3f390a8ad5a1ad1ba07ef0788e889d84764",
+      "markup": "tests/fixtures/archive-baseline/markup/2026-11-23.txt"
     }
   ]
 }
