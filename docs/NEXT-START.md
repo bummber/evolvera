@@ -1,27 +1,27 @@
-# Aktueller Startprompt – 24.11.2026: Tageslauf mit Revision 9
+# Aktueller Startprompt – 25.11.2026: Tageslauf mit Revision 9
 
 ```text
 Bitte Evolvera im bestehenden Projekt /Users/abrocker/ai_o_projects/evolvera
 mit origin https://github.com/bummber/evolvera.git fortsetzen. Zuerst AGENTS.md,
-CLAUDE.md, den neuesten HANDOFF (Nachtrag vom 23.11.2026) und diesen
+CLAUDE.md, den neuesten HANDOFF (Nachtrag vom 24.11.2026) und diesen
 Startprompt lesen. Dann /sichtung ausführen: rein lesend Git-Zustand, Remote,
 Berliner Zeit, Tagesläufe und Archiv prüfen und gemeinsam sichten.
 
-Stand 23.11.2026: Werke 19.11. bis 23.11. (Generationen 1–5) archiviert;
-Baseline bis 23.11. Konfiguration Schema 3, Revision 9, restartAfterDays 30,
-erster Neustart 19.12.2026. Ob Baseline und Doku vom 23.11. schon gepusht
+Stand 24.11.2026: Werke 19.11. bis 24.11. (Generationen 1–6) archiviert;
+Baseline bis 24.11. Konfiguration Schema 3, Revision 9, restartAfterDays 30,
+erster Neustart 19.12.2026. Ob Baseline und Doku vom 24.11. schon gepusht
 sind, zeigt die Sichtung.
 
-1. Den Tageslauf vom 24.11. (01:17, real meist gegen 8–9 Uhr) und alle
+1. Den Tageslauf vom 25.11. (01:17, real meist zwischen 8 und 11 Uhr) und alle
    seitherigen Läufe belegen: Lauf-ID, Archivcommit, Generation, Generator
    0.4.0, Revision, Nachholung, removed (muss 0 sein, belegt über den Commit,
    weil die Laufausgabe nicht im Log steht). Erwartet bei Revision 9:
-   Generation 6 „Leuchtfaltung im Schweben“, Eltern 22.11. und 23.11.,
-   39 Elemente in 2 Ebenen (geometrisch 2, chaotisch 37), statisch; geerbt
-   vom 22.11. zwei Formen (Kreis, Blob), vom 23.11. zwei Farben und eine Form
-   (Rechteck). Eine neue Revision vor dem Lauf ergibt andere Werke. Ist ein
-   Lauf gestoppt: nichts von Hand erzeugen oder löschen, Runbook „Lauf ohne
-   Werk“.
+   Generation 7 „Ockerbogen / Flimmermosaik“, Eltern 23.11. und 24.11.,
+   38 Elemente in 3 Ebenen (Farbfeld 2, generativ 28, geometrisch 8), statisch;
+   geerbt vom 23.11. eine Form (Rechteck), vom 24.11. eine Farbe (#6879bd) und
+   die Familie (geometrisch). Eine neue Revision vor dem Lauf ergibt andere
+   Werke. Ist ein Lauf gestoppt: nichts von Hand erzeugen oder löschen,
+   Runbook „Lauf ohne Werk“.
 2. Determinismus mit planAt im Speicher auf dem Elterncommit des
    Archivcommits und den Zeitstempeln des Laufs prüfen.
 3. Archiv-Baseline um das neue Werk ergänzen (Befehl im Kopf von
@@ -48,7 +48,8 @@ nur nach Rückfrage.
 
 ## Ältere Startprompts
 
-Der Startprompt vom 23.11.2026 (Tageslauf mit Revision 9) steht unter
+Der Startprompt vom 24.11.2026 (Tageslauf mit Revision 9) steht unter
+`git show f10e5fe:docs/NEXT-START.md`, der vom 23.11.2026 unter
 `git show 0b45470:docs/NEXT-START.md`, der vom 22.11.2026 unter
 `git show 5c61cc4:docs/NEXT-START.md`, der vom 21.11.2026 (Tageslauf und Test des
 Serienneustarts) unter `git show e2ef41c:docs/NEXT-START.md`. Der Startprompt vom

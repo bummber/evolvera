@@ -1,5 +1,68 @@
 # Evolvera – aktueller Übergabestand
 
+## Nachtrag – 24.11.2026, Tageslauf 24.11. belegt, Baseline ergänzt
+
+Sichtung um 13:47 Berlin: lokal `f10e5fe`, Remote-main `056ed83` mit dem
+Archivcommit des Tageslaufs; nach Freigabe Fetch und Fast-forward auf `056ed83`.
+Baseline und Doku vom 23.11. (`853fbdd`, `f10e5fe`) waren entgegen dem Nachtrag
+vom 23.11. schon gepusht (23.11., 10:37 Berlin; CI 45148789527 und Pages
+45148789495 erfolgreich). `PRD_1_2.md` und `docs/extensions/EP02-umsetzungsplan.md`
+bleiben unversioniert liegen (Betreiber).
+
+- **Tageslauf 24.11.:** Schedule-Lauf 45371000674, gestartet 11:03 Berlin auf
+  `f10e5fe`, Build und Deploy erfolgreich; Archivcommit `056ed83` um 11:05
+  (Elterncommit `f10e5fe`) mit genau der Werkdatei (+1539) und `index.json` (+5, −0),
+  nichts gelöscht, Index mit 6 Werken: Generation 6 „Leuchtfaltung im Schweben“,
+  Eltern 22.11. und 23.11., 39 Elemente in 2 Ebenen (Hintergrund geometrisch 2,
+  Struktur chaotische Überlagerung 37), statisch, Generator 0.4.0, Renderer 2,
+  Lexikon 0.2.0, `traceable`, Revision 9, `isCatchUp: false`, Neuheitsabstand 0,471.
+  Wie im Probelauf vom 23.11. Die Läufe 45374929047 (11:27) und 45381360058 (12:08)
+  liefen erfolgreich ohne Archivcommit (`HEAD` blieb `056ed83`). Rund 9¾ Stunden
+  nach der geplanten Zeit, später als an den Vortagen. Auf Pages sind `index.json`
+  und die Werkdatei bytegleich (SHA-256 `68c3fd8f…72e2`).
+- **Determinismus:** `planAt` im Speicher auf `f10e5fe` mit den Zeitstempeln des
+  Laufs erzeugt Werkdatei und `index.json` bytegleich zum Archiv, `removed` und
+  `restored` leer, dieselben zwei Dateien wie im Commit; mit Start 01:17
+  unterscheiden sich nur `runStartedAt` und `generatedAt`.
+- **Vererbung:** Vom 22.11. zwei Formen: Kreis (`elements.5`, 0,135094 → Element 34)
+  und Blob (`elements.11`, Umriss gleich, 0,317562 × 0,236882 → Element 35). Vom
+  23.11. zwei Farben (`elements.1.fill.color` `#765cea` → Element 37,
+  `elements.8.fill.color` `#6879bd` → Element 38) und eine Form (Rechteck
+  `elements.10`, 0,213 × 0,168 → Element 36). Je Elternteil höchstens drei (2 und 3),
+  `traceable` erfüllt; alle 17 Einträge in `evolution.decisions` stimmen mit Quell-
+  und Zielwert der Dateien überein. Die drei Formen stehen an ihrer alten Stelle in
+  der neuen Farbe `#e8faf4` (laut `traits.ts` gehören Art, Umriss und Größe zur Form,
+  die Lage nur, wenn sie dort lesbar ist; die Drehung nicht, der Blob steht daher mit
+  0° statt 142°). Kein Element gleicht einem Elternelement vollständig; nur die drei
+  Formträger gleichen ihrer Quelle in Art, Größe und Lage. Keine Familie geerbt,
+  beide Ebenen und der Hintergrund sind neu (Eltern: Farbfeld/geometrisch/chaotisch
+  bzw. Mosaik/geometrisch), also keine ganze Ebene. Die fünf Träger sind die obersten
+  Elemente 34–38 der Struktur, Deckkraft 1, ohne Überlappung und im Referenzbild
+  deutlich sichtbar (heller Blob oben links, heller Kreis links Mitte, helles Rechteck
+  Mitte rechts, violettes Quadrat unten links, blaugraues Quadrat unten rechts). Die
+  geerbten Farben stehen in der neuen Palette und tragen weitere Elemente (`#6879bd`
+  16, `#765cea` 2); das ist Palette, keine weitere Eigenschaft (wie 21.–23.11.).
+- **Archiv-Baseline:** Vorher 14 Baseline-Tests grün, danach 16; Manifest um den
+  24.11. ergänzt (SHA-256 `68c3fd8f…72e2`, `frozenThrough` 24.11.),
+  `markup/2026-11-24.txt` und zwei Bilder `archive-2026-11-24.png` (macOS). Der erste
+  Bildlauf meldet für die fehlenden Referenzen erwartungsgemäß 2 Fehler und legt sie
+  an, der zweite 12 von 12 grün. Bestehende Einträge und Bilder unverändert
+  (SHA-256 der zehn älteren Bilder und fünf Markups vorher und nachher gleich).
+- **Prüfungen auf `056ed83` mit Baseline:** `npm run check` grün (476 Tests in
+  32 Dateien, Datenprüfung 6 Werke, 1 Favorit), `npm run test:browser` 172 bestanden,
+  6 übersprungen.
+- **Probelauf 25.11. (nur im Speicher, auf `056ed83`, Revision 9):** Generation 7
+  „Ockerbogen / Flimmermosaik“, Eltern 23.11. und 24.11., `traceable`, 38 Elemente in
+  3 Ebenen (Hintergrund Farbfeld 2, Struktur generativ 28, Akzent geometrisch 8),
+  statisch, Neuheitsabstand 0,451, nichts gelöscht. Geerbt vom 23.11. eine Form
+  (Rechteck `elements.9`), vom 24.11. eine Farbe (`#6879bd`) und die Familie
+  (`layers.background.family` geometrisch → Akzent). Mit Start 01:17, 08:30 und 11:03
+  bis auf die Zeitstempel gleich; gilt nur bei unveränderten Einstellungen.
+- **Nicht geprüft:** die Werkseite live im Browser (nur Index und Werkdatei auf
+  Pages), Firefox/Safari, der echte Neustart (erstmals am 19.12.).
+- **Offen:** Push von Baseline und dieser Doku nach Freigabe; Läufe ab 25.11. belegen.
+  Nach dem 19.12. Baseline-Einträge und Bilder der gelöschten Werke gezielt entfernen.
+
 ## Nachtrag – 23.11.2026, Tageslauf 23.11. belegt, Baseline ergänzt
 
 Sichtung um 10:27 Berlin: lokal `0b45470`, Remote-main `cbb8d27` mit dem
