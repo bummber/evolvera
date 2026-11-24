@@ -60,8 +60,28 @@ bleiben unversioniert liegen (Betreiber).
   bis auf die Zeitstempel gleich; gilt nur bei unveränderten Einstellungen.
 - **Nicht geprüft:** die Werkseite live im Browser (nur Index und Werkdatei auf
   Pages), Firefox/Safari, der echte Neustart (erstmals am 19.12.).
-- **Offen:** Push von Baseline und dieser Doku nach Freigabe; Läufe ab 25.11. belegen.
-  Nach dem 19.12. Baseline-Einträge und Bilder der gelöschten Werke gezielt entfernen.
+- **Push:** Baseline und Doku (`6b969c8`, `502aea6`) nach Freigabe gepusht, ohne
+  Rebase (keine neuen Remote-Commits); CI 45414045310 und Pages 45414045306
+  erfolgreich, kein weiteres Archivwerk.
+- **Betreiberentscheidung (24.11.):** Die Serie läuft vom 25.11. bis 18.12. ohne
+  tägliche Prüfung; diese Werke werden weder einzeln belegt noch in die Baseline
+  aufgenommen, weil der Neustart sie löscht. Die nächste Sitzung prüft den ersten
+  Neustart am 19.12. (Startprompt in `docs/NEXT-START.md`). Grundlage: Der
+  Tagesworkflow prüft und veröffentlicht nur bei Grün; die Baseline duldet Werke nach
+  `frozenThrough` und verlangt nach dem Neustart nur, dass die alten Dateien fehlen.
+  Risiko: Stoppt ein Lauf (Runbook „Lauf ohne Werk“), scheitern auch die Läufe der
+  Folgetage an demselben Werkdatum, bis der Betreiber eine Einstellung ändert
+  (`src/automation/plan.ts` holt fehlende Tage der Reihe nach); für 0.4.0 fand die
+  Simulation keinen solchen Fall.
+- **Probe Neustart (nur im Speicher, auf `502aea6`, Revision 9, Start 19.12. 01:17
+  und 10:30):** Der Plan löscht alle Werke der Serie (lokal 6), holt 25.11. bis 18.12.
+  nicht nach, schreibt Generation 1 „Traumfalter im Zwischenraum“ ohne Eltern,
+  `isCatchUp: false`, 17 Elemente in 2 Ebenen (Hintergrund generativ 3, Struktur
+  chaotisch 14), statisch; Index nur mit ihr, keine Favoritendatei berührt. Da der
+  Neustart mit leerer Historie beginnt, hängt das Werk nur von Datum und Einstellungen
+  ab; bei unveränderter Revision 9 gilt die Probe auch nach den Werken bis 18.12.
+- **Offen:** Neustart am 19.12. belegen; danach Baseline-Einträge und Bilder der
+  gelöschten Werke gezielt entfernen und die Baseline um die neue Serie ergänzen.
 
 ## Nachtrag – 23.11.2026, Tageslauf 23.11. belegt, Baseline ergänzt
 
