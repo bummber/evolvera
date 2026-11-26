@@ -1,0 +1,395 @@
+{
+  "schemaVersion": 3,
+  "generatorVersion": "0.4.0",
+  "rendererVersion": "2",
+  "lexiconVersion": "0.2.0",
+  "id": "2026-11-26",
+  "generation": 8,
+  "title": "Ockerfaltung / Morgentanz",
+  "description": "Ockerfaltung / Morgentanz: 6 Elemente in einer Ebene: Struktur Farbfeld. Geerbt vom älteren Elternwerk Form; vom jüngeren Elternwerk Farbe, Farbe, Familie; alles andere neu. Statisch.",
+  "timezone": "Europe/Berlin",
+  "scheduledFor": "2026-11-26T01:17:00+01:00",
+  "generatedAt": "2026-11-26T08:35:45.716Z",
+  "runStartedAt": "2026-11-26T08:35:45.479Z",
+  "isCatchUp": false,
+  "seed": "evolvera:0.4.0:2026-11-26:settings-6a0c34a31e77ab6b3204fc165b152f4b06ffdf79c9f2bf646d95ad066e2c4bd7",
+  "inheritanceMode": "traceable",
+  "settingsRevision": 9,
+  "settings": {
+    "inheritanceMode": "traceable",
+    "variation": {
+      "mutationStrength": "calm",
+      "noveltyWindow": 7
+    },
+    "features": {
+      "gradients": "normal",
+      "patterns": "rare",
+      "masks": "rare",
+      "blendModes": "rare",
+      "blurShadow": "rare",
+      "lines": "normal",
+      "curves": "rare",
+      "generativeShapes": "rare",
+      "animation": "rare"
+    },
+    "palette": {
+      "strategies": [
+        "harmonic",
+        "complementary",
+        "monochrome",
+        "free"
+      ],
+      "contrast": "low"
+    },
+    "families": {
+      "geometric": true,
+      "color-field": true,
+      "mosaic": true,
+      "organic": true,
+      "generative": true,
+      "chaotic": true
+    },
+    "composition": {
+      "maxLayers": 3,
+      "symmetry": "normal",
+      "density": "sparse"
+    },
+    "motion": {
+      "intensity": "subtle"
+    },
+    "experimental": {
+      "mutationJumps": false
+    }
+  },
+  "novelty": {
+    "distanceVersion": 1,
+    "contextDigest": "8b8963b95765daa5f6c47d049706cd09f5a4ade7e50267148b385e1a50fee24c",
+    "distance": 0.549932,
+    "minimumReached": true
+  },
+  "parentIds": [
+    "2026-11-24",
+    "2026-11-25"
+  ],
+  "dna": {
+    "background": "#231100",
+    "layers": {
+      "structure": {
+        "family": "color-field"
+      }
+    },
+    "elements": [
+      {
+        "kind": "rectangle",
+        "layer": "structure",
+        "x": 0.082068,
+        "y": 0.376701,
+        "width": 0.835864,
+        "height": 0.078725,
+        "rotation": 0,
+        "opacity": 1,
+        "fill": {
+          "kind": "conic",
+          "angle": 287,
+          "centerX": 0.582463,
+          "centerY": 0.658003,
+          "stops": [
+            {
+              "color": "#d7a573",
+              "offset": 0
+            },
+            {
+              "color": "#6dd5f0",
+              "offset": 1
+            }
+          ]
+        },
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 30,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "layer": "structure",
+        "x": 0.082068,
+        "y": 0.482208,
+        "width": 0.835864,
+        "height": 0.180389,
+        "rotation": 0,
+        "opacity": 1,
+        "fill": {
+          "kind": "solid",
+          "color": "#c97300"
+        },
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 30,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "layer": "structure",
+        "x": 0.082068,
+        "y": 0.689379,
+        "width": 0.835864,
+        "height": 0.228553,
+        "rotation": 0,
+        "opacity": 1,
+        "fill": {
+          "kind": "radial",
+          "centerX": 0.78395,
+          "centerY": 0.696089,
+          "stops": [
+            {
+              "color": "#c97300",
+              "offset": 0
+            },
+            {
+              "color": "#d7a573",
+              "offset": 1
+            }
+          ]
+        },
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 30,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "circle",
+        "layer": "structure",
+        "x": 0.146739,
+        "y": 0.57531,
+        "width": 0.135094,
+        "height": 0.135094,
+        "rotation": 0,
+        "opacity": 1,
+        "fill": {
+          "kind": "solid",
+          "color": "#fff3e9"
+        },
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 30,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "rectangle",
+        "layer": "structure",
+        "x": 0.78,
+        "y": 0.51,
+        "width": 0.16,
+        "height": 0.16,
+        "rotation": 0,
+        "opacity": 1,
+        "fill": {
+          "kind": "solid",
+          "color": "#6dd5f0"
+        },
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 30,
+          "amplitude": 0
+        }
+      },
+      {
+        "kind": "ellipse",
+        "layer": "structure",
+        "x": 0.06,
+        "y": 0.06,
+        "width": 0.16,
+        "height": 0.16,
+        "rotation": 0,
+        "opacity": 1,
+        "fill": {
+          "kind": "solid",
+          "color": "#6879bd"
+        },
+        "motion": {
+          "kind": "static",
+          "durationSeconds": 30,
+          "amplitude": 0
+        }
+      }
+    ]
+  },
+  "titleDna": {
+    "tokens": [
+      "Ocker",
+      "faltung",
+      "Morgentanz"
+    ],
+    "pattern": "pair",
+    "parentFragments": [
+      {
+        "parentId": "2026-11-24",
+        "fragment": "faltung"
+      },
+      {
+        "parentId": "2026-11-25",
+        "fragment": "Ocker"
+      }
+    ]
+  },
+  "evolution": {
+    "type": "hybrid",
+    "evaluatedParentIds": [
+      "2026-11-24",
+      "2026-11-25"
+    ],
+    "decisions": [
+      {
+        "parentId": "2026-11-24",
+        "source": {
+          "path": "elements.34.kind",
+          "value": "circle"
+        },
+        "target": {
+          "path": "elements.3.kind",
+          "value": "circle"
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-24",
+        "source": {
+          "path": "elements.34.width",
+          "value": 0.135094
+        },
+        "target": {
+          "path": "elements.3.width",
+          "value": 0.135094
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-24",
+        "source": {
+          "path": "elements.34.height",
+          "value": 0.135094
+        },
+        "target": {
+          "path": "elements.3.height",
+          "value": 0.135094
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-24",
+        "source": {
+          "path": "elements.34.x",
+          "value": 0.146739
+        },
+        "target": {
+          "path": "elements.3.x",
+          "value": 0.146739
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-24",
+        "source": {
+          "path": "elements.34.y",
+          "value": 0.57531
+        },
+        "target": {
+          "path": "elements.3.y",
+          "value": 0.57531
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-25",
+        "source": {
+          "path": "elements.32.fill.color",
+          "value": "#6dd5f0"
+        },
+        "target": {
+          "path": "elements.4.fill.color",
+          "value": "#6dd5f0"
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-25",
+        "source": {
+          "path": "elements.0.fill.color",
+          "value": "#6879bd"
+        },
+        "target": {
+          "path": "elements.5.fill.color",
+          "value": "#6879bd"
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      },
+      {
+        "parentId": "2026-11-25",
+        "source": {
+          "path": "layers.background.family",
+          "value": "color-field"
+        },
+        "target": {
+          "path": "layers.structure.family",
+          "value": "color-field"
+        },
+        "operation": {
+          "kind": "copy"
+        }
+      }
+    ],
+    "recipe": {
+      "retry": 1,
+      "inherited": [
+        {
+          "parent": "parentA",
+          "property": "form"
+        },
+        {
+          "parent": "parentB",
+          "property": "color"
+        },
+        {
+          "parent": "parentB",
+          "property": "color"
+        },
+        {
+          "parent": "parentB",
+          "property": "family"
+        }
+      ],
+      "mutationJump": false,
+      "features": {
+        "gradients": true,
+        "patterns": false,
+        "masks": false,
+        "blendModes": false,
+        "blurShadow": false,
+        "lines": false,
+        "curves": false,
+        "generativeShapes": false,
+        "animation": false,
+        "symmetry": true
+      },
+      "anchor": "natural"
+    }
+  }
+}
