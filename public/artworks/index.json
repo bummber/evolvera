@@ -2,6 +2,11 @@
   "schemaVersion": 1,
   "works": [
     {
+      "id": "2026-11-28",
+      "generation": 10,
+      "title": "Sternentanz"
+    },
+    {
       "id": "2026-11-27",
       "generation": 9,
       "title": "Sternenbogen im Schweben"
